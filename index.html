@@ -1,110 +1,188 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catálogo Marajoara</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Interativo – Cerâmica Amazônica</title>
+    
+    <style>
+        body {
+            margin: 0;
+            background: #f4f1ec;
+            font-family: "Segoe UI", sans-serif;
+            display: grid;
+            place-items: center;
+            padding: 40px;
+        }
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f2e9da;
-      margin: 0;
-      padding: 20px;
-    }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            width: 95%;
+            max-width: 1200px;
+        }
 
-    h1 {
-      text-align: center;
-      color: #5a2d0c;
-      margin-bottom: 30px;
-    }
+        .card {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px #00000020;
+            transition: 0.3s;
+            cursor: pointer;
+        }
 
-    .catalogo {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
+        .card:hover {
+            transform: scale(1.05);
+        }
 
-    .card {
-      background: white;
-      padding: 15px;
-      border-radius: 12px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
-      cursor: pointer;
-      transition: transform .2s;
-    }
+        .card img {
+            width: 100%;
+            height: 120 px;
+            object-fit: cover;
+            border-radius: 16px;
+            transition: transform 0.4s ease;
 
-    .card:hover {
-      transform: scale(1.03);
-    }
+        }
 
-    .card img {
-      width: 100%;
-      border-radius: 8px;
-    }
+        .content {
+            padding: 20px;
+        }
 
-    .card h2 {
-      margin: 10px 0 5px;
-      color: #5a2d0c;
-    }
+        h2 {
+            margin-top: 0;
+        }
 
-    .info {
-      display: none;
-      margin-top: 10px;
-      color: #333;
-      font-size: 0.9rem;
-      line-height: 1.4;
-    }
+        .info {
+            margin: 8px 0;
+            color: #444;
+        }
 
-    .card.ativo .info {
-      display: block;
-    }
-  </style>
+        button {
+            margin-top: 10px;
+            background: #8a4b2d;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #6d3a22;
+        }
+
+        .description {
+            margin-top: 15px;
+            padding: 12px;
+            background: #f0e7df;
+            border-left: 4px solid #8a4b2d;
+            border-radius: 6px;
+            display: none;
+            animation: fade .4s ease-in-out;
+        }
+
+        .history {
+            margin-top: 12px;
+            background: #e8dfd6;
+            border-left-color: #b06a40;
+        }
+
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #444;
+        }
+
+        footer a {
+            color: #8a4b2d;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
 
-  <h1>Catálogo Interativo</h1>
+<!-- 🎵 ÁUDIO AUTOPLAY -->
+<audio id="audioMarajoara" autoplay muted>
+    <source src="audio/marajoara.wav" type="audio/wav">
+    Seu navegador não suporta áudio.
+</audio>
 
-  <div class="catalogo">
+<script>
+    // Desmutar depois de 1 segundo para burlar bloqueios comuns de autoplay
+    setTimeout(() => {
+        const audio = document.getElementById("audioMarajoara");
+        audio.muted = false;
+        audio.volume = 0.4;
+    }, 1000);
+</script>
 
+
+
+<div class="grid">
+
+    <!-- CARD -->
     <div class="card" onclick="toggleInfo(this)">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Ceramica_Marajoara_01.jpg" alt="Peça Marajoara">
-      <h2>Urna Funerária</h2>
-      <p><strong>Data:</strong> 1100–1300 d.C.</p>
+        <img src="images/Urna-Marajoara.jpg" alt="Urna Marajoara">
 
-      <div class="info">
-        <p>Peça típica da cultura Marajoara, com grafismos geométricos e uso ritual. Encontrada na Ilha de Marajó.</p>
-      </div>
+        <div class="content">
+            <h2>Urna Funerária Marajoara</h2>
+
+            <p class="info"><strong>Período:</strong> 400 – 1400 d.C.</p>
+            <p class="info"><strong>Local Encontrado:</strong> Ilha de Marajó – PA</p>
+
+            <div class="description">
+                As urnas marajoaras eram usadas para abrigar restos mortais de indivíduos
+                importantes na sociedade. Seus traços geométricos representavam crenças,
+                rituais espirituais e animais simbólicos.
+            </div>
+
+            <div class="description history">
+                Esta peça foi descoberta em escavações em “tesos”, montes construídos pelas
+                antigas sociedades da Ilha de Marajó. Seu alto nível artístico indica que
+                pertenceu a uma figura de grande importância social.  
+                Os detalhes simétricos e a pintura encarnada refletem o estilo clássico
+                marajoara, representando o ciclo da vida, o mundo espiritual e a natureza.
+            </div>
+
+            <button>Ver detalhes</button>
+        </div>
     </div>
 
-    <div class="card" onclick="toggleInfo(this)">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Ceramica_Marajoara_Museu_Goeldi.jpg" alt="Peça Marajoara">
-      <h2>Vaso Decorado</h2>
-      <p><strong>Data:</strong> 400–700 d.C.</p>
+</div>
 
-      <div class="info">
-        <p>Vaso com desenhos simétricos representando elementos espirituais e animais da Amazônia.</p>
-      </div>
-    </div>
+<footer>
+    <p>Email: borntofightfll@gmail.com</p>
+    <p>
+        Instagram: <a href="https://www.instagram.com/borntofight_fll/" target="_blank">@borntofight_fll</a>
+    </p>
+</footer>
 
-    <div class="card" onclick="toggleInfo(this)">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Ceramica_Marajoara_03.jpg" alt="Peça Marajoara">
-      <h2>Escultura Zoomórfica</h2>
-      <p><strong>Data:</strong> 800–1000 d.C.</p>
 
-      <div class="info">
-        <p>Representação de animal em estilo marajoara, muito usada em cerimônias e como objeto simbólico.</p>
-      </div>
-    </div>
+<script>
+function toggleInfo(card) {
+    const descriptions = card.querySelectorAll(".description");
+    const btn = card.querySelector("button");
+    const isVisible = descriptions[0].style.display === "block";
 
-  </div>
+    descriptions.forEach(desc => {
+        desc.style.display = isVisible ? "none" : "block";
+    });
 
-  <script>
-    function toggleInfo(card) {
-      card.classList.toggle('ativo')
-    }
-  </script>
+    btn.textContent = isVisible ? "Ver detalhes" : "Ocultar detalhes";
+}
+</script>
 
 </body>
 </html>
