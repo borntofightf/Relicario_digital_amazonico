@@ -37,7 +37,6 @@
             transform: scale(1.05);
         }
 
-        /* IMAGEM AJUSTADA (DIMINUÍDA E INTEIRA) */
         .card img {
             display: block;
             max-width: 250px;
@@ -123,6 +122,7 @@
 
 <body>
 
+<!-- ÁUDIO AUTOMÁTICO -->
 <audio id="audioMarajoara" autoplay muted>
     <source src="audio/marajoara.wav" type="audio/wav">
 </audio>
@@ -138,7 +138,7 @@
 <div class="grid">
 
     <div class="card" onclick="toggleInfo(this)">
-        <img src="images/Urna-Marajoara.jpg" alt="Urna Marajoara">
+        <img src="Urna-Marajoara.jpg" alt="Urna Marajoara">
 
         <div class="content">
             <h2>Urna Funerária Marajoara</h2>
@@ -185,6 +185,19 @@ function toggleInfo(card) {
 
     btn.textContent = isVisible ? "Ver detalhes" : "Ocultar detalhes";
 }
+</script>
+
+<!-- VLibras (LIBRAS NO SITE) -->
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
 </script>
 
 </body>
