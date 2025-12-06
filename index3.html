@@ -3,175 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Born To Fight Robotics – Página Principal</title>
-
-    <!-- Fonte profissional -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+    <title>Catálogo Interativo – Cerâmica Amazônica</title>
+    
     <style>
-        :root {
-            --terra-escura: #8a4b2d;
-            --terra-media: #b06a40;
-            --terra-clara: #f4e9dd;
-            --bege: #fff9f2;
-            --preto: #222;
-        }
-
         body {
             margin: 0;
-            font-family: "Poppins", sans-serif;
-            background: var(--terra-clara);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
+            background: #f4f1ec;
+            font-family: "Segoe UI", sans-serif;
+            display: grid;
+            place-items: center;
+            padding: 40px;
         }
 
-        /* HEADER */
-        header {
-            width: 100%;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            width: 95%;
             max-width: 1200px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 22px;
+        }
+
+        .card {
             background: white;
             border-radius: 18px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-            margin-bottom: 30px;
-        }
-
-        /* Logo + Instagram */
-        .brand-area {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        header img {
-            height: 80px;
-        }
-
-        .insta-text {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--terra-escura);
+            overflow: hidden;
+            box-shadow: 0 6px 20px #00000020;
             transition: 0.3s;
-        }
-
-        .insta-text:hover {
-            color: var(--terra-media);
-        }
-
-        /* BOTÃO DO CATÁLOGO (AUMENTADO) */
-        nav button {
-            padding: 16px 32px;      /* AUMENTADO */
-            font-size: 18px;         /* AUMENTADO */
-            background: var(--terra-escura);
-            color: white;
-            font-weight: 600;
-            border: none;
-            border-radius: 14px;
             cursor: pointer;
-            transition: 0.3s;
+            padding-bottom: 20px;
         }
 
-        nav button:hover {
-            background: var(--terra-media);
+        .card:hover {
+            transform: scale(1.05);
         }
 
-        /* DROPDOWN */
-        .dropdown {
-            display: none;
-            position: absolute;
-            background: white;
-            box-shadow: 0 4px 18px rgba(0,0,0,0.25);
-            border-radius: 12px;
-            padding: 10px;
-            right: 20px;
-            margin-top: 10px;
-            z-index: 10;
-        }
-
-        .dropdown a {
+        .card img {
             display: block;
-            padding: 10px;
-            margin-bottom: 6px;
-            color: var(--terra-escura);
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 10px;
-            transition: 0.3s;
-        }
-
-        .dropdown a:hover {
-            background: var(--terra-clara);
-        }
-
-        /* CONTEÚDO */
-        .content {
-            max-width: 950px;
-            background: white;
-            padding: 40px;
-            border-radius: 22px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 40px;
-            margin-top: 0;
-            color: var(--terra-escura);
-        }
-
-        p {
-            line-height: 1.7;
-            font-size: 18px;
-        }
-
-        /* GRID DOS TÓPICOS */
-        .topics {
-            margin-top: 40px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 30px;
-        }
-
-        .topic-box {
-            background: var(--bege);
-            padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .topic-box:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
-        }
-
-        .topic-box img {
-            width: 180px;
-            margin-bottom: 15px;
+            max-width: 250px;
+            width: 100%;
+            height: auto;
+            margin: 15px auto 0;
             border-radius: 12px;
         }
 
-        .topic-box h2 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: var(--terra-escura);
+        .content {
+            padding: 20px;
+            text-align: center;
         }
 
-        /* RESPONSIVO */
-        @media (max-width: 600px) {
-            header {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
+        h2 {
+            margin-top: 10px;
+        }
 
-<<<<<<< HEAD:index3.html
         .info {
             margin: 8px 0;
             color: #444;
@@ -231,14 +114,8 @@
             font-weight: bold;
             text-decoration: none;
         }
-
         footer a:hover {
             text-decoration: underline;
-=======
-            nav button {
-                width: 100%;
-            }
->>>>>>> afa535b82049a2505e3c1d59ee644fd3bed93028:index.html
         }
 
         /* ★ SISTEMA DE AVALIAÇÃO ★ */
@@ -266,32 +143,22 @@
 
 <body>
 
-<<<<<<< HEAD:index3.html
 <!-- ÁUDIO AUTOMÁTICO -->
 <audio id="audioMarajoara" autoplay muted>
     <source src="" type="audio/mp4">
     <source src="audio/marajoara.wav" type="audio/wav">
 </audio>
-=======
-    <header>
-        <div class="brand-area">
-            <img src="images/Logo_btf.png" alt="Logo Born To Fight">
-            <a class="insta-text" href="https://instagram.com/borntofight_fll" target="_blank">@borntofight_fll</a>
-        </div>
->>>>>>> afa535b82049a2505e3c1d59ee644fd3bed93028:index.html
 
-        <nav>
-            <button onclick="toggleDropdown()">Catálogo Interativo</button>
+<script>
+    setTimeout(() => {
+        const audio = document.getElementById("audioMarajoara");
+        audio.muted = false;
+        audio.volume = 0.4;
+    }, 1000);
+</script>
 
-            <div class="dropdown" id="catalogMenu">
-                <a href="index1.html">Urna Funerária Marajoara</a>
-                <a href="index2.html">Urna Funerária Maracá</a>
-                <a href="index3.html">Estatueta patajoneca</a>
-            </div>
-        </nav>
-    </header>
+<div class="grid">
 
-<<<<<<< HEAD:index3.html
     <div class="card" onclick="toggleInfo(this)">
         <img src="images/Estatueta Tapajonica.png" alt="Estatueta Tapajonica">
 
@@ -302,7 +169,7 @@
             <p class="info"><strong>Local Encontrado:</strong> Rio Tapajós – PA</p>
             <p class="info"><strong>Tamanho Aproximado:</strong> 10 cm - 25 cm</p>
 
-            <!-- ⭐ SISTEMA DE AVALIAÇÃO (LOCAL APENAS) ⭐ -->
+            <!-- ⭐ SISTEMA DE AVALIAÇÃO ⭐ -->
             <div class="rating" data-id="estatueta_tapajo">
                 <span class="star" data-star="1">★</span>
                 <span class="star" data-star="2">★</span>
@@ -321,59 +188,24 @@
                 <h3><strong>História</strong></h3>
                 Produzidas entre 900 e 1600 d.C., essas estatuetas representam a complexidade artística e
                 espiritual da Cultura Tapajó, localizada na região da atual Santarém – PA.
-=======
-    <div class="content">
-        <h1>Equipe Born To Fight – FLL Robotics</h1>
-
-        <p>Somos a equipe Born To Fight, criadores, inovadores e apaixonados por tecnologia. Nossa missão é transformar o aprendizado em algo acessível, sensorial e envolvente(adicionar informações).</p>
-
-        <p>Nosso projeto busca facilitar o acesso ao patrimônio arqueológico amazônico com uma solução interativa, educativa e moderna(editar depois).</p>
-
-        <!-- TÓPICOS DO PROJETO -->
-        <div class="topics">
-
-            <!-- RFID -->
-            <div class="topic-box">
-                <img src="images/rfid.jfif" alt="Sensor RFID RC522">
-                <h2>Sensor RFID RC522</h2>
-                <p>Utilizado para leitura de cartões e tags. Essencial para ativar conteúdos e tornar a experiência interativa.</p>
             </div>
 
-            <!-- Raspberry Pi 4 -->
-            <div class="topic-box">
-                <img src="images/raspbarry_pi4.jfif" alt="Raspberry Pi 4">
-                <h2>Raspberry Pi 4</h2>
-                <p>A central de controle do sistema: roda o site, o leitor RFID e toda a lógica do nosso catálogo interativo.</p>
-            </div>
-
-            <!-- Impressão 3D -->
-            <div class="topic-box">
-                <img src="images/3dprint.png" alt="Impressão 3D">
-                <h2>Impressão 3D</h2>
-                <p>Produzimos réplicas arqueológicas para toque, estudo e inclusão sensorial, trazendo acessibilidade e aprendizado prático.</p>
->>>>>>> afa535b82049a2505e3c1d59ee644fd3bed93028:index.html
-            </div>
-
+            <button>Ver detalhes</button>
         </div>
     </div>
 
-    <!-- SCRIPT DO DROPDOWN -->
-    <script>
-        function toggleDropdown() {
-            const menu = document.getElementById("catalogMenu");
-            menu.style.display = menu.style.display === "block" ? "none" : "block";
-        }
+</div>
 
-<<<<<<< HEAD:index3.html
-<!-- CONTADOR EXCLUSIVO -->
+<!-- CONTADOR DE ACESSOS -->
 <div style="margin-top: 20px; font-size: 18px; color: #333; text-align: center;">
-    <p><strong>Acessos desta página:</strong> <span id="contador"></span></p>
+    <p><strong>Acessos ao site:</strong> <span id="contador"></span></p>
 </div>
 
 <script>
-    let visitas = localStorage.getItem("contador_estatueta");
+    // Contador de acessos
+    let visitas = localStorage.getItem("contador_acessos");
     visitas = visitas ? parseInt(visitas) + 1 : 1;
-    localStorage.setItem("contador_estatueta", visitas);
+    localStorage.setItem("contador_acessos", visitas);
     document.getElementById("contador").textContent = visitas;
 </script>
 
@@ -396,7 +228,7 @@ function toggleInfo(card) {
 }
 </script>
 
-<!-- ⭐ SISTEMA DE AVALIAÇÃO (LOCAL APENAS) ⭐ -->
+<!-- ⭐ SCRIPT DO SISTEMA DE AVALIAÇÃO ⭐ -->
 <script>
 document.querySelectorAll(".rating").forEach(rating => {
     const id = rating.getAttribute("data-id");
@@ -435,18 +267,67 @@ function highlightStars(rating, value) {
 <script>
     new window.VLibras.Widget('https://vlibras.gov.br/app');
 </script>
-=======
-        // Fecha o menu ao clicar fora
-        document.addEventListener("click", function(e) {
-            const menu = document.getElementById("catalogMenu");
-            const button = document.querySelector("nav button");
 
-            if (!menu.contains(e.target) && e.target !== button) {
-                menu.style.display = "none";
-            }
+<script>
+// URL da API do Google Sheets
+const API_URL = "https://script.google.com/macros/s/AKfycbwiaS6reHvrBCVK26qzjW58x-yKz0AS2i1UesERDZOpNpjcvHKGBe0ZuxSH7KzfeGUN/exec";
+
+// Criar (ou recuperar) um user_id persistente
+let user_id = localStorage.getItem("user_id");
+if (!user_id) {
+    user_id = "user_" + Math.floor(Math.random() * 999999999);
+    localStorage.setItem("user_id", user_id);
+}
+
+document.querySelectorAll(".rating").forEach(rating => {
+    const id = rating.getAttribute("data-id");
+    const savedRating = localStorage.getItem("rating_" + id);
+
+    if (savedRating) highlightStars(rating, savedRating);
+
+    rating.querySelectorAll(".star").forEach(star => {
+        star.addEventListener("click", () => {
+            const value = star.getAttribute("data-star");
+
+            // Salva localmente
+            localStorage.setItem("rating_" + id, value);
+            highlightStars(rating, value);
+
+            // Envia para o Google Sheets
+            enviarAvaliacao(id, value, user_id);
         });
-    </script>
->>>>>>> afa535b82049a2505e3c1d59ee644fd3bed93028:index.html
+    });
+});
+
+// Função para colorir as estrelas
+function highlightStars(rating, value) {
+    rating.querySelectorAll(".star").forEach(star => {
+        star.classList.remove("selected");
+        if (star.getAttribute("data-star") <= value) {
+            star.classList.add("selected");
+        }
+    });
+}
+
+// Função para enviar para a planilha
+function enviarAvaliacao(item, nota, user_id) {
+    fetch("https://script.google.com/macros/s/AKfycbwiaS6reHvrBCVK26qzjW58x-yKz0AS2i1UesERDZOpNpjcvHKGBe0ZuxSH7KzfeGUN/exec", {
+        method: "POST",
+        headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify({
+            item: item,
+            nota: nota,
+            user_id: user_id
+        })
+    })
+    .then(() => console.log("Enviado!"))
+    .catch(err => console.error("Erro:", err));
+}
+
+</script>
+
 
 </body>
 </html>
