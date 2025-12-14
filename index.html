@@ -189,6 +189,30 @@
             color: var(--terra-escura);
         }
 
+        .audio-box {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .audio-box button {
+            background: var(--terra-escura);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .audio-box button:hover {
+            background: var(--terra-media);
+        }
+
         /* RODAPÉ */
         footer {
             margin-top: 40px;
@@ -208,6 +232,32 @@
                 flex-direction: column;
             }
         }
+        .download-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .speech-btn {
+            background: white;
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 8px auto 0 auto; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .speech-btn:hover {
+            background: #f0f0f0;
+        }
+
     </style>
 </head>
 
@@ -225,45 +275,119 @@
 
         <div class="header-buttons">
             <nav style="position: relative;">
-                <button onclick="toggleDropdown()">Catálogo Interativo</button>
+                <button id="catalogoBtn" onclick="toggleDropdown()">Catálogo Interativo</button>
+                <br>
+                <button class="speech-btn" onclick="readSection('catalogoBtn')">🔊 Ouvir</button>
+
 
                 <div class="dropdown" id="catalogMenu">
+
+                <div class="catalog-item">
                     <a href="index1.html">Urna Funerária Marajoara</a>
-                    <a href="index2.html">Urna Funerária Maracá</a>
-                    <a href="index3.html">Estatueta Tapajônica 1</a>
-                    <a href="index4.html">Estatueta Tapajônica 2</a>
-                    <a href="index5.html">Vaso de Gargalo Tapajônico</a>
+                    <button class="speech-btn" onclick="readText('Urna Funerária Marajoara')">
+                        🔊 Ouvir
+                    </button>
                 </div>
+
+                <div class="catalog-item">
+                    <a href="index2.html">Urna Funerária Maracá</a>
+                    <button class="speech-btn" onclick="readText('Urna Funerária Maracá')">
+                        🔊 Ouvir
+                    </button>
+                </div>
+
+                <div class="catalog-item">
+                    <a href="index3.html">Estatueta Tapajônica 1</a>
+                    <button class="speech-btn" onclick="readText('Estatueta Tapajônica número um')">
+                        🔊 Ouvir
+                    </button>
+                </div>
+
+                <div class="catalog-item">
+                    <a href="index4.html">Estatueta Tapajônica 2</a>
+                    <button class="speech-btn" onclick="readText('Estatueta Tapajônica número dois')">
+                        🔊 Ouvir
+                    </button>
+                </div>
+
+                <div class="catalog-item">
+                    <a href="index5.html">Vaso de Gargalo Tapajônico</a>
+                    <button class="speech-btn" onclick="readText('Vaso de Gargalo Tapajônico')">
+                        🔊 Ouvir
+                    </button>
+                </div>
+
+            </div>
+
             </nav>
 
-            <a href="https://github.com/borntofightf/Download_materiais" target="_blank" class="download-btn">Download de Materiais</a>
+        <div class="download-group">
+            <a id="downloadMateriais"
+            href="https://github.com/borntofightf/Download_materiais"
+            target="_blank"
+            class="download-btn">
+            Download de Materiais
+            </a>
+
+            <button class="speech-btn" onclick="readSection('downloadMateriais')">
+                🔊 Ouvir título
+            </button>
+        </div>
+
+
         </div>
     </header>
 
     <div class="content">
-        <h1>Equipe Born To Fight – FLL Robotics</h1>
 
-        <p>Somos a equipe Born To Fight, criadores, inovadores e apaixonados por tecnologia. Nossa missão é transformar o aprendizado em algo acessível, sensorial e envolvente.</p>
+        <h1 id="secEquipe">Equipe Born To Fight – FLL Robotics</h1>
+        <button class="speech-btn" onclick="readSection('secEquipe')">🔊 Ouvir título</button>
 
-        <p>Nosso projeto busca facilitar o acesso ao patrimônio arqueológico amazônico com uma solução interativa, educativa e moderna.</p>
+        <p id="secIntro">
+            Somos a equipe Born To Fight, criadores, inovadores e apaixonados por tecnologia.
+            Nossa missão é transformar o aprendizado em algo acessível, sensorial e envolvente.
+        </p>
+        <button class="speech-btn" onclick="readSection('secIntro')">🔊 Ouvir introdução</button>
+
+        <p id="secProjeto">
+            Nosso projeto busca facilitar o acesso ao patrimônio arqueológico amazônico
+            com uma solução interativa, educativa e moderna.
+        </p>
+        <button class="speech-btn" onclick="readSection('secProjeto')">🔊 Ouvir projeto</button>
+
 
         <div class="topics">
             <div class="topic-box">
                 <img src="images/rfid.jfif" alt="Sensor RFID RC522">
-                <h2>Sensor RFID RC522</h2>
-                <p>Utilizado para leitura de cartões e tags. Essencial para ativar conteúdos e tornar a experiência interativa.</p>
-            </div>
+                    <h2 id="rfid">Sensor RFID RC522</h2>
+                    <button class="speech-btn" onclick="readSection('rfid')">🔊 Ouvir título</button>
+                    <p id="rfidTxt">
+                    Utilizado para leitura de cartões e tags. Essencial para ativar conteúdos
+                    e tornar a experiência interativa.
+                    </p>
+                    <button class="speech-btn" onclick="readSection('rfidTxt')">🔊 Ouvir descrição</button>
+                </div>
 
             <div class="topic-box">
                 <img src="images/raspbarry_pi4.jfif" alt="Raspberry Pi 4">
-                <h2>Raspberry Pi 4</h2>
-                <p>A central de controle do sistema: roda o site, o leitor RFID e toda a lógica do nosso catálogo interativo.</p>
+                <h2 id="rasp">Raspberry Pi 4</h2>
+                <button class="speech-btn" onclick="readSection('rasp')">🔊 Ouvir título</button>
+                <p id="raspTxt">
+                A central de controle do sistema: roda o site, o leitor RFID e toda a lógica
+                do nosso catálogo interativo.
+                </p>
+                <button class="speech-btn" onclick="readSection('raspTxt')">🔊 Ouvir descrição</button>
             </div>
 
             <div class="topic-box">
                 <img src="images/Impressão_3D.png" alt="Impressão 3D">
-                <h2>Impressão 3D</h2>
-                <p>Produzimos réplicas arqueológicas para toque, estudo e inclusão sensorial, trazendo acessibilidade e aprendizado prático.</p>
+                <h2 id="imp">Impressão 3D</h2>
+                <button class="speech-btn" onclick="readSection('imp')">🔊 Ouvir título</button>
+                <p id="impTxt">
+                Produzimos réplicas arqueológicas para toque, estudo e inclusão sensorial,
+                trazendo acessibilidade e aprendizado prático.
+                </p>
+                <button class="speech-btn" onclick="readSection('impTxt')">🔊 Ouvir descrição</button>
             </div>
         </div>
     </div>
@@ -289,12 +413,78 @@
             }
         });
 
+                /* 🔊 INÍCIO DO CONTROLE DE ÁUDIO */
+        const audio = document.getElementById("audioSite");
+
+        function startAudio() {
+            audio.currentTime = 0;
+            audio.play();
+        }
+
+        function toggleAudio() {
+            audio.paused ? audio.play() : audio.pause();
+        }
+
+        function resetAudio() {
+            audio.currentTime = 0;
+            audio.play();
+        }
+        /* 🔊 FIM DO CONTROLE DE ÁUDIO */
+
         // CONTADOR DE ACESSOS LOCAL
         let count = localStorage.getItem("visits_btf_main");
         count = count ? Number(count) + 1 : 1;
         localStorage.setItem("visits_btf_main", count);
         document.getElementById("visits").textContent = count;
     </script>
+
+<script>
+let synth = window.speechSynthesis;
+
+function readSection(id) {
+    synth.cancel();
+    const text = document.getElementById(id).innerText;
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "pt-BR";
+    utter.rate = 1;
+    synth.speak(utter);
+}
+
+function stopSpeech() {
+    synth.cancel();
+}
+</script>
+
+<script>
+    function readText(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+
+            const speech = new SpeechSynthesisUtterance(text);
+            speech.lang = 'pt-BR';
+            speech.rate = 1;
+            speech.pitch = 1;
+
+            window.speechSynthesis.speak(speech);
+        } else {
+            alert("Seu navegador não suporta leitura de voz.");
+        }
+    }
+</script>
+
+
+<!-- VLibras -->
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
 
 </body>
 </html>

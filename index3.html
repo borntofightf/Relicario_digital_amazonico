@@ -81,15 +81,24 @@
             background: #f0e7df;
             border-left: 4px solid #8a4b2d;
             border-radius: 6px;
-            display: none;
-            animation: fade .4s ease-in-out;
             text-align: left;
         }
 
         .history {
-            margin-top: 12px;
             background: #e8dfd6;
             border-left-color: #b06a40;
+        }
+
+        .speech-btn {
+            margin: 8px auto 16px;
+            display: block;
+            background: white;
+            border: 2px solid #8a4b2d;
+            color: #8a4b2d;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
         }
 
         h3 {
@@ -148,84 +157,72 @@
 </head>
 
 <body>
-<!-- BOTÃO VOLTAR PARA O MENU -->
-<div style="width:100%; max-width:1200px; margin-bottom:20px; text-align:left;">
+<!-- BOTÃO VOLTAR PARA O MENU + OUVIR -->
+<div style="width:100%; max-width:1200px; margin-bottom:20px; display:flex; gap:12px; align-items:center;">
+
     <a href="index.html" 
-       style="padding:10px 18px; background:#8a4b2d; color:white; text-decoration:none; border-radius:8px; font-weight:600; transition:0.3s;"
-       onmouseover="this.style.background='#b06a40'" 
-       onmouseout="this.style.background='#8a4b2d'">
+       id="voltarMenu"
+       style="padding:10px 18px; background:#8a4b2d; color:white; text-decoration:none; border-radius:8px; font-weight:600;">
        ← Voltar para o menu
     </a>
+
+    <button onclick="ouvirVoltarMenu()" 
+        aria-label="Ouvir texto voltar para o menu"
+        style="padding:10px 14px; background:white; border:2px solid #8a4b2d; color:#8a4b2d; border-radius:8px; font-weight:600; cursor:pointer;">
+        🔊 Ouvir
+    </button>
 </div>
 
+<div class="grid">
 
+    <div class="card">
+        <img src="images/Estatueta Tapajonica.png" alt="Estatueta Tapajônica">
 
-    <script>
-        setTimeout(() => {
-            const audio = document.getElementById("audioMarajoara");
-            audio.muted = false;
-            audio.volume = 0.4;
-        }, 1000);
-    </script>
+        <div class="content">
+            <h2 id="titulo">Estatueta Tapajonica 1</h2>
+            <button class="speech-btn" onclick="readText('Estatueta Tapajonica 1')">🔊 Ouvir título</button>
 
-    <div class="grid">
+            <p id="periodo" class="info"><strong>Período:</strong> 900 a 1600 depois de Cristo.</p>
+            <button class="speech-btn" onclick="readText(periodo.innerText)">🔊 Ouvir período</button>
 
-        <div class="card" onclick="toggleInfo(this)">
-            <img src="images/Estatueta Tapajonica.png" alt="Estatueta Tapajonica">
+            <p id="local" class="info"><strong>Local Encontrado:</strong> Rio Tapajós, Pará.</p>
+            <button class="speech-btn" onclick="readText(local.innerText)">🔊 Ouvir local</button>
 
-            <div class="content">
-                <h2>Estatueta Tapajônica 1</h2>
+            <p id="tamanho" class="info"><strong>Tamanho Aproximado:</strong> entre 10 e 25 centímetros.</p>
+            <button class="speech-btn" onclick="readText(tamanho.innerText)">🔊 Ouvir tamanho</button>
 
-                <p class="info"><strong>Período:</strong> 900 d.C – 1600 d.C.</p>
-                <p class="info"><strong>Local Encontrado:</strong> Rio Tapajós – PA</p>
-                <p class="info"><strong>Tamanho Aproximado:</strong> 10 cm - 25 cm</p>
-
-                <!-- ⭐ SISTEMA DE AVALIAÇÃO ⭐ -->
-                <div class="rating" data-id="estatueta_tapajo">
-                    <span class="star" data-star="1">★</span>
-                    <span class="star" data-star="2">★</span>
-                    <span class="star" data-star="3">★</span>
-                    <span class="star" data-star="4">★</span>
-                    <span class="star" data-star="5">★</span>
-                </div>
-
-                <div class="description">
-                    <h3><strong>Descrição</strong></h3>
-                    A estatueta tapajônica é uma figura antropomorfa minuciosamente modelada em cerâmica fina,
-                    com detalhes que revelam a estética, simbolismo e identidade cultural do povo Tapajó.
-                </div>
-
-                <div class="description history">
-                    <h3><strong>História</strong></h3>
-                    Produzidas entre 900 e 1600 d.C., essas estatuetas representam a complexidade artística e
-                    espiritual da Cultura Tapajó, localizada na região da atual Santarém – PA.
-                </div>
-
-                <button>Ver detalhes</button>
+            <div class="rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
             </div>
-        </div>
 
+            <div id="descricao" class="description">
+                <h3>Descrição</h3>
+                A estatueta tapajônica é uma figura antropomorfa minuciosamente modelada em cerâmica fina,
+                com detalhes que revelam a estética, simbolismo e identidade cultural do povo Tapajó.
+            </div>
+            <button class="speech-btn" onclick="readText(descricao.innerText)">🔊 Ouvir descrição</button>
+
+            <div id="historia" class="description history">
+                <h3>História</h3>
+                Produzidas entre 900 e 1600 depois de Cristo. Essas estatuetas representam a complexidade
+                artística e espiritual da Cultura Tapajó, localizada na região da atual Santarém, Pará.
+            </div>
+            <button class="speech-btn" onclick="readText(historia.innerText)">🔊 Ouvir história</button>
+
+        </div>
     </div>
+
+</div>
 
     <footer>
         <p>Email: borntofightfll@gmail.com</p>
         <p>Instagram: <a href="https://www.instagram.com/borntofight_fll/" target="_blank">@borntofight_fll</a></p>
     </footer>
 
-    <script>
-        function toggleInfo(card) {
-            const descriptions = card.querySelectorAll(".description");
-            const btn = card.querySelector("button");
-
-            const isVisible = descriptions[0].style.display === "block";
-
-            descriptions.forEach(desc => {
-                desc.style.display = isVisible ? "none" : "block";
-            });
-
-            btn.textContent = isVisible ? "Ver detalhes" : "Ocultar detalhes";
-        }
-    </script>
 
     <!-- ⭐ AVALIAÇÃO ⭐ -->
     <script>
@@ -254,6 +251,21 @@
             });
         }
     </script>
+
+    <script>
+        
+function readText(text) {
+    const speech = new SpeechSynthesisUtterance(text);
+    speech.lang = "pt-BR";
+    speech.rate = 1;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(speech);
+}
+
+function ouvirVoltarMenu() {
+    readText("Voltar para o menu");
+}
+</script>
 
     <!-- VLibras -->
     <div vw class="enabled">

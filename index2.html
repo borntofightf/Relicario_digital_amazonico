@@ -75,6 +75,18 @@
             background: #6d3a22;
         }
 
+        .speech-btn {
+            background: white;
+            color: #333;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .speech-btn:hover {
+            background: #f4e9dd;
+        }
+
         .description {
             margin-top: 15px;
             padding: 12px;
@@ -142,28 +154,23 @@
 
 <body>
 <!-- BOTÃO VOLTAR PARA O MENU -->
-<div style="width:100%; max-width:1200px; margin-bottom:20px; text-align:left;">
+<div style="width:100%; max-width:1200px; margin-bottom:20px; display:flex; gap:12px; align-items:center;">
+
+    <!-- VOLTAR -->
     <a href="index.html" 
-       style="padding:10px 18px; background:#8a4b2d; color:white; text-decoration:none; border-radius:8px; font-weight:600; transition:0.3s;"
-       onmouseover="this.style.background='#b06a40'" 
-       onmouseout="this.style.background='#8a4b2d'">
+       id="voltarMenu"
+       style="padding:10px 18px; background:#8a4b2d; color:white; text-decoration:none; border-radius:8px; font-weight:600;">
        ← Voltar para o menu
     </a>
+
+    <!-- 🔊 OUVIR "VOLTAR PARA O MENU" -->
+    <button onclick="ouvirVoltarMenu()" 
+        aria-label="Ouvir texto voltar para o menu"
+        style="padding:10px 14px; background:white; border:2px solid #8a4b2d; color:#8a4b2d; border-radius:8px; font-weight:600; cursor:pointer;">
+        🔊 Ouvir
+    </button>
 </div>
 
-
-
-<audio id="audioMarajoara" autoplay muted>
-    <source src="audio/marajoara.wav" type="audio/wav">
-</audio>
-
-<script>
-    setTimeout(() => {
-        const audio = document.getElementById("audioMarajoara");
-        audio.muted = false;
-        audio.volume = 0.4;
-    }, 1000);
-</script>
 
 <div class="grid">
 
@@ -171,10 +178,20 @@
         <img src="images/Urna_Funeraria_Maraca.jpg" alt="Urna Maracá">
 
         <div class="content">
-            <h2>Urna Funerária Maracá</h2>
+            <h2 id="titulo">Urna Funerária Maracá</h2>
+            <button class="speech-btn" onclick="readText('Urna Funerária Maracá')">🔊 Ouvir título</button>
 
-            <p class="info"><strong>Período:</strong> 1300 – 1550 d.C.</p>
-            <p class="info"><strong>Local Encontrado:</strong> Rio Maracá – AP</p>
+            <!-- PERÍODO -->
+            <p id="periodo" class="info"><strong>Período:</strong> 1300 a 1550 depois de Cristo.</p>
+            <button class="speech-btn" onclick="readText(document.getElementById('periodo').innerText)">🔊 Ouvir período</button>
+
+            <!-- LOCAL -->
+            <p id="local" class="info"><strong>Local Encontrado:</strong> Rio Maracá, Pará.</p>
+            <button class="speech-btn" onclick="readText(document.getElementById('local').innerText)">🔊 Ouvir local</button>
+
+            <!-- TAMANHO -->
+            <p id="tamanho" class="info"><strong>Tamanho Aproximado:</strong> entre 40 e 80 centímetros.</p>
+            <button class="speech-btn" onclick="readText(document.getElementById('tamanho').innerText)">🔊 Ouvir tamanho</button>
 
             <!-- ⭐ AVALIAÇÃO ⭐ -->
             <div class="rating" data-id="urna_fun_maraca">
@@ -185,22 +202,27 @@
                 <span class="star" data-star="5">★</span>
             </div>
 
-            <div class="description">
-                <h3><strong>Descrição</strong></h3>
-                As urnas funerárias apresentam figuras humanas masculinas ou femininas sentadas sobre bancos em forma de animais quadrúpedes, indicando alto status dos indivíduos sepultados. 
+            <!-- DESCRIÇÃO -->
+            <div id="descricao" class="description" style="display:block;">
+                <h3>Descrição</h3>
+                As urnas funerárias Maracá apresentam figuras humanas masculinas ou femininas sentadas sobre bancos em forma de animais quadrúpedes, indicando alto status dos indivíduos sepultados. 
                 A cabeça, em formato de cone truncado, serve como tampa presa ao corpo cilíndrico por amarrações. 
                 Elas trazem pinturas geométricas nas cores branco, amarelo, vermelho e preto, além de adornos na cabeça e nos membros. 
                 Uma característica marcante é a posição incomum e projetada dos cotovelos.
-            </div>
 
-            <div class="description history">
-                <h3><strong>História</strong></h3>
+            </div>
+            <button class="speech-btn" onclick="readText(document.getElementById('descricao').innerText)">🔊 Ouvir descrição</button>
+
+            <!-- HISTÓRIA -->
+            <div id="historia" class="description history" style="display:block;">
+                <h3>História</h3>
                 Nas grutas e abrigos rochosos da região do rio Maracá, no Amapá, foram encontrados antigos cemitérios com urnas funerárias colocadas em locais de destaque. 
                 Esses achados revelam um forte culto aos ancestrais, mostrando que a comunidade valorizava e honrava seus mortos, 
                 especialmente aqueles de posição social elevada.
-            </div>
 
-            <button>Ver detalhes</button>
+            </div>
+            <button class="speech-btn" onclick="readText(document.getElementById('historia').innerText)">🔊 Ouvir história</button>
+            
         </div>
     </div>
 
@@ -210,20 +232,6 @@
     <p>Email: borntofightfll@gmail.com</p>
     <p>Instagram: <a href="https://www.instagram.com/borntofight_fll/" target="_blank">@borntofight_fll</a></p>
 </footer>
-
-<script>
-function toggleInfo(card) {
-    const descriptions = card.querySelectorAll(".description");
-    const btn = card.querySelector("button");
-    const isVisible = descriptions[0].style.display === "block";
-
-    descriptions.forEach(desc => {
-        desc.style.display = isVisible ? "none" : "block";
-    });
-
-    btn.textContent = isVisible ? "Ver detalhes" : "Ocultar detalhes";
-}
-</script>
 
 <!-- SCRIPT AVALIAÇÃO -->
 <script>
@@ -250,6 +258,47 @@ function highlightStars(rating, value) {
         }
     });
 }
+</script>
+
+<script>
+function ouvirVoltarMenu() {
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+
+        const fala = new SpeechSynthesisUtterance("Voltar para o menu");
+        fala.lang = "pt-BR";
+        fala.rate = 1;
+
+        window.speechSynthesis.speak(fala);
+    }
+}
+</script>
+
+<script>
+function readText(text) {
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const speech = new SpeechSynthesisUtterance(text);
+        speech.lang = 'pt-BR';
+        speech.rate = 1;
+        window.speechSynthesis.speak(speech);
+    } else {
+        alert("Leitura de voz não suportada neste navegador.");
+    }
+}
+</script>
+
+<!-- VLibras -->
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
 </script>
 
 </body>

@@ -34,7 +34,7 @@
         }
 
         .card:hover {
-            transform: scale(1.02); /* Diminuiu o zoom de 1.05 para 1.02 */
+            transform: scale(1.01); /* Diminuiu o zoom de 1.05 para 1.02 */
         }
 
         .card img {
@@ -69,6 +69,18 @@
 
         button:hover {
             background: #6d3a22;
+        }
+
+        .speech-btn {
+            background: white;
+            color: #333;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .speech-btn:hover {
+            background: #f4e9dd;
         }
 
         .description {
@@ -143,27 +155,22 @@
 <body>
 
 <!-- BOTÃO VOLTAR PARA O MENU -->
-<div style="width:100%; max-width:1200px; margin-bottom:20px; text-align:left;">
+<div style="width:100%; max-width:1200px; margin-bottom:20px; display:flex; gap:12px; align-items:center;">
+
+    <!-- VOLTAR -->
     <a href="index.html" 
-       style="padding:10px 18px; background:#8a4b2d; color:white; text-decoration:none; border-radius:8px; font-weight:600; transition:0.3s;"
-       onmouseover="this.style.background='#b06a40'" 
-       onmouseout="this.style.background='#8a4b2d'">
+       id="voltarMenu"
+       style="padding:10px 18px; background:#8a4b2d; color:white; text-decoration:none; border-radius:8px; font-weight:600;">
        ← Voltar para o menu
     </a>
+
+    <!-- 🔊 OUVIR "VOLTAR PARA O MENU" -->
+    <button onclick="ouvirVoltarMenu()" 
+        aria-label="Ouvir texto voltar para o menu"
+        style="padding:10px 14px; background:white; border:2px solid #8a4b2d; color:#8a4b2d; border-radius:8px; font-weight:600; cursor:pointer;">
+        🔊 Ouvir
+    </button>
 </div>
-
-<!-- ÁUDIO AUTOMÁTICO -->
-<audio id="audioMarajoara" autoplay muted>
-    <source src="audio/marajoara.wav" type="audio/wav">
-</audio>
-
-<script>
-    setTimeout(() => {
-        const audio = document.getElementById("audioMarajoara");
-        audio.muted = false;
-        audio.volume = 0.4;
-    }, 1000);
-</script>
 
 <div class="grid">
 
@@ -172,10 +179,20 @@
         <img src="images/Urna-Marajoara.jpg" alt="Urna Marajoara">
 
         <div class="content">
-            <h2>Urna Funerária Marajoara</h2>
+            <h2 id="titulo">Urna Funerária Marajoara</h2>
+            <button class="speech-btn" onclick="readText('Urna Funerária Marajoara')">🔊 Ouvir título</button>
 
-            <p class="info"><strong>Período:</strong> 400 – 1400 d.C.</p>
-            <p class="info"><strong>Local Encontrado:</strong> Ilha do Marajó – PA</p>
+            <!-- PERÍODO -->
+            <p id="periodo" class="info"><strong>Período:</strong> 400 a 1400 depois de Cristo.</p>
+            <button class="speech-btn" onclick="readText(document.getElementById('periodo').innerText)">🔊 Ouvir período</button>
+
+            <!-- LOCAL -->
+            <p id="local" class="info"><strong>Local Encontrado:</strong> Ilha do Marajó, Pará.</p>
+            <button class="speech-btn" onclick="readText(document.getElementById('local').innerText)">🔊 Ouvir local</button>
+
+            <!-- TAMANHO -->
+            <p id="tamanho" class="info"><strong>Tamanho Aproximado:</strong> entre 60 e 100 centímetros.</p>
+            <button class="speech-btn" onclick="readText(document.getElementById('tamanho').innerText)">🔊 Ouvir tamanho</button>
 
             <!-- ⭐ SISTEMA DE AVALIAÇÃO ⭐ -->
             <div class="rating" data-id="urna_marajoara">
@@ -186,23 +203,27 @@
                 <span class="star" data-star="5">★</span>
             </div>
 
-            <div class="description">
-                <h3><strong>Descrição</strong></h3>
+            <!-- DESCRIÇÃO -->
+            <div id="descricao" class="description" style="display:block;">
+                <h3>Descrição</h3>
                 As urnas marajoaras eram usadas para abrigar restos mortais de indivíduos
                 importantes na sociedade. Seus traços geométricos representavam crenças,
                 rituais espirituais e animais simbólicos.
-            </div>
 
-            <div class="description history">
-                <h3><strong>História</strong></h3>
+            </div>
+            <button class="speech-btn" onclick="readText(document.getElementById('descricao').innerText)">🔊 Ouvir descrição</button>
+
+            <!-- HISTÓRIA -->
+            <div id="historia" class="description history" style="display:block;">
+                <h3>História</h3>
                 Esta peça foi descoberta em escavações em “tesos”, montes construídos pelas
                 antigas sociedades da Ilha de Marajó. Seu alto nível artístico indica que
                 pertenceu a uma figura de grande importância social.  
                 Os detalhes simétricos e a pintura encarnada refletem o estilo clássico
                 marajoara.
             </div>
+            <button class="speech-btn" onclick="readText(document.getElementById('historia').innerText)">🔊 Ouvir história</button>
 
-            <button>Ver detalhes</button>
         </div>
     </div>
 
@@ -213,19 +234,6 @@
     <p>Instagram: <a href="https://www.instagram.com/borntofight_fll/" target="_blank">@borntofight_fll</a></p>
 </footer>
 
-<script>
-function toggleInfo(card) {
-    const descriptions = card.querySelectorAll(".description");
-    const btn = card.querySelector("button");
-    const isVisible = descriptions[0].style.display === "block";
-
-    descriptions.forEach(desc => {
-        desc.style.display = isVisible ? "none" : "block";
-    });
-
-    btn.textContent = isVisible ? "Ver detalhes" : "Ocultar detalhes";
-}
-</script>
 
 <!-- ⭐ SCRIPT DE AVALIAÇÃO -->
 <script>
@@ -252,6 +260,34 @@ function highlightStars(rating, value) {
             star.classList.add("selected");
         }
     });
+}
+</script>
+
+<script>
+function ouvirVoltarMenu() {
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+
+        const fala = new SpeechSynthesisUtterance("Voltar para o menu");
+        fala.lang = "pt-BR";
+        fala.rate = 1;
+
+        window.speechSynthesis.speak(fala);
+    }
+}
+</script>
+
+<script>
+function readText(text) {
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const speech = new SpeechSynthesisUtterance(text);
+        speech.lang = 'pt-BR';
+        speech.rate = 1;
+        window.speechSynthesis.speak(speech);
+    } else {
+        alert("Leitura de voz não suportada neste navegador.");
+    }
 }
 </script>
 
