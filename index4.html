@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- ResponsiveVoice API -->
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=JTbwNlZ4"></script>
 
     <style>
         :root {
@@ -246,6 +248,13 @@
             background: var(--primary-light);
             color: white;
             transform: translateY(-2px);
+        }
+
+        /* Indicador de áudio ativo */
+        .audio-btn-small.active-audio {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 0 15px rgba(165, 91, 52, 0.5);
         }
 
         /* GRADE DE CARDS */
@@ -742,6 +751,48 @@
             transform: scale(1.1) rotate(10deg);
         }
 
+        /* CONTROLE DE ÁUDIO */
+        .audio-controls {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .audio-controls.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .audio-control-btn {
+            background: var(--light-beige);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .audio-control-btn:hover {
+            background: var(--primary-light);
+            color: white;
+        }
+
         /* RESPONSIVIDADE */
         @media (max-width: 1024px) {
             .nav-header {
@@ -772,6 +823,11 @@
             .footer-content {
                 flex-direction: column;
                 text-align: center;
+            }
+
+            .audio-controls {
+                bottom: 90px;
+                right: 20px;
             }
         }
 
@@ -821,6 +877,12 @@
                 gap: 10px;
                 text-align: center;
             }
+
+            .audio-controls {
+                bottom: 80px;
+                right: 15px;
+                padding: 10px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -846,6 +908,11 @@
                 width: 50px;
                 height: 50px;
                 font-size: 20px;
+            }
+
+            .audio-controls {
+                bottom: 70px;
+                right: 10px;
             }
         }
 
@@ -916,7 +983,7 @@
                 <i class="fas fa-arrow-left"></i>
                 Voltar para o Menu
             </a>
-            <button class="audio-btn-small" onclick="ouvirVoltarMenu()">
+            <button class="audio-btn-small" onclick="ouvirVoltarMenu()" id="audioVoltarMenu">
                 <i class="fas fa-volume-up"></i>
                 Ouvir
             </button>
@@ -940,7 +1007,7 @@
             <div class="card-content">
                 <div class="card-title">
                     <h2 id="titulo">Estatueta Tapajônica 2</h2>
-                    <button class="audio-btn-small" onclick="readText('Estatueta Tapajônica 2')">
+                    <button class="audio-btn-small" onclick="readText('Estatueta Tapajônica 2', this)" id="audioTitulo">
                         <i class="fas fa-volume-up"></i>
                         Ouvir Título
                     </button>
@@ -955,7 +1022,7 @@
                         <div class="info-value" id="periodo">
                             800 a 1600 d.C.
                         </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('periodo').innerText)">
+                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('periodo').innerText, this)">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
@@ -968,7 +1035,7 @@
                         <div class="info-value" id="local">
                             Baixo Amazonas, Pará
                         </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('local').innerText)">
+                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('local').innerText, this)">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
@@ -981,7 +1048,7 @@
                         <div class="info-value" id="tamanho">
                             10 - 20 cm
                         </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('tamanho').innerText)">
+                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('tamanho').innerText, this)">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
@@ -1012,7 +1079,7 @@
                             <i class="fas fa-file-alt"></i>
                             <span>Descrição da Peça</span>
                         </div>
-                        <button class="audio-btn-small" onclick="readText(document.getElementById('descricaoTexto').innerText)">
+                        <button class="audio-btn-small" onclick="readText(document.getElementById('descricaoTexto').innerText, this)" id="audioDescricao">
                             <i class="fas fa-volume-up"></i>
                             Ouvir Descrição
                         </button>
@@ -1029,7 +1096,7 @@
                             <i class="fas fa-history"></i>
                             <span>Contexto Histórico</span>
                         </div>
-                        <button class="audio-btn-small" onclick="readText(document.getElementById('historiaTexto').innerText)">
+                        <button class="audio-btn-small" onclick="readText(document.getElementById('historiaTexto').innerText, this)" id="audioHistoria">
                             <i class="fas fa-volume-up"></i>
                             Ouvir História
                         </button>
@@ -1084,10 +1151,34 @@
         <i class="fas fa-chevron-up"></i>
     </div>
 
+    <!-- CONTROLE DE ÁUDIO -->
+    <div class="audio-controls" id="audioControls">
+        <button class="audio-control-btn" onclick="pauseAudio()">
+            <i class="fas fa-pause"></i>
+            Pausar Áudio
+        </button>
+        <button class="audio-control-btn" onclick="resumeAudio()">
+            <i class="fas fa-play"></i>
+            Retomar Áudio
+        </button>
+        <button class="audio-control-btn" onclick="stopAllAudio()">
+            <i class="fas fa-stop"></i>
+            Parar Tudo
+        </button>
+    </div>
+
     <!-- SCRIPTS -->
     <script>
         // Sistema de avaliação por estrelas
         document.addEventListener('DOMContentLoaded', function() {
+            // Verificar se ResponsiveVoice está carregado
+            if (typeof responsiveVoice === 'undefined') {
+                console.error('ResponsiveVoice não carregado!');
+                alert('Erro ao carregar o sistema de voz. Por favor, verifique sua conexão.');
+            } else {
+                console.log('ResponsiveVoice carregado com sucesso!');
+            }
+
             // Carregar avaliações salvas
             document.querySelectorAll(".rating").forEach(rating => {
                 const id = rating.getAttribute("data-id");
@@ -1141,6 +1232,106 @@
                     star.classList.add("selected");
                 }
             });
+        }
+
+        // Variáveis para controle de áudio
+        let currentAudioButton = null;
+        let isAudioPlaying = false;
+
+        // Funções para controle de áudio com ResponsiveVoice
+        function readText(text, buttonElement = null) {
+            // Se já está tocando áudio
+            if (isAudioPlaying) {
+                // Se clicou no mesmo botão, pausa
+                if (buttonElement === currentAudioButton) {
+                    pauseAudio();
+                    return;
+                }
+                // Se clicou em outro botão, para o atual e toca o novo
+                else {
+                    stopAllAudio();
+                }
+            }
+
+            // Configurações do ResponsiveVoice
+            const voiceConfig = {
+                rate: 0.9,
+                pitch: 1,
+                volume: 1,
+                onstart: function() {
+                    isAudioPlaying = true;
+                    if (buttonElement) {
+                        buttonElement.classList.add('active-audio');
+                        currentAudioButton = buttonElement;
+                        showAudioControls();
+                    }
+                },
+                onend: function() {
+                    isAudioPlaying = false;
+                    if (buttonElement) {
+                        buttonElement.classList.remove('active-audio');
+                        currentAudioButton = null;
+                        hideAudioControls();
+                    }
+                },
+                onerror: function() {
+                    isAudioPlaying = false;
+                    if (buttonElement) {
+                        buttonElement.classList.remove('active-audio');
+                        currentAudioButton = null;
+                        hideAudioControls();
+                        alert('Erro ao reproduzir áudio. Verifique se o ResponsiveVoice está carregado.');
+                    }
+                }
+            };
+
+            // Usar voz em português brasileiro
+            responsiveVoice.speak(text, "Brazilian Portuguese Female", voiceConfig);
+        }
+
+        function pauseAudio() {
+            if (isAudioPlaying) {
+                responsiveVoice.pause();
+                if (currentAudioButton) {
+                    currentAudioButton.classList.remove('active-audio');
+                }
+            }
+        }
+
+        function resumeAudio() {
+            if (!isAudioPlaying) {
+                responsiveVoice.resume();
+                if (currentAudioButton) {
+                    currentAudioButton.classList.add('active-audio');
+                }
+            }
+        }
+
+        function stopAllAudio() {
+            responsiveVoice.cancel();
+            isAudioPlaying = false;
+            
+            // Remover classe ativa de todos os botões de áudio
+            document.querySelectorAll('.audio-btn-small').forEach(btn => {
+                btn.classList.remove('active-audio');
+            });
+            
+            currentAudioButton = null;
+            hideAudioControls();
+        }
+
+        function ouvirVoltarMenu() {
+            readText("Voltar para o menu principal", document.getElementById('audioVoltarMenu'));
+        }
+
+        function showAudioControls() {
+            const controls = document.getElementById('audioControls');
+            controls.classList.add('show');
+        }
+
+        function hideAudioControls() {
+            const controls = document.getElementById('audioControls');
+            controls.classList.remove('show');
         }
 
         // Funções para controle da imagem
@@ -1201,51 +1392,6 @@
                 const aspectRatio = (img.naturalHeight / img.naturalWidth).toFixed(2);
                 info.textContent = `Proporção: ${aspectRatio}:1`;
             }
-        }
-
-        // Funções de áudio
-        let synth = window.speechSynthesis;
-        let isSpeaking = false;
-
-        function readText(text) {
-            if (isSpeaking) {
-                synth.cancel();
-                isSpeaking = false;
-                return;
-            }
-            
-            const utter = new SpeechSynthesisUtterance(text);
-            utter.lang = "pt-BR";
-            utter.rate = 1;
-            utter.pitch = 1;
-            
-            utter.onstart = () => {
-                isSpeaking = true;
-                // Adicionar efeito visual durante a fala
-                document.querySelectorAll('.audio-btn-small').forEach(btn => {
-                    btn.style.boxShadow = '0 0 15px rgba(165, 91, 52, 0.5)';
-                });
-            };
-            
-            utter.onend = () => {
-                isSpeaking = false;
-                document.querySelectorAll('.audio-btn-small').forEach(btn => {
-                    btn.style.boxShadow = '';
-                });
-            };
-            
-            utter.onerror = () => {
-                isSpeaking = false;
-                document.querySelectorAll('.audio-btn-small').forEach(btn => {
-                    btn.style.boxShadow = '';
-                });
-            };
-            
-            synth.speak(utter);
-        }
-
-        function ouvirVoltarMenu() {
-            readText("Voltar para o menu principal");
         }
 
         // Scroll suave para o topo
@@ -1381,6 +1527,13 @@
                 animateConfetti();
             }
         }
+
+        // Pausar áudio quando a página for ocultada
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden && isAudioPlaying) {
+                pauseAudio();
+            }
+        });
     </script>
 
     <!-- VLibras -->
