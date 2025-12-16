@@ -54,10 +54,17 @@ button:hover{
 
     <input id="nome" placeholder="Nome do artefato">
     <textarea id="descricao" placeholder="Descrição do artefato"></textarea>
+    <input id="dimensoes" placeholder="Dimensões (ex: 30cm x 15cm)">
+    <input id="periodo" placeholder="Período histórico (ex: Idade Média)">
+    <input id="origem" placeholder="Local de origem (ex: Egito)">
+    <textarea id="contexto" placeholder="Contexto histórico"></textarea>
+
+    <input type="file" id="imagem" accept="image/*">
 
     <button onclick="salvarArtefato()">
         <i class="fas fa-save"></i> Salvar Artefato
     </button>
+    
 </div>
 
 <script type="module">
@@ -77,32 +84,61 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// 🔹 Converter imagem para Base64
+function converterParaBase64(file){
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+}
+
 window.salvarArtefato = async function(){
     try{
         const nome = document.getElementById("nome").value;
         const descricao = document.getElementById("descricao").value;
+        const dimensoes = document.getElementById("dimensoes").value;
+        const periodo = document.getElementById("periodo").value;
+        const origem = document.getElementById("origem").value;
+        const contexto = document.getElementById("contexto").value;
+        const imagemFile = document.getElementById("imagem").files[0];
 
-        if(!nome || !descricao){
+        if(!nome || !descricao || !dimensoes || !periodo || !origem || !contexto || !imagemFile){
             alert("Preencha todos os campos");
             return;
         }
 
+        // 🔒 Limite de tamanho (importante)
+        if (imagemFile.size > 400000) {
+            alert("Imagem muito grande. Use imagem menor que 400 KB.");
+            return;
+        }
+
+        const imagemBase64 = await converterParaBase64(imagemFile);
+
         await addDoc(collection(db, "artefatos"), {
             nome,
             descricao,
+            dimensoes,
+            periodo,
+            origem,
+            contexto,
+            imagem: imagemBase64,
             criadoEm: new Date()
         });
 
-        alert("Artefato salvo na nuvem!");
-        document.getElementById("nome").value = "";
-        document.getElementById("descricao").value = "";
+        alert("Artefato completo salvo!");
+        document.querySelectorAll("input, textarea").forEach(el => el.value = "");
 
     }catch(e){
         console.error(e);
         alert("Erro ao salvar artefato");
     }
 };
+
 </script>
+
 
 </body>
 </html>

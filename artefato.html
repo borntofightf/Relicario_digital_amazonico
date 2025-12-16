@@ -22,6 +22,8 @@ body{
     padding: 40px;
     border-radius: 20px;
     box-shadow: 0 15px 40px rgba(0,0,0,.2);
+    
+    
 }
 
 h1{
@@ -55,8 +57,18 @@ p{
 <body>
 
 <div class="box">
+    <img id="imagemArtefato" style="width:100%; border-radius:15px; margin-bottom:25px; display:none;">
+
     <h1 id="titulo"></h1>
     <p id="descricao"></p>
+    <hr>
+
+    <p><strong>Dimensões:</strong> <span id="dimensoes"></span></p>
+    <p><strong>Período histórico:</strong> <span id="periodo"></span></p>
+    <p><strong>Local de origem:</strong> <span id="origem"></span></p>
+
+    <h3>Contexto Histórico</h3>
+    <p id="contexto"></p>
 
     <a href="index.html" class="back">
         <i class="fas fa-arrow-left"></i> Voltar ao Catálogo
@@ -85,13 +97,25 @@ const id = params.get("id");
 
 const ref = doc(db, "artefatos", id);
 const snap = await getDoc(ref);
-
 if(snap.exists()){
-    document.getElementById("titulo").textContent = snap.data().nome;
-    document.getElementById("descricao").textContent = snap.data().descricao;
-}else{
-    document.getElementById("titulo").textContent = "Artefato não encontrado";
-};
+    const data = snap.data();
+
+    document.getElementById("titulo").textContent = data.nome;
+    document.getElementById("descricao").textContent = data.descricao;
+    document.getElementById("dimensoes").textContent = data.dimensoes;
+    document.getElementById("periodo").textContent = data.periodo;
+    document.getElementById("origem").textContent = data.origem;
+    document.getElementById("contexto").textContent = data.contexto;
+
+    if(data.imagem){
+        const img = document.getElementById("imagemArtefato");
+        img.src = data.imagem;
+        img.style.display = "block";
+        
+    }
+}
+
+
 </script>
 
 
