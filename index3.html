@@ -95,6 +95,11 @@
             to { transform: rotate(360deg); }
         }
 
+        @keyframes progressFill {
+            from { width: 0; }
+            to { width: var(--progress-width); }
+        }
+
         /* HEADER NAVEGAÇÃO */
         .nav-header {
             width: 100%;
@@ -255,6 +260,468 @@
             background: var(--primary);
             color: white;
             box-shadow: 0 0 15px rgba(165, 91, 52, 0.5);
+        }
+
+        /* NOVA SEÇÃO: TABELA DE CRITÉRIOS */
+        .criteria-section {
+            margin: 40px 0 30px 0;
+            padding: 30px;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            width: 100%;
+            max-width: 1300px;
+            animation: slideInUp 0.8s ease-out 0.6s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .criteria-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+        }
+
+        .criteria-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .criteria-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .criteria-title i {
+            color: var(--primary);
+            font-size: 28px;
+        }
+
+        .scale-info {
+            background: rgba(44, 85, 48, 0.1);
+            padding: 15px;
+            border-radius: var(--radius);
+            margin-bottom: 25px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .scale-info h4 {
+            color: var(--secondary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scale-levels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .scale-level {
+            text-align: center;
+            padding: 8px 15px;
+            background: var(--light-beige);
+            border-radius: 8px;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .scale-level span {
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .criteria-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .criteria-table thead {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        .criteria-table th {
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .criteria-table tbody tr {
+            border-bottom: 1px solid rgba(165, 91, 52, 0.1);
+            transition: var(--transition);
+        }
+
+        .criteria-table tbody tr:hover {
+            background: rgba(165, 91, 52, 0.03);
+        }
+
+        .criteria-table td {
+            padding: 16px 15px;
+            vertical-align: top;
+        }
+
+        .criteria-table td:first-child {
+            font-weight: 600;
+            color: var(--primary-dark);
+            width: 25%;
+        }
+
+        .criteria-table td:nth-child(2) {
+            width: 55%;
+            color: var(--text-dark);
+        }
+
+        .criteria-table td:last-child {
+            width: 20%;
+            text-align: center;
+        }
+
+        .rating-badge {
+            display: inline-block;
+            padding: 8px 15px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 18px;
+            min-width: 50px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .criteria-table tbody tr:hover .rating-badge {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .final-score-container {
+            background: linear-gradient(135deg, rgba(44, 85, 48, 0.05) 0%, rgba(165, 91, 52, 0.05) 100%);
+            padding: 25px;
+            border-radius: var(--radius-lg);
+            border: 2px solid var(--secondary);
+            margin-top: 30px;
+        }
+
+        .final-score-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .final-score-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .score-display {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .total-score {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+
+        .max-score {
+            color: var(--text-light);
+            font-size: 16px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: var(--light-beige);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-light), var(--primary));
+            border-radius: 10px;
+            transition: width 1s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 2s infinite;
+        }
+
+        .score-interpretation {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .interpretation-item {
+            padding: 15px;
+            border-radius: var(--radius);
+            text-align: center;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .interpretation-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .interpretation-item h5 {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .interpretation-item p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .item-highly-recommended {
+            background: rgba(76, 175, 80, 0.1);
+            border-color: #4CAF50;
+        }
+
+        .item-recommended {
+            background: rgba(33, 150, 243, 0.1);
+            border-color: #2196F3;
+        }
+
+        .item-limited-use {
+            background: rgba(255, 193, 7, 0.1);
+            border-color: #FFC107;
+        }
+
+        .item-not-recommended {
+            background: rgba(244, 67, 54, 0.1);
+            border-color: #F44336;
+        }
+
+        /* NOVA SEÇÃO: RECURSOS MULTIMÍDIA */
+        .multimedia-section {
+            margin: 30px 0;
+            padding: 25px;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            width: 100%;
+            max-width: 1300px;
+            animation: slideInUp 0.8s ease-out 0.8s both;
+        }
+
+        .multimedia-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .multimedia-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .multimedia-title i {
+            color: var(--primary);
+            font-size: 28px;
+        }
+
+        .multimedia-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .resource-card {
+            background: linear-gradient(135deg, rgba(165, 91, 52, 0.05) 0%, rgba(44, 85, 48, 0.05) 100%);
+            border-radius: var(--radius);
+            padding: 25px;
+            text-align: center;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: var(--transition);
+            transform-origin: left;
+        }
+
+        .resource-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+
+        .resource-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: white;
+            margin-bottom: 10px;
+            transition: var(--transition);
+        }
+
+        .resource-card:hover .resource-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .resource-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .resource-content p {
+            color: var(--text-light);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .resource-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .resource-btn {
+            padding: 10px 20px;
+            background: var(--white);
+            color: var(--primary-dark);
+            border: 2px solid var(--primary-light);
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            flex: 1;
+            min-width: 150px;
+            justify-content: center;
+        }
+
+        .resource-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .resource-btn i {
+            font-size: 16px;
+        }
+
+        .btn-photos {
+            border-color: #4CAF50;
+            color: #2E7D32;
+        }
+
+        .btn-photos:hover {
+            background: #4CAF50;
+        }
+
+        .btn-videos {
+            border-color: #FF5722;
+            color: #D84315;
+        }
+
+        .btn-videos:hover {
+            background: #FF5722;
+        }
+
+        .btn-documentary {
+            border-color: #2196F3;
+            color: #1565C0;
+        }
+
+        .btn-documentary:hover {
+            background: #2196F3;
+        }
+
+        .btn-article {
+            border-color: #9C27B0;
+            color: #7B1FA2;
+        }
+
+        .btn-article:hover {
+            background: #9C27B0;
         }
 
         /* GRADE DE CARDS */
@@ -625,105 +1092,6 @@
             border-left-color: var(--secondary);
         }
 
-        /* RODAPÉ */
-        .footer {
-            width: 100%;
-            max-width: 1200px;
-            padding: 30px;
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            text-align: center;
-            margin-top: 20px;
-            animation: slideInUp 0.8s ease-out 0.4s both;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .footer-info {
-            text-align: center;
-            width: 100%;
-        }
-
-        .footer-info h3 {
-            color: var(--primary-dark);
-            margin-bottom: 15px;
-            font-size: 20px;
-            position: relative;
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-
-        .footer-info h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-
-        .footer-info p {
-            color: var(--text-light);
-            margin: 10px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: var(--transition);
-        }
-
-        .footer-info:hover p {
-            transform: translateX(5px);
-        }
-
-        .footer-info a {
-            color: var(--primary);
-            text-decoration: none;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .footer-info a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--primary);
-            transition: var(--transition);
-        }
-
-        .footer-info a:hover::after {
-            width: 100%;
-        }
-
-        .footer-info a:hover {
-            color: var(--primary-dark);
-        }
-
-        .footer-logo {
-            height: 80px;
-            width: auto;
-            border-radius: 12px;
-            box-shadow: var(--shadow-sm);
-            margin-bottom: 10px;
-            transition: var(--transition);
-        }
-
-        .footer-logo:hover {
-            transform: scale(1.05) rotate(5deg);
-            box-shadow: var(--shadow-md);
-        }
-
         /* BOTÃO FLUTUANTE */
         .floating-btn {
             position: fixed;
@@ -749,48 +1117,6 @@
 
         .floating-btn:hover {
             transform: scale(1.1) rotate(10deg);
-        }
-
-        /* CONTROLE DE ÁUDIO */
-        .audio-controls {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            background: var(--white);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-lg);
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 99;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            transition: var(--transition);
-        }
-
-        .audio-controls.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .audio-control-btn {
-            background: var(--light-beige);
-            border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: var(--transition);
-        }
-
-        .audio-control-btn:hover {
-            background: var(--primary-light);
-            color: white;
         }
 
         /* RESPONSIVIDADE */
@@ -820,14 +1146,21 @@
                 padding: 20px;
             }
             
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
+            .multimedia-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
-
-            .audio-controls {
-                bottom: 90px;
-                right: 20px;
+            
+            .criteria-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .scale-levels {
+                flex-direction: column;
+            }
+            
+            .score-interpretation {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -877,11 +1210,28 @@
                 gap: 10px;
                 text-align: center;
             }
-
-            .audio-controls {
-                bottom: 80px;
-                right: 15px;
-                padding: 10px;
+            
+            .multimedia-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .resource-buttons {
+                flex-direction: column;
+            }
+            
+            .resource-btn {
+                min-width: 100%;
+            }
+            
+            .criteria-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .criteria-table td, .criteria-table th {
+                padding: 12px 10px;
+                font-size: 14px;
             }
         }
 
@@ -909,10 +1259,19 @@
                 height: 50px;
                 font-size: 20px;
             }
-
-            .audio-controls {
-                bottom: 70px;
-                right: 10px;
+            
+            .multimedia-title, .criteria-title {
+                font-size: 20px;
+            }
+            
+            .resource-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+            
+            .total-score {
+                font-size: 36px;
             }
         }
 
@@ -983,7 +1342,7 @@
                 <i class="fas fa-arrow-left"></i>
                 Voltar para o Menu
             </a>
-            <button class="audio-btn-small" onclick="ouvirVoltarMenu()" id="audioVoltarMenu">
+            <button class="audio-btn-small" onclick="ouvirVoltarMenu()">
                 <i class="fas fa-volume-up"></i>
                 Ouvir
             </button>
@@ -1006,8 +1365,8 @@
             
             <div class="card-content">
                 <div class="card-title">
-                    <h2 id="titulo">Estatueta Tapajônica 1</h2>
-                    <button class="audio-btn-small" onclick="readText('Estatueta Tapajônica 1', this)" id="audioTitulo">
+                    <h2 id="titulo">Estatueta Tapajônica</h2>
+                    <button class="audio-btn-small" onclick="readText('Estatueta Tapajônica')">
                         <i class="fas fa-volume-up"></i>
                         Ouvir Título
                     </button>
@@ -1022,7 +1381,7 @@
                         <div class="info-value" id="periodo">
                             900 a 1600 d.C.
                         </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('periodo').innerText, this)">
+                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('periodo').innerText)">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
@@ -1035,7 +1394,7 @@
                         <div class="info-value" id="local">
                             Rio Tapajós, Pará
                         </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('local').innerText, this)">
+                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('local').innerText)">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
@@ -1048,7 +1407,7 @@
                         <div class="info-value" id="tamanho">
                             10 - 25 cm
                         </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('tamanho').innerText, this)">
+                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('tamanho').innerText)">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
@@ -1079,7 +1438,7 @@
                             <i class="fas fa-file-alt"></i>
                             <span>Descrição da Peça</span>
                         </div>
-                        <button class="audio-btn-small" onclick="readText(document.getElementById('descricaoTexto').innerText, this)" id="audioDescricao">
+                        <button class="audio-btn-small" onclick="readText(document.getElementById('descricaoTexto').innerText)">
                             <i class="fas fa-volume-up"></i>
                             Ouvir Descrição
                         </button>
@@ -1097,7 +1456,7 @@
                             <i class="fas fa-history"></i>
                             <span>Contexto Histórico</span>
                         </div>
-                        <button class="audio-btn-small" onclick="readText(document.getElementById('historiaTexto').innerText, this)" id="audioHistoria">
+                        <button class="audio-btn-small" onclick="readText(document.getElementById('historiaTexto').innerText)">
                             <i class="fas fa-volume-up"></i>
                             Ouvir História
                         </button>
@@ -1106,6 +1465,222 @@
                         Produzidas entre 900 e 1600 depois de Cristo. Essas estatuetas representam a complexidade
                         artística e espiritual da Cultura Tapajó, localizada na região da atual Santarém, Pará.
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOVA SEÇÃO: CRITÉRIOS DE AVALIAÇÃO -->
+    <div class="criteria-section">
+        <div class="criteria-header">
+            <div class="criteria-title">
+                <i class="fas fa-clipboard-check"></i>
+                <span>Por que escolhemos essa peça?</span>
+            </div>
+            <button class="audio-btn-small" onclick="readText('Tabela de critérios de avaliação para escolhemos essa peça arqueológica. Escala de 1 a 5.')">
+                <i class="fas fa-volume-up"></i>
+                Ouvir Tabela
+            </button>
+        </div>
+        
+        <div class="scale-info">
+            <h4><i class="fas fa-ruler"></i> Escala de Avaliação:</h4>
+            <p>1 = Muito baixo | 2 = Baixo | 3 = Médio | 4 = Alto | 5 = Muito alto</p>
+            <div class="scale-levels">
+                <div class="scale-level"><span>1:</span> Muito baixo</div>
+                <div class="scale-level"><span>2:</span> Baixo</div>
+                <div class="scale-level"><span>3:</span> Médio</div>
+                <div class="scale-level"><span>4:</span> Alto</div>
+                <div class="scale-level"><span>5:</span> Muito alto</div>
+            </div>
+        </div>
+        
+        <table class="criteria-table">
+            <thead>
+                <tr>
+                    <th>Critério</th>
+                    <th>O que é avaliado</th>
+                    <th>Nota (1–5)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Fidelidade ao original</td>
+                    <td>Semelhança com a peça real (forma, tamanho, detalhes)</td>
+                    <td><span class="rating-badge">4</span></td>
+                </tr>
+                <tr>
+                    <td>Valor educativo</td>
+                    <td>Capacidade de explicar o contexto histórico e cultural</td>
+                    <td><span class="rating-badge">4</span></td>
+                </tr>
+                <tr>
+                    <td>Qualidade da impressão 3D</td>
+                    <td>Acabamento, resistência e definição</td>
+                    <td><span class="rating-badge">5</span></td>
+                </tr>
+                <tr>
+                    <td>Acessibilidade e interação</td>
+                    <td>Possibilidade de toque e inclusão do público</td>
+                    <td><span class="rating-badge">3</span></td>
+                </tr>
+                <tr>
+                    <td>Adequação à exposição</td>
+                    <td>Coerência com o tema e proposta do evento</td>
+                    <td><span class="rating-badge">4</span></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="final-score-container">
+            <div class="final-score-header">
+                <div class="final-score-title">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Pontuação Final</span>
+                </div>
+                <button class="audio-btn-small" onclick="readScoreDetails()">
+                    <i class="fas fa-volume-up"></i>
+                    Ouvir Pontuação
+                </button>
+            </div>
+            
+            <div class="score-display">
+                <div class="total-score" id="totalScore">20</div>
+                <div class="max-score">Máximo: 25 pontos</div>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            
+            <div class="score-interpretation">
+                <div class="interpretation-item item-highly-recommended">
+                    <h5>21–25 pontos</h5>
+                    <p>Altamente recomendada para exposição</p>
+                </div>
+                <div class="interpretation-item item-recommended">
+                    <h5>16–20 pontos</h5>
+                    <p>Recomendada</p>
+                </div>
+                <div class="interpretation-item item-limited-use">
+                    <h5>11–15 pontos</h5>
+                    <p>Uso limitado</p>
+                </div>
+                <div class="interpretation-item item-not-recommended">
+                    <h5>Abaixo de 11 pontos</h5>
+                    <p>Não recomendada</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOVA SEÇÃO: RECURSOS MULTIMÍDIA -->
+    <div class="multimedia-section">
+        <div class="multimedia-header">
+            <div class="multimedia-title">
+                <i class="fas fa-photo-video"></i>
+                <span>Recursos Multimídia</span>
+            </div>
+            <button class="audio-btn-small" onclick="readText('Seção de recursos multimídia com fotos, vídeos, documentários e artigos sobre cerâmica amazônica.')">
+                <i class="fas fa-volume-up"></i>
+                Ouvir Seção
+            </button>
+        </div>
+        
+        <div class="multimedia-grid">
+            <!-- FOTOS -->
+            <div class="resource-card">
+                <div class="resource-icon">
+                    <i class="fas fa-images"></i>
+                </div>
+                <div class="resource-content">
+                    <h3>Álbum de Fotos</h3>
+                    <p>Explore nossa coleção completa de imagens em alta resolução da Estatueta Tapajônica e artefatos da cultura Tapajó.</p>
+                </div>
+                <div class="resource-buttons">
+                    <a href="https://drive.google.com/drive/folders/1DLwGKaLPT6d21StasQI9JEypLZ_xnKIV" 
+                       target="_blank" 
+                       class="resource-btn btn-photos"
+                       onclick="trackClick('photos_tapajonica')">
+                        <i class="fas fa-external-link-alt"></i>
+                        Acessar Álbum
+                    </a>
+                    <button class="resource-btn btn-photos" onclick="readText('Álbum de fotos da Estatueta Tapajônica. Clique no botão para acessar.')">
+                        <i class="fas fa-volume-up"></i>
+                        Ouvir Descrição
+                    </button>
+                </div>
+            </div>
+            
+            <!-- VÍDEOS -->
+            <div class="resource-card">
+                <div class="resource-icon">
+                    <i class="fas fa-play-circle"></i>
+                </div>
+                <div class="resource-content">
+                    <h3>Vídeos Educativos</h3>
+                    <p>Assista a vídeos sobre a cultura Tapajó, técnicas de produção e importância cultural das estatuetas.</p>
+                </div>
+                <div class="resource-buttons">
+                    <a href="https://www.youtube.com/watch?v=VYXv7tjF__8" 
+                       target="_blank" 
+                       class="resource-btn btn-videos"
+                       onclick="trackClick('video_tapajonica')">
+                        <i class="fab fa-youtube"></i>
+                        Vídeo Educativo
+                    </a>
+                    <button class="resource-btn btn-videos" onclick="readText('Vídeo educativo sobre a Estatueta Tapajônica e cultura Tapajó. Clique para assistir.')">
+                        <i class="fas fa-volume-up"></i>
+                        Ouvir Descrição
+                    </button>
+                </div>
+            </div>
+            
+            <!-- DOCUMENTÁRIOS -->
+            <div class="resource-card">
+                <div class="resource-icon">
+                    <i class="fas fa-film"></i>
+                </div>
+                <div class="resource-content">
+                    <h3>Documentários</h3>
+                    <p>Documentários completos sobre a cultura Tapajó, escavações arqueológicas e preservação cultural.</p>
+                </div>
+                <div class="resource-buttons">
+                    <a href="https://www.youtube.com/watch?v=8lk_MdN8kbQ" 
+                       target="_blank" 
+                       class="resource-btn btn-documentary"
+                       onclick="trackClick('documentary_tapajonica')">
+                        <i class="fas fa-external-link-alt"></i>
+                        Assistir Documentário
+                    </a>
+                    <button class="resource-btn btn-documentary" onclick="readText('Documentário completo sobre a cultura Tapajó e escavações arqueológicas.')">
+                        <i class="fas fa-volume-up"></i>
+                        Ouvir Descrição
+                    </button>
+                </div>
+            </div>
+            
+            <!-- ARTIGOS -->
+            <div class="resource-card">
+                <div class="resource-icon">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <div class="resource-content">
+                    <h3>Artigos Científicos</h3>
+                    <p>Artigos acadêmicos e pesquisas sobre cerâmica Tapajônica, publicações especializadas e estudos.</p>
+                </div>
+                <div class="resource-buttons">
+                    <a href="https://www.scielo.br/j/bgoeldi/a/VpNYcwXrPTyFV5q6pqLC8bf/?format=pdf&lang=pt" 
+                       target="_blank" 
+                       class="resource-btn btn-article"
+                       onclick="trackClick('article_tapajonica')">
+                        <i class="fas fa-external-link-alt"></i>
+                        Ler Artigo
+                    </a>
+                    <button class="resource-btn btn-article" onclick="readText('Artigo científico sobre cerâmica Tapajônica publicado em revista especializada.')">
+                        <i class="fas fa-volume-up"></i>
+                        Ouvir Descrição
+                    </button>
                 </div>
             </div>
         </div>
@@ -1153,35 +1728,30 @@
         <i class="fas fa-chevron-up"></i>
     </div>
 
-    <!-- CONTROLE DE ÁUDIO -->
-    <div class="audio-controls" id="audioControls">
-        <button class="audio-control-btn" onclick="pauseAudio()">
-            <i class="fas fa-pause"></i>
-            Pausar Áudio
-        </button>
-        <button class="audio-control-btn" onclick="resumeAudio()">
-            <i class="fas fa-play"></i>
-            Retomar Áudio
-        </button>
-        <button class="audio-control-btn" onclick="stopAllAudio()">
-            <i class="fas fa-stop"></i>
-            Parar Tudo
-        </button>
-    </div>
-
     <!-- SCRIPTS -->
     <script>
-        // Sistema de avaliação por estrelas
+        // Configurar ResponsiveVoice assim que carregar
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('Página carregada - inicializando...');
+            
             // Verificar se ResponsiveVoice está carregado
-            if (typeof responsiveVoice === 'undefined') {
-                console.error('ResponsiveVoice não carregado!');
-                alert('Erro ao carregar o sistema de voz. Por favor, verifique sua conexão.');
+            if (typeof responsiveVoice !== 'undefined') {
+                console.log('ResponsiveVoice carregado com sucesso');
+                responsiveVoice.setDefaultVoice("Portuguese Female");
+                console.log('Voz configurada: Portuguese Female');
             } else {
-                console.log('ResponsiveVoice carregado com sucesso!');
+                console.error('ResponsiveVoice não foi carregado');
             }
+            
+            // Inicializar outras funcionalidades
+            initPage();
+        });
 
-            // Carregar avaliações salvas
+        // Inicializar a página
+        function initPage() {
+            console.log('Inicializando página...');
+            
+            // Sistema de avaliação por estrelas
             document.querySelectorAll(".rating").forEach(rating => {
                 const id = rating.getAttribute("data-id");
                 const savedRating = localStorage.getItem("rating_" + id);
@@ -1191,12 +1761,7 @@
                 }
 
                 // Adicionar event listeners para as estrelas
-                rating.querySelectorAll(".star").forEach((star, index) => {
-                    // Adicionar atributo data-star se não existir
-                    if (!star.hasAttribute("data-star")) {
-                        star.setAttribute("data-star", index + 1);
-                    }
-                    
+                rating.querySelectorAll(".star").forEach(star => {
                     star.addEventListener("click", e => {
                         e.stopPropagation();
                         const value = star.getAttribute("data-star");
@@ -1211,6 +1776,9 @@
                         
                         // Efeito de confetes
                         createConfetti();
+                        
+                        // Feedback de áudio
+                        readText(`Você avaliou com ${value} estrelas. Obrigado pela sua avaliação!`);
                     });
                     
                     star.addEventListener("mouseenter", e => {
@@ -1225,135 +1793,154 @@
                 });
             });
 
+            // Inicializar tabela de critérios
+            initCriteriaTable();
+            
             // Detectar proporção da imagem
             updateImageInfo();
             
             // Iniciar animações de entrada
             initAnimations();
-        });
+            
+            // Precarregar imagens
+            preloadImages();
+            
+            // Configurar botões de áudio
+            setupAudioButtons();
+            
+            // Saudação inicial (após 3 segundos)
+            setTimeout(() => {
+                console.log('Executando saudação inicial...');
+                readText("Bem-vindo ao catálogo interativo da Estatueta Tapajônica. Explore as informações e use os botões de áudio para ouvir o conteúdo.");
+            }, 3000);
+            
+            console.log('Página inicializada com sucesso');
+        }
 
         function highlightStars(rating, value) {
             rating.querySelectorAll(".star").forEach(star => {
                 star.classList.remove("selected");
-                if (parseInt(star.getAttribute("data-star")) <= parseInt(value)) {
+                if (star.getAttribute("data-star") <= value) {
                     star.classList.add("selected");
                 }
             });
         }
 
-        // Variáveis para controle de áudio
-        let currentAudioButton = null;
-        let isAudioPlaying = false;
-
-        // Funções para controle de áudio com ResponsiveVoice
-        function readText(text, buttonElement = null) {
-            // Se já está tocando áudio
-            if (isAudioPlaying) {
-                // Se clicou no mesmo botão, pausa
-                if (buttonElement === currentAudioButton) {
-                    pauseAudio();
-                    return;
-                }
-                // Se clicou em outro botão, para o atual e toca o novo
-                else {
-                    stopAllAudio();
-                }
-            }
-
-            // Configurações do ResponsiveVoice
-            const voiceConfig = {
-                rate: 0.9,
-                pitch: 1,
-                volume: 1,
-                onstart: function() {
-                    isAudioPlaying = true;
-                    if (buttonElement) {
-                        buttonElement.classList.add('active-audio');
-                        currentAudioButton = buttonElement;
-                        showAudioControls();
-                    }
-                },
-                onend: function() {
-                    isAudioPlaying = false;
-                    if (buttonElement) {
-                        buttonElement.classList.remove('active-audio');
-                        currentAudioButton = null;
-                        hideAudioControls();
-                    }
-                },
-                onerror: function() {
-                    isAudioPlaying = false;
-                    if (buttonElement) {
-                        buttonElement.classList.remove('active-audio');
-                        currentAudioButton = null;
-                        hideAudioControls();
-                        alert('Erro ao reproduzir áudio. Verifique se o ResponsiveVoice está carregado.');
-                    }
-                }
-            };
-
-            // Usar voz em português brasileiro
-            responsiveVoice.speak(text, "Brazilian Portuguese Female", voiceConfig);
-        }
-
-        function pauseAudio() {
-            if (isAudioPlaying) {
-                responsiveVoice.pause();
-                if (currentAudioButton) {
-                    currentAudioButton.classList.remove('active-audio');
-                }
-            }
-        }
-
-        function resumeAudio() {
-            if (!isAudioPlaying) {
-                responsiveVoice.resume();
-                if (currentAudioButton) {
-                    currentAudioButton.classList.add('active-audio');
-                }
-            }
-        }
-
-        function stopAllAudio() {
-            responsiveVoice.cancel();
-            isAudioPlaying = false;
+        // Inicializar tabela de critérios
+        function initCriteriaTable() {
+            const scores = [4, 4, 5, 3, 4]; // Notas da tabela
+            const totalScore = scores.reduce((a, b) => a + b, 0);
+            const maxScore = 25;
+            const percentage = (totalScore / maxScore) * 100;
             
-            // Remover classe ativa de todos os botões de áudio
-            document.querySelectorAll('.audio-btn-small').forEach(btn => {
-                btn.classList.remove('active-audio');
-            });
+            // Atualizar pontuação total
+            document.getElementById('totalScore').textContent = totalScore;
             
-            currentAudioButton = null;
-            hideAudioControls();
-        }
-
-        function ouvirVoltarMenu() {
-            readText("Voltar para o menu principal", document.getElementById('audioVoltarMenu'));
-        }
-
-        function showAudioControls() {
-            const controls = document.getElementById('audioControls');
-            controls.classList.add('show');
-        }
-
-        function hideAudioControls() {
-            const controls = document.getElementById('audioControls');
-            controls.classList.remove('show');
-        }
-
-        // Scroll suave para o topo
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            // Atualizar barra de progresso
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = `${percentage}%`;
+            progressFill.style.setProperty('--progress-width', `${percentage}%`);
             
-            // Efeito de clique no botão
-            const btn = document.querySelector('.floating-btn');
-            btn.style.transform = 'scale(0.8)';
+            // Animar barra de progresso
             setTimeout(() => {
-                btn.style.transform = '';
-            }, 300);
+                progressFill.style.animation = 'progressFill 1.5s ease-out forwards';
+            }, 500);
+            
+            // Destacar categoria correspondente
+            highlightScoreCategory(totalScore);
+        }
+        
+        function highlightScoreCategory(score) {
+            // Remover destaques anteriores
+            document.querySelectorAll('.interpretation-item').forEach(item => {
+                item.style.boxShadow = 'none';
+                item.style.transform = 'none';
+            });
+            
+            // Destacar categoria correspondente
+            let categoryClass = '';
+            if (score >= 21) {
+                categoryClass = '.item-highly-recommended';
+            } else if (score >= 16) {
+                categoryClass = '.item-recommended';
+            } else if (score >= 11) {
+                categoryClass = '.item-limited-use';
+            } else {
+                categoryClass = '.item-not-recommended';
+            }
+            
+            const categoryItem = document.querySelector(categoryClass);
+            if (categoryItem) {
+                categoryItem.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+                categoryItem.style.transform = 'translateY(-8px)';
+                
+                // Pulsar a categoria
+                setTimeout(() => {
+                    categoryItem.style.animation = 'pulse 2s infinite';
+                }, 1000);
+            }
+        }
+        
+        // Função para ler detalhes da pontuação
+        function readScoreDetails() {
+            const scores = [4, 4, 5, 3, 4];
+            const totalScore = scores.reduce((a, b) => a + b, 0);
+            
+            const text = `Pontuação total: ${totalScore} pontos de 25. ` +
+                        `Critérios avaliados: Fidelidade ao original: 4 pontos. ` +
+                        `Valor educativo: 4 pontos. ` +
+                        `Qualidade da impressão 3D: 5 pontos. ` +
+                        `Acessibilidade e interação: 3 pontos. ` +
+                        `Adequação à exposição: 4 pontos. ` +
+                        `Classificação: Recomendada para exposição.`;
+            
+            readText(text);
+        }
+
+        // Configurar botões de áudio
+        function setupAudioButtons() {
+            document.querySelectorAll('.audio-btn-small').forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    // Pequeno feedback ao passar o mouse
+                    this.style.transform = 'scale(1.05)';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+            });
+            
+            // Adicionar efeitos de hover às células da tabela
+            document.querySelectorAll('.criteria-table tbody tr').forEach(row => {
+                row.addEventListener('mouseenter', function() {
+                    const badge = this.querySelector('.rating-badge');
+                    if (badge) {
+                        badge.style.transform = 'scale(1.15)';
+                        badge.style.boxShadow = '0 6px 15px rgba(165, 91, 52, 0.3)';
+                    }
+                });
+                
+                row.addEventListener('mouseleave', function() {
+                    const badge = this.querySelector('.rating-badge');
+                    if (badge) {
+                        badge.style.transform = '';
+                        badge.style.boxShadow = '';
+                    }
+                });
+            });
+        }
+
+        // Função para pré-carregar imagens
+        function preloadImages() {
+            const images = [
+                'images/Logo_Btf.png',
+                'images/Estatueta Tapajonica.png'
+            ];
+            
+            images.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
         }
 
         // Funções para controle da imagem
@@ -1416,15 +2003,160 @@
             }
         }
 
+        // Funções de áudio usando ResponsiveVoice
+        let isSpeaking = false;
+
+        function readText(text) {
+            console.log('Lendo texto:', text.substring(0, 50) + '...');
+            
+            if (typeof responsiveVoice === 'undefined') {
+                console.error('ResponsiveVoice não disponível');
+                alert('Sistema de áudio não disponível no momento.');
+                return;
+            }
+            
+            if (isSpeaking) {
+                console.log('Parando áudio atual...');
+                responsiveVoice.cancel();
+                isSpeaking = false;
+                removeAudioEffects();
+                return;
+            }
+            
+            // Configurações da voz
+            const options = {
+                rate: 1.0,    // velocidade
+                pitch: 1.0,   // tom
+                volume: 1.0,  // volume
+                onstart: function() {
+                    console.log('Áudio iniciado');
+                    isSpeaking = true;
+                    addAudioEffects();
+                },
+                onend: function() {
+                    console.log('Áudio finalizado');
+                    isSpeaking = false;
+                    removeAudioEffects();
+                },
+                onerror: function() {
+                    console.error('Erro no áudio');
+                    isSpeaking = false;
+                    removeAudioEffects();
+                }
+            };
+            
+            try {
+                console.log('Tentando reproduzir áudio...');
+                // Usar voz em português brasileiro
+                responsiveVoice.speak(text, "Portuguese Female", options);
+                console.log('Áudio enviado para reprodução');
+            } catch (error) {
+                console.error('Erro ao reproduzir áudio:', error);
+                isSpeaking = false;
+                removeAudioEffects();
+            }
+        }
+
+        function addAudioEffects() {
+            // Adicionar efeito visual durante a fala
+            document.querySelectorAll('.audio-btn-small').forEach(btn => {
+                btn.style.boxShadow = '0 0 15px rgba(165, 91, 52, 0.5)';
+                btn.style.animation = 'pulse 1s infinite';
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    icon.className = 'fas fa-stop';
+                }
+            });
+            
+            // Adicionar efeito no título
+            const title = document.querySelector('.card-title h2');
+            if (title) {
+                title.style.textShadow = '0 0 10px rgba(165, 91, 52, 0.3)';
+            }
+        }
+
+        function removeAudioEffects() {
+            // Remover efeitos visuais
+            document.querySelectorAll('.audio-btn-small').forEach(btn => {
+                btn.style.boxShadow = '';
+                btn.style.animation = '';
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    icon.className = 'fas fa-volume-up';
+                }
+            });
+            
+            // Remover efeito do título
+            const title = document.querySelector('.card-title h2');
+            if (title) {
+                title.style.textShadow = '';
+            }
+        }
+
+        // Função para parar toda a fala
+        function stopAllSpeech() {
+            if (typeof responsiveVoice !== 'undefined') {
+                responsiveVoice.cancel();
+                isSpeaking = false;
+                removeAudioEffects();
+            }
+        }
+
+        function ouvirVoltarMenu() {
+            readText("Botão: Voltar para o menu principal");
+        }
+
+        // Rastrear cliques em recursos (para análise)
+        function trackClick(resourceType) {
+            console.log(`Recurso clicado: ${resourceType}`);
+            // Aqui você pode adicionar código para Google Analytics ou outro sistema de tracking
+            const clicks = JSON.parse(localStorage.getItem('resource_clicks') || '{}');
+            clicks[resourceType] = (clicks[resourceType] || 0) + 1;
+            localStorage.setItem('resource_clicks', JSON.stringify(clicks));
+            
+            // Feedback de áudio
+            readText(`Abrindo ${getResourceName(resourceType)} em nova aba.`);
+        }
+
+        function getResourceName(type) {
+            const names = {
+                'photos_tapajonica': 'álbum de fotos',
+                'video_tapajonica': 'vídeo educativo',
+                'documentary_tapajonica': 'documentário completo',
+                'article_tapajonica': 'artigo científico'
+            };
+            return names[type] || 'recurso';
+        }
+
+        // Scroll suave para o topo
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
+            // Efeito de clique no botão
+            const btn = document.querySelector('.floating-btn');
+            btn.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                btn.style.transform = '';
+            }, 300);
+            
+            // Parar qualquer fala em andamento
+            stopAllSpeech();
+        }
+
         // Mostrar/ocultar botão flutuante
         window.addEventListener('scroll', function() {
             const floatingBtn = document.querySelector('.floating-btn');
-            if (window.scrollY > 300) {
-                floatingBtn.style.opacity = '1';
-                floatingBtn.style.visibility = 'visible';
-            } else {
-                floatingBtn.style.opacity = '0';
-                floatingBtn.style.visibility = 'hidden';
+            if (floatingBtn) {
+                if (window.scrollY > 300) {
+                    floatingBtn.style.opacity = '1';
+                    floatingBtn.style.visibility = 'visible';
+                } else {
+                    floatingBtn.style.opacity = '0';
+                    floatingBtn.style.visibility = 'hidden';
+                }
             }
         });
 
@@ -1436,12 +2168,14 @@
         // Efeito de digitação no título
         window.addEventListener('load', function() {
             const title = document.querySelector('.nav-title h1');
-            title.classList.add('typing-effect');
-            
-            setTimeout(() => {
-                title.classList.remove('typing-effect');
-                title.style.borderRight = 'none';
-            }, 3500);
+            if (title) {
+                title.classList.add('typing-effect');
+                
+                setTimeout(() => {
+                    title.classList.remove('typing-effect');
+                    title.style.borderRight = 'none';
+                }, 3500);
+            }
             
             // Animação para os botões
             document.querySelectorAll('.nav-btn, .audio-btn-small').forEach((btn, index) => {
@@ -1454,6 +2188,20 @@
                     btn.style.transform = 'translateY(0)';
                 }, 1000 + (index * 200));
             });
+            
+            // Animar entrada da tabela de critérios
+            setTimeout(() => {
+                document.querySelectorAll('.criteria-table tbody tr').forEach((row, index) => {
+                    row.style.opacity = '0';
+                    row.style.transform = 'translateX(-20px)';
+                    
+                    setTimeout(() => {
+                        row.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                        row.style.opacity = '1';
+                        row.style.transform = 'translateX(0)';
+                    }, 800 + (index * 150));
+                });
+            }, 1000);
         });
 
         // Efeitos de hover nas linhas de informação
@@ -1527,7 +2275,9 @@
                     if (opacity > 0) {
                         requestAnimationFrame(animateConfetti);
                     } else {
-                        document.body.removeChild(confetti);
+                        if (confetti.parentNode) {
+                            document.body.removeChild(confetti);
+                        }
                     }
                 };
                 
@@ -1535,10 +2285,14 @@
             }
         }
 
-        // Pausar áudio quando a página for ocultada
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden && isAudioPlaying) {
-                pauseAudio();
+        // Parar áudio ao sair da página
+        window.addEventListener('beforeunload', stopAllSpeech);
+        window.addEventListener('pagehide', stopAllSpeech);
+
+        // Configurar botões de áudio para parar áudio ao clicar em links
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('a') && isSpeaking) {
+                stopAllSpeech();
             }
         });
     </script>
