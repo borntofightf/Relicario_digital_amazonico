@@ -4,41 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Born To Fight Robotics – Arqueologia Amazônica Digital</title>
-    <!-- Favicon usando o Logo_Btf.png -->
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/Logo_Btf.png">
     <link rel="apple-touch-icon" href="images/Logo_Btf.png">
-    <!-- Fontes temáticas para arqueologia -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Fontes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <!-- ResponsiveVoice -->
     <script src="https://code.responsivevoice.org/responsivevoice.js?key=JTbwNlZ4"></script>
 
     <style>
         :root {
-            /* NOVA PALETA ARQUEOLÓGICA - inspirada em artefatos e sítios antigos */
-            --papiro: #f5eedf;
-            --terra-queimada: #8c4a32;
-            --argila: #b56a4a;
-            --oxido: #a8423f;
-            --verde-musgo: #556b2f;
-            --pedra: #7d7d7d;
-            --ouro-velho: #d4af37;
-            --bronze: #cd7f32;
-            --ceramica: #e6c299;
-            --sombra-antiga: rgba(0, 0, 0, 0.25);
-            --texto-escuro: #2c1810;
-            --texto-medio: #5a3929;
-            --texto-claro: #8a634c;
-            --branco-ossado: #f8f4e9;
-            
-            /* Efeitos especiais */
-            --transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+            --primary-dark: #7a3c1f;
+            --primary: #a55b34;
+            --primary-light: #d48356;
+            --secondary: #2c5530;
+            --light-beige: #f9f5f0;
+            --dark-beige: #ede5d8;
+            --text-dark: #2d2d2d;
+            --text-light: #5a5a5a;
+            --white: #ffffff;
+            --shadow-sm: 0 4px 6px rgba(0,0,0,0.07);
+            --shadow-md: 0 8px 20px rgba(0,0,0,0.12);
+            --shadow-lg: 0 15px 35px rgba(0,0,0,0.15);
+            --shadow-xl: 0 20px 40px rgba(0,0,0,0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --radius: 12px;
             --radius-lg: 20px;
-            --shadow-textura: 0 8px 32px rgba(140, 74, 50, 0.15);
-            --shadow-profunda: 0 12px 40px rgba(0, 0, 0, 0.25);
         }
 
         * {
@@ -48,64 +41,45 @@
         }
 
         body {
-            font-family: 'Crimson Text', 'Times New Roman', serif;
-            background: 
-                linear-gradient(135deg, var(--papiro) 0%, #e8dfd0 100%),
-                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%238c4a32' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
-            color: var(--texto-escuro);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--light-beige) 0%, var(--dark-beige) 100%);
+            color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 30px 20px;
             line-height: 1.6;
-            animation: desvanecer 1.2s ease-out;
+            animation: fadeIn 0.8s ease-out;
             position: relative;
-            overflow-x: hidden;
         }
 
-        /* Efeito de textura de papiro antigo */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(rgba(245, 238, 223, 0.1), rgba(245, 238, 223, 0.1)),
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 2px,
-                    rgba(140, 74, 50, 0.03) 2px,
-                    rgba(140, 74, 50, 0.03) 4px
-                );
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        @keyframes desvanecer {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes surgir {
+        @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes scaleIn {
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
         }
 
-        @keyframes flutuar {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(1deg); }
-        }
-
-        @keyframes brilho {
-            0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.6); }
-        }
-
-        /* CABEÇALHO ARQUEOLÓGICO */
+        /* HEADER MODERNO - CORRIGIDO PARA DROPDOWNS */
         header {
             width: 100%;
             max-width: 1300px;
@@ -113,198 +87,150 @@
             justify-content: space-between;
             align-items: center;
             padding: 25px 35px;
-            background: 
-                linear-gradient(135deg, var(--branco-ossado) 0%, var(--papiro) 100%);
+            background: var(--white);
             border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-textura);
+            box-shadow: var(--shadow-md);
             margin-bottom: 50px;
-            animation: surgir 0.8s ease-out 0.3s both;
+            animation: slideInDown 0.6s ease-out;
             position: relative;
-            border: 2px solid var(--argila);
-            overflow: visible; /* IMPORTANTE: Permitir que dropdown saia do header */
-            z-index: 1000; /* Mais alto que outros elementos */
+            z-index: 100;
+            overflow: visible;
         }
 
-        /* Borda decorativa arqueológica */
         header::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            height: 8px;
-            background: linear-gradient(90deg, 
-                var(--terra-queimada), 
-                var(--argila), 
-                var(--oxido),
-                var(--ouro-velho),
-                var(--oxido),
-                var(--argila),
-                var(--terra-queimada)
-            );
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
             border-radius: var(--radius-lg) var(--radius-lg) 0 0;
         }
 
         .brand-area {
             display: flex;
             align-items: center;
-            gap: 25px;
+            gap: 20px;
             position: relative;
-        }
-
-        .brand-area::before {
-            content: '↘';
-            position: absolute;
-            left: -15px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 24px;
-            color: var(--terra-queimada);
-            opacity: 0.5;
+            z-index: 101;
         }
 
         header img {
-            height: 90px;
-            border-radius: 50%;
-            box-shadow: 
-                0 4px 12px var(--sombra-antiga),
-                inset 0 0 0 3px var(--branco-ossado),
-                inset 0 0 0 6px var(--argila);
+            height: 80px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
             transition: var(--transition);
-            border: 2px solid var(--ouro-velho);
-            padding: 3px;
-            background: var(--papiro);
+            object-fit: contain;
         }
 
         header img:hover {
-            transform: scale(1.08) rotate(5deg);
-            box-shadow: 
-                0 8px 25px var(--sombra-antiga),
-                inset 0 0 0 3px var(--branco-ossado),
-                inset 0 0 0 6px var(--argila);
+            transform: rotate(5deg) scale(1.05);
+            box-shadow: var(--shadow-md);
         }
 
         .links-area {
             display: flex;
             flex-direction: column;
-            line-height: 1.6;
-            background: rgba(140, 74, 50, 0.05);
-            padding: 12px 20px;
-            border-radius: var(--radius);
-            border-left: 3px solid var(--terra-queimada);
+            gap: 10px;
         }
 
         .social-link {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-family: 'Inter', sans-serif;
+            gap: 10px;
             font-size: 15px;
             font-weight: 500;
-            color: var(--texto-medio);
+            color: var(--text-light);
             text-decoration: none;
             transition: var(--transition);
-            padding: 6px 12px;
-            border-radius: 6px;
-            position: relative;
-        }
-
-        .social-link::before {
-            content: '➤';
-            position: absolute;
-            left: -15px;
-            opacity: 0;
-            transition: var(--transition);
-            color: var(--terra-queimada);
+            padding: 8px 15px;
+            border-radius: 10px;
+            background: rgba(165, 91, 52, 0.05);
         }
 
         .social-link:hover {
-            color: var(--terra-queimada);
-            background: rgba(140, 74, 50, 0.08);
-            transform: translateX(8px);
-            padding-left: 25px;
-        }
-
-        .social-link:hover::before {
-            opacity: 1;
-            left: 5px;
+            color: var(--primary-dark);
+            background: rgba(165, 91, 52, 0.1);
+            transform: translateX(5px);
         }
 
         .social-link i {
+            color: var(--primary);
             font-size: 16px;
-            color: var(--oxido);
             width: 20px;
         }
 
-        /* BOTÕES E NAVEGAÇÃO - ESTILO ARQUEOLÓGICO */
+        /* BOTÕES E NAVEGAÇÃO - COM DROPDOWNS CORRIGIDOS */
         .header-buttons {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             align-items: center;
-            position: relative; /* Para dropdown se posicionar relativamente */
+            position: relative;
+            z-index: 101;
         }
 
-        /* Seletor de idioma */
+        /* Seletor de idioma moderno - COM BANDEIRAS REAIS */
         .language-selector {
             position: relative;
-            display: inline-block;
         }
 
         .language-btn {
             padding: 12px 20px;
-            font-family: 'Cinzel', serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 14px;
             font-weight: 600;
-            background: 
-                linear-gradient(135deg, var(--pedra) 0%, var(--texto-medio) 100%);
-            color: var(--branco-ossado);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: var(--white);
             border: none;
-            border-radius: var(--radius);
+            border-radius: 10px;
             cursor: pointer;
             transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 
-                0 4px 15px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-sm);
             position: relative;
             overflow: hidden;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-            letter-spacing: 0.5px;
-            min-width: 130px;
+            min-width: 140px;
             justify-content: center;
+            z-index: 102;
         }
 
         .language-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 
-                0 8px 25px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            background: 
-                linear-gradient(135deg, var(--texto-medio) 0%, var(--pedra) 100%);
+            box-shadow: var(--shadow-md);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
         }
 
         .language-btn i {
             font-size: 16px;
         }
 
+        .language-btn-flag {
+            width: 20px;
+            height: 15px;
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* DROPDOWN DE IDIOMA - COM BANDEIRAS REAIS */
         .language-dropdown {
             display: none;
             position: absolute;
             top: calc(100% + 10px);
             right: 0;
-            background: 
-                linear-gradient(135deg, var(--branco-ossado) 0%, var(--papiro) 100%);
-            box-shadow: var(--shadow-profunda);
+            background: var(--white);
+            box-shadow: var(--shadow-xl);
             border-radius: var(--radius);
             padding: 15px;
-            min-width: 150px;
-            z-index: 9999;
-            animation: surgir 0.3s ease-out;
-            border: 2px solid var(--argila);
-            border-top: 6px solid var(--pedra);
-            font-family: 'Inter', sans-serif;
+            min-width: 180px;
+            z-index: 10000;
+            animation: scaleIn 0.2s ease-out;
+            border: 1px solid rgba(165, 91, 52, 0.2);
+            transform-origin: top right;
         }
 
         .language-dropdown.show {
@@ -319,239 +245,190 @@
             margin-bottom: 8px;
             border-radius: 8px;
             transition: var(--transition);
-            background: rgba(140, 74, 50, 0.05);
-            border: 1px solid rgba(140, 74, 50, 0.15);
+            background: rgba(165, 91, 52, 0.05);
+            border: 1px solid rgba(165, 91, 52, 0.1);
             cursor: pointer;
             font-weight: 500;
-            color: var(--texto-escuro);
+            color: var(--text-dark);
+        }
+
+        .language-option:last-child {
+            margin-bottom: 0;
         }
 
         .language-option:hover {
-            background: rgba(140, 74, 50, 0.1);
+            background: rgba(165, 91, 52, 0.15);
             transform: translateX(5px);
-            border-color: var(--terra-queimada);
+            border-color: var(--primary);
         }
 
         .language-option.active {
-            background: rgba(140, 74, 50, 0.15);
-            border-color: var(--terra-queimada);
-            color: var(--terra-queimada);
+            background: rgba(165, 91, 52, 0.2);
+            border-color: var(--primary);
+            color: var(--primary-dark);
             font-weight: 600;
         }
 
         .language-flag {
             width: 24px;
-            height: 16px;
-            border-radius: 2px;
+            height: 18px;
+            border-radius: 3px;
             overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
+        .language-flag img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        /* Botões principais */
         .nav-btn {
-            padding: 16px 32px;
-            font-family: 'Cinzel', serif;
-            font-size: 16px;
+            padding: 14px 28px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
             font-weight: 600;
-            background: 
-                linear-gradient(135deg, var(--terra-queimada) 0%, var(--argila) 100%);
-            color: var(--branco-ossado);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: var(--white);
             border: none;
-            border-radius: var(--radius);
+            border-radius: 12px;
             cursor: pointer;
             transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 12px;
-            box-shadow: 
-                0 4px 15px rgba(140, 74, 50, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-sm);
+            text-decoration: none;
             position: relative;
             overflow: hidden;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-            letter-spacing: 0.5px;
-            z-index: 1001; /* Mais alto que o header */
-        }
-
-        .nav-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(212, 175, 55, 0.2), 
-                transparent
-            );
-            transition: 0.6s;
-        }
-
-        .nav-btn:hover::before {
-            left: 100%;
+            z-index: 102;
         }
 
         .nav-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 
-                0 8px 25px rgba(140, 74, 50, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            background: 
-                linear-gradient(135deg, var(--argila) 0%, var(--terra-queimada) 100%);
+            box-shadow: var(--shadow-md);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
         }
 
         .download-btn {
-            padding: 16px 30px;
-            font-family: 'Cinzel', serif;
-            font-size: 16px;
+            padding: 14px 28px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
             font-weight: 600;
-            background: 
-                linear-gradient(135deg, var(--verde-musgo) 0%, #6b8c2f 100%);
-            color: var(--branco-ossado);
-            border-radius: var(--radius);
+            background: linear-gradient(135deg, var(--secondary) 0%, #3a7d3f 100%);
+            color: var(--white);
+            border-radius: 12px;
             text-decoration: none;
             transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 12px;
-            box-shadow: 
-                0 4px 15px rgba(85, 107, 47, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-            letter-spacing: 0.5px;
+            box-shadow: var(--shadow-sm);
+            z-index: 102;
         }
 
         .download-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 
-                0 8px 25px rgba(85, 107, 47, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            background: 
-                linear-gradient(135deg, #6b8c2f 0%, var(--verde-musgo) 100%);
+            box-shadow: var(--shadow-md);
+            background: linear-gradient(135deg, #3a7d3f 0%, var(--secondary) 100%);
         }
 
-        /* DROPDOWN - CORRIGIDO PARA APARECER NA FRENTE */
+        /* DROPDOWN CATÁLOGO */
         .dropdown-container {
             position: relative;
-            display: inline-block;
         }
 
         .dropdown {
             display: none;
             position: absolute;
-            top: calc(100% + 15px); /* Distância abaixo do botão */
+            top: calc(100% + 15px);
             right: 0;
-            background: 
-                linear-gradient(135deg, var(--branco-ossado) 0%, var(--papiro) 100%);
-            box-shadow: var(--shadow-profunda);
+            background: var(--white);
+            box-shadow: var(--shadow-xl);
             border-radius: var(--radius);
             padding: 25px;
-            min-width: 350px;
-            z-index: 9999; /* VALOR ALTÍSSIMO para garantir que fique na frente */
-            animation: surgir 0.3s ease-out;
-            border: 2px solid var(--argila);
-            border-top: 6px solid var(--terra-queimada);
-            font-family: 'Inter', sans-serif;
+            min-width: 380px;
+            z-index: 9999;
+            animation: scaleIn 0.2s ease-out;
+            border: 1px solid rgba(165, 91, 52, 0.2);
+            transform-origin: top right;
+            max-height: 70vh;
+            overflow-y: auto;
         }
 
         .dropdown.show {
             display: block;
         }
 
-        .dropdown::before {
-            content: '𓊹';
-            position: absolute;
-            top: -15px;
-            right: 20px;
-            font-size: 24px;
-            color: var(--terra-queimada);
-            background: var(--branco-ossado);
-            padding: 0 10px;
-        }
-
         .dropdown h3 {
-            color: var(--terra-queimada);
+            color: var(--primary-dark);
             margin-bottom: 20px;
-            font-family: 'Cinzel', serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 18px;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 12px;
             padding-bottom: 15px;
-            border-bottom: 2px solid rgba(140, 74, 50, 0.2);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            border-bottom: 2px solid rgba(165, 91, 52, 0.2);
         }
 
         .dropdown h3 i {
-            color: var(--oxido);
+            color: var(--primary);
         }
 
         .catalog-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 18px;
+            padding: 15px;
             margin-bottom: 12px;
-            border-radius: 8px;
+            border-radius: 10px;
             transition: var(--transition);
-            background: rgba(140, 74, 50, 0.05);
-            border: 1px solid rgba(140, 74, 50, 0.15);
-            border-left: 4px solid var(--argila);
-            position: relative;
-        }
-
-        .catalog-item::before {
-            content: '⌲';
-            position: absolute;
-            left: -10px;
-            color: var(--argila);
-            opacity: 0;
-            transition: var(--transition);
+            background: rgba(165, 91, 52, 0.05);
+            border: 1px solid rgba(165, 91, 52, 0.1);
+            border-left: 4px solid var(--primary);
         }
 
         .catalog-item:hover {
-            background: rgba(140, 74, 50, 0.1);
-            transform: translateX(8px);
-            border-color: var(--terra-queimada);
-            border-left-color: var(--ouro-velho);
-        }
-
-        .catalog-item:hover::before {
-            opacity: 1;
-            left: -5px;
+            background: rgba(165, 91, 52, 0.1);
+            transform: translateX(5px);
+            border-color: var(--primary);
         }
 
         .catalog-item a {
-            color: var(--texto-escuro);
+            color: var(--text-dark);
             text-decoration: none;
             font-weight: 600;
             flex-grow: 1;
             font-size: 15px;
-            padding: 5px 0;
             display: flex;
             align-items: center;
             gap: 12px;
-            font-family: 'Crimson Text', serif;
-        }
-
-        .catalog-item a i {
-            color: var(--oxido);
-            font-size: 15px;
-            width: 20px;
-            text-align: center;
+            transition: var(--transition);
         }
 
         .catalog-item a:hover {
-            color: var(--terra-queimada);
+            color: var(--primary-dark);
+        }
+
+        .catalog-item a i {
+            color: var(--primary);
+            font-size: 16px;
+            width: 20px;
         }
 
         .catalog-item .audio-btn {
-            background: var(--papiro);
-            color: var(--terra-queimada);
-            border: 2px solid var(--argila);
-            padding: 7px 14px;
+            background: var(--light-beige);
+            color: var(--primary-dark);
+            border: 2px solid var(--primary-light);
+            padding: 8px 16px;
             border-radius: 20px;
             font-size: 13px;
             font-weight: 500;
@@ -560,62 +437,45 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            margin: 0;
-            min-width: 75px;
-            font-family: 'Inter', sans-serif;
-            z-index: 10000; /* Botões clicáveis dentro do dropdown */
+            font-family: 'Poppins', sans-serif;
+            z-index: 10001;
             position: relative;
         }
 
         .catalog-item .audio-btn:hover {
-            background: var(--terra-queimada);
-            color: var(--branco-ossado);
+            background: var(--primary);
+            color: var(--white);
             transform: scale(1.05);
-            border-color: var(--terra-queimada);
+            border-color: var(--primary);
         }
 
-        /* CONTEÚDO PRINCIPAL - ESTILO DIÁRIO DE CAMPO */
+        /* CONTEÚDO PRINCIPAL */
         .content {
             max-width: 1200px;
-            background: 
-                linear-gradient(135deg, var(--branco-ossado) 0%, var(--papiro) 100%);
+            background: var(--white);
             padding: 50px;
             border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-textura);
+            box-shadow: var(--shadow-md);
             margin-bottom: 50px;
-            animation: surgir 0.8s ease-out 0.5s both;
+            animation: slideInUp 0.8s ease-out 0.5s both;
             position: relative;
-            border: 2px solid var(--argila);
-            font-family: 'Crimson Text', serif;
-            z-index: 1; /* Mais baixo que o dropdown */
+            z-index: 1;
         }
 
-        /* Cantos decorados como um diário antigo */
-        .content::before,
-        .content::after {
-            content: '⚷';
-            position: absolute;
-            font-size: 24px;
-            color: var(--argila);
-            opacity: 0.3;
-        }
-
-        .content::before {
-            top: 15px;
-            left: 15px;
-        }
-
-        .content::after {
-            bottom: 15px;
-            right: 15px;
-            transform: rotate(180deg);
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
         }
 
         .content h1 {
-            font-family: 'Cinzel', serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 44px;
             font-weight: 700;
-            color: var(--terra-queimada);
+            color: var(--primary-dark);
             margin-bottom: 30px;
             line-height: 1.3;
             text-align: center;
@@ -633,39 +493,26 @@
             height: 3px;
             background: linear-gradient(90deg, 
                 transparent, 
-                var(--terra-queimada), 
+                var(--primary), 
                 transparent
             );
         }
 
-        .section-title {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .section-title h1 {
-            margin-bottom: 0;
-        }
-
         p {
             line-height: 1.8;
-            font-size: 19px;
-            color: var(--texto-medio);
+            font-size: 18px;
+            color: var(--text-light);
             margin-bottom: 30px;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
-            text-align: justify;
+            text-align: center;
         }
 
         .speech-btn {
-            background: var(--papiro);
-            color: var(--terra-queimada);
-            border: 2px solid var(--argila);
+            background: var(--light-beige);
+            color: var(--primary-dark);
+            border: 2px solid var(--primary-light);
             padding: 12px 24px;
             border-radius: 30px;
             font-size: 15px;
@@ -676,57 +523,38 @@
             align-items: center;
             gap: 10px;
             margin: 20px auto 30px;
-            font-family: 'Inter', sans-serif;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .speech-btn::before {
-            content: '♪';
-            position: absolute;
-            left: -20px;
-            transition: var(--transition);
-            opacity: 0;
+            font-family: 'Poppins', sans-serif;
         }
 
         .speech-btn:hover {
-            background: var(--terra-queimada);
-            color: var(--branco-ossado);
-            transform: scale(1.05);
-            padding-left: 40px;
-            border-color: var(--terra-queimada);
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
         }
 
-        .speech-btn:hover::before {
-            opacity: 1;
-            left: 15px;
-        }
-
-        /* GRADE DE TÓPICOS - ESTILO VITRINE ARQUEOLÓGICA */
+        /* GRADE DE TÓPICOS */
         .topics {
             margin-top: 60px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 35px;
         }
 
         .topic-box {
-            background: 
-                linear-gradient(135deg, var(--branco-ossado) 0%, #f0e6d0 100%);
+            background: var(--white);
             padding: 35px;
             border-radius: var(--radius-lg);
-            box-shadow: 
-                0 6px 20px rgba(140, 74, 50, 0.1),
-                inset 0 0 0 1px rgba(140, 74, 50, 0.1);
+            box-shadow: var(--shadow-md);
             text-align: center;
             transition: var(--transition);
             position: relative;
             overflow: hidden;
-            border: 2px solid transparent;
-            font-family: 'Crimson Text', serif;
+            border: 1px solid rgba(165, 91, 52, 0.1);
+            z-index: 1;
         }
 
-        /* Borda decorativa */
         .topic-box::before {
             content: '';
             position: absolute;
@@ -735,65 +563,41 @@
             right: 0;
             height: 6px;
             background: linear-gradient(90deg, 
-                var(--terra-queimada), 
-                var(--argila), 
-                var(--ouro-velho)
+                var(--primary), 
+                var(--secondary)
             );
             border-radius: var(--radius-lg) var(--radius-lg) 0 0;
         }
 
-        /* Número de inventário */
-        .topic-box::after {
-            content: 'INV. 2024-0' attr(data-index);
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-family: 'Inter', sans-serif;
-            font-size: 11px;
-            color: var(--texto-claro);
-            background: rgba(140, 74, 50, 0.1);
-            padding: 3px 8px;
-            border-radius: 3px;
-            letter-spacing: 1px;
-        }
-
         .topic-box:hover {
-            transform: translateY(-15px);
-            box-shadow: 
-                0 15px 40px rgba(140, 74, 50, 0.2),
-                inset 0 0 0 1px rgba(140, 74, 50, 0.2);
-            border-color: var(--argila);
-            animation: brilho 2s infinite;
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
         }
 
         .topic-box img {
-            width: 220px;
-            height: 165px;
+            width: 100%;
+            max-width: 280px;
+            height: 200px;
             object-fit: cover;
             margin-bottom: 25px;
-            border-radius: 10px;
-            box-shadow: 
-                0 4px 15px rgba(0, 0, 0, 0.15),
-                0 0 0 3px var(--branco-ossado),
-                0 0 0 5px var(--argila);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
             transition: var(--transition);
-            border: 1px solid var(--argila);
+            border: 3px solid var(--white);
         }
 
         .topic-box:hover img {
-            transform: scale(1.05) rotate(1deg);
-            box-shadow: 
-                0 8px 25px rgba(0, 0, 0, 0.2),
-                0 0 0 3px var(--branco-ossado),
-                0 0 0 5px var(--ouro-velho);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
         }
 
         .topic-box h2 {
-            font-family: 'Cinzel', serif;
-            font-size: 26px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
             font-weight: 700;
             margin-bottom: 20px;
-            color: var(--terra-queimada);
+            color: var(--primary-dark);
             position: relative;
             display: inline-block;
             padding-bottom: 10px;
@@ -807,12 +611,12 @@
             transform: translateX(-50%);
             width: 60px;
             height: 2px;
-            background: var(--argila);
+            background: var(--primary);
         }
 
         .topic-box p {
-            font-size: 17px;
-            color: var(--texto-medio);
+            font-size: 16px;
+            color: var(--text-light);
             margin-bottom: 25px;
             text-align: center;
         }
@@ -824,62 +628,41 @@
             flex-wrap: wrap;
         }
 
-        /* RODAPÉ - ESTILO LÁPIDE/PLACA COMEMORATIVA */
+        /* RODAPÉ */
         footer {
             margin-top: 50px;
             padding: 30px;
-            background: 
-                linear-gradient(135deg, var(--branco-ossado) 0%, #e8dfd0 100%);
+            background: var(--white);
             border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-textura);
+            box-shadow: var(--shadow-md);
             font-weight: 600;
-            color: var(--terra-queimada);
+            color: var(--primary-dark);
             font-size: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 25px;
-            animation: surgir 0.8s ease-out 0.7s both;
-            position: relative;
-            border: 2px solid var(--argila);
-            border-top: 6px solid var(--terra-queimada);
-            font-family: 'Cinzel', serif;
+            animation: slideInUp 0.8s ease-out 0.7s both;
+            font-family: 'Montserrat', sans-serif;
             max-width: 1200px;
             width: 100%;
             text-align: center;
             flex-wrap: wrap;
-            z-index: 1; /* Mais baixo que o dropdown */
-        }
-
-        footer::before {
-            content: '⚐';
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 24px;
-            color: var(--terra-queimada);
-            background: var(--branco-ossado);
-            padding: 0 15px;
+            z-index: 1;
         }
 
         .counter {
-            background: 
-                linear-gradient(135deg, var(--argila) 0%, var(--terra-queimada) 100%);
-            color: var(--branco-ossado);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
             padding: 12px 25px;
             border-radius: 30px;
             font-weight: 700;
             font-size: 20px;
-            animation: 
-                pulse 3s infinite,
-                flutuar 6s ease-in-out infinite;
+            animation: float 6s ease-in-out infinite;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 
-                0 4px 15px rgba(140, 74, 50, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-sm);
         }
 
         .counter::before {
@@ -887,37 +670,33 @@
             font-size: 18px;
         }
 
-        /* BOTÃO FLUTUANTE - ESTILO ARTEFATO */
+        /* BOTÃO FLUTUANTE */
         .floating-btn {
             position: fixed;
             bottom: 40px;
             right: 40px;
-            background: 
-                linear-gradient(135deg, var(--ouro-velho) 0%, var(--bronze) 100%);
-            color: var(--texto-escuro);
-            width: 70px;
-            height: 70px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
-            box-shadow: var(--shadow-profunda);
+            font-size: 24px;
+            box-shadow: var(--shadow-lg);
             cursor: pointer;
             z-index: 90;
             transition: var(--transition);
-            animation: 
-                flutuar 4s ease-in-out infinite,
-                brilho 3s infinite;
-            border: 3px solid var(--branco-ossado);
-            font-family: 'Cinzel', serif;
+            animation: float 4s ease-in-out infinite;
+            opacity: 0;
+            visibility: hidden;
+            border: 3px solid var(--white);
         }
 
         .floating-btn:hover {
             transform: scale(1.15) rotate(15deg);
-            animation: 
-                flutuar 2s ease-in-out infinite,
-                brilho 1.5s infinite;
+            animation: float 2s ease-in-out infinite;
         }
 
         /* RESPONSIVIDADE */
@@ -927,7 +706,7 @@
             }
             
             .topics {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             }
         }
 
@@ -943,27 +722,17 @@
                 flex-direction: column;
             }
             
-            .brand-area::before {
-                display: none;
-            }
-            
             .header-buttons {
                 flex-direction: column;
                 width: 100%;
                 gap: 15px;
             }
             
-            .language-selector {
+            .language-selector, .dropdown-container, .nav-btn, .download-btn {
                 width: 100%;
             }
             
-            .language-btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .nav-btn, .download-btn {
-                width: 100%;
+            .language-btn, .nav-btn, .download-btn {
                 justify-content: center;
             }
             
@@ -976,7 +745,11 @@
                 max-width: 400px;
                 max-height: 80vh;
                 overflow-y: auto;
-                z-index: 99999; /* Valor ainda mais alto em mobile */
+                z-index: 10000;
+            }
+            
+            .dropdown {
+                min-width: 300px;
             }
             
             .content {
@@ -1035,9 +808,9 @@
             .floating-btn {
                 bottom: 25px;
                 right: 25px;
-                width: 60px;
-                height: 60px;
-                font-size: 24px;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
             }
             
             p {
@@ -1093,20 +866,27 @@
         </div>
 
         <div class="header-buttons">
-            <!-- Seletor de idioma -->
+            <!-- Seletor de idioma COM BANDEIRAS REAIS -->
             <div class="language-selector">
                 <button class="language-btn" id="languageBtn">
+                    <div class="language-btn-flag" id="currentFlag">
+                        <!-- A bandeira será definida pelo JavaScript -->
+                    </div>
                     <i class="fas fa-globe-americas"></i>
                     <span id="currentLanguage">Português</span>
                 </button>
                 <div class="language-dropdown" id="languageMenu">
                     <div class="language-option active" data-lang="pt" data-voice="Portuguese Female">
-                        <div class="language-flag" style="background: linear-gradient(135deg, #006b3f 0%, #ffcc00 50%, #006b3f 50%);"></div>
+                        <div class="language-flag">
+                            <img src="images/bandeira_Brasil.jpg" 
+                                 alt="Bandeira do Brasil">
+                        </div>
                         Português
                     </div>
                     <div class="language-option" data-lang="en" data-voice="US English Female">
-                        <div class="language-flag" style="background: linear-gradient(90deg, #b22234 0%, #b22234 30%, #ffffff 30%, #ffffff 70%, #b22234 70%, #b22234 100%); position: relative;">
-                            <div style="position: absolute; top: 0; left: 0; width: 30%; height: 100%; background: #3c3b6e;"></div>
+                        <div class="language-flag">
+                            <img src="images/bandeira_eua.png" 
+                                 alt="Bandeira dos Estados Unidos">
                         </div>
                         English
                     </div>
@@ -1280,6 +1060,28 @@
                     </button>
                 </div>
             </div>
+
+            <!-- NOVO TÓPICO: FORMULÁRIO DE AVALIAÇÃO -->
+            <div class="topic-box" data-index="004">
+                <h2 id="avaliacao" data-i18n="evaluation_title">Formulário de Avaliação</h2>
+                <p id="avaliacaoTxt" data-i18n="evaluation_text">
+                    Clique no botão abaixo para acessar nosso formulário de avaliação completo, para especialistas da área de arqueologia. O formulário inclui perguntas sobre sua opinião sobre o projeto, qualidade do conteúdo, melhor aspecto, inovação e sugestões.
+                </p>
+                <div class="topic-buttons">
+                    <button class="speech-btn" onclick="readSection('avaliacao')">
+                        <i class="fas fa-volume-up"></i>
+                        <span data-i18n="title">Título</span>
+                    </button>
+                    <button class="speech-btn" onclick="readSection('avaliacaoTxt')">
+                        <i class="fas fa-volume-up"></i>
+                        <span data-i18n="description">Descrição</span>
+                    </button>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdnugr61HzOWKrB167g5hR0eaQoWELFWiXHqL1f0uDmdorKAg/viewform?fbzx=-3456102765212424284" class="speech-btn" target="_blank">
+                        <i class="fas fa-edit"></i>
+                        <span data-i18n="evaluation_button">Avaliar Catálogo</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1294,63 +1096,58 @@
     <div class="floating-btn" onclick="scrollToTop()">
         <i class="fas fa-chevron-up"></i>
     </div>
-<!-- FIREBASE -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBls7v_X5_7EYXh4U3aYTTAT7RAOArDmjM",
-  authDomain: "catalogo-artefatos.firebaseapp.com",
-  projectId: "catalogo-artefatos",
-  storageBucket: "catalogo-artefatos.firebasestorage.app",
-  messagingSenderId: "399410630744",
-  appId: "1:399410630744:web:ee2d6b509ac2113199fa2d",
-  measurementId: "G-PSS0B119PP"
-};
+    <!-- FIREBASE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+        const firebaseConfig = {
+          apiKey: "AIzaSyBls7v_X5_7EYXh4U3aYTTAT7RAOArDmjM",
+          authDomain: "catalogo-artefatos.firebaseapp.com",
+          projectId: "catalogo-artefatos",
+          storageBucket: "catalogo-artefatos.firebasestorage.app",
+          messagingSenderId: "399410630744",
+          appId: "1:399410630744:web:ee2d6b509ac2113199fa2d",
+          measurementId: "G-PSS0B119PP"
+        };
 
-// ==== CARREGAR ARTEFATOS NO CATÁLOGO ====
-window.carregarArtefatos = async function(){
-    const container = document.getElementById("catalogoDinamico");
-    if (!container) return;
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-    container.innerHTML = "";
+        // ==== CARREGAR ARTEFATOS NO CATÁLOGO ====
+        window.carregarArtefatos = async function(){
+            const container = document.getElementById("catalogoDinamico");
+            if (!container) return;
 
-    const querySnapshot = await getDocs(collection(db, "artefatos"));
-    querySnapshot.forEach((doc) => {
-        const item = doc.data();
+            container.innerHTML = "";
 
-        const div = document.createElement("div");
-        div.className = "catalog-item";
+            const querySnapshot = await getDocs(collection(db, "artefatos"));
+            querySnapshot.forEach((doc) => {
+                const item = doc.data();
 
-        div.innerHTML = `
-            <a href="artefato.html?id=${doc.id}">
-                <i class="fas fa-cube"></i>
-                ${item.nome}
-            </a>
-            <button class="audio-btn" onclick="readTextByLanguage('${item.nome}')">
-                <i class="fas fa-volume-up"></i> <span data-i18n="listen">Ouvir</span>
-            </button>
-        `;
+                const div = document.createElement("div");
+                div.className = "catalog-item";
 
-        container.appendChild(div);
-    });
-};
+                div.innerHTML = `
+                    <a href="artefato.html?id=${doc.id}">
+                        <i class="fas fa-cube"></i>
+                        ${item.nome}
+                    </a>
+                    <button class="audio-btn" onclick="readTextByLanguage('${item.nome}')">
+                        <i class="fas fa-volume-up"></i> <span data-i18n="listen">Ouvir</span>
+                    </button>
+                `;
 
-document.addEventListener("DOMContentLoaded", carregarArtefatos);
-</script>
+                container.appendChild(div);
+            });
+        };
 
-    <!-- SCRIPTS CORRIGIDOS -->
+        document.addEventListener("DOMContentLoaded", carregarArtefatos);
+    </script>
+
+    <!-- SCRIPTS PRINCIPAIS -->
     <script>
-        // IMPORTANTE: Você precisa substituir 'YOUR_API_KEY' pelo seu chave da ResponsiveVoice
-        // Configure a ResponsiveVoice
-        if (typeof responsiveVoice !== 'undefined') {
-            responsiveVoice.setDefaultVoice("Portuguese Female");
-        }
-
         // ====== SISTEMA DE IDIOMAS ======
         const translations = {
             'pt': {
@@ -1367,6 +1164,7 @@ document.addEventListener("DOMContentLoaded", carregarArtefatos);
                 'description': 'Descrição',
                 'expeditions': 'Expedições Digitais Realizadas:',
                 'purpose': '| Arqueologia com Propósito',
+                'evaluation_button': 'Avaliar Catálogo',
                 
                 // Conteúdo
                 'main_title': 'Born To Fight – Arqueologia Digital',
@@ -1380,6 +1178,8 @@ document.addEventListener("DOMContentLoaded", carregarArtefatos);
                 'raspberry_text': 'Esta central processa dados arqueológicos em tempo real, funcionando como nosso laboratório de campo digital. Responsável por orquestrar todo o sistema interativo e garantir uma experiência fluida e imersiva no catálogo de artefatos.',
                 'printing_title': 'Impressão 3D',
                 'printing_text': 'Através da fabricação digital, produzimos réplicas fidedignas de artefatos arqueológicos, permitindo estudo tátil e inclusão sensorial. Esta abordagem traz acessibilidade concreta ao patrimônio, transformando visualização em experiência física.',
+                'evaluation_title': 'Formulário de Avaliação',
+                'evaluation_text': 'Clique no botão abaixo para acessar nosso formulário de avaliação completo, para especialistas da área de arqueologia. O formulário inclui perguntas sobre sua opinião sobre o projeto, qualidade do conteúdo, melhor aspecto, inovação e sugestões.',
                 
                 // Artefatos
                 'urna_marajoara': 'Urna Funerária Marajoara',
@@ -1402,6 +1202,7 @@ document.addEventListener("DOMContentLoaded", carregarArtefatos);
                 'description': 'Description',
                 'expeditions': 'Digital Expeditions Completed:',
                 'purpose': '| Archaeology with Purpose',
+                'evaluation_button': 'Evaluate Catalog',
                 
                 // Conteúdo
                 'main_title': 'Born To Fight – Digital Archaeology',
@@ -1415,6 +1216,8 @@ document.addEventListener("DOMContentLoaded", carregarArtefatos);
                 'raspberry_text': 'This central unit processes archaeological data in real time, functioning as our digital field laboratory. Responsible for orchestrating the entire interactive system and ensuring a fluid and immersive experience in the artifact catalog.',
                 'printing_title': '3D Printing',
                 'printing_text': 'Through digital fabrication, we produce faithful replicas of archaeological artifacts, allowing tactile study and sensory inclusion. This approach brings concrete accessibility to heritage, transforming visualization into physical experience.',
+                'evaluation_title': 'Evaluation Form',
+                'evaluation_text': 'Click the button below to access our complete evaluation form for archaeology experts. The form includes questions about your opinion on the project, content quality, best aspect, innovation and suggestions.',
                 
                 // Artefatos
                 'urna_marajoara': 'Marajoara Funerary Urn',
@@ -1428,15 +1231,38 @@ document.addEventListener("DOMContentLoaded", carregarArtefatos);
         let currentLang = localStorage.getItem('language') || 'pt';
         let currentVoice = currentLang === 'pt' ? 'Portuguese Female' : 'US English Female';
 
+        // Função para atualizar a bandeira no botão
+        function updateCurrentFlag(lang) {
+            const flagContainer = document.getElementById('currentFlag');
+            if (!flagContainer) return;
+            
+            let flagHTML = '';
+            if (lang === 'pt') {
+                flagHTML = `
+                    <img src="https://flagcdn.com/w40/br.png" 
+                         srcset="https://flagcdn.com/w80/br.png 2x"
+                         alt="Bandeira do Brasil"
+                         style="width: 100%; height: 100%; object-fit: cover;">
+                `;
+            } else if (lang === 'en') {
+                flagHTML = `
+                    <img src="https://flagcdn.com/w40/us.png" 
+                         srcset="https://flagcdn.com/w80/us.png 2x"
+                         alt="Bandeira dos Estados Unidos"
+                         style="width: 100%; height: 100%; object-fit: cover;">
+                `;
+            }
+            
+            flagContainer.innerHTML = flagHTML;
+        }
+
         // Função para mudar idioma
         function changeLanguage(lang) {
             currentLang = lang;
             currentVoice = lang === 'pt' ? 'Portuguese Female' : 'US English Female';
             
-            // Atualizar localStorage
             localStorage.setItem('language', lang);
             
-            // Atualizar todos os elementos com data-i18n
             document.querySelectorAll('[data-i18n]').forEach(element => {
                 const key = element.getAttribute('data-i18n');
                 if (translations[lang][key]) {
@@ -1444,11 +1270,12 @@ document.addEventListener("DOMContentLoaded", carregarArtefatos);
                 }
             });
             
-            // Atualizar botão de idioma
             document.getElementById('currentLanguage').textContent = 
                 lang === 'pt' ? 'Português' : 'English';
             
-            // Atualizar classes ativas no dropdown
+            // Atualizar bandeira no botão
+            updateCurrentFlag(lang);
+            
             document.querySelectorAll('.language-option').forEach(option => {
                 if (option.getAttribute('data-lang') === lang) {
                     option.classList.add('active');
@@ -1457,29 +1284,30 @@ document.addEventListener("DOMContentLoaded", carregarArtefatos);
                 }
             });
             
-            // Configurar voz padrão
             if (typeof responsiveVoice !== 'undefined') {
                 responsiveVoice.setDefaultVoice(currentVoice);
             }
             
-            // Fechar dropdown de idioma
-            document.getElementById('languageMenu').classList.remove('show');
-            languageOpen = false;
-            
-            // Parar qualquer áudio em reprodução
+            closeAllDropdowns();
             stopAllSpeech();
         }
 
-        // ====== CONTROLE DO DROPDOWN DE IDIOMA ======
+        // ====== CONTROLE DOS DROPDOWNS ======
         let languageOpen = false;
+        let catalogOpen = false;
         const languageBtn = document.getElementById('languageBtn');
         const languageMenu = document.getElementById('languageMenu');
+        const catalogBtn = document.getElementById('catalogoBtn');
+        const catalogMenu = document.getElementById('catalogMenu');
 
-        // Abrir/fechar dropdown de idioma
-        languageBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
+        function closeAllDropdowns() {
+            languageMenu.classList.remove('show');
+            languageOpen = false;
+            catalogMenu.classList.remove('show');
+            catalogOpen = false;
+        }
+
+        function toggleLanguageDropdown() {
             if (languageOpen) {
                 languageMenu.classList.remove('show');
                 languageOpen = false;
@@ -1487,11 +1315,58 @@ document.addEventListener("DOMContentLoaded", carregarArtefatos);
                 languageMenu.classList.add('show');
                 languageOpen = true;
                 
-                // Fechar outros dropdowns
-                if (dropdownOpen) {
+                if (catalogOpen) {
                     catalogMenu.classList.remove('show');
-                    dropdownOpen = false;
+                    catalogOpen = false;
                 }
+            }
+        }
+
+        function toggleCatalogDropdown() {
+            if (catalogOpen) {
+                catalogMenu.classList.remove('show');
+                catalogOpen = false;
+            } else {
+                catalogMenu.classList.add('show');
+                catalogOpen = true;
+                
+                if (languageOpen) {
+                    languageMenu.classList.remove('show');
+                    languageOpen = false;
+                }
+            }
+        }
+
+        // Event Listeners
+        languageBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleLanguageDropdown();
+        });
+
+        catalogBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleCatalogDropdown();
+        });
+
+        // Fechar dropdowns ao clicar fora
+        document.addEventListener('click', function(e) {
+            const isClickInLanguageMenu = languageMenu.contains(e.target);
+            const isClickOnLanguageBtn = languageBtn.contains(e.target) || e.target === languageBtn;
+            const isClickInCatalogMenu = catalogMenu.contains(e.target);
+            const isClickOnCatalogBtn = catalogBtn.contains(e.target) || e.target === catalogBtn;
+            
+            if ((languageOpen && !isClickInLanguageMenu && !isClickOnLanguageBtn) ||
+                (catalogOpen && !isClickInCatalogMenu && !isClickOnCatalogBtn)) {
+                closeAllDropdowns();
+            }
+        });
+
+        // Fechar dropdowns com ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeAllDropdowns();
             }
         });
 
@@ -1503,92 +1378,19 @@ document.addEventListener("DOMContentLoaded", carregarArtefatos);
             });
         });
 
-        // Fechar dropdown de idioma ao clicar fora
-        document.addEventListener('click', function(e) {
-            const isClickInLanguageMenu = languageMenu.contains(e.target);
-            const isClickOnLanguageBtn = languageBtn.contains(e.target) || e.target === languageBtn;
-            
-            if (languageOpen && !isClickInLanguageMenu && !isClickOnLanguageBtn) {
-                languageMenu.classList.remove('show');
-                languageOpen = false;
-            }
+        // Permitir cliques dentro dos dropdowns
+        languageMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
         });
 
-        // ====== CONTROLE DO DROPDOWN CATÁLOGO ======
-        let dropdownOpen = false;
-        const catalogBtn = document.getElementById('catalogoBtn');
-        const catalogMenu = document.getElementById('catalogMenu');
-
-        // Abrir/fechar dropdown ao clicar no botão
-        catalogBtn.addEventListener('click', function(e) {
-            e.preventDefault();
+        catalogMenu.addEventListener('click', function(e) {
             e.stopPropagation();
             
-            console.log('Botão clicado!');
-            
-            if (dropdownOpen) {
-                // Fechar dropdown
-                catalogMenu.classList.remove('show');
-                dropdownOpen = false;
-                console.log('Dropdown fechado');
-            } else {
-                // Abrir dropdown
-                catalogMenu.classList.add('show');
-                dropdownOpen = true;
-                console.log('Dropdown aberto');
-                
-                // Fechar dropdown de idioma
-                if (languageOpen) {
-                    languageMenu.classList.remove('show');
-                    languageOpen = false;
-                }
-            }
-        });
-
-        // Fechar dropdown ao clicar fora
-        document.addEventListener('click', function(e) {
-            // Verificar se o clique foi fora do dropdown E fora do botão
-            const isClickInDropdown = catalogMenu.contains(e.target);
-            const isClickOnButton = catalogBtn.contains(e.target) || e.target === catalogBtn;
-            
-            if (dropdownOpen && !isClickInDropdown && !isClickOnButton) {
-                catalogMenu.classList.remove('show');
-                dropdownOpen = false;
-                console.log('Fechado ao clicar fora');
-            }
-        });
-
-        // Fechar dropdown com ESC
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                if (dropdownOpen) {
-                    catalogMenu.classList.remove('show');
-                    dropdownOpen = false;
-                }
-                if (languageOpen) {
-                    languageMenu.classList.remove('show');
-                    languageOpen = false;
-                }
-            }
-        });
-
-        // Permitir cliques dentro do dropdown
-        catalogMenu.addEventListener('click', function(e) {
-            // Permitir que cliques nos botões dentro do dropdown funcionem
-            if (e.target.closest('.audio-btn') || e.target.closest('a')) {
-                e.stopPropagation();
-                console.log('Clique dentro do dropdown permitido');
-                
-                // Se for um botão de áudio, não fechar o dropdown imediatamente
-                if (!e.target.closest('.audio-btn')) {
-                    // Se for um link, fechar após um breve delay
-                    setTimeout(() => {
-                        if (dropdownOpen) {
-                            catalogMenu.classList.remove('show');
-                            dropdownOpen = false;
-                        }
-                    }, 300);
-                }
+            // Se for um link, fechar dropdown após delay
+            if (e.target.closest('a') && !e.target.closest('.audio-btn')) {
+                setTimeout(() => {
+                    closeAllDropdowns();
+                }, 300);
             }
         });
 
@@ -1620,7 +1422,6 @@ document.addEventListener("DOMContentLoaded", carregarArtefatos);
                 return;
             }
             
-            // Configurações da voz
             const options = {
                 rate: 1.0,
                 pitch: 1.0,
@@ -1631,7 +1432,6 @@ document.addEventListener("DOMContentLoaded", carregarArtefatos);
                 responsiveVoice.speak(text, currentVoice, options);
                 isSpeaking = true;
                 
-                // Detectar quando a fala termina
                 const checkStatus = setInterval(() => {
                     if (!responsiveVoice.isPlaying()) {
                         isSpeaking = false;
@@ -1647,13 +1447,11 @@ document.addEventListener("DOMContentLoaded", carregarArtefatos);
             }
         }
 
-        // Função para ler texto por idioma (para os artefatos)
         function readTextByLanguage(key) {
             const text = translations[currentLang][key] || key;
             readText(text);
         }
 
-        // Função para parar todas as falas
         function stopAllSpeech() {
             if (typeof responsiveVoice !== 'undefined') {
                 responsiveVoice.cancel();
@@ -1665,7 +1463,9 @@ document.addEventListener("DOMContentLoaded", carregarArtefatos);
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM carregado - script funcionando');
             
-            // Carregar idioma salvo
+            // Inicializar bandeira atual
+            updateCurrentFlag(currentLang);
+            
             if (localStorage.getItem('language')) {
                 changeLanguage(currentLang);
             }
@@ -1695,7 +1495,6 @@ document.addEventListener("DOMContentLoaded", carregarArtefatos);
                 box.setAttribute('data-index', (index + 1).toString().padStart(3, '0'));
             });
             
-            // Verificar se ResponsiveVoice está carregado
             if (typeof responsiveVoice !== 'undefined') {
                 console.log('ResponsiveVoice carregado com sucesso');
             } else {
@@ -1703,15 +1502,14 @@ document.addEventListener("DOMContentLoaded", carregarArtefatos);
             }
         });
 
-        // Scroll suave para o topo
         function scrollToTop() {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
+            closeAllDropdowns();
         }
 
-        // Mostrar/ocultar botão flutuante
         window.addEventListener('scroll', function() {
             const floatingBtn = document.querySelector('.floating-btn');
             if (window.scrollY > 300) {
@@ -1723,13 +1521,12 @@ document.addEventListener("DOMContentLoaded", carregarArtefatos);
             }
         });
 
-        // Efeito de digitação no título
         window.addEventListener('load', function() {
             const title = document.querySelector('.content h1');
             if (title) {
                 const originalText = title.textContent;
                 title.textContent = '';
-                title.style.borderRight = '3px solid var(--terra-queimada)';
+                title.style.borderRight = '3px solid var(--primary)';
                 title.style.whiteSpace = 'nowrap';
                 title.style.overflow = 'hidden';
                 title.style.display = 'inline-block';
