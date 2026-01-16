@@ -617,6 +617,173 @@
             font-size: 20px;
         }
 
+        /* NOVA SEÇÃO: COMPARAÇÃO DE IMAGENS */
+        .image-comparison-section {
+            margin: 25px 0;
+            padding: 25px;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            width: 100%;
+            max-width: 1300px;
+            animation: slideInUp 0.8s ease-out 0.4s both;
+        }
+
+        .image-comparison-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .image-comparison-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .image-comparison-title i {
+            color: var(--primary);
+            font-size: 28px;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .image-card {
+            background: linear-gradient(135deg, rgba(165, 91, 52, 0.05) 0%, rgba(44, 85, 48, 0.05) 100%);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+
+        .image-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .image-label i {
+            color: var(--primary);
+        }
+
+        .image-container {
+            width: 100%;
+            height: 280px;
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 15px;
+            background: var(--light-beige);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .comparison-img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .image-container:hover .comparison-img {
+            transform: scale(1.03);
+        }
+
+        .image-audio-description {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--radius);
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 4px solid var(--secondary);
+            text-align: left;
+        }
+
+        .audio-desc-btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .audio-desc-btn:hover {
+            background: #3a7d3f;
+            transform: translateY(-2px);
+        }
+
+        .original-badge {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 2;
+        }
+
+        .replica-badge {
+            background: linear-gradient(135deg, var(--secondary) 0%, #3a7d3f 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 2;
+        }
+
         /* GRADE DE CARDS */
         .grid {
             display: grid;
@@ -1163,6 +1330,10 @@
                 padding: 15px 25px;
                 font-size: 16px;
             }
+
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1202,6 +1373,14 @@
             
             .evaluation-full-title i {
                 font-size: 24px;
+            }
+
+            .image-container {
+                height: 220px;
+            }
+
+            .image-comparison-title {
+                font-size: 20px;
             }
         }
 
@@ -1377,6 +1556,79 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- NOVA SEÇÃO: COMPARAÇÃO DE IMAGENS -->
+    <div class="image-comparison-section">
+        <div class="image-comparison-header">
+            <div class="image-comparison-title">
+                <i class="fas fa-images"></i>
+                <span>Comparação: Original vs Impressão 3D</span>
+            </div>
+            <button class="audio-btn-small" onclick="readText('Seção de comparação entre a peça original e a réplica em impressão 3D.')">
+                <i class="fas fa-volume-up"></i>
+                Ouvir Seção
+            </button>
+        </div>
+        
+        <div class="image-grid">
+            <!-- PEÇA ORIGINAL -->
+            <div class="image-card">
+                <div class="image-label">
+                    <i class="fas fa-museum"></i>
+                    <span>Peça Original</span>
+                </div>
+                <div class="image-container">
+                    <span class="original-badge">Original</span>
+                    <img src="images/Urna_Funeraria_Maraca.jpg" 
+                         alt="Peça original da Urna Funerária Maracá"
+                         class="comparison-img"
+                         onload="comparisonImageLoaded(this)"
+                         onerror="comparisonImageError(this, 'original')">
+                </div>
+                <div class="image-audio-description">
+                    <p style="font-size: 14px; color: var(--text-light); margin-bottom: 10px;">
+                        <strong>Descrição detalhada da peça original:</strong>
+                    </p>
+                    <button class="audio-desc-btn" onclick="readOriginalDescription()">
+                        <i class="fas fa-volume-up"></i>
+                        Ouvir Descrição da Peça Original
+                    </button>
+                </div>
+            </div>
+            
+            <!-- IMPRESSÃO 3D -->
+            <div class="image-card">
+                <div class="image-label">
+                    <i class="fas fa-print"></i>
+                    <span>Impressão 3D</span>
+                </div>
+                <div class="image-container">
+                    <span class="replica-badge">Réplica 3D</span>
+                    <img src="images/impressao_3d.jpg" 
+                         alt="Réplica em impressão 3D da Urna Funerária Maracá"
+                         class="comparison-img"
+                         onload="comparisonImageLoaded(this)"
+                         onerror="comparisonImageError(this, '3d')">
+                </div>
+                <div class="image-audio-description">
+                    <p style="font-size: 14px; color: var(--text-light); margin-bottom: 10px;">
+                        <strong>Descrição detalhada da impressão 3D:</strong>
+                    </p>
+                    <button class="audio-desc-btn" onclick="read3DDescription()">
+                        <i class="fas fa-volume-up"></i>
+                        Ouvir Descrição da Impressão 3D
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(165, 91, 52, 0.1);">
+            <p style="color: var(--text-light); font-size: 14px;">
+                <i class="fas fa-info-circle"></i>
+                A réplica em impressão 3D foi criada para fins educacionais, permitindo o estudo detalhado sem risco ao artefato original.
+            </p>
         </div>
     </div>
 
@@ -1734,6 +1986,75 @@
             }
         }
 
+        // Funções para as imagens de comparação
+        function comparisonImageLoaded(img) {
+            const container = img.closest('.image-container');
+            
+            // Adicionar classe para animação suave
+            img.style.opacity = '0';
+            setTimeout(() => {
+                img.style.opacity = '1';
+                img.style.transition = 'opacity 0.5s ease';
+            }, 100);
+        }
+
+        function comparisonImageError(img, type) {
+            if (type === 'original') {
+                img.src = 'https://via.placeholder.com/400x300/f9f5f0/a55b34?text=Peça+Original';
+            } else if (type === '3d') {
+                img.src = 'https://via.placeholder.com/400x300/f9f5f0/2c5530?text=Impressão+3D';
+            }
+        }
+
+        // Descrições detalhadas para áudio
+        function readOriginalDescription() {
+            const description = `A peça é uma escultura cerâmica antropomórfica de pequeno porte, representando uma figura humana sentada, em posição relaxada, segurando um instrumento musical semelhante a uma flauta ou pífano. A coloração é uniforme, em tom claro de argila, variando entre bege e marrom muito suave, com aparência fosca e aspecto de material antigo ou arqueológico.
+
+Parte superior – cabeça:
+No topo, a figura possui uma cabeça relativamente grande em proporção ao corpo. O cabelo é estilizado, moldado em volumes ondulados e irregulares, formando saliências que sugerem mechas ou um adorno simples. A textura é lisa, com leves marcas do trabalho manual.
+
+O rosto apresenta traços simples e esquemáticos. Os olhos são pequenos e discretos, levemente marcados na superfície. O nariz é curto e projetado para frente. A boca está posicionada próxima ao instrumento musical, sugerindo o ato de tocar. A expressão facial é neutra e serena.
+
+Região do tronco e braços:
+Logo abaixo da cabeça, o tronco é compacto e levemente inclinado para frente. Os braços estão dobrados e elevados, posicionados à frente do corpo, segurando o instrumento. As mãos envolvem a flauta de forma simplificada, sem detalhamento individual dos dedos, mas com indicação clara da ação de tocar.
+
+O instrumento musical é cilíndrico, alongado e proporcional ao corpo da figura. Ele atravessa a parte frontal da escultura, indo da região da boca até próximo ao lado oposto do tronco, reforçando a ideia de movimento e função.
+
+Região inferior – pernas e postura:
+A figura está sentada, com as pernas dobradas. Uma das pernas aparece mais elevada e dobrada sobre si, enquanto a outra se projeta ligeiramente para frente, criando uma postura assimétrica e natural. Os pés são pouco detalhados, integrados ao volume geral da escultura.
+
+Base:
+A base não é separada do corpo: a própria posição sentada da figura cria um apoio estável. A parte inferior é arredondada e contínua, permitindo que a escultura seja apoiada sobre uma superfície plana.
+
+Textura e impressão geral:
+Toda a superfície da peça apresenta textura suave e contínua, com pequenas irregularidades típicas de cerâmica moldada à mão. Não há pintura visível; os detalhes são definidos apenas pelo volume e pelo relevo.`;
+
+            readText(description);
+        }
+
+        function read3DDescription() {
+            const description = `A peça é uma escultura cerâmica antropomórfica, de pequeno a médio porte, com aparência artesanal. Possui coloração uniforme em tom de argila clara, entre bege e marrom suave, com acabamento fosco. A superfície apresenta marcas visíveis do modelado manual, criando uma textura levemente irregular, agradável ao tato.
+
+Parte superior – cabeça:
+No topo, observa-se uma cabeça grande em proporção ao corpo, com formato arredondado. O topo da cabeça é liso e levemente achatado. Nas laterais, há orelhas grandes e salientes, projetadas para fora, cada uma com um pequeno furo circular, possivelmente decorativo ou funcional.
+
+O rosto é estilizado e simples. Os olhos são representados por cavidades rasas, sem pupilas definidas. O nariz é largo e pouco projetado. A boca não está totalmente aberta; à frente dela há um objeto cilíndrico alongado, semelhante a uma flauta ou instrumento de sopro, encostado à região da boca, indicando que a figura está tocando música. A expressão facial é serena e concentrada.
+
+Região do pescoço e tronco:
+O pescoço é curto e praticamente fundido ao tronco. O corpo é compacto, com volume arredondado. A figura está levemente inclinada para frente, reforçando a ação de tocar o instrumento.
+
+Braços e mãos:
+Os braços são grossos e curvados, envolvendo o instrumento musical. Um braço cruza a parte frontal do corpo, enquanto o outro sustenta o instrumento mais próximo da boca. As mãos são simplificadas, sem separação individual dos dedos, mas com volumes que indicam firmeza no gesto.
+
+Região inferior – pernas e base:
+A figura está sentada, com as pernas dobradas e recolhidas junto ao corpo. As pernas formam uma base arredondada e contínua, que serve também como apoio da escultura sobre a superfície. Os pés não são claramente definidos, integrando-se ao volume geral.
+
+Textura e impressão geral:
+Toda a escultura apresenta textura marcada por sulcos suaves e linhas do processo de modelagem, reforçando o caráter manual da peça. Não há pintura ou cores adicionais; os detalhes são definidos exclusivamente por forma e relevo.`;
+
+            readText(description);
+        }
+
         // Funções de áudio usando ResponsiveVoice
         let isSpeaking = false;
 
@@ -1790,11 +2111,11 @@
 
         function addAudioEffects() {
             // Adicionar efeito visual durante a fala
-            document.querySelectorAll('.audio-btn-small').forEach(btn => {
+            document.querySelectorAll('.audio-btn-small, .audio-desc-btn').forEach(btn => {
                 btn.style.boxShadow = '0 0 15px rgba(165, 91, 52, 0.5)';
                 btn.style.animation = 'pulse 1s infinite';
                 const icon = btn.querySelector('i');
-                if (icon) {
+                if (icon && icon.classList.contains('fa-volume-up')) {
                     icon.className = 'fas fa-stop';
                 }
             });
@@ -1808,11 +2129,11 @@
 
         function removeAudioEffects() {
             // Remover efeitos visuais
-            document.querySelectorAll('.audio-btn-small').forEach(btn => {
+            document.querySelectorAll('.audio-btn-small, .audio-desc-btn').forEach(btn => {
                 btn.style.boxShadow = '';
                 btn.style.animation = '';
                 const icon = btn.querySelector('i');
-                if (icon) {
+                if (icon && icon.classList.contains('fa-stop')) {
                     icon.className = 'fas fa-volume-up';
                 }
             });

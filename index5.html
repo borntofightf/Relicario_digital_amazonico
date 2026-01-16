@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- ResponsiveVoice API -->
+    <!-- ResponsiveVoice - API CORRETA -->
     <script src="https://code.responsivevoice.org/responsivevoice.js?key=JTbwNlZ4"></script>
 
     <style>
@@ -73,8 +73,8 @@
         }
 
         @keyframes cardHover {
-            0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(-10px) scale(1.01); }
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
         }
 
         @keyframes shine {
@@ -95,11 +95,6 @@
         @keyframes rotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
-        }
-
-        @keyframes progressFill {
-            from { width: 0; }
-            to { width: var(--progress-width); }
         }
 
         /* HEADER NAVEGAÇÃO */
@@ -257,14 +252,127 @@
             transform: translateY(-2px);
         }
 
-        /* Indicador de áudio ativo */
-        .audio-btn-small.active-audio {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 0 15px rgba(165, 91, 52, 0.5);
+        /* CONTAINER DE IMAGENS DUPLAS */
+        .images-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            width: 100%;
+            margin-bottom: 25px;
         }
 
-        /* SEÇÃO: RECURSOS MULTIMÍDIA */
+        @media (max-width: 768px) {
+            .images-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        .image-card {
+            background: linear-gradient(135deg, rgba(165, 91, 52, 0.05) 0%, rgba(44, 85, 48, 0.05) 100%);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 2px solid rgba(165, 91, 52, 0.1);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .image-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .image-card-header {
+            padding: 15px;
+            background: rgba(165, 91, 52, 0.08);
+            text-align: center;
+            border-bottom: 2px solid rgba(165, 91, 52, 0.2);
+        }
+
+        .image-card-header h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: var(--primary-dark);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .image-card-header h3 i {
+            color: var(--primary);
+        }
+
+        .original-header h3 i {
+            color: #a55b34;
+        }
+
+        .replica-header h3 i {
+            color: #2c5530;
+        }
+
+        .card-img-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .card-img-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .card-img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 3px solid var(--white);
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-img-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            height: 150%;
+            background: conic-gradient(transparent, var(--primary-light), transparent 30%);
+            animation: rotate 4s linear infinite;
+            z-index: 1;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .image-card:hover .card-img-container::before {
+            opacity: 0.1;
+        }
+
+        .image-card:hover .card-img {
+            transform: scale(1.03);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* NOVA SEÇÃO: RECURSOS MULTIMÍDIA */
         .multimedia-section {
             margin: 30px 0;
             padding: 25px;
@@ -449,8 +557,8 @@
             background: #9C27B0;
         }
 
-        /* NOVA SEÇÃO: FORMULÁRIO DE AVALIAÇÃO (APÓS MULTIMÍDIA) */
-        .evaluation-full-section {
+        /* NOVA SEÇÃO: RECURSOS E AVALIAÇÃO (APÓS MULTIMÍDIA) */
+        .resources-section {
             margin: 30px 0;
             padding: 30px;
             background: var(--white);
@@ -461,7 +569,7 @@
             animation: slideInUp 0.8s ease-out 1s both;
         }
 
-        .evaluation-full-header {
+        .resources-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -470,7 +578,7 @@
             border-bottom: 2px solid var(--secondary);
         }
 
-        .evaluation-full-title {
+        .resources-title {
             font-family: 'Montserrat', sans-serif;
             font-size: 28px;
             font-weight: 700;
@@ -480,12 +588,12 @@
             gap: 15px;
         }
 
-        .evaluation-full-title i {
+        .resources-title i {
             color: var(--secondary);
             font-size: 32px;
         }
 
-        .evaluation-full-content {
+        .resources-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
@@ -493,89 +601,79 @@
         }
 
         @media (max-width: 1024px) {
-            .evaluation-full-content {
+            .resources-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        .evaluation-intro {
+        .resource-topic {
             background: linear-gradient(135deg, rgba(44, 85, 48, 0.05) 0%, rgba(44, 85, 48, 0.1) 100%);
             padding: 30px;
             border-radius: var(--radius);
             border-left: 5px solid var(--secondary);
-        }
-
-        .evaluation-intro h3 {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--secondary);
-            font-size: 22px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .evaluation-intro p {
-            color: var(--text-dark);
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .evaluation-features {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
+            height: 100%;
             transition: var(--transition);
         }
 
-        .feature-item:hover {
-            transform: translateX(5px);
-            background: white;
-            box-shadow: var(--shadow-sm);
+        .resource-topic:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
         }
 
-        .feature-item i {
-            color: var(--secondary);
-            font-size: 18px;
-            width: 24px;
-        }
-
-        .evaluation-form {
-            background: linear-gradient(135deg, rgba(165, 91, 52, 0.05) 0%, rgba(165, 91, 52, 0.1) 100%);
-            padding: 30px;
-            border-radius: var(--radius);
-            border-left: 5px solid var(--primary);
-        }
-
-        .evaluation-form h3 {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--primary-dark);
-            font-size: 22px;
-            margin-bottom: 20px;
+        .resource-topic-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
-        .form-description {
-            color: var(--text-dark);
-            line-height: 1.7;
+        .resource-topic-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--secondary) 0%, #3a7d3f 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .resource-topic-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .resource-topic-content {
+            flex-grow: 1;
             margin-bottom: 25px;
         }
 
-        .evaluation-btn-large {
-            padding: 18px 35px;
-            font-size: 18px;
+        .resource-topic-content p {
+            color: var(--text-dark);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .resource-topic-list {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .resource-topic-list li {
+            margin: 8px 0;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .resource-topic-btn {
+            padding: 16px 30px;
+            font-size: 17px;
             font-weight: 700;
             background: linear-gradient(135deg, var(--secondary) 0%, #3a7d3f 100%);
             color: white;
@@ -590,13 +688,13 @@
             text-decoration: none;
             position: relative;
             overflow: hidden;
-            margin: 0 auto;
             justify-content: center;
-            min-width: 250px;
             text-align: center;
+            width: 100%;
+            margin-top: auto;
         }
 
-        .evaluation-btn-large::after {
+        .resource-topic-btn::after {
             content: '';
             position: absolute;
             top: 50%;
@@ -610,18 +708,60 @@
             transform-origin: 50% 50%;
         }
 
-        .evaluation-btn-large:focus:not(:active)::after {
+        .resource-topic-btn:focus:not(:active)::after {
             animation: ripple 1s ease-out;
         }
 
-        .evaluation-btn-large:hover {
+        .resource-topic-btn:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow-lg);
             background: linear-gradient(135deg, #3a7d3f 0%, var(--secondary) 100%);
         }
 
-        .evaluation-btn-large i {
+        .resource-topic-btn i {
             font-size: 20px;
+        }
+
+        /* Estilo específico para o tópico do manual */
+        .manual-topic {
+            border-left-color: var(--primary);
+        }
+
+        .manual-topic .resource-topic-icon {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        }
+
+        .manual-topic .resource-topic-title {
+            color: var(--primary-dark);
+        }
+
+        .manual-topic .resource-topic-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        }
+
+        .manual-topic .resource-topic-btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        }
+
+        /* Estilo específico para o tópico da avaliação */
+        .evaluation-topic {
+            border-left-color: #6d4c41;
+        }
+
+        .evaluation-topic .resource-topic-icon {
+            background: linear-gradient(135deg, #6d4c41 0%, #8d6e63 100%);
+        }
+
+        .evaluation-topic .resource-topic-title {
+            color: #6d4c41;
+        }
+
+        .evaluation-topic .resource-topic-btn {
+            background: linear-gradient(135deg, #6d4c41 0%, #8d6e63 100%);
+        }
+
+        .evaluation-topic .resource-topic-btn:hover {
+            background: linear-gradient(135deg, #8d6e63 0%, #6d4c41 100%);
         }
 
         /* GRADE DE CARDS */
@@ -662,86 +802,6 @@
             height: 5px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             z-index: 1;
-        }
-
-        /* CONTAINER DA IMAGEM - RESPONSIVO E PROPORCIONAL */
-        .card-img-container {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            padding: 25px;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(165, 91, 52, 0.05) 0%, rgba(44, 85, 48, 0.05) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .card-img-wrapper {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .card-img {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            border-radius: 12px;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            border: 3px solid var(--white);
-            position: relative;
-            z-index: 2;
-        }
-
-        .card-img-container::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 150%;
-            height: 150%;
-            background: conic-gradient(transparent, var(--primary-light), transparent 30%);
-            animation: rotate 4s linear infinite;
-            z-index: 1;
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .card-img-container:hover::before {
-            opacity: 0.1;
-        }
-
-        .card:hover .card-img {
-            transform: scale(1.03);
-            box-shadow: var(--shadow-md);
-        }
-
-        /* Indicador de proporção da imagem */
-        .img-info {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            opacity: 0;
-            transition: var(--transition);
-            z-index: 3;
-        }
-
-        .card-img-container:hover .img-info {
-            opacity: 1;
-            transform: translateY(-5px);
         }
 
         .card-content {
@@ -876,6 +936,10 @@
             animation-delay: 0.6s;
         }
 
+        .section-container:nth-child(3) {
+            animation-delay: 0.8s;
+        }
+
         .section-header {
             display: flex;
             align-items: center;
@@ -927,7 +991,11 @@
             border-left-color: var(--secondary);
         }
 
-        /* RODAPÉ */
+        .replica-section {
+            border-left-color: #6d4c41;
+        }
+
+        /* RODAPÉ ATUALIZADO - SEM CONTADOR */
         .footer {
             width: 100%;
             max-width: 1200px;
@@ -1053,48 +1121,6 @@
             transform: scale(1.1) rotate(10deg);
         }
 
-        /* CONTROLE DE ÁUDIO */
-        .audio-controls {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            background: var(--white);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-lg);
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 99;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            transition: var(--transition);
-        }
-
-        .audio-controls.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .audio-control-btn {
-            background: var(--light-beige);
-            border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: var(--transition);
-        }
-
-        .audio-control-btn:hover {
-            background: var(--primary-light);
-            color: white;
-        }
-
         /* RESPONSIVIDADE */
         @media (max-width: 1024px) {
             .nav-header {
@@ -1129,15 +1155,6 @@
             .footer-content {
                 flex-direction: column;
                 text-align: center;
-            }
-
-            .audio-controls {
-                bottom: 90px;
-                right: 20px;
-            }
-            
-            .evaluation-btn-large {
-                min-width: 100%;
             }
         }
 
@@ -1199,27 +1216,20 @@
             .resource-btn {
                 min-width: 100%;
             }
-
-            .audio-controls {
-                bottom: 80px;
-                right: 15px;
-                padding: 10px;
-            }
             
-            .evaluation-full-section {
+            .resources-section {
                 padding: 20px;
             }
             
-            .evaluation-full-content {
+            .resources-grid {
                 gap: 20px;
             }
             
-            .evaluation-intro, .evaluation-form {
+            .resource-topic {
                 padding: 20px;
             }
             
-            .evaluation-btn-large {
-                min-width: 100%;
+            .resource-topic-btn {
                 padding: 15px 25px;
                 font-size: 16px;
             }
@@ -1255,17 +1265,12 @@
                 height: 60px;
                 font-size: 24px;
             }
-
-            .audio-controls {
-                bottom: 70px;
-                right: 10px;
-            }
             
-            .evaluation-full-title {
+            .resources-title {
                 font-size: 22px;
             }
             
-            .evaluation-full-title i {
+            .resources-title i {
                 font-size: 24px;
             }
         }
@@ -1317,6 +1322,35 @@
         .animate-in {
             animation: slideInUp 0.5s ease-out forwards;
         }
+        
+        /* Botões de áudio duplos */
+        .audio-buttons-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .audio-btn-detailed {
+            background: var(--secondary);
+            color: white;
+            border: 2px solid var(--secondary);
+        }
+        
+        .audio-btn-detailed:hover {
+            background: #3a7d3f;
+            border-color: #3a7d3f;
+        }
+        
+        .audio-btn-replica {
+            background: #6d4c41;
+            color: white;
+            border: 2px solid #6d4c41;
+        }
+        
+        .audio-btn-replica:hover {
+            background: #8d6e63;
+            border-color: #8d6e63;
+        }
     </style>
 </head>
 
@@ -1325,10 +1359,10 @@
     <!-- NAVEGAÇÃO SUPERIOR -->
     <div class="nav-header">
         <div class="nav-brand">
-            <img src="images/Logo_Btf.png" alt="Logo Born To Fight" onerror="this.src='https://via.placeholder.com/60x60/2c5530/ffffff?text=BTF'">
+            <img src="images/Logo_Btf.png" alt="Logo Born To Fight" class="footer-logo" onerror="this.src='https://via.placeholder.com/80x80/2c5530/ffffff?text=Born+To+Fight'">
             <div class="nav-title">
                 <h1>Catálogo Interativo</h1>
-                <p>Cerâmica Amazônica - Born To Fight </p>
+                <p>Cerâmica Amazônica - Born To Fight</p>
             </div>
         </div>
         
@@ -1337,7 +1371,7 @@
                 <i class="fas fa-arrow-left"></i>
                 Voltar para o Menu
             </a>
-            <button class="audio-btn-small" onclick="ouvirVoltarMenu()" id="audioVoltarMenu">
+            <button class="audio-btn-small" onclick="ouvirVoltarMenu()">
                 <i class="fas fa-volume-up"></i>
                 Ouvir
             </button>
@@ -1347,21 +1381,51 @@
     <!-- CONTEÚDO PRINCIPAL -->
     <div class="grid">
         <div class="card">
-            <div class="card-img-container">
-                <div class="card-img-wrapper">
-                    <img src="images/vaso_de_gargalo.png" 
-                         alt="Vaso de Gargalo Tapajônico"
-                         class="card-img"
-                         onload="imageLoaded(this)"
-                         onerror="imageError(this)">
-                    <div class="img-info" id="imgInfo">Proporção original</div>
+            <!-- CONTAINER DE IMAGENS DUPLAS -->
+            <div class="images-container">
+                <!-- IMAGEM ORIGINAL -->
+                <div class="image-card">
+                    <div class="image-card-header original-header">
+                        <h3>
+                            <i class="fas fa-history"></i>
+                            Peça Original
+                        </h3>
+                    </div>
+                    <div class="card-img-container">
+                        <div class="card-img-wrapper">
+                            <img src="images/vaso_de_gargalo.png" 
+                                 alt="Vaso de Gargalo Tapajônico Original"
+                                 class="card-img"
+                                 onload="imageLoaded(this)"
+                                 onerror="imageError(this, 'original')">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- IMAGEM IMPRESSÃO 3D -->
+                <div class="image-card">
+                    <div class="image-card-header replica-header">
+                        <h3>
+                            <i class="fas fa-print"></i>
+                            Réplica em Impressão 3D
+                        </h3>
+                    </div>
+                    <div class="card-img-container">
+                        <div class="card-img-wrapper">
+                            <img src="images/vaso_de_gargalo_3D.png" 
+                                 alt="Réplica em Impressão 3D do Vaso de Gargalo Tapajônico"
+                                 class="card-img"
+                                 onload="imageLoaded(this)"
+                                 onerror="imageError(this, 'replica')">
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <div class="card-content">
                 <div class="card-title">
                     <h2 id="titulo">Vaso de Gargalo Tapajônico</h2>
-                    <button class="audio-btn-small" onclick="readText('Vaso de Gargalo Tapajônico', this)" id="audioTitulo">
+                    <button class="audio-btn-small" onclick="readText('Vaso de Gargalo Tapajônico - Original e Réplica em Impressão 3D')">
                         <i class="fas fa-volume-up"></i>
                         Ouvir Título
                     </button>
@@ -1376,7 +1440,7 @@
                         <div class="info-value" id="periodo">
                             1000 a 1600 d.C.
                         </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('periodo').innerText, this)">
+                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('periodo').innerText)">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
@@ -1389,7 +1453,7 @@
                         <div class="info-value" id="local">
                             Baixo Amazonas, Pará
                         </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('local').innerText, this)">
+                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('local').innerText)">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
@@ -1402,26 +1466,55 @@
                         <div class="info-value" id="tamanho">
                             20 - 40 cm
                         </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('tamanho').innerText, this)">
+                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('tamanho').innerText)">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
                 </div>
                 
-                <!-- DESCRIÇÃO -->
+                <!-- DESCRIÇÃO CURTA DA PEÇA ORIGINAL (VISUAL) -->
                 <div class="section-container">
                     <div class="section-header">
                         <div class="section-title">
                             <i class="fas fa-file-alt"></i>
-                            <span>Descrição da Peça</span>
+                            <span>Descrição da Peça Original</span>
                         </div>
-                        <button class="audio-btn-small" onclick="readText(document.getElementById('descricaoTexto').innerText, this)" id="audioDescricao">
-                            <i class="fas fa-volume-up"></i>
-                            Ouvir Descrição
-                        </button>
+                        <div class="audio-buttons-container">
+                            <button class="audio-btn-small" onclick="playOriginalDescription()">
+                                <i class="fas fa-volume-up"></i>
+                                Ouvir Resumo
+                            </button>
+                            <button class="audio-btn-small audio-btn-detailed" onclick="playDetailedDescription()">
+                                <i class="fas fa-headphones-alt"></i>
+                                Descrição Detalhada
+                            </button>
+                        </div>
                     </div>
                     <div class="section-content" id="descricaoTexto">
-                        É um vaso cerâmico caracterizado por corpo arredondado e gargalo alongado, frequentemente decorado com grafismos geométricos, figuras antropomorfas ou zoomorfas, em relevo ou pintura. As decorações tinham significados simbólicos, ligados à identidade cultural, espiritualidade e organização social do povo Tapajônico.
+                        <p><strong>Resumo Visual:</strong> Vaso cerâmico caracterizado por corpo arredondado e gargalo alongado, decorado com grafismos geométricos e figuras antropomórficas. Representa o alto nível técnico e artístico da cerâmica tapajônica.</p>
+                        <p><strong>Técnica:</strong> Cerâmica modelada à mão com decoração em relevo ou pintura, utilizando técnicas avançadas de queima.</p>
+                        <p><strong>Significado Cultural:</strong> Utilizado tanto em contextos domésticos quanto cerimoniais, refletindo a identidade cultural e espiritualidade do povo Tapajônico.</p>
+                    </div>
+                </div>
+                
+                <!-- DESCRIÇÃO CURTA DA IMPRESSÃO 3D (VISUAL) -->
+                <div class="section-container">
+                    <div class="section-header">
+                        <div class="section-title">
+                            <i class="fas fa-print"></i>
+                            <span>Descrição da Réplica 3D</span>
+                        </div>
+                        <div class="audio-buttons-container">
+                            <button class="audio-btn-small audio-btn-replica" onclick="play3DDescription()">
+                                <i class="fas fa-headphones-alt"></i>
+                                Ouvir Descrição Detalhada
+                            </button>
+                        </div>
+                    </div>
+                    <div class="section-content replica-section" id="descricao3DTexto">
+                        <p><strong>Resumo Visual:</strong> Réplica fiel em impressão 3D do vaso de gargalo tapajônico, reproduzindo com precisão os detalhes geométricos e as formas características da peça original. Fabricada com tecnologia moderna para fins educativos e de preservação cultural.</p>
+                        <p><strong>Materiais:</strong> Filamento PLA biodegradável, com textura e cor que simulam a argila natural.</p>
+                        <p><strong>Finalidade Educativa:</strong> Permite o manuseio e estudo tátil sem riscos para o artefato arqueológico original, facilitando o aprendizado sobre a cultura Tapajônica.</p>
                     </div>
                 </div>
                 
@@ -1432,27 +1525,27 @@
                             <i class="fas fa-history"></i>
                             <span>Contexto Histórico</span>
                         </div>
-                        <button class="audio-btn-small" onclick="readText(document.getElementById('historiaTexto').innerText, this)" id="audioHistoria">
+                        <button class="audio-btn-small" onclick="readText(document.getElementById('historiaTexto').innerText)">
                             <i class="fas fa-volume-up"></i>
                             Ouvir História
                         </button>
                     </div>
                     <div class="section-content history-section" id="historiaTexto">
-                        O vaso de gargalo tapajônico fazia parte do cotidiano e dos rituais das sociedades indígenas da Amazônia pré-colonial. Ele reflete o alto nível técnico e artístico da cerâmica tapajônica, sendo utilizado tanto em contextos domésticos quanto cerimoniais.
+                        O vaso de gargalo tapajônico fazia parte do cotidiano e dos rituais das sociedades indígenas da Amazônia pré-colonial. Ele reflete o alto nível técnico e artístico da cerâmica tapajônica, sendo utilizado tanto em contextos domésticos quanto cerimoniais. As decorações tinham significados simbólicos, ligados à identidade cultural, espiritualidade e organização social do povo Tapajônico. Esses artefatos são testemunhos da sofisticação das culturas amazônicas pré-coloniais e sua relação profunda com o ambiente natural.
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- SEÇÃO: RECURSOS MULTIMÍDIA -->
+    <!-- NOVA SEÇÃO: RECURSOS MULTIMÍDIA -->
     <div class="multimedia-section">
         <div class="multimedia-header">
             <div class="multimedia-title">
                 <i class="fas fa-photo-video"></i>
                 <span>Recursos Multimídia</span>
             </div>
-            <button class="audio-btn-small" onclick="readText('Seção de recursos multimídia com fotos, vídeos, documentários e artigos sobre cerâmica tapajônica.', this)">
+            <button class="audio-btn-small" onclick="readText('Seção de recursos multimídia com fotos, vídeos, documentários e artigos sobre cerâmica amazônica.')">
                 <i class="fas fa-volume-up"></i>
                 Ouvir Seção
             </button>
@@ -1472,11 +1565,11 @@
                     <a href="https://drive.google.com/drive/folders/1Vi0mNv5UvxHqs4jxKfkIMf_YCaitpdtr" 
                        target="_blank" 
                        class="resource-btn btn-photos"
-                       onclick="trackClick('photos')">
+                       onclick="trackClick('photos_vaso')">
                         <i class="fas fa-external-link-alt"></i>
                         Acessar Álbum
                     </a>
-                    <button class="resource-btn btn-photos" onclick="readText('Álbum de fotos da cerâmica tapajônica. Clique no botão para acessar.', this)">
+                    <button class="resource-btn btn-photos" onclick="readText('Álbum de fotos da cerâmica tapajônica. Clique no botão para acessar.')">
                         <i class="fas fa-volume-up"></i>
                         Ouvir Descrição
                     </button>
@@ -1496,11 +1589,11 @@
                     <a href="https://www.youtube.com/watch?v=wXj4TIOWq50" 
                        target="_blank" 
                        class="resource-btn btn-videos"
-                       onclick="trackClick('video')">
+                       onclick="trackClick('video_vaso')">
                         <i class="fab fa-youtube"></i>
                         Assistir Vídeo
                     </a>
-                    <button class="resource-btn btn-videos" onclick="readText('Vídeo educativo sobre cerâmica tapajônica. Clique para assistir.', this)">
+                    <button class="resource-btn btn-videos" onclick="readText('Vídeo educativo sobre cerâmica tapajônica. Clique para assistir.')">
                         <i class="fas fa-volume-up"></i>
                         Ouvir Descrição
                     </button>
@@ -1520,11 +1613,11 @@
                     <a href="https://www.youtube.com/watch?v=8lk_MdN8kbQ" 
                        target="_blank" 
                        class="resource-btn btn-documentary"
-                       onclick="trackClick('documentary')">
+                       onclick="trackClick('documentary_vaso')">
                         <i class="fas fa-external-link-alt"></i>
                         Assistir Documentário
                     </a>
-                    <button class="resource-btn btn-documentary" onclick="readText('Documentário completo sobre a cultura tapajônica e escavações arqueológicas.', this)">
+                    <button class="resource-btn btn-documentary" onclick="readText('Documentário completo sobre a cultura tapajônica e escavações arqueológicas.')">
                         <i class="fas fa-volume-up"></i>
                         Ouvir Descrição
                     </button>
@@ -1544,11 +1637,11 @@
                     <a href="https://www.scielo.br/j/bgoeldi/a/VpNYcwXrPTyFV5q6pqLC8bf/?format=pdf&lang=pt" 
                        target="_blank" 
                        class="resource-btn btn-article"
-                       onclick="trackClick('article')">
+                       onclick="trackClick('article_vaso')">
                         <i class="fas fa-external-link-alt"></i>
                         Ler Artigo
                     </a>
-                    <button class="resource-btn btn-article" onclick="readText('Artigo científico sobre cerâmica tapajônica publicado em revista especializada.', this)">
+                    <button class="resource-btn btn-article" onclick="readText('Artigo científico sobre cerâmica tapajônica publicado em revista especializada.')">
                         <i class="fas fa-volume-up"></i>
                         Ouvir Descrição
                     </button>
@@ -1557,85 +1650,105 @@
         </div>
     </div>
 
-    <!-- NOVA SEÇÃO: AVALIAÇÃO COMPLETA DO SITE (APÓS MULTIMÍDIA) -->
-    <div class="evaluation-full-section">
-        <div class="evaluation-full-header">
-            <div class="evaluation-full-title">
-                <i class="fas fa-star"></i>
-                <span>Avaliação do Catálogo</span>
+    <!-- NOVA SEÇÃO: RECURSOS E AVALIAÇÃO (APÓS MULTIMÍDIA) -->
+    <div class="resources-section">
+        <div class="resources-header">
+            <div class="resources-title">
+                <i class="fas fa-tools"></i>
+                <span>Recursos para o Projeto</span>
             </div>
-            <button class="audio-btn-small" onclick="readText('Seção de avaliação do catálogo interativo. Sua opinião é muito importante para aprimorarmos nosso site.', this)">
+            <button class="audio-btn-small" onclick="readText('Seção de recursos para o projeto. Baixe o manual de instruções ou avalie nosso catálogo.')">
                 <i class="fas fa-volume-up"></i>
                 Ouvir Seção
             </button>
         </div>
         
-        <div class="evaluation-full-content">
-            <div class="evaluation-intro">
-                <h3><i class="fas fa-handshake"></i> Sua Opinião é Essencial</h3>
-                <p>Como equipe <strong>Born To Fight</strong>, valorizamos cada opinião para melhorar continuamente nosso catálogo interativo. Sua avaliação nos ajuda a:</p>
-                
-                <div class="evaluation-features">
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Aprimorar a experiência do usuário</span>
+        <div class="resources-grid">
+            <!-- TÓPICO 1: MANUAL DE INSTRUÇÕES -->
+            <div class="resource-topic manual-topic">
+                <div class="resource-topic-header">
+                    <div class="resource-topic-icon">
+                        <i class="fas fa-book"></i>
                     </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Incluir novos conteúdos relevantes</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Otimizar a acessibilidade e usabilidade</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Criar materiais educativos mais eficazes</span>
+                    <div class="resource-topic-title">
+                        Manual de Instruções
                     </div>
                 </div>
                 
-                <p style="margin-top: 20px; font-style: italic; color: var(--primary-dark);">
-                    <i class="fas fa-quote-left"></i>
-                    Juntos, podemos preservar e compartilhar a riqueza da cultura amazônica de forma ainda melhor!
-                    <i class="fas fa-quote-right"></i>
-                </p>
+                <div class="resource-topic-content">
+                    <p>Disponibilizamos um manual completo para auxiliar na reprodução do nosso projeto, desde a impressão 3D até a programação do sistema interativo.</p>
+                    
+                    <p><strong>O manual inclui:</strong></p>
+                    <ul class="resource-topic-list">
+                        <li>Guia detalhado para impressão 3D do vaso de gargalo tapajônico</li>
+                        <li>Configuração da Raspberry Pi e módulo RFID</li>
+                        <li>Programação do sistema de identificação por cartão</li>
+                        <li>Soluções para erros comuns e contato para suporte</li>
+                        <li>Lista completa de materiais necessários</li>
+                        <li>Instruções passo a passo para montagem</li>
+                    </ul>
+                    
+                    <p>O manual possui 34 páginas com instruções detalhadas e ilustrações para facilitar a compreensão.</p>
+                </div>
+                
+                <button class="resource-topic-btn" onclick="downloadManual()">
+                    <i class="fas fa-file-pdf"></i>
+                    Baixar Manual (PDF)
+                </button>
             </div>
             
-            <div class="evaluation-form">
-                <h3><i class="fas fa-clipboard-list"></i> Formulário de Avaliação</h3>
-                <div class="form-description">
-                    <p>Clique no botão abaixo para acessar nosso formulário de avaliação completo, para especialistas da área de arqueologia. O formulário inclui perguntas sobre:</p>
-                    <ul style="margin: 15px 0; padding-left: 20px;">
-                        <li style="margin: 8px 0;">Sua opinião sobre o projeto</li>
-                        <li style="margin: 8px 0;">Qualidade do conteúdo apresentado</li>
-                        <li style="margin: 8px 0;">Melhor aspecto do projeto</li>
-                        <li style="margin: 8px 0;">Inovação do Relicário</li>
-                        <li style="margin: 8px 0;">Sugestões para melhorias futuras</li>
-                    </ul>
-                    <p>O formulário leva apenas 3-5 minutos para ser preenchido e é totalmente anônimo.</p>
+            <!-- TÓPICO 2: FORMULÁRIO DE AVALIAÇÃO -->
+            <div class="resource-topic evaluation-topic">
+                <div class="resource-topic-header">
+                    <div class="resource-topic-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div class="resource-topic-title">
+                        Avaliação do Catálogo
+                    </div>
                 </div>
                 
-                <button class="evaluation-btn-large" onclick="openEvaluationFormFull()">
-                    <i class="fas fa-clipboard-check"></i>
-                    Avaliar Catálogo Completo
+                <div class="resource-topic-content">
+                    <p>Sua opinião é essencial para aprimorarmos nosso catálogo interativo. Como equipe <strong>Born To Fight</strong>, valorizamos cada avaliação para melhorar continuamente.</p>
+                    
+                    <p><strong>O formulário inclui:</strong></p>
+                    <ul class="resource-topic-list">
+                        <li>Sua opinião sobre o projeto</li>
+                        <li>Qualidade do conteúdo apresentado</li>
+                        <li>Melhor aspecto do projeto</li>
+                        <li>Inovação do Relicário</li>
+                        <li>Sugestões para melhorias futuras</li>
+                        <li>Feedback sobre acessibilidade e usabilidade</li>
+                    </ul>
+                    
+                    <p>O formulário leva apenas 3-5 minutos para ser preenchido e é totalmente anônimo. Juntos, podemos preservar e compartilhar a riqueza da cultura amazônica de forma ainda melhor!</p>
+                </div>
+                
+                <button class="resource-topic-btn" onclick="openEvaluationForm()">
+                    <i class="fas fa-clipboard-list"></i>
+                    Avaliar Catálogo
                 </button>
             </div>
         </div>
         
         <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(44, 85, 48, 0.1);">
             <p style="color: var(--text-light); font-size: 14px;">
+                <i class="fas fa-info-circle" style="color: var(--primary);"></i>
+                Manual atualizado em 2025 - Compatível com Raspberry Pi 3, 4 e 5
+            </p>
+            <p style="color: var(--text-light); font-size: 12px; margin-top: 5px;">
                 <i class="fas fa-heart" style="color: #ff6b6b;"></i>
                 Agradecemos sua participação e contribuição para o projeto!
             </p>
         </div>
     </div>
 
-    <!-- RODAPÉ -->
+    <!-- RODAPÉ ATUALIZADO - SEM CONTADOR -->
     <div class="footer">
         <div class="footer-content">
             <div class="footer-info">
                 <img src="images/Logo_Btf.png" alt="Logo Born To Fight" class="footer-logo" onerror="this.src='https://via.placeholder.com/80x80/2c5530/ffffff?text=Born+To+Fight'">
-                <h3>Born To Fight </h3>
+                <h3>Born To Fight</h3>
                 <p>
                     <i class="fas fa-envelope"></i>
                     <a href="mailto:borntofightfll@gmail.com">borntofightfll@gmail.com</a>
@@ -1672,48 +1785,173 @@
         <i class="fas fa-chevron-up"></i>
     </div>
 
-    <!-- CONTROLE DE ÁUDIO -->
-    <div class="audio-controls" id="audioControls">
-        <button class="audio-control-btn" onclick="pauseAudio()">
-            <i class="fas fa-pause"></i>
-            Pausar Áudio
-        </button>
-        <button class="audio-control-btn" onclick="resumeAudio()">
-            <i class="fas fa-play"></i>
-            Retomar Áudio
-        </button>
-        <button class="audio-control-btn" onclick="stopAllAudio()">
-            <i class="fas fa-stop"></i>
-            Parar Tudo
-        </button>
-    </div>
-
     <!-- SCRIPTS -->
     <script>
         // Configurar ResponsiveVoice assim que carregar
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('Página carregada - inicializando...');
+            
             // Verificar se ResponsiveVoice está carregado
-            if (typeof responsiveVoice === 'undefined') {
-                console.error('ResponsiveVoice não carregado!');
-                alert('Erro ao carregar o sistema de voz. Por favor, verifique sua conexão.');
+            if (typeof responsiveVoice !== 'undefined') {
+                console.log('ResponsiveVoice carregado com sucesso');
+                responsiveVoice.setDefaultVoice("Portuguese Female");
+                console.log('Voz configurada: Portuguese Female');
             } else {
-                console.log('ResponsiveVoice carregado com sucesso!');
+                console.error('ResponsiveVoice não foi carregado');
             }
+            
+            // Inicializar outras funcionalidades
+            initPage();
+        });
 
-            // Detectar proporção da imagem
+        // Inicializar a página
+        function initPage() {
+            console.log('Inicializando página...');
+            
+            // Detectar proporção das imagens
             updateImageInfo();
             
             // Iniciar animações de entrada
             initAnimations();
+            
+            // Precarregar imagens
+            preloadImages();
+            
+            // Configurar botões de áudio
+            setupAudioButtons();
+            
+            console.log('Página inicializada com sucesso');
+        }
+        
+        // Função para tocar a descrição ORIGINAL CURTA (resumo visual)
+        function playOriginalDescription() {
+            const originalText = document.getElementById('descricaoTexto').innerText;
+            readText(originalText);
+        }
+        
+        // Função para tocar a descrição DETALHADA da peça original (texto grande)
+        function playDetailedDescription() {
+            const detailedDescription = `
+                É um vaso cerâmico caracterizado por corpo arredondado e gargalo alongado, frequentemente decorado com grafismos geométricos, figuras antropomorfas ou zoomorfas, em relevo ou pintura. As decorações tinham significados simbólicos, ligados à identidade cultural, espiritualidade e organização social do povo Tapajônico.
+            `;
+            
+            // Parar qualquer áudio em execução
+            if (isSpeaking) {
+                responsiveVoice.cancel();
+                isSpeaking = false;
+                removeAudioEffects();
+                return;
+            }
+            
+            // Ler a descrição detalhada
+            readText(detailedDescription);
+            
+            // Feedback visual
+            const descBtn = document.querySelector('.audio-btn-detailed');
+            if (descBtn) {
+                descBtn.innerHTML = '<i class="fas fa-stop"></i> Parar Descrição';
+                descBtn.onclick = function() {
+                    responsiveVoice.cancel();
+                    isSpeaking = false;
+                    removeAudioEffects();
+                    descBtn.innerHTML = '<i class="fas fa-headphones-alt"></i> Descrição Detalhada';
+                    descBtn.onclick = playDetailedDescription;
+                };
+            }
+        }
+        
+        // Função para tocar a descrição DETALHADA da réplica 3D (texto grande)
+        function play3DDescription() {
+            const replica3DDescription = `
+                Peça tridimensional de cerâmica, em tom marrom terroso uniforme, com acabamento opaco e textura visivelmente irregular, sugerindo modelagem manual ou impressão 3D com relevo aparente.
 
-            // Saudação inicial (após 3 segundos)
+                Parte superior:
+                No topo da peça há uma abertura circular vertical, formando um gargalo curto e cilíndrico. Esse gargalo é levemente mais estreito que o corpo central e apresenta marcas verticais visíveis, como sulcos ou estrias, que descem de forma irregular, indicando o processo de fabricação. A borda superior é plana e não possui decoração adicional.
+
+                Logo abaixo do gargalo, existe um anel saliente horizontal, semelhante a um pequeno prato ou aba circular, que marca a transição entre o topo e o corpo principal da peça.
+
+                Região central (corpo):
+                O corpo da peça é arredondado e volumoso, com formato globular. A superfície é decorada com pequenos relevos distribuídos de forma assimétrica, lembrando protuberâncias orgânicas ou aplicações modeladas manualmente. Esses relevos variam de tamanho e formato, alguns mais arredondados, outros alongados, criando uma sensação tátil rica e irregular.
+
+                Na lateral esquerda e na lateral direita do corpo surgem duas alças grandes e elaboradas, posicionadas simetricamente.
+
+                Alça esquerda:
+                A alça esquerda é curva e se projeta para fora do corpo, formando um arco. Sua extremidade superior apresenta um formato alongado e levemente achatado, com detalhes em relevo que lembram formas orgânicas ou zoomórficas. A alça possui um vão interno, permitindo a passagem da mão ou dos dedos.
+
+                Alça direita:
+                A alça direita também é curva, mas se diferencia por um acabamento mais expressivo na extremidade superior. Essa ponta possui um volume maior e irregular, lembrando uma forma escultórica, possivelmente inspirada em elementos naturais ou simbólicos. Assim como a alça esquerda, ela possui um vão interno e conexão firme com o corpo da peça.
+
+                Parte inferior:
+                A base da peça é mais estreita que o corpo central, formando um pequeno pedestal circular. Essa base sustenta toda a estrutura e apresenta leves relevos e marcas semelhantes às do restante da superfície. O pedestal termina em uma base plana, permitindo que a peça fique estável quando apoiada.
+
+                Impressão geral:
+                A peça transmite um aspecto artesanal e histórico, com forte presença de textura, volume e formas orgânicas. O conjunto sugere um objeto cerimonial ou decorativo, possivelmente inspirado em cerâmicas arqueológicas ou tradicionais, com destaque para as alças escultóricas e o corpo robusto.
+            `;
+            
+            // Parar qualquer áudio em execução
+            if (isSpeaking) {
+                responsiveVoice.cancel();
+                isSpeaking = false;
+                removeAudioEffects();
+                return;
+            }
+            
+            // Ler a descrição detalhada da réplica 3D
+            readText(replica3DDescription);
+            
+            // Feedback visual
+            const replicaBtn = document.querySelector('.audio-btn-replica');
+            if (replicaBtn) {
+                replicaBtn.innerHTML = '<i class="fas fa-stop"></i> Parar Descrição';
+                replicaBtn.onclick = function() {
+                    responsiveVoice.cancel();
+                    isSpeaking = false;
+                    removeAudioEffects();
+                    replicaBtn.innerHTML = '<i class="fas fa-headphones-alt"></i> Ouvir Descrição Detalhada';
+                    replicaBtn.onclick = play3DDescription;
+                };
+            }
+        }
+        
+        // Função para baixar o manual de instruções
+        function downloadManual() {
+            // URL do manual de instruções em PDF (mesmo do outro site)
+            const manualUrl = "Manual de Instruções.pdf";
+            
+            // Criar link temporário para download
+            const link = document.createElement('a');
+            link.href = manualUrl;
+            link.download = 'Manual de Instruções - Born To Fight - Cerâmica Amazônica.pdf';
+            link.target = '_blank';
+            
+            // Adicionar ao DOM, clicar e remover
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Feedback de áudio
+            readText("Baixando manual de instruções completo em PDF. O download começará em instantes.");
+            
+            // Efeito visual no botão
+            const btn = document.querySelectorAll('.resource-topic-btn')[0];
+            btn.style.transform = 'scale(0.95)';
             setTimeout(() => {
-                readText("Bem-vindo ao catálogo interativo do Vaso de Gargalo Tapajônico. Explore as informações, recursos multimídia e participe da avaliação do nosso catálogo. Use os botões de áudio para ouvir o conteúdo.", null);
-            }, 3000);
-        });
-
-        // Função para abrir o formulário de avaliação completa (do catálogo)
-        function openEvaluationFormFull() {
+                btn.style.transform = '';
+            }, 300);
+            
+            // Rastrear download
+            trackClick('manual_download');
+            
+            // Efeito de confirmação visual
+            const section = document.querySelector('.manual-topic');
+            section.style.boxShadow = '0 0 30px rgba(165, 91, 52, 0.3)';
+            setTimeout(() => {
+                section.style.boxShadow = '';
+            }, 1000);
+        }
+        
+        // Função para abrir o formulário de avaliação
+        function openEvaluationForm() {
             // URL do formulário Google Forms para avaliação completa
             const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdnugr61HzOWKrB167g5hR0eaQoWELFWiXHqL1f0uDmdorKAg/viewform?fbzx=-3456102765212424284";
             
@@ -1721,10 +1959,10 @@
             window.open(formUrl, '_blank');
             
             // Feedback de áudio
-            readText("Abrindo formulário de avaliação completa do catálogo em nova aba. Obrigado por contribuir para o aprimoramento do nosso projeto!", null);
+            readText("Abrindo formulário de avaliação completa do catálogo em nova aba. Obrigado por contribuir para o aprimoramento do nosso projeto!");
             
             // Efeito visual no botão
-            const btn = document.querySelector('.evaluation-btn-large');
+            const btn = document.querySelectorAll('.resource-topic-btn')[1];
             btn.style.transform = 'scale(0.95)';
             setTimeout(() => {
                 btn.style.transform = '';
@@ -1734,146 +1972,44 @@
             trackClick('evaluation_form_full');
             
             // Efeito de confirmação visual
-            const section = document.querySelector('.evaluation-full-section');
-            section.style.boxShadow = '0 0 30px rgba(44, 85, 48, 0.3)';
+            const section = document.querySelector('.evaluation-topic');
+            section.style.boxShadow = '0 0 30px rgba(109, 76, 65, 0.3)';
             setTimeout(() => {
                 section.style.boxShadow = '';
             }, 1000);
         }
-
-        // Variáveis para controle de áudio
-        let currentAudioButton = null;
-        let isAudioPlaying = false;
-
-        // Funções para controle de áudio com ResponsiveVoice
-        function readText(text, buttonElement = null) {
-            // Se já está tocando áudio
-            if (isAudioPlaying) {
-                // Se clicou no mesmo botão, pausa
-                if (buttonElement === currentAudioButton) {
-                    pauseAudio();
-                    return;
-                }
-                // Se clicou em outro botão, para o atual e toca o novo
-                else {
-                    stopAllAudio();
-                }
-            }
-
-            // Configurações do ResponsiveVoice
-            const voiceConfig = {
-                rate: 0.9,
-                pitch: 1,
-                volume: 1,
-                onstart: function() {
-                    isAudioPlaying = true;
-                    if (buttonElement) {
-                        buttonElement.classList.add('active-audio');
-                        currentAudioButton = buttonElement;
-                        showAudioControls();
-                    }
-                },
-                onend: function() {
-                    isAudioPlaying = false;
-                    if (buttonElement) {
-                        buttonElement.classList.remove('active-audio');
-                        currentAudioButton = null;
-                        hideAudioControls();
-                    }
-                },
-                onerror: function() {
-                    isAudioPlaying = false;
-                    if (buttonElement) {
-                        buttonElement.classList.remove('active-audio');
-                        currentAudioButton = null;
-                        hideAudioControls();
-                        alert('Erro ao reproduzir áudio. Verifique se o ResponsiveVoice está carregado.');
-                    }
-                }
-            };
-
-            // Usar voz em português brasileiro
-            responsiveVoice.speak(text, "Brazilian Portuguese Female", voiceConfig);
-        }
-
-        function pauseAudio() {
-            if (isAudioPlaying) {
-                responsiveVoice.pause();
-                if (currentAudioButton) {
-                    currentAudioButton.classList.remove('active-audio');
-                }
-            }
-        }
-
-        function resumeAudio() {
-            if (!isAudioPlaying) {
-                responsiveVoice.resume();
-                if (currentAudioButton) {
-                    currentAudioButton.classList.add('active-audio');
-                }
-            }
-        }
-
-        function stopAllAudio() {
-            responsiveVoice.cancel();
-            isAudioPlaying = false;
-            
-            // Remover classe ativa de todos os botões de áudio
+        
+        // Configurar botões de áudio
+        function setupAudioButtons() {
             document.querySelectorAll('.audio-btn-small').forEach(btn => {
-                btn.classList.remove('active-audio');
+                btn.addEventListener('mouseenter', function() {
+                    // Pequeno feedback ao passar o mouse
+                    this.style.transform = 'scale(1.05)';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
             });
+        }
+
+        // Função para pré-carregar imagens
+        function preloadImages() {
+            const images = [
+                'images/Logo_Btf.png',
+                'images/vaso_de_gargalo.png',
+                'images/vaso_de_gargalo_3D.png'
+            ];
             
-            currentAudioButton = null;
-            hideAudioControls();
-        }
-
-        function ouvirVoltarMenu() {
-            readText("Voltar para o menu principal", document.getElementById('audioVoltarMenu'));
-        }
-
-        function showAudioControls() {
-            const controls = document.getElementById('audioControls');
-            controls.classList.add('show');
-        }
-
-        function hideAudioControls() {
-            const controls = document.getElementById('audioControls');
-            controls.classList.remove('show');
-        }
-
-        // Rastrear cliques em recursos
-        function trackClick(resourceType) {
-            console.log(`Recurso clicado: ${resourceType}`);
-            const clicks = JSON.parse(localStorage.getItem('resource_clicks') || '{}');
-            clicks[resourceType] = (clicks[resourceType] || 0) + 1;
-            localStorage.setItem('resource_clicks', JSON.stringify(clicks));
-            
-            // Feedback de áudio
-            readText(`Abrindo ${getResourceName(resourceType)} em nova aba.`, null);
-        }
-
-        function getResourceName(type) {
-            const names = {
-                'photos': 'álbum de fotos',
-                'video': 'vídeo educativo',
-                'documentary': 'documentário completo',
-                'article': 'artigo científico',
-                'evaluation_form_full': 'formulário de avaliação completa'
-            };
-            return names[type] || 'recurso';
+            images.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
         }
 
         // Funções para controle da imagem
         function imageLoaded(img) {
             const container = img.closest('.card-img-container');
-            const info = document.getElementById('imgInfo');
-            
-            // Remover loader se existir
-            const loader = container.querySelector('.img-loader');
-            if (loader) loader.remove();
-            
-            // Atualizar informações da imagem
-            updateImageInfo();
             
             // Adicionar classe para animação suave
             img.style.opacity = '0';
@@ -1881,46 +2017,175 @@
                 img.style.opacity = '1';
                 img.style.transition = 'opacity 0.5s ease';
             }, 100);
-            
-            // Mostrar proporção da imagem
-            setTimeout(() => {
-                if (img.complete && img.naturalWidth > 0) {
-                    const aspectRatio = (img.naturalHeight / img.naturalWidth).toFixed(2);
-                    info.textContent = `Proporção: ${aspectRatio}:1`;
-                    info.style.opacity = '0.8';
-                    setTimeout(() => {
-                        info.style.opacity = '0';
-                    }, 3000);
-                }
-            }, 1000);
         }
 
-        function imageError(img) {
+        function imageError(img, type) {
             const container = img.closest('.card-img-container');
-            const info = document.getElementById('imgInfo');
             
-            // Remover loader
-            const loader = container.querySelector('.img-loader');
-            if (loader) loader.remove();
-            
-            // Mostrar imagem de fallback
-            if (img.src.includes('vaso_de_gargalo')) {
-                img.src = 'https://via.placeholder.com/400x300/f9f5f0/a55b34?text=Vaso+de+Gargalo+Tapajônico';
+            // Mostrar imagem de fallback baseada no tipo
+            if (type === 'original') {
+                img.src = 'https://via.placeholder.com/400x300/f9f5f0/a55b34?text=Vaso+de+Gargalo+Tapajônico+Original';
+            } else if (type === 'replica') {
+                img.src = 'https://via.placeholder.com/400x300/f9f5f0/6d4c41?text=Réplica+3D+do+Vaso';
+            } else {
+                img.src = 'https://via.placeholder.com/400x300/f9f5f0/2c5530?text=Imagem+Indisponível';
             }
-            
-            info.textContent = 'Imagem carregada';
-            
-            updateImageInfo();
         }
 
         function updateImageInfo() {
-            const img = document.querySelector('.card-img');
-            const info = document.getElementById('imgInfo');
+            // Esta função pode ser expandida para mostrar informações sobre ambas as imagens
+            const images = document.querySelectorAll('.card-img');
+            images.forEach(img => {
+                if (img.complete && img.naturalWidth > 0) {
+                    // Pode adicionar lógica para mostrar informações sobre cada imagem
+                }
+            });
+        }
+
+        // Funções de áudio usando ResponsiveVoice
+        let isSpeaking = false;
+
+        function readText(text) {
+            console.log('Lendo texto:', text.substring(0, 100) + '...');
             
-            if (img && img.complete && img.naturalWidth > 0) {
-                const aspectRatio = (img.naturalHeight / img.naturalWidth).toFixed(2);
-                info.textContent = `Proporção: ${aspectRatio}:1`;
+            if (typeof responsiveVoice === 'undefined') {
+                console.error('ResponsiveVoice não disponível');
+                alert('Sistema de áudio não disponível no momento.');
+                return;
             }
+            
+            if (isSpeaking) {
+                console.log('Parando áudio atual...');
+                responsiveVoice.cancel();
+                isSpeaking = false;
+                removeAudioEffects();
+                return;
+            }
+            
+            // Configurações da voz
+            const options = {
+                rate: 1.0,    // velocidade
+                pitch: 1.0,   // tom
+                volume: 1.0,  // volume
+                onstart: function() {
+                    console.log('Áudio iniciado');
+                    isSpeaking = true;
+                    addAudioEffects();
+                },
+                onend: function() {
+                    console.log('Áudio finalizado');
+                    isSpeaking = false;
+                    removeAudioEffects();
+                    
+                    // Restaurar botões
+                    const detailedBtn = document.querySelector('.audio-btn-detailed');
+                    if (detailedBtn && detailedBtn.innerHTML.includes('Parar')) {
+                        detailedBtn.innerHTML = '<i class="fas fa-headphones-alt"></i> Descrição Detalhada';
+                        detailedBtn.onclick = playDetailedDescription;
+                    }
+                    
+                    const replicaBtn = document.querySelector('.audio-btn-replica');
+                    if (replicaBtn && replicaBtn.innerHTML.includes('Parar')) {
+                        replicaBtn.innerHTML = '<i class="fas fa-headphones-alt"></i> Ouvir Descrição Detalhada';
+                        replicaBtn.onclick = play3DDescription;
+                    }
+                },
+                onerror: function() {
+                    console.error('Erro no áudio');
+                    isSpeaking = false;
+                    removeAudioEffects();
+                }
+            };
+            
+            try {
+                console.log('Tentando reproduzir áudio...');
+                // Usar voz em português brasileiro
+                responsiveVoice.speak(text, "Portuguese Female", options);
+                console.log('Áudio enviado para reprodução');
+            } catch (error) {
+                console.error('Erro ao reproduzir áudio:', error);
+                isSpeaking = false;
+                removeAudioEffects();
+            }
+        }
+
+        function addAudioEffects() {
+            // Adicionar efeito visual durante a fala
+            document.querySelectorAll('.audio-btn-small').forEach(btn => {
+                btn.style.boxShadow = '0 0 15px rgba(165, 91, 52, 0.5)';
+                btn.style.animation = 'pulse 1s infinite';
+                const icon = btn.querySelector('i');
+                if (icon && !btn.querySelector('.fa-stop')) {
+                    icon.className = 'fas fa-stop';
+                }
+            });
+            
+            // Adicionar efeito no título
+            const title = document.querySelector('.card-title h2');
+            if (title) {
+                title.style.textShadow = '0 0 10px rgba(165, 91, 52, 0.3)';
+            }
+        }
+
+        function removeAudioEffects() {
+            // Remover efeitos visuais
+            document.querySelectorAll('.audio-btn-small').forEach(btn => {
+                btn.style.boxShadow = '';
+                btn.style.animation = '';
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    if (btn.classList.contains('audio-btn-detailed')) {
+                        icon.className = 'fas fa-headphones-alt';
+                    } else if (btn.classList.contains('audio-btn-replica')) {
+                        icon.className = 'fas fa-headphones-alt';
+                    } else {
+                        icon.className = 'fas fa-volume-up';
+                    }
+                }
+            });
+            
+            // Remover efeito do título
+            const title = document.querySelector('.card-title h2');
+            if (title) {
+                title.style.textShadow = '';
+            }
+        }
+
+        // Função para parar toda a fala
+        function stopAllSpeech() {
+            if (typeof responsiveVoice !== 'undefined') {
+                responsiveVoice.cancel();
+                isSpeaking = false;
+                removeAudioEffects();
+            }
+        }
+
+        function ouvirVoltarMenu() {
+            readText("Botão: Voltar para o menu principal");
+        }
+
+        // Rastrear cliques em recursos (para análise)
+        function trackClick(resourceType) {
+            console.log(`Recurso clicado: ${resourceType}`);
+            // Aqui você pode adicionar código para Google Analytics ou outro sistema de tracking
+            const clicks = JSON.parse(localStorage.getItem('resource_clicks') || '{}');
+            clicks[resourceType] = (clicks[resourceType] || 0) + 1;
+            localStorage.setItem('resource_clicks', JSON.stringify(clicks));
+            
+            // Feedback de áudio
+            readText(`Abrindo ${getResourceName(resourceType)} em nova aba.`);
+        }
+
+        function getResourceName(type) {
+            const names = {
+                'photos_vaso': 'álbum de fotos',
+                'video_vaso': 'vídeo educativo',
+                'documentary_vaso': 'documentário completo',
+                'article_vaso': 'artigo científico',
+                'manual_download': 'manual de instruções',
+                'evaluation_form_full': 'formulário de avaliação completa'
+            };
+            return names[type] || 'recurso';
         }
 
         // Scroll suave para o topo
@@ -1936,17 +2201,22 @@
             setTimeout(() => {
                 btn.style.transform = '';
             }, 300);
+            
+            // Parar qualquer fala em andamento
+            stopAllSpeech();
         }
 
         // Mostrar/ocultar botão flutuante
         window.addEventListener('scroll', function() {
             const floatingBtn = document.querySelector('.floating-btn');
-            if (window.scrollY > 300) {
-                floatingBtn.style.opacity = '1';
-                floatingBtn.style.visibility = 'visible';
-            } else {
-                floatingBtn.style.opacity = '0';
-                floatingBtn.style.visibility = 'hidden';
+            if (floatingBtn) {
+                if (window.scrollY > 300) {
+                    floatingBtn.style.opacity = '1';
+                    floatingBtn.style.visibility = 'visible';
+                } else {
+                    floatingBtn.style.opacity = '0';
+                    floatingBtn.style.visibility = 'hidden';
+                }
             }
         });
 
@@ -1958,12 +2228,14 @@
         // Efeito de digitação no título
         window.addEventListener('load', function() {
             const title = document.querySelector('.nav-title h1');
-            title.classList.add('typing-effect');
-            
-            setTimeout(() => {
-                title.classList.remove('typing-effect');
-                title.style.borderRight = 'none';
-            }, 3500);
+            if (title) {
+                title.classList.add('typing-effect');
+                
+                setTimeout(() => {
+                    title.classList.remove('typing-effect');
+                    title.style.borderRight = 'none';
+                }, 3500);
+            }
             
             // Animação para os botões
             document.querySelectorAll('.nav-btn, .audio-btn-small').forEach((btn, index) => {
@@ -1996,22 +2268,27 @@
                 section.style.animationDelay = `${0.4 + (index * 0.2)}s`;
             });
             
-            // Efeito de parallax suave no scroll
-            window.addEventListener('scroll', function() {
-                const scrolled = window.pageYOffset;
-                const rate = scrolled * -0.5;
+            // Animação para os tópicos
+            document.querySelectorAll('.resource-topic').forEach((topic, index) => {
+                topic.style.opacity = '0';
+                topic.style.transform = 'translateY(20px)';
                 
-                const imgContainer = document.querySelector('.card-img-container');
-                if (imgContainer) {
-                    imgContainer.style.transform = `translateY(${rate * 0.1}px)`;
-                }
+                setTimeout(() => {
+                    topic.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                    topic.style.opacity = '1';
+                    topic.style.transform = 'translateY(0)';
+                }, 1200 + (index * 200));
             });
         }
 
-        // Pausar áudio quando a página for ocultada
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden && isAudioPlaying) {
-                pauseAudio();
+        // Parar áudio ao sair da página
+        window.addEventListener('beforeunload', stopAllSpeech);
+        window.addEventListener('pagehide', stopAllSpeech);
+
+        // Configurar botões de áudio para parar áudio ao clicar em links
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('a') && isSpeaking) {
+                stopAllSpeech();
             }
         });
     </script>
