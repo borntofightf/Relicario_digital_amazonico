@@ -60,6 +60,7 @@ Facilitar e democratizar o acesso ao patrimônio arqueológico amazônico por me
 
 ## 🚀 Como Funciona
 
+### Com a Raspberry PI 4 e RFID:
 1. O usuário escolhe uma réplica física de cerâmica  
 2. A peça possui um **RFID único**  
 3. Ao mover a peça:
@@ -70,7 +71,19 @@ Facilitar e democratizar o acesso ao patrimônio arqueológico amazônico por me
    - Imagens  
    - Função  
    - Origem arqueológica  
-   - Dimensões reais  
+   - Dimensões reais
+
+### Com o Celular:
+1. O usuário escolhe uma réplica física de cerâmica  
+2. A peça possui um **RFID único**  
+3. Ao mover a peça:
+   - Aproxime a peça da câmera frontal ou traseira do celular
+   - O site abre automaticamente a página da peça
+4. O catálogo digital exibe:
+   - Imagens  
+   - Função  
+   - Origem arqueológica  
+   - Dimensões reais
 
 ---
 
