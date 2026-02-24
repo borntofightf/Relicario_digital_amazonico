@@ -699,7 +699,7 @@
             animation: float 2s ease-in-out infinite;
         }
 
-        /* RESPONSIVIDADE */
+        /* RESPONSIVIDADE GERAL */
         @media (max-width: 1200px) {
             header, .content, footer {
                 max-width: 95%;
@@ -1011,47 +1011,8 @@
         </button>
 
         <div class="topics">
+            <!-- Tópico 1: Impressão 3D -->
             <div class="topic-box" data-index="001">
-                <img src="images/rfid.jfif" alt="Sensor RFID RC522">
-                <h2 id="rfid" data-i18n="rfid_title">Sensor RFID RC522</h2>
-                <p id="rfidTxt" data-i18n="rfid_text">
-                    O sensor RFID atua como nosso scanner de campo digital, permitindo a identificação e ativação 
-                    inteligente de conteúdos associados a cada réplica arqueológica. Tecnologia essencial para 
-                    criar camadas de informação sobre os artefatos.
-                </p>
-                <div class="topic-buttons">
-                    <button class="speech-btn" onclick="readSection('rfid')">
-                        <i class="fas fa-volume-up"></i>
-                        <span data-i18n="title">Título</span>
-                    </button>
-                    <button class="speech-btn" onclick="readSection('rfidTxt')">
-                        <i class="fas fa-volume-up"></i>
-                        <span data-i18n="description">Descrição</span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="topic-box" data-index="002">
-                <img src="images/raspbarry_pi4.jfif" alt="Raspeberry Pi 4">
-                <h2 id="rasp" data-i18n="raspberry_title">Raspeberry Pi 4</h2>
-                <p id="raspTxt" data-i18n="raspberry_text">
-                    Esta central processa dados arqueológicos em tempo real, funcionando como nosso laboratório 
-                    de campo digital. Responsável por orquestrar todo o sistema interativo e garantir uma experiência 
-                    fluida e imersiva no catálogo de artefatos.
-                </p>
-                <div class="topic-buttons">
-                    <button class="speech-btn" onclick="readSection('rasp')">
-                        <i class="fas fa-volume-up"></i>
-                        <span data-i18n="title">Título</span>
-                    </button>
-                    <button class="speech-btn" onclick="readSection('raspTxt')">
-                        <i class="fas fa-volume-up"></i>
-                        <span data-i18n="description">Descrição</span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="topic-box" data-index="003">
                 <img src="images/Impressão_3D.png" alt="Impressão 3D">
                 <h2 id="imp" data-i18n="printing_title">Impressão 3D</h2>
                 <p id="impTxt" data-i18n="printing_text">
@@ -1071,8 +1032,8 @@
                 </div>
             </div>
 
-            <!-- NOVO TÓPICO: FORMULÁRIO DE AVALIAÇÃO -->
-            <div class="topic-box" data-index="004">
+            <!-- Tópico 2: Formulário de Avaliação -->
+            <div class="topic-box" data-index="002">
                 <h2 id="avaliacao" data-i18n="evaluation_title">Formulário de Avaliação</h2>
                 <p id="avaliacaoTxt" data-i18n="evaluation_text">
                     Clique no botão abaixo para acessar nosso formulário de avaliação completo, para especialistas da área de arqueologia. O formulário inclui perguntas sobre sua opinião sobre o projeto, qualidade do conteúdo, melhor aspecto, inovação e sugestões.
@@ -1093,8 +1054,8 @@
                 </div>
             </div>
 
-            <!-- NOVO TÓPICO: MANUAL DE INSTRUÇÕES -->
-            <div class="topic-box" data-index="005">
+            <!-- Tópico 3: Manual de Instruções -->
+            <div class="topic-box" data-index="003">
                 <h2 id="manual" data-i18n="manual_title">Manual de Instruções</h2>
                 <p id="manualTxt" data-i18n="manual_text">
                     Acesse o manual completo com instruções detalhadas sobre configuração, 
@@ -1207,11 +1168,7 @@
                 'mission_text': 'Somos a equipe Born To Fight, arqueólogos digitais dedicados à preservação e democratização do patrimônio amazônico. Nossa missão é desenterrar histórias através da tecnologia, transformando cada artefato em uma experiência sensorial e acessível que conecta passado, presente e futuro.',
                 'project_text': 'Este projeto de arqueologia digital aplica tecnologias contemporâneas para facilitar o acesso ao patrimônio arqueológico amazônico, criando uma ponte interativa entre a riqueza cultural ancestral e as possibilidades educativas modernas. Utilizamos ferramentas digitais como documentação técnica avançada para registrar, preservar e tornar acessível esse legado cultural.',
                 
-                // Tópicos
-                'rfid_title': 'Sensor RFID RC522',
-                'rfid_text': 'O sensor RFID atua como nosso scanner de campo digital, permitindo a identificação e ativação inteligente de conteúdos associados a cada réplica arqueológica. Tecnologia essencial para criar camadas de informação sobre os artefatos.',
-                'raspberry_title': 'Raspeberry Pi 4',
-                'raspberry_text': 'Esta central processa dados arqueológicos em tempo real, funcionando como nosso laboratório de campo digital. Responsável por orquestrar todo o sistema interativo e garantir uma experiência fluida e imersiva no catálogo de artefatos.',
+                // Tópicos restantes
                 'printing_title': 'Impressão 3D',
                 'printing_text': 'Através da fabricação digital, produzimos réplicas fidedignas de artefatos arqueológicos, permitindo estudo tátil e inclusão sensorial. Esta abordagem traz acessibilidade concreta ao patrimônio, transformando visualização em experiência física.',
                 'evaluation_title': 'Formulário de Avaliação',
@@ -1248,11 +1205,7 @@
                 'mission_text': 'We are the Born To Fight team, digital archaeologists dedicated to the preservation and democratization of Amazonian heritage. Our mission is to unearth stories through technology, transforming each artifact into a sensory and accessible experience that connects past, present and future.',
                 'project_text': 'This digital archaeology project applies contemporary technologies to facilitate access to Amazonian archaeological heritage, creating an interactive bridge between ancestral cultural richness and modern educational possibilities. We use digital tools such as advanced technical documentation to record, preserve and make this cultural legacy accessible.',
                 
-                // Tópicos
-                'rfid_title': 'RFID RC522 Sensor',
-                'rfid_text': 'The RFID sensor acts as our digital field scanner, allowing intelligent identification and activation of content associated with each archaeological replica. Essential technology for creating layers of information about artifacts.',
-                'raspberry_title': 'Raspberry Pi 4',
-                'raspberry_text': 'This central unit processes archaeological data in real time, functioning as our digital field laboratory. Responsible for orchestrating the entire interactive system and ensuring a fluid and immersive experience in the artifact catalog.',
+                // Tópicos restantes
                 'printing_title': '3D Printing',
                 'printing_text': 'Through digital fabrication, we produce faithful replicas of archaeological artifacts, allowing tactile study and sensory inclusion. This approach brings concrete accessibility to heritage, transforming visualization into physical experience.',
                 'evaluation_title': 'Evaluation Form',
@@ -1530,11 +1483,6 @@
             }
             
             setTimeout(animateCounter, 500);
-            
-            // Adicionar índices aos topic-boxes
-            document.querySelectorAll('.topic-box').forEach((box, index) => {
-                box.setAttribute('data-index', (index + 1).toString().padStart(3, '0'));
-            });
             
             if (typeof responsiveVoice !== 'undefined') {
                 console.log('ResponsiveVoice carregado com sucesso');
