@@ -11,8 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Ícones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- ResponsiveVoice - API CORRETA -->
-    <script src="https://code.responsivevoice.org/responsivevoice.js?key=JTbwNlZ4"></script>
+    <!-- Áudio local na pasta audios/ (arquivos .mp4) -->
 
     <style>
         :root {
@@ -1371,7 +1370,7 @@
                 <i class="fas fa-arrow-left"></i>
                 Voltar para o Menu
             </a>
-            <button class="audio-btn-small" onclick="ouvirVoltarMenu()">
+            <button class="audio-btn-small" onclick="playAudio('voltar_menu.mp4')">
                 <i class="fas fa-volume-up"></i>
                 Ouvir
             </button>
@@ -1425,7 +1424,7 @@
             <div class="card-content">
                 <div class="card-title">
                     <h2 id="titulo">Urna Funerária Marajoara</h2>
-                    <button class="audio-btn-small" onclick="readText('Urna Funerária Marajoara - Original e Réplica em Impressão 3D')">
+                    <button class="audio-btn-small" onclick="playAudio('urna_funeraria_marajoara.mp4')">
                         <i class="fas fa-volume-up"></i>
                         Ouvir Título
                     </button>
@@ -1440,7 +1439,7 @@
                         <div class="info-value" id="periodo">
                             400 a 1400 d.C.
                         </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('periodo').innerText)">
+                        <button class="audio-btn-small info-audio-btn" onclick="playAudio('periodo_historico.mp4')">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
@@ -1453,7 +1452,7 @@
                         <div class="info-value" id="local">
                             Ilha do Marajó, Pará
                         </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('local').innerText)">
+                        <button class="audio-btn-small info-audio-btn" onclick="playAudio('local_de_origem.mp4')">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
@@ -1466,7 +1465,7 @@
                         <div class="info-value" id="tamanho">
                             60 - 100 cm
                         </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('tamanho').innerText)">
+                        <button class="audio-btn-small info-audio-btn" onclick="playAudio('dimensões_aproximadas_ori.mp4')">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
@@ -1480,11 +1479,11 @@
                             <span>Descrição da Peça Original</span>
                         </div>
                         <div class="audio-buttons-container">
-                            <button class="audio-btn-small" onclick="playOriginalDescription()">
+                            <button class="audio-btn-small" onclick="playAudio('descrição_urna_ori.mp4')">
                                 <i class="fas fa-volume-up"></i>
                                 Ouvir Resumo
                             </button>
-                            <button class="audio-btn-small audio-btn-detailed" onclick="playDetailedDescription()">
+                            <button class="audio-btn-small audio-btn-detailed" onclick="playAudio('descrição_urna_ori.mp4')">
                                 <i class="fas fa-headphones-alt"></i>
                                 Descrição Detalhada
                             </button>
@@ -1505,7 +1504,7 @@
                             <span>Descrição da Réplica 3D</span>
                         </div>
                         <div class="audio-buttons-container">
-                            <button class="audio-btn-small audio-btn-replica" onclick="play3DDescription()">
+                            <button class="audio-btn-small audio-btn-replica" onclick="playAudio('descrição_urna_re.mp4')">
                                 <i class="fas fa-headphones-alt"></i>
                                 Ouvir Descrição Detalhada
                             </button>
@@ -1525,7 +1524,7 @@
                             <i class="fas fa-history"></i>
                             <span>Contexto Histórico</span>
                         </div>
-                        <button class="audio-btn-small" onclick="readText(document.getElementById('historiaTexto').innerText)">
+                        <button class="audio-btn-small" onclick="playAudio('contexto_historico.mp4')">
                             <i class="fas fa-volume-up"></i>
                             Ouvir História
                         </button>
@@ -1549,7 +1548,7 @@
                 <i class="fas fa-photo-video"></i>
                 <span>Recursos Multimídia</span>
             </div>
-            <button class="audio-btn-small" onclick="readText('Seção de recursos multimídia com fotos, vídeos, documentários e artigos sobre cerâmica amazônica.')">
+            <button class="audio-btn-small" onclick="playAudio('recursos.mp4')">
                 <i class="fas fa-volume-up"></i>
                 Ouvir Seção
             </button>
@@ -1573,7 +1572,7 @@
                         <i class="fas fa-external-link-alt"></i>
                         Acessar Álbum
                     </a>
-                    <button class="resource-btn btn-photos" onclick="readText('Álbum de fotos da cerâmica amazônica. Clique no botão para acessar.')">
+                    <button class="resource-btn btn-photos" onclick="playAudio('album_fotos.mp4')">
                         <i class="fas fa-volume-up"></i>
                         Ouvir Descrição
                     </button>
@@ -1604,7 +1603,7 @@
                         <i class="fab fa-youtube"></i>
                         Vídeo 2
                     </a>
-                    <button class="resource-btn btn-videos" onclick="readText('Vídeos educativos sobre cerâmica amazônica. Dois vídeos disponíveis sobre técnicas e história.')">
+                    <button class="resource-btn btn-videos" onclick="playAudio('vídeos_edu.mp4')">
                         <i class="fas fa-volume-up"></i>
                         Ouvir Descrição
                     </button>
@@ -1628,7 +1627,7 @@
                         <i class="fas fa-external-link-alt"></i>
                         Assistir Documentário
                     </a>
-                    <button class="resource-btn btn-documentary" onclick="readText('Documentário completo sobre a cultura marajoara e escavações arqueológicas.')">
+                    <button class="resource-btn btn-documentary" onclick="playAudio('documentarios.mp4')">
                         <i class="fas fa-volume-up"></i>
                         Ouvir Descrição
                     </button>
@@ -1652,7 +1651,7 @@
                         <i class="fas fa-external-link-alt"></i>
                         Ler Artigo
                     </a>
-                    <button class="resource-btn btn-article" onclick="readText('Artigo científico sobre cerâmica amazônica publicado em revista especializada.')">
+                    <button class="resource-btn btn-article" onclick="playAudio('artigo_cien.mp4')">
                         <i class="fas fa-volume-up"></i>
                         Ouvir Descrição
                     </button>
@@ -1668,7 +1667,7 @@
                 <i class="fas fa-tools"></i>
                 <span>Recursos para o Projeto</span>
             </div>
-            <button class="audio-btn-small" onclick="readText('Seção de recursos para o projeto. Baixe o manual de instruções ou avalie nosso catálogo.')">
+            <button class="audio-btn-small" onclick="playAudio('recursos.mp4')">
                 <i class="fas fa-volume-up"></i>
                 Ouvir Seção
             </button>
@@ -1798,266 +1797,159 @@
 
     <!-- SCRIPTS -->
     <script>
-        // Configurar ResponsiveVoice assim que carregar
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Página carregada - inicializando...');
+        // Variável global para controlar o áudio atual
+        let currentAudio = null;
+
+        // Função principal para tocar áudio (arquivos .mp4 na pasta audios/)
+        function playAudio(filename) {
+            // Caminho da pasta de áudios
+            const audioPath = 'audios/';
             
-            // Verificar se ResponsiveVoice está carregado
-            if (typeof responsiveVoice !== 'undefined') {
-                console.log('ResponsiveVoice carregado com sucesso');
-                responsiveVoice.setDefaultVoice("Portuguese Female");
-                console.log('Voz configurada: Portuguese Female');
+            // Se já estiver tocando o mesmo áudio, para
+            if (currentAudio && !currentAudio.paused && currentAudio.src.includes(filename)) {
+                stopAudio();
+                return;
+            }
+
+            // Para qualquer áudio em reprodução
+            stopAudio();
+
+            // Cria novo objeto de áudio (suporta .mp4)
+            currentAudio = new Audio(audioPath + filename);
+            currentAudio.play()
+                .then(() => {
+                    console.log('Tocando:', filename);
+                    // Atualiza botão que iniciou (se for um botão de áudio)
+                    updateButtonState(document.activeElement, true);
+                })
+                .catch(error => {
+                    console.error('Erro ao reproduzir áudio:', error);
+                    currentAudio = null;
+                });
+
+            // Quando terminar, limpa estado
+            currentAudio.onended = function() {
+                stopAudio();
+            };
+        }
+
+        // Para o áudio atual e remove efeitos visuais
+        function stopAudio() {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                currentAudio = null;
+            }
+            // Remove estado visual de todos os botões
+            document.querySelectorAll('.audio-btn-small, .resource-btn').forEach(btn => {
+                btn.style.boxShadow = '';
+                btn.style.animation = '';
+                const icon = btn.querySelector('i');
+                if (icon && icon.classList.contains('fa-stop')) {
+                    // Restaura ícone baseado na classe do botão
+                    if (btn.classList.contains('audio-btn-detailed')) {
+                        icon.className = 'fas fa-headphones-alt';
+                    } else if (btn.classList.contains('audio-btn-replica')) {
+                        icon.className = 'fas fa-headphones-alt';
+                    } else if (btn.classList.contains('resource-btn')) {
+                        // Mantém ícone original (já está com classe correta)
+                        // Não altera
+                    } else {
+                        icon.className = 'fas fa-volume-up';
+                    }
+                }
+            });
+            // Remove efeito do título
+            const title = document.querySelector('.card-title h2');
+            if (title) title.style.textShadow = '';
+        }
+
+        // Atualiza visual do botão quando áudio está tocando
+        function updateButtonState(btn, isPlaying) {
+            if (!btn) return;
+            if (isPlaying) {
+                btn.style.boxShadow = '0 0 15px rgba(165, 91, 52, 0.5)';
+                btn.style.animation = 'pulse 1s infinite';
+                const icon = btn.querySelector('i');
+                if (icon) icon.className = 'fas fa-stop';
             } else {
-                console.error('ResponsiveVoice não foi carregado');
-            }
-            
-            // Inicializar outras funcionalidades
-            initPage();
-        });
-
-        // Inicializar a página
-        function initPage() {
-            console.log('Inicializando página...');
-            
-            // Detectar proporção das imagens
-            updateImageInfo();
-            
-            // Iniciar animações de entrada
-            initAnimations();
-            
-            // Precarregar imagens
-            preloadImages();
-            
-            // Configurar botões de áudio
-            setupAudioButtons();
-            
-            
-            console.log('Página inicializada com sucesso');
-        }
-        
-        // Função para tocar a descrição ORIGINAL CURTA (resumo visual)
-        function playOriginalDescription() {
-            const originalText = document.getElementById('descricaoTexto').innerText;
-            readText(originalText);
-        }
-        
-        // Função para tocar a descrição DETALHADA da peça original (texto grande)
-        function playDetailedDescription() {
-            const detailedDescription = `
-                A peça é um vaso cerâmico de tamanho médio, com formato arredondado e aparência robusta. 
-                Sua estética remete a um objeto arqueológico indígena, ricamente decorado com padrões 
-                geométricos e elementos antropomórficos. As cores predominantes são vermelho terroso, 
-                preto e tons claros de bege ou creme, aplicadas de forma contrastante.
-
-                Parte superior: No topo, há uma borda larga e achatada, levemente inclinada para fora, 
-                formando uma espécie de aba circular. A superfície superior dessa borda é lisa e pintada 
-                em vermelho terroso, com textura levemente irregular, sugerindo desgaste natural do tempo. 
-                Logo abaixo da borda, na lateral externa, aparecem padrões geométricos simétricos, 
-                compostos por linhas pretas e vermelhas sobre fundo claro, incluindo formas triangulares 
-                e curvas repetidas.
-
-                Região do rosto: Descendo um pouco, a peça apresenta um rosto estilizado em relevo, 
-                ocupando a parte frontal. Os olhos são circulares e salientes, projetados para fora do 
-                corpo do vaso, pintados com anéis concêntricos em preto, branco e vermelho, criando um 
-                olhar expressivo e marcante. No centro, há um nariz em relevo, curto e largo, pintado de 
-                vermelho, com detalhes verticais escuros. Logo abaixo, a boca é pequena e oval, também em 
-                relevo, destacada por um tom vermelho mais escuro.
-
-                Nas laterais do rosto, à altura dos olhos, surgem elementos circulares menores, 
-                semelhantes a adornos ou orelhas estilizadas, igualmente pintados com padrões geométricos.
-
-                Corpo do vaso: A parte central e inferior do vaso é arredondada e volumosa, formando um 
-                bojo largo. Toda essa área é densamente coberta por grafismos geométricos complexos, 
-                compostos por linhas curvas, formas ovais, padrões repetitivos e símbolos abstratos. 
-                Os desenhos são predominantemente em preto, contornados por linhas claras, com áreas 
-                preenchidas em vermelho, criando forte contraste visual.
-
-                Na região frontal inferior, destaca-se um grande círculo vermelho, centralizado, 
-                cercado por anéis claros e escuros, funcionando como ponto focal da decoração. 
-                Ao redor dele, os grafismos se organizam de forma simétrica, sugerindo equilíbrio 
-                e intencionalidade artística.
-
-                Base: A base do vaso não é visível diretamente na imagem, mas o formato indica que ele 
-                se apoia de maneira estável, com o fundo provavelmente plano ou levemente arredondado, 
-                adequado para repousar sobre superfícies.
-            `;
-            
-            // Parar qualquer áudio em execução
-            if (isSpeaking) {
-                responsiveVoice.cancel();
-                isSpeaking = false;
-                removeAudioEffects();
-                return;
-            }
-            
-            // Ler a descrição detalhada
-            readText(detailedDescription);
-            
-            // Feedback visual
-            const descBtn = document.querySelector('.audio-btn-detailed');
-            if (descBtn) {
-                descBtn.innerHTML = '<i class="fas fa-stop"></i> Parar Descrição';
-                descBtn.onclick = function() {
-                    responsiveVoice.cancel();
-                    isSpeaking = false;
-                    removeAudioEffects();
-                    descBtn.innerHTML = '<i class="fas fa-headphones-alt"></i> Descrição Detalhada';
-                    descBtn.onclick = playDetailedDescription;
-                };
+                btn.style.boxShadow = '';
+                btn.style.animation = '';
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    if (btn.classList.contains('audio-btn-detailed')) {
+                        icon.className = 'fas fa-headphones-alt';
+                    } else if (btn.classList.contains('audio-btn-replica')) {
+                        icon.className = 'fas fa-headphones-alt';
+                    } else if (btn.classList.contains('resource-btn')) {
+                        // Mantém o ícone original (já está correto)
+                    } else {
+                        icon.className = 'fas fa-volume-up';
+                    }
+                }
             }
         }
-        
-        // Função para tocar a descrição DETALHADA da réplica 3D (texto grande)
-        function play3DDescription() {
-            const replica3DDescription = `
-                A peça é um vaso cerâmico tridimensional, de aparência sólida e artesanal, com coloração uniforme em tom de argila natural, variando entre bege e marrom claro. Não há pintura colorida: toda a leitura visual é feita por relevos, entalhes e volumes. O objeto remete a uma figura antropomórfica, unindo vaso e escultura em uma única forma.
 
-                Parte superior:
-                No topo, a peça possui uma borda circular larga e achatada, semelhante a um disco horizontal. Essa borda se projeta para fora do corpo do vaso, criando uma sombra logo abaixo. A superfície superior é levemente irregular, com marcas visíveis do processo manual, apresentando textura opaca e aspecto terroso.
-
-                Logo abaixo da borda, inicia-se a região decorada com entalhes geométricos em baixo-relevo, formando linhas curvas e angulares que circundam toda a peça. Esses desenhos parecem gravados diretamente na argila ainda úmida.
-
-                Região do rosto:
-                Na parte frontal superior do vaso, identifica-se um rosto estilizado em relevo. Os olhos são grandes, circulares e salientes, projetando-se para fora do corpo do vaso. Cada olho tem um pequeno volume central, lembrando uma pupila em alto-relevo. Entre os olhos, há um nariz curto e triangular, discretamente elevado.
-
-                Abaixo do nariz, encontra-se a boca, pequena e oval, também em relevo, centralizada e com volume suave. A expressão geral do rosto é neutra, com traços simplificados e simétricos.
-
-                Nas laterais da cabeça, aproximadamente na altura dos olhos, há pequenos volumes circulares, semelhantes a orelhas ou adornos laterais, integrados ao corpo do vaso.
-
-                Transição para o corpo:
-                Descendo a partir do rosto, o vaso se alarga gradualmente, formando um corpo arredondado e volumoso. Nessa área, os relevos se tornam mais densos e contínuos, cobrindo praticamente toda a superfície com padrões orgânicos e geométricos, compostos por linhas sinuosas, curvas fechadas e formas ovais entrelaçadas.
-
-                Na região frontal inferior, destaca-se um grande círculo em baixo-relevo, centralizado no corpo do vaso. Esse círculo funciona como um ponto focal tátil, cercado por linhas curvas que parecem irradiar ou se conectar a ele.
-
-                Base:
-                A base do vaso é arredondada e discreta, permitindo que a peça se apoie de forma estável. Não há pés visíveis; o apoio parece integrado ao próprio corpo, mantendo a continuidade da forma.
-            `;
-            
-            // Parar qualquer áudio em execução
-            if (isSpeaking) {
-                responsiveVoice.cancel();
-                isSpeaking = false;
-                removeAudioEffects();
-                return;
-            }
-            
-            // Ler a descrição detalhada da réplica 3D
-            readText(replica3DDescription);
-            
-            // Feedback visual
-            const replicaBtn = document.querySelector('.audio-btn-replica');
-            if (replicaBtn) {
-                replicaBtn.innerHTML = '<i class="fas fa-stop"></i> Parar Descrição';
-                replicaBtn.onclick = function() {
-                    responsiveVoice.cancel();
-                    isSpeaking = false;
-                    removeAudioEffects();
-                    replicaBtn.innerHTML = '<i class="fas fa-headphones-alt"></i> Ouvir Descrição Detalhada';
-                    replicaBtn.onclick = play3DDescription;
-                };
-            }
-        }
-        
-        // Função para baixar o manual de instruções
+        // Função para download do manual (sem áudio)
         function downloadManual() {
-            // URL do manual de instruções em PDF
             const manualUrl = "Manual de Instruções.pdf";
-            
-            // Criar link temporário para download
             const link = document.createElement('a');
             link.href = manualUrl;
             link.download = 'Manual de Instruções - Born To Fight - Cerâmica Amazônica.pdf';
             link.target = '_blank';
-            
-            // Adicionar ao DOM, clicar e remover
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
             
-            // Feedback de áudio
-            readText("Baixando manual de instruções completo em PDF. O download começará em instantes.");
-            
             // Efeito visual no botão
             const btn = document.querySelectorAll('.resource-topic-btn')[0];
             btn.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                btn.style.transform = '';
-            }, 300);
+            setTimeout(() => btn.style.transform = '', 300);
             
-            // Rastrear download
             trackClick('manual_download');
-            
-            // Efeito de confirmação visual
-            const section = document.querySelector('.manual-topic');
-            section.style.boxShadow = '0 0 30px rgba(165, 91, 52, 0.3)';
-            setTimeout(() => {
-                section.style.boxShadow = '';
-            }, 1000);
         }
-        
-        // Função para abrir o formulário de avaliação
+
+        // Função para abrir formulário de avaliação (sem áudio)
         function openEvaluationForm() {
-            // URL do formulário Google Forms para avaliação completa
             const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdnugr61HzOWKrB167g5hR0eaQoWELFWiXHqL1f0uDmdorKAg/viewform?fbzx=-3456102765212424284";
-            
-            // Abrir em nova aba
             window.open(formUrl, '_blank');
-            
-            // Feedback de áudio
-            readText("Abrindo formulário de avaliação completa do catálogo em nova aba. Obrigado por contribuir para o aprimoramento do nosso projeto!");
             
             // Efeito visual no botão
             const btn = document.querySelectorAll('.resource-topic-btn')[1];
             btn.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                btn.style.transform = '';
-            }, 300);
+            setTimeout(() => btn.style.transform = '', 300);
             
-            // Rastrear clique no formulário
             trackClick('evaluation_form_full');
-            
-            // Efeito de confirmação visual
-            const section = document.querySelector('.evaluation-topic');
-            section.style.boxShadow = '0 0 30px rgba(109, 76, 65, 0.3)';
-            setTimeout(() => {
-                section.style.boxShadow = '';
-            }, 1000);
-        }
-        
-        // Configurar botões de áudio
-        function setupAudioButtons() {
-            document.querySelectorAll('.audio-btn-small').forEach(btn => {
-                btn.addEventListener('mouseenter', function() {
-                    // Pequeno feedback ao passar o mouse
-                    this.style.transform = 'scale(1.05)';
-                });
-                
-                btn.addEventListener('mouseleave', function() {
-                    this.style.transform = '';
-                });
-            });
         }
 
-        // Função para pré-carregar imagens
-        function preloadImages() {
-            const images = [
-                'https://i.imgur.com/FB6u9bs.png',
-                'https://i.imgur.com/1fXqLJv.jpg',
-                'impressao3d.jpg'
-            ];
-            
-            images.forEach(src => {
-                const img = new Image();
-                img.src = src;
-            });
+        // Rastrear cliques (opcional)
+        function trackClick(resourceType) {
+            console.log(`Recurso clicado: ${resourceType}`);
+            const clicks = JSON.parse(localStorage.getItem('resource_clicks') || '{}');
+            clicks[resourceType] = (clicks[resourceType] || 0) + 1;
+            localStorage.setItem('resource_clicks', JSON.stringify(clicks));
         }
 
-        // Funções para controle da imagem
+        // Scroll suave para o topo
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const btn = document.querySelector('.floating-btn');
+            btn.style.transform = 'scale(0.8)';
+            setTimeout(() => btn.style.transform = '', 300);
+            stopAudio();
+        }
+
+        // Mostrar/ocultar botão flutuante
+        window.addEventListener('scroll', function() {
+            const floatingBtn = document.querySelector('.floating-btn');
+            if (floatingBtn) {
+                floatingBtn.style.opacity = window.scrollY > 300 ? '1' : '0';
+                floatingBtn.style.visibility = window.scrollY > 300 ? 'visible' : 'hidden';
+            }
+        });
+
+        // Efeitos de imagem
         function imageLoaded(img) {
-            const container = img.closest('.card-img-container');
-            
-            // Adicionar classe para animação suave
-            img.style.opacity = '0';
             setTimeout(() => {
                 img.style.opacity = '1';
                 img.style.transition = 'opacity 0.5s ease';
@@ -2065,9 +1957,6 @@
         }
 
         function imageError(img, type) {
-            const container = img.closest('.card-img-container');
-            
-            // Mostrar imagem de fallback baseada no tipo
             if (type === 'original') {
                 img.src = 'https://via.placeholder.com/400x300/f9f5f0/a55b34?text=Urna+Marajoara+Original';
             } else if (type === 'replica') {
@@ -2077,264 +1966,41 @@
             }
         }
 
-        function updateImageInfo() {
-            // Esta função pode ser expandida para mostrar informações sobre ambas as imagens
-            const images = document.querySelectorAll('.card-img');
-            images.forEach(img => {
-                if (img.complete && img.naturalWidth > 0) {
-                    // Pode adicionar lógica para mostrar informações sobre cada imagem
-                }
-            });
-        }
-
-        // Funções de áudio usando ResponsiveVoice
-        let isSpeaking = false;
-
-        function readText(text) {
-            console.log('Lendo texto:', text.substring(0, 100) + '...');
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Página carregada - sistema de áudio local (pasta audios/) ativo');
             
-            if (typeof responsiveVoice === 'undefined') {
-                console.error('ResponsiveVoice não disponível');
-                alert('Sistema de áudio não disponível no momento.');
-                return;
-            }
+            // Pré-carregar imagens
+            preloadImages();
             
-            if (isSpeaking) {
-                console.log('Parando áudio atual...');
-                responsiveVoice.cancel();
-                isSpeaking = false;
-                removeAudioEffects();
-                return;
-            }
-            
-            // Configurações da voz
-            const options = {
-                rate: 1.0,    // velocidade
-                pitch: 1.0,   // tom
-                volume: 1.0,  // volume
-                onstart: function() {
-                    console.log('Áudio iniciado');
-                    isSpeaking = true;
-                    addAudioEffects();
-                },
-                onend: function() {
-                    console.log('Áudio finalizado');
-                    isSpeaking = false;
-                    removeAudioEffects();
-                    
-                    // Restaurar botões
-                    const detailedBtn = document.querySelector('.audio-btn-detailed');
-                    if (detailedBtn && detailedBtn.innerHTML.includes('Parar')) {
-                        detailedBtn.innerHTML = '<i class="fas fa-headphones-alt"></i> Descrição Detalhada';
-                        detailedBtn.onclick = playDetailedDescription;
-                    }
-                    
-                    const replicaBtn = document.querySelector('.audio-btn-replica');
-                    if (replicaBtn && replicaBtn.innerHTML.includes('Parar')) {
-                        replicaBtn.innerHTML = '<i class="fas fa-headphones-alt"></i> Ouvir Descrição Detalhada';
-                        replicaBtn.onclick = play3DDescription;
-                    }
-                },
-                onerror: function() {
-                    console.error('Erro no áudio');
-                    isSpeaking = false;
-                    removeAudioEffects();
-                }
-            };
-            
-            try {
-                console.log('Tentando reproduzir áudio...');
-                // Usar voz em português brasileiro
-                responsiveVoice.speak(text, "Portuguese Female", options);
-                console.log('Áudio enviado para reprodução');
-            } catch (error) {
-                console.error('Erro ao reproduzir áudio:', error);
-                isSpeaking = false;
-                removeAudioEffects();
-            }
-        }
-
-        function addAudioEffects() {
-            // Adicionar efeito visual durante a fala
-            document.querySelectorAll('.audio-btn-small').forEach(btn => {
-                btn.style.boxShadow = '0 0 15px rgba(165, 91, 52, 0.5)';
-                btn.style.animation = 'pulse 1s infinite';
-                const icon = btn.querySelector('i');
-                if (icon && !btn.querySelector('.fa-stop')) {
-                    icon.className = 'fas fa-stop';
-                }
-            });
-            
-            // Adicionar efeito no título
-            const title = document.querySelector('.card-title h2');
-            if (title) {
-                title.style.textShadow = '0 0 10px rgba(165, 91, 52, 0.3)';
-            }
-        }
-
-        function removeAudioEffects() {
-            // Remover efeitos visuais
-            document.querySelectorAll('.audio-btn-small').forEach(btn => {
-                btn.style.boxShadow = '';
-                btn.style.animation = '';
-                const icon = btn.querySelector('i');
-                if (icon) {
-                    if (btn.classList.contains('audio-btn-detailed')) {
-                        icon.className = 'fas fa-headphones-alt';
-                    } else if (btn.classList.contains('audio-btn-replica')) {
-                        icon.className = 'fas fa-headphones-alt';
-                    } else {
-                        icon.className = 'fas fa-volume-up';
-                    }
-                }
-            });
-            
-            // Remover efeito do título
-            const title = document.querySelector('.card-title h2');
-            if (title) {
-                title.style.textShadow = '';
-            }
-        }
-
-        // Função para parar toda a fala
-        function stopAllSpeech() {
-            if (typeof responsiveVoice !== 'undefined') {
-                responsiveVoice.cancel();
-                isSpeaking = false;
-                removeAudioEffects();
-            }
-        }
-
-        function ouvirVoltarMenu() {
-            readText("Botão: Voltar para o menu principal");
-        }
-
-        // Rastrear cliques em recursos (para análise)
-        function trackClick(resourceType) {
-            console.log(`Recurso clicado: ${resourceType}`);
-            // Aqui você pode adicionar código para Google Analytics ou outro sistema de tracking
-            const clicks = JSON.parse(localStorage.getItem('resource_clicks') || '{}');
-            clicks[resourceType] = (clicks[resourceType] || 0) + 1;
-            localStorage.setItem('resource_clicks', JSON.stringify(clicks));
-            
-            // Feedback de áudio
-            readText(`Abrindo ${getResourceName(resourceType)} em nova aba.`);
-        }
-
-        function getResourceName(type) {
-            const names = {
-                'photos': 'álbum de fotos',
-                'video1': 'primeiro vídeo educativo',
-                'video2': 'segundo vídeo educativo',
-                'documentary': 'documentário completo',
-                'article': 'artigo científico',
-                'manual_download': 'manual de instruções',
-                'evaluation_form_full': 'formulário de avaliação completa'
-            };
-            return names[type] || 'recurso';
-        }
-
-        // Scroll suave para o topo
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-            
-            // Efeito de clique no botão
-            const btn = document.querySelector('.floating-btn');
-            btn.style.transform = 'scale(0.8)';
-            setTimeout(() => {
-                btn.style.transform = '';
-            }, 300);
-            
-            // Parar qualquer fala em andamento
-            stopAllSpeech();
-        }
-
-        // Mostrar/ocultar botão flutuante
-        window.addEventListener('scroll', function() {
-            const floatingBtn = document.querySelector('.floating-btn');
-            if (floatingBtn) {
-                if (window.scrollY > 300) {
-                    floatingBtn.style.opacity = '1';
-                    floatingBtn.style.visibility = 'visible';
-                } else {
-                    floatingBtn.style.opacity = '0';
-                    floatingBtn.style.visibility = 'hidden';
-                }
-            }
-        });
-
-        // Redimensionamento responsivo da imagem
-        window.addEventListener('resize', function() {
-            updateImageInfo();
-        });
-
-        // Efeito de digitação no título
-        window.addEventListener('load', function() {
-            const title = document.querySelector('.nav-title h1');
-            if (title) {
-                title.classList.add('typing-effect');
-                
-                setTimeout(() => {
-                    title.classList.remove('typing-effect');
-                    title.style.borderRight = 'none';
-                }, 3500);
-            }
-            
-            // Animação para os botões
-            document.querySelectorAll('.nav-btn, .audio-btn-small').forEach((btn, index) => {
-                btn.style.opacity = '0';
-                btn.style.transform = 'translateY(20px)';
-                
-                setTimeout(() => {
-                    btn.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-                    btn.style.opacity = '1';
-                    btn.style.transform = 'translateY(0)';
-                }, 1000 + (index * 200));
-            });
-        });
-
-        // Efeitos de hover nas linhas de informação
-        document.querySelectorAll('.info-row').forEach(row => {
-            row.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateX(5px)';
-            });
-            
-            row.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateX(0)';
-            });
-        });
-
-        // Inicializar animações
-        function initAnimations() {
-            // Animação para as seções
-            document.querySelectorAll('.section-container').forEach((section, index) => {
-                section.style.animationDelay = `${0.4 + (index * 0.2)}s`;
-            });
-            
-            // Animação para os tópicos
+            // Animação de entrada para tópicos
             document.querySelectorAll('.resource-topic').forEach((topic, index) => {
                 topic.style.opacity = '0';
                 topic.style.transform = 'translateY(20px)';
-                
                 setTimeout(() => {
                     topic.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
                     topic.style.opacity = '1';
                     topic.style.transform = 'translateY(0)';
                 }, 1200 + (index * 200));
             });
+        });
+
+        function preloadImages() {
+            const images = [
+                'https://i.imgur.com/FB6u9bs.png',
+                'Urna-Marajoara.jpg',
+                'images/Urna_Marajoara3D.png'
+            ];
+            images.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
         }
 
-        // Parar áudio ao sair da página
-        window.addEventListener('beforeunload', stopAllSpeech);
-        window.addEventListener('pagehide', stopAllSpeech);
-
-        // Configurar botões de áudio para parar áudio ao clicar em links
+        // Parar áudio ao clicar em links
         document.addEventListener('click', function(e) {
-            if (e.target.closest('a') && isSpeaking) {
-                stopAllSpeech();
+            if (e.target.closest('a') && currentAudio) {
+                stopAudio();
             }
         });
     </script>
