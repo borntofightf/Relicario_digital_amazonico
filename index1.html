@@ -1350,6 +1350,25 @@
             background: #8d6e63;
             border-color: #8d6e63;
         }
+
+        /* ===== NOVAS REGRAS PARA EVITAR ROLAGEM NO MOBILE ===== */
+        button, .nav-btn, .audio-btn-small, .resource-btn, .resource-topic-btn {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation; /* Impede zoom duplo-toque */
+            user-select: none; /* Evita seleção de texto acidental */
+        }
+
+        /* Garante que o foco não cause rolagem */
+        :focus {
+            outline: none !important;
+            scroll-margin: 0;
+        }
+
+        /* Mantém acessibilidade visual sem rolagem forçada */
+        button:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
     </style>
 </head>
 
@@ -1370,7 +1389,7 @@
                 <i class="fas fa-arrow-left"></i>
                 Voltar para o Menu
             </a>
-            <button class="audio-btn-small" onclick="playAudio('voltar_menu.mp4')">
+            <button class="audio-btn-small" onclick="playAudio('voltar_menu.mp4', event)">
                 <i class="fas fa-volume-up"></i>
                 Ouvir
             </button>
@@ -1424,7 +1443,7 @@
             <div class="card-content">
                 <div class="card-title">
                     <h2 id="titulo">Urna Funerária Marajoara</h2>
-                    <button class="audio-btn-small" onclick="playAudio('urna_funeraria_marajoara.mp4')">
+                    <button class="audio-btn-small" onclick="playAudio('urna_funeraria_marajoara.mp4', event)">
                         <i class="fas fa-volume-up"></i>
                         Ouvir Título
                     </button>
@@ -1439,7 +1458,7 @@
                         <div class="info-value" id="periodo">
                             400 a 1400 d.C.
                         </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="playAudio('periodo_historico.mp4')">
+                        <button class="audio-btn-small info-audio-btn" onclick="playAudio('periodo_historico.mp4', event)">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
@@ -1452,7 +1471,7 @@
                         <div class="info-value" id="local">
                             Ilha do Marajó, Pará
                         </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="playAudio('local_de_origem.mp4')">
+                        <button class="audio-btn-small info-audio-btn" onclick="playAudio('local_de_origem.mp4', event)">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
@@ -1465,7 +1484,7 @@
                         <div class="info-value" id="tamanho">
                             60 - 100 cm
                         </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="playAudio('dimensões_aproximadas_ori.mp4')">
+                        <button class="audio-btn-small info-audio-btn" onclick="playAudio('dimensões_aproximadas_ori.mp4', event)">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
@@ -1479,11 +1498,11 @@
                             <span>Descrição da Peça Original</span>
                         </div>
                         <div class="audio-buttons-container">
-                            <button class="audio-btn-small" onclick="playAudio('descrição_urna_ori.mp4')">
+                            <button class="audio-btn-small" onclick="playAudio('descrição_urna_ori.mp4', event)">
                                 <i class="fas fa-volume-up"></i>
                                 Ouvir Resumo
                             </button>
-                            <button class="audio-btn-small audio-btn-detailed" onclick="playAudio('descrição_urna_ori.mp4')">
+                            <button class="audio-btn-small audio-btn-detailed" onclick="playAudio('descrição_urna_ori.mp4', event)">
                                 <i class="fas fa-headphones-alt"></i>
                                 Descrição Detalhada
                             </button>
@@ -1504,7 +1523,7 @@
                             <span>Descrição da Réplica 3D</span>
                         </div>
                         <div class="audio-buttons-container">
-                            <button class="audio-btn-small audio-btn-replica" onclick="playAudio('descrição_urna_re.mp4')">
+                            <button class="audio-btn-small audio-btn-replica" onclick="playAudio('descrição_urna_re.mp4', event)">
                                 <i class="fas fa-headphones-alt"></i>
                                 Ouvir Descrição Detalhada
                             </button>
@@ -1524,7 +1543,7 @@
                             <i class="fas fa-history"></i>
                             <span>Contexto Histórico</span>
                         </div>
-                        <button class="audio-btn-small" onclick="playAudio('contexto_historico.mp4')">
+                        <button class="audio-btn-small" onclick="playAudio('contexto_historico.mp4', event)">
                             <i class="fas fa-volume-up"></i>
                             Ouvir História
                         </button>
@@ -1548,7 +1567,7 @@
                 <i class="fas fa-photo-video"></i>
                 <span>Recursos Multimídia</span>
             </div>
-            <button class="audio-btn-small" onclick="playAudio('recursos.mp4')">
+            <button class="audio-btn-small" onclick="playAudio('recursos.mp4', event)">
                 <i class="fas fa-volume-up"></i>
                 Ouvir Seção
             </button>
@@ -1572,7 +1591,7 @@
                         <i class="fas fa-external-link-alt"></i>
                         Acessar Álbum
                     </a>
-                    <button class="resource-btn btn-photos" onclick="playAudio('album_fotos.mp4')">
+                    <button class="resource-btn btn-photos" onclick="playAudio('album_fotos.mp4', event)">
                         <i class="fas fa-volume-up"></i>
                         Ouvir Descrição
                     </button>
@@ -1603,7 +1622,7 @@
                         <i class="fab fa-youtube"></i>
                         Vídeo 2
                     </a>
-                    <button class="resource-btn btn-videos" onclick="playAudio('vídeos_edu.mp4')">
+                    <button class="resource-btn btn-videos" onclick="playAudio('vídeos_edu.mp4', event)">
                         <i class="fas fa-volume-up"></i>
                         Ouvir Descrição
                     </button>
@@ -1627,7 +1646,7 @@
                         <i class="fas fa-external-link-alt"></i>
                         Assistir Documentário
                     </a>
-                    <button class="resource-btn btn-documentary" onclick="playAudio('documentarios.mp4')">
+                    <button class="resource-btn btn-documentary" onclick="playAudio('documentarios.mp4', event)">
                         <i class="fas fa-volume-up"></i>
                         Ouvir Descrição
                     </button>
@@ -1651,7 +1670,7 @@
                         <i class="fas fa-external-link-alt"></i>
                         Ler Artigo
                     </a>
-                    <button class="resource-btn btn-article" onclick="playAudio('artigo_cien.mp4')">
+                    <button class="resource-btn btn-article" onclick="playAudio('artigo_cien.mp4', event)">
                         <i class="fas fa-volume-up"></i>
                         Ouvir Descrição
                     </button>
@@ -1667,7 +1686,7 @@
                 <i class="fas fa-tools"></i>
                 <span>Recursos para o Projeto</span>
             </div>
-            <button class="audio-btn-small" onclick="playAudio('recursos.mp4')">
+            <button class="audio-btn-small" onclick="playAudio('recursos.mp4', event)">
                 <i class="fas fa-volume-up"></i>
                 Ouvir Seção
             </button>
@@ -1801,7 +1820,12 @@
         let currentAudio = null;
 
         // Função principal para tocar áudio (arquivos .mp4 na pasta audios/)
-        function playAudio(filename) {
+        function playAudio(filename, event) {
+            // Previne qualquer comportamento padrão (como rolagem ou foco forçado)
+            if (event) {
+                event.preventDefault();
+            }
+
             // Caminho da pasta de áudios
             const audioPath = 'audios/';
             
