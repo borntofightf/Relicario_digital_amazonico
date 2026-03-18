@@ -11,10 +11,12 @@
 </tr>
 </table>
 
-# 🏺 Catálogo Interativo Arqueológico – Projeto FLL
+# 🏺 Relicário Digital Amazônico – Projeto FLL
 
 Um catálogo **físico e digital** que permite explorar artefatos arqueológicos de forma **sensorial, inclusiva e autônoma**.  
 O projeto combina peças impressas em 3D, sensores e tecnologias digitais para tornar o conhecimento acessível a todos os públicos.
+
+[SITE RELICÁRIO DIGITAL AMAZÔNICO](https://borntofightf.github.io/Relicario_digital_amazonico/)
 
 ---
 
