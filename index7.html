@@ -1491,9 +1491,9 @@
                         </div>
                     </div>
                     <div class="section-content" id="descricaoTexto">
-                        <p><strong>Resumo Visual:</strong> Urna funerária antropomórfica de tradição marajoara, caracterizada por feições humanas modeladas na parte superior, com olhos, nariz e orelhas em relevo. O corpo apresenta decoração geométrica incisa e modelada, além de pequenas extensões laterais ornamentais. A peça evidencia forte simbolismo ritual, associada a práticas funerárias e à representação de ancestralidade e identidade social.</p>
-                        <p><strong>Técnica:</strong> Cerâmica modelada manualmente, com aplicação de elementos em relevo e incisões decorativas. Queima controlada de alta qualidade, apresentando acabamento refinado e detalhamento escultórico.</p>
-                        <p><strong>Significado Cultural:</strong> Expressa o elevado grau de complexidade artística, simbólica e tecnológica das sociedades pré-coloniais da Amazônia, especialmente da cultura marajoara, refletindo estruturas sociais elaboradas e profundas concepções espirituais ligadas à morte e à ancestralidade.</p>
+                        <p><strong>Resumo Visual:</strong> Urna funerária de cerâmica com formato arredondado e volumoso. A parte superior apresenta feições humanas estilizadas, como olhos e orelhas em relevo. A superfície possui padrões geométricos e marcas de desgaste.</p>
+                        <p><strong>Técnica:</strong> Produzida manualmente em argila, provavelmente pela técnica de acordelamento. Os detalhes foram feitos por incisão e relevo antes da queima, que garantiu a resistência da peça.</p>
+                        <p><strong>Significado Cultural:</strong> Associada a rituais funerários indígenas, era utilizada para guardar restos mortais. Os traços humanos e as decorações refletem crenças espirituais e a identidade cultural do grupo.</p>
                     </div>
                 </div>
                 
@@ -1512,7 +1512,7 @@
                         </div>
                     </div>
                     <div class="section-content replica-section" id="descricao3DTexto">
-                        <p><strong>Resumo Visual:</strong> Réplica fiel em impressão 3D da urna marajoara, reproduzindo com precisão os detalhes geométricos e antropomórficos da peça original. Fabricada com tecnologia moderna para fins educativos e de preservação cultural.</p>
+                        <p><strong>Resumo Visual:</strong> Réplica de urna com formato arredondado e estrutura semelhante à original, apresentando detalhes antropomórficos na parte superior, como olhos em relevo. A superfície é mais lisa e uniforme, com menos detalhes finos e sem sinais de desgaste.</p>
                         <p><strong>Materiais:</strong> Filamento PLA biodegradável, com textura e cor que simulam a argila natural.</p>
                         <p><strong>Finalidade Educativa:</strong> Permite o manuseio e estudo tátil sem riscos para o artefato arqueológico original.</p>
                     </div>
@@ -1658,15 +1658,11 @@
                     
                     <p><strong>O manual inclui:</strong></p>
                     <ul class="resource-topic-list">
-                        <li>Guia detalhado para impressão 3D da urna marajoara</li>
-                        <li>Configuração da Raspberry Pi e módulo RFID</li>
-                        <li>Programação do sistema de identificação por cartão</li>
-                        <li>Soluções para erros comuns e contato para suporte</li>
-                        <li>Lista completa de materiais necessários</li>
-                        <li>Instruções passo a passo para montagem</li>
+                        <li>Guia para impressão 3D das peças</li>
+                        <li>Instruções simples do passo a passo para montagem</li>
                     </ul>
                     
-                    <p>O manual possui 34 páginas com instruções detalhadas e ilustrações para facilitar a compreensão.</p>
+                    <p>O manual possui somente 2 páginas com instruções simples e ilustrações para facilitar a compreensão.</p>
                 </div>
                 
                 <button class="resource-topic-btn" onclick="downloadManual()">
@@ -1879,18 +1875,15 @@
             }
         }
         
-        // Função para baixar o manual de instruções
         function downloadManual() {
-            // URL do manual de instruções em PDF
-            const manualUrl = "Manual de Instruções.pdf";
+            // Caminho correto para o PDF (codificado para evitar problemas com caracteres especiais)
+            const manualUrl = encodeURI("pdfs/Manual do relicário.pdf");
             
-            // Criar link temporário para download
             const link = document.createElement('a');
             link.href = manualUrl;
             link.download = 'Manual de Instruções - Born To Fight - Cerâmica Amazônica.pdf';
             link.target = '_blank';
             
-            // Adicionar ao DOM, clicar e remover
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
