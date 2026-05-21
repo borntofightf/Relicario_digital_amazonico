@@ -28,6 +28,7 @@
             --shadow-sm: 0 4px 6px rgba(0,0,0,0.07);
             --shadow-md: 0 8px 20px rgba(0,0,0,0.12);
             --shadow-lg: 0 15px 35px rgba(0,0,0,0.15);
+            --shadow-xl: 0 20px 40px rgba(0,0,0,0.2);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --radius: 16px;
             --radius-lg: 24px;
@@ -97,6 +98,11 @@
             to { transform: rotate(360deg); }
         }
 
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
         /* HEADER NAVEGAÇÃO */
         .nav-header {
             width: 100%;
@@ -111,7 +117,9 @@
             margin-bottom: 40px;
             animation: slideIn 0.6s ease-out;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         .nav-header::before {
@@ -185,6 +193,7 @@
             gap: 15px;
             align-items: center;
             z-index: 2;
+            flex-wrap: wrap;
         }
 
         .nav-btn {
@@ -206,24 +215,6 @@
             overflow: hidden;
         }
 
-        .nav-btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.5);
-            opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
-        }
-
-        .nav-btn:focus:not(:active)::after {
-            animation: ripple 1s ease-out;
-        }
-
         .nav-btn:hover {
             transform: translateY(-3px);
             box-shadow: var(--shadow-md);
@@ -242,8 +233,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            position: relative;
-            overflow: hidden;
         }
 
         .audio-btn-small:hover {
@@ -252,7 +241,458 @@
             transform: translateY(-2px);
         }
 
-        /* NOVA SEÇÃO: RECURSOS MULTIMÍDIA */
+        /* SELETOR DE IDIOMA */
+        .language-selector {
+            position: relative;
+        }
+
+        .language-btn {
+            padding: 12px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow-sm);
+            min-width: 140px;
+            justify-content: center;
+        }
+
+        .language-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        }
+
+        .language-btn-flag {
+            width: 20px;
+            height: 15px;
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: var(--white);
+            box-shadow: var(--shadow-xl);
+            border-radius: var(--radius);
+            padding: 15px;
+            min-width: 180px;
+            z-index: 10000;
+            animation: scaleIn 0.2s ease-out;
+            border: 1px solid rgba(165,91,52,0.2);
+            transform-origin: top right;
+        }
+
+        .language-dropdown.show {
+            display: block;
+        }
+
+        .language-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            transition: var(--transition);
+            background: rgba(165,91,52,0.05);
+            border: 1px solid rgba(165,91,52,0.1);
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .language-option:last-child {
+            margin-bottom: 0;
+        }
+
+        .language-option:hover {
+            background: rgba(165,91,52,0.15);
+            transform: translateX(5px);
+            border-color: var(--primary);
+        }
+
+        .language-option.active {
+            background: rgba(165,91,52,0.2);
+            border-color: var(--primary);
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .language-flag {
+            width: 24px;
+            height: 18px;
+            border-radius: 3px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .language-flag img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* CONTAINER DE IMAGENS DUPLAS (igual ao index1) */
+        .images-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .images-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        .image-card {
+            background: linear-gradient(135deg, rgba(165,91,52,0.05) 0%, rgba(44,85,48,0.05) 100%);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 2px solid rgba(165,91,52,0.1);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .image-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .image-card-header {
+            padding: 15px;
+            background: rgba(165,91,52,0.08);
+            text-align: center;
+            border-bottom: 2px solid rgba(165,91,52,0.2);
+        }
+
+        .image-card-header h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            color: var(--primary-dark);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .original-header h3 i {
+            color: #a55b34;
+        }
+        .replica-header h3 i {
+            color: #2c5530;
+        }
+
+        .card-img-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .card-img-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .card-img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 3px solid var(--white);
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-img-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            height: 150%;
+            background: conic-gradient(transparent, var(--primary-light), transparent 30%);
+            animation: rotate 4s linear infinite;
+            z-index: 1;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .image-card:hover .card-img-container::before {
+            opacity: 0.1;
+        }
+
+        .image-card:hover .card-img {
+            transform: scale(1.03);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* GRADE DE CARDS */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 35px;
+            width: 100%;
+            max-width: 1300px;
+            margin-bottom: 50px;
+            animation: slideInUp 0.8s ease-out 0.2s both;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(165,91,52,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            animation: cardHover 0.3s ease forwards;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 1;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .card-title h2 {
+            margin: 0;
+            flex: 1;
+        }
+
+        .info-group {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(165,91,52,0.1);
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 10px 15px;
+            background: rgba(165,91,52,0.03);
+            border-radius: 10px;
+            border: 1px solid rgba(165,91,52,0.08);
+            transition: var(--transition);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .info-row::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(165,91,52,0.1), transparent);
+            transition: var(--transition);
+        }
+
+        .info-row:hover::before {
+            left: 100%;
+        }
+
+        .info-row:hover {
+            background: rgba(165,91,52,0.08);
+            transform: translateX(5px);
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .info-label i {
+            color: var(--primary);
+            width: 20px;
+            transition: var(--transition);
+        }
+
+        .info-row:hover .info-label i {
+            transform: scale(1.2);
+        }
+
+        .info-value {
+            color: var(--text-light);
+            font-weight: 500;
+            text-align: right;
+            flex: 1;
+            margin-right: 10px;
+            transition: var(--transition);
+        }
+
+        .info-row:hover .info-value {
+            color: var(--primary-dark);
+        }
+
+        .info-audio-btn {
+            flex-shrink: 0;
+        }
+
+        /* SEÇÕES DESCRITIVAS */
+        .section-container {
+            margin: 25px 0;
+            opacity: 0;
+            animation: slideInUp 0.5s ease-out forwards;
+        }
+
+        .section-container:nth-child(1) { animation-delay: 0.4s; }
+        .section-container:nth-child(2) { animation-delay: 0.6s; }
+        .section-container:nth-child(3) { animation-delay: 0.8s; }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(165,91,52,0.2);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .card:hover .section-header {
+            border-bottom-color: var(--primary);
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .section-header:hover .section-title i {
+            transform: rotate(15deg);
+        }
+
+        .section-content {
+            padding: 20px;
+            background: rgba(165,91,52,0.03);
+            border-radius: var(--radius);
+            border-left: 4px solid var(--primary);
+            line-height: 1.8;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .section-content:hover {
+            background: rgba(165,91,52,0.07);
+        }
+
+        .history-section {
+            border-left-color: var(--secondary);
+        }
+
+        .replica-section {
+            border-left-color: #6d4c41;
+        }
+
+        .audio-buttons-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .audio-btn-detailed {
+            background: var(--secondary);
+            color: white;
+            border-color: var(--secondary);
+        }
+        .audio-btn-detailed:hover {
+            background: #3a7d3f;
+        }
+        .audio-btn-replica {
+            background: #6d4c41;
+            color: white;
+            border-color: #6d4c41;
+        }
+        .audio-btn-replica:hover {
+            background: #8d6e63;
+        }
+
+        /* MULTIMÍDIA */
         .multimedia-section {
             margin: 30px 0;
             padding: 25px;
@@ -271,6 +711,8 @@
             margin-bottom: 25px;
             padding-bottom: 15px;
             border-bottom: 2px solid var(--primary);
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .multimedia-title {
@@ -295,7 +737,7 @@
         }
 
         .resource-card {
-            background: linear-gradient(135deg, rgba(165, 91, 52, 0.05) 0%, rgba(44, 85, 48, 0.05) 100%);
+            background: linear-gradient(135deg, rgba(165,91,52,0.05) 0%, rgba(44,85,48,0.05) 100%);
             border-radius: var(--radius);
             padding: 25px;
             text-align: center;
@@ -305,8 +747,6 @@
             flex-direction: column;
             align-items: center;
             gap: 15px;
-            position: relative;
-            overflow: hidden;
         }
 
         .resource-card::before {
@@ -394,51 +834,19 @@
             background: var(--primary);
             color: white;
             transform: translateY(-3px);
-            box-shadow: var(--shadow-sm);
         }
 
-        .resource-btn i {
-            font-size: 16px;
-        }
+        .btn-photos { border-color: #4CAF50; color: #2E7D32; }
+        .btn-photos:hover { background: #4CAF50; }
+        .btn-videos { border-color: #FF5722; color: #D84315; }
+        .btn-videos:hover { background: #FF5722; }
+        .btn-documentary { border-color: #2196F3; color: #1565C0; }
+        .btn-documentary:hover { background: #2196F3; }
+        .btn-article { border-color: #9C27B0; color: #7B1FA2; }
+        .btn-article:hover { background: #9C27B0; }
 
-        .btn-photos {
-            border-color: #4CAF50;
-            color: #2E7D32;
-        }
-
-        .btn-photos:hover {
-            background: #4CAF50;
-        }
-
-        .btn-videos {
-            border-color: #FF5722;
-            color: #D84315;
-        }
-
-        .btn-videos:hover {
-            background: #FF5722;
-        }
-
-        .btn-documentary {
-            border-color: #2196F3;
-            color: #1565C0;
-        }
-
-        .btn-documentary:hover {
-            background: #2196F3;
-        }
-
-        .btn-article {
-            border-color: #9C27B0;
-            color: #7B1FA2;
-        }
-
-        .btn-article:hover {
-            background: #9C27B0;
-        }
-
-        /* NOVA SEÇÃO: FORMULÁRIO DE AVALIAÇÃO (APÓS MULTIMÍDIA) */
-        .evaluation-full-section {
+        /* RECURSOS E AVALIAÇÃO */
+        .resources-section {
             margin: 30px 0;
             padding: 30px;
             background: var(--white);
@@ -449,16 +857,18 @@
             animation: slideInUp 0.8s ease-out 1s both;
         }
 
-        .evaluation-full-header {
+        .resources-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 2px solid var(--secondary);
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
-        .evaluation-full-title {
+        .resources-title {
             font-family: 'Montserrat', sans-serif;
             font-size: 28px;
             font-weight: 700;
@@ -468,12 +878,7 @@
             gap: 15px;
         }
 
-        .evaluation-full-title i {
-            color: var(--secondary);
-            font-size: 32px;
-        }
-
-        .evaluation-full-content {
+        .resources-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
@@ -481,89 +886,78 @@
         }
 
         @media (max-width: 1024px) {
-            .evaluation-full-content {
+            .resources-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        .evaluation-intro {
-            background: linear-gradient(135deg, rgba(44, 85, 48, 0.05) 0%, rgba(44, 85, 48, 0.1) 100%);
+        .resource-topic {
+            background: linear-gradient(135deg, rgba(44,85,48,0.05) 0%, rgba(44,85,48,0.1) 100%);
             padding: 30px;
             border-radius: var(--radius);
             border-left: 5px solid var(--secondary);
-        }
-
-        .evaluation-intro h3 {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--secondary);
-            font-size: 22px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .evaluation-intro p {
-            color: var(--text-dark);
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .evaluation-features {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
+            height: 100%;
             transition: var(--transition);
         }
 
-        .feature-item:hover {
-            transform: translateX(5px);
-            background: white;
-            box-shadow: var(--shadow-sm);
+        .resource-topic:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
         }
 
-        .feature-item i {
-            color: var(--secondary);
-            font-size: 18px;
-            width: 24px;
-        }
-
-        .evaluation-form {
-            background: linear-gradient(135deg, rgba(165, 91, 52, 0.05) 0%, rgba(165, 91, 52, 0.1) 100%);
-            padding: 30px;
-            border-radius: var(--radius);
-            border-left: 5px solid var(--primary);
-        }
-
-        .evaluation-form h3 {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--primary-dark);
-            font-size: 22px;
-            margin-bottom: 20px;
+        .resource-topic-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
-        .form-description {
-            color: var(--text-dark);
-            line-height: 1.7;
+        .resource-topic-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--secondary) 0%, #3a7d3f 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .resource-topic-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .resource-topic-content {
+            flex-grow: 1;
             margin-bottom: 25px;
         }
 
-        .evaluation-btn-large {
-            padding: 18px 35px;
-            font-size: 18px;
+        .resource-topic-content p {
+            color: var(--text-dark);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .resource-topic-list {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .resource-topic-list li {
+            margin: 8px 0;
+            color: var(--text-dark);
+        }
+
+        .resource-topic-btn {
+            padding: 16px 30px;
+            font-size: 17px;
             font-weight: 700;
             background: linear-gradient(135deg, var(--secondary) 0%, #3a7d3f 100%);
             color: white;
@@ -575,344 +969,47 @@
             align-items: center;
             gap: 15px;
             box-shadow: var(--shadow-md);
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            margin: 0 auto;
             justify-content: center;
-            min-width: 250px;
-            text-align: center;
+            width: 100%;
+            margin-top: auto;
         }
 
-        .evaluation-btn-large::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.5);
-            opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
-        }
-
-        .evaluation-btn-large:focus:not(:active)::after {
-            animation: ripple 1s ease-out;
-        }
-
-        .evaluation-btn-large:hover {
+        .resource-topic-btn:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow-lg);
             background: linear-gradient(135deg, #3a7d3f 0%, var(--secondary) 100%);
         }
 
-        .evaluation-btn-large i {
-            font-size: 20px;
+        .manual-topic {
+            border-left-color: var(--primary);
         }
-
-        /* GRADE DE CARDS */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 35px;
-            width: 100%;
-            max-width: 1300px;
-            margin-bottom: 50px;
-            animation: slideInUp 0.8s ease-out 0.2s both;
+        .manual-topic .resource-topic-icon {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
         }
-
-        /* CARD PRINCIPAL */
-        .card {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
-            position: relative;
-            border: 1px solid rgba(165, 91, 52, 0.1);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card:hover {
-            animation: cardHover 0.3s ease forwards;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            z-index: 1;
-        }
-
-        /* CONTAINER DA IMAGEM - RESPONSIVO E PROPORCIONAL */
-        .card-img-container {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            padding: 25px;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(165, 91, 52, 0.05) 0%, rgba(44, 85, 48, 0.05) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .card-img-wrapper {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .card-img {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            border-radius: 12px;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition);
-            border: 3px solid var(--white);
-            position: relative;
-            z-index: 2;
-        }
-
-        .card-img-container::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 150%;
-            height: 150%;
-            background: conic-gradient(transparent, var(--primary-light), transparent 30%);
-            animation: rotate 4s linear infinite;
-            z-index: 1;
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .card-img-container:hover::before {
-            opacity: 0.1;
-        }
-
-        .card:hover .card-img {
-            transform: scale(1.03);
-            box-shadow: var(--shadow-md);
-        }
-
-        /* Indicador de proporção da imagem */
-        .img-info {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            opacity: 0;
-            transition: var(--transition);
-            z-index: 3;
-        }
-
-        .card-img-container:hover .img-info {
-            opacity: 1;
-            transform: translateY(-5px);
-        }
-
-        .card-content {
-            padding: 25px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 26px;
-            font-weight: 700;
-            color: var(--primary-dark);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .card-title h2 {
-            margin: 0;
-            flex: 1;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: var(--transition);
-        }
-
-        .card:hover .card-title h2::after {
-            width: 100%;
-        }
-
-        .info-group {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(165, 91, 52, 0.1);
-        }
-
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            padding: 10px 15px;
-            background: rgba(165, 91, 52, 0.03);
-            border-radius: 10px;
-            border: 1px solid rgba(165, 91, 52, 0.08);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .info-row::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(165, 91, 52, 0.1), transparent);
-            transition: var(--transition);
-        }
-
-        .info-row:hover::before {
-            left: 100%;
-        }
-
-        .info-row:hover {
-            background: rgba(165, 91, 52, 0.08);
-            transform: translateX(5px);
-        }
-
-        .info-label {
-            font-weight: 600;
-            color: var(--text-dark);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex: 1;
-            min-width: 180px;
-        }
-
-        .info-label i {
-            color: var(--primary);
-            width: 20px;
-            transition: var(--transition);
-        }
-
-        .info-row:hover .info-label i {
-            transform: scale(1.2);
-        }
-
-        .info-value {
-            color: var(--text-light);
-            font-weight: 500;
-            text-align: right;
-            flex: 1;
-            margin-right: 10px;
-            transition: var(--transition);
-        }
-
-        .info-row:hover .info-value {
+        .manual-topic .resource-topic-title {
             color: var(--primary-dark);
         }
-
-        .info-audio-btn {
-            flex-shrink: 0;
+        .manual-topic .resource-topic-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        }
+        .manual-topic .resource-topic-btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
         }
 
-        /* SEÇÕES DESCRITIVAS */
-        .section-container {
-            margin: 25px 0;
-            opacity: 0;
-            animation: slideInUp 0.5s ease-out forwards;
+        .evaluation-topic {
+            border-left-color: #6d4c41;
         }
-
-        .section-container:nth-child(1) {
-            animation-delay: 0.6s;
+        .evaluation-topic .resource-topic-icon {
+            background: linear-gradient(135deg, #6d4c41 0%, #8d6e63 100%);
         }
-
-        .section-container:nth-child(2) {
-            animation-delay: 0.8s;
+        .evaluation-topic .resource-topic-title {
+            color: #6d4c41;
         }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid rgba(165, 91, 52, 0.2);
-            transition: var(--transition);
+        .evaluation-topic .resource-topic-btn {
+            background: linear-gradient(135deg, #6d4c41 0%, #8d6e63 100%);
         }
-
-        .card:hover .section-header {
-            border-bottom-color: var(--primary);
-        }
-
-        .section-title {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--primary-dark);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title i {
-            color: var(--primary);
-            transition: var(--transition);
-        }
-
-        .section-header:hover .section-title i {
-            transform: rotate(15deg);
-        }
-
-        .section-content {
-            padding: 20px;
-            background: rgba(165, 91, 52, 0.03);
-            border-radius: var(--radius);
-            border-left: 4px solid var(--primary);
-            line-height: 1.8;
-            color: var(--text-dark);
-            transition: var(--transition);
-        }
-
-        .section-content:hover {
-            background: rgba(165, 91, 52, 0.07);
-        }
-
-        .history-section {
-            border-left-color: var(--secondary);
+        .evaluation-topic .resource-topic-btn:hover {
+            background: linear-gradient(135deg, #8d6e63 0%, #6d4c41 100%);
         }
 
         /* RODAPÉ */
@@ -1043,522 +1140,276 @@
 
         /* RESPONSIVIDADE */
         @media (max-width: 1024px) {
-            .nav-header {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
-            
-            .nav-buttons {
-                flex-direction: column;
-                width: 100%;
-            }
-            
-            .nav-btn, .audio-btn-small {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .card-img-container {
-                height: 280px;
-                padding: 20px;
-            }
-            
-            .multimedia-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            }
-            
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .evaluation-btn-large {
-                min-width: 100%;
-            }
+            .nav-header { flex-direction: column; text-align: center; }
+            .nav-buttons { flex-direction: column; width: 100%; }
+            .nav-btn, .audio-btn-small, .language-selector { width: 100%; }
+            .language-btn { width: 100%; }
+            .grid { grid-template-columns: 1fr; }
+            .card-img-container { height: 280px; }
         }
 
         @media (max-width: 768px) {
-            body {
-                padding: 20px 15px;
-            }
-            
-            .nav-header {
-                padding: 15px;
-            }
-            
-            .card-img-container {
-                height: 250px;
-                padding: 15px;
-            }
-            
-            .card-content {
-                padding: 20px;
-            }
-            
-            .card-title {
-                font-size: 22px;
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-            
-            .info-row {
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
-            }
-            
-            .info-label {
-                justify-content: center;
-                min-width: auto;
-            }
-            
-            .info-value {
-                text-align: center;
-                margin-right: 0;
-            }
-            
-            .section-header {
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
-            }
-            
-            .multimedia-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .resource-buttons {
-                flex-direction: column;
-            }
-            
-            .resource-btn {
-                min-width: 100%;
-            }
-            
-            .evaluation-full-section {
-                padding: 20px;
-            }
-            
-            .evaluation-full-content {
-                gap: 20px;
-            }
-            
-            .evaluation-intro, .evaluation-form {
-                padding: 20px;
-            }
-            
-            .evaluation-btn-large {
-                min-width: 100%;
-                padding: 15px 25px;
-                font-size: 16px;
-            }
+            body { padding: 20px 15px; }
+            .card-content { padding: 20px; }
+            .card-title { font-size: 22px; flex-direction: column; text-align: center; }
+            .info-row { flex-direction: column; text-align: center; }
+            .info-label { justify-content: center; }
+            .info-value { text-align: center; margin-right: 0; }
+            .section-header { flex-direction: column; text-align: center; }
+            .floating-btn { width: 50px; height: 50px; bottom: 20px; right: 20px; }
         }
 
-        @media (max-width: 480px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .card-img-container {
-                height: 220px;
-            }
-            
-            .card-title h2 {
-                font-size: 20px;
-            }
-            
-            .floating-btn {
-                bottom: 20px;
-                right: 20px;
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-            
-            .multimedia-title {
-                font-size: 20px;
-            }
-            
-            .resource-icon {
-                width: 60px;
-                height: 60px;
-                font-size: 24px;
-            }
-            
-            .evaluation-full-title {
-                font-size: 22px;
-            }
-            
-            .evaluation-full-title i {
-                font-size: 24px;
-            }
+        button, .nav-btn, .audio-btn-small, .resource-btn, .resource-topic-btn {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            user-select: none;
         }
-
-        @media (max-height: 800px) {
-            .card-img-container {
-                height: 250px;
-            }
-        }
-
-        /* ANIMAÇÕES ESPECIAIS */
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: var(--primary) }
-        }
-
-        .typing-effect {
-            overflow: hidden;
-            border-right: 3px solid var(--primary);
-            white-space: nowrap;
-            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
-        }
-
-        /* Loader para imagem */
-        .img-loader {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(165, 91, 52, 0.2);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        /* Efeito de entrada para elementos */
-        .animate-in {
-            animation: slideInUp 0.5s ease-out forwards;
-        }
+        :focus { outline: none !important; scroll-margin: 0; }
+        button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
     </style>
 </head>
 
 <body>
 
-    <!-- NAVEGAÇÃO SUPERIOR -->
+    <!-- HEADER COM SELETOR DE IDIOMA -->
     <div class="nav-header">
         <div class="nav-brand">
-            <img src="images/Logo_Btf.png" alt="Logo Born To Fight" onerror="this.src='https://via.placeholder.com/60x60/2c5530/ffffff?text=BTF'">
+            <img src="images/Logo_Btf.png" alt="Logo Born To Fight" onerror="this.src='https://via.placeholder.com/80x80/2c5530/ffffff?text=Born+To+Fight'">
             <div class="nav-title">
-                <h1>Catálogo Interativo</h1>
-                <p>Cerâmica Amazônica - Born To Fight </p>
+                <h1 data-i18n="catalog_title">Catálogo Interativo</h1>
+                <p data-i18n="catalog_subtitle">Cerâmica Amazônica - Born To Fight</p>
             </div>
         </div>
-        
         <div class="nav-buttons">
             <a href="index.html" class="nav-btn" id="voltarMenu">
-                <i class="fas fa-arrow-left"></i>
-                Voltar para o Menu
+                <i class="fas fa-arrow-left"></i> <span data-i18n="back_to_menu">Voltar para o Menu</span>
             </a>
-            <button class="audio-btn-small" onclick="ouvirVoltarMenu()">
-                <i class="fas fa-volume-up"></i>
-                Ouvir
+            <button class="audio-btn-small" onclick="readText(translations[currentLang]['back_to_menu'])">
+                <i class="fas fa-volume-up"></i> <span data-i18n="listen">Ouvir</span>
             </button>
+            <!-- SELETOR DE IDIOMA -->
+            <div class="language-selector">
+                <button class="language-btn" id="languageBtn">
+                    <div class="language-btn-flag" id="currentFlag"></div>
+                    <i class="fas fa-globe-americas"></i>
+                    <span id="currentLanguage">Português</span>
+                </button>
+                <div class="language-dropdown" id="languageMenu">
+                    <div class="language-option active" data-lang="pt">
+                        <div class="language-flag"><img src="https://flagcdn.com/w40/br.png" alt="Brasil"></div>
+                        Português
+                    </div>
+                    <div class="language-option" data-lang="en">
+                        <div class="language-flag"><img src="https://flagcdn.com/w40/us.png" alt="EUA"></div>
+                        English
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- CONTEÚDO PRINCIPAL -->
+    <!-- CONTEÚDO PRINCIPAL COM IMAGENS DUPLAS (original + réplica 3D) -->
     <div class="grid">
         <div class="card">
-            <div class="card-img-container">
-                <div class="card-img-wrapper">
-                    <img src="images/Estatueta Tapajonica.png" 
-                         alt="Estatueta Tapajônica"
-                         class="card-img"
-                         onload="imageLoaded(this)"
-                         onerror="imageError(this)">
-                    <div class="img-info" id="imgInfo">Proporção original</div>
+            <!-- CONTAINER DE IMAGENS DUPLAS -->
+            <div class="images-container">
+                <!-- Peça Original -->
+                <div class="image-card">
+                    <div class="image-card-header original-header">
+                        <h3><i class="fas fa-history"></i> <span data-i18n="original_piece">Peça Original</span></h3>
+                    </div>
+                    <div class="card-img-container">
+                        <div class="card-img-wrapper">
+                            <img src="images/Estatueta Tapajonica.png" 
+                                 alt="Estatueta Tapajônica Original"
+                                 class="card-img"
+                                 onload="imageLoaded(this)"
+                                 onerror="imageError(this, 'original')">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Réplica 3D -->
+                <div class="image-card">
+                    <div class="image-card-header replica-header">
+                        <h3><i class="fas fa-print"></i> <span data-i18n="replica_3d">Réplica em Impressão 3D</span></h3>
+                    </div>
+                    <div class="card-img-container">
+                        <div class="card-img-wrapper">
+                            <img src="images/estatueta_tapajonica_1_3D.png" 
+                                 alt="Réplica em Impressão 3D da Estatueta Tapajônica"
+                                 class="card-img"
+                                 onload="imageLoaded(this)"
+                                 onerror="imageError(this, 'replica')">
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <div class="card-content">
                 <div class="card-title">
-                    <h2 id="titulo">Estatueta Tapajônica</h2>
-                    <button class="audio-btn-small" onclick="readText('Estatueta Tapajônica')">
-                        <i class="fas fa-volume-up"></i>
-                        Ouvir Título
+                    <h2 data-i18n="artifact_name">Estatueta Tapajônica</h2>
+                    <button class="audio-btn-small" onclick="readText(translations[currentLang]['artifact_name'])">
+                        <i class="fas fa-volume-up"></i> <span data-i18n="listen_title">Ouvir Título</span>
                     </button>
                 </div>
                 
                 <div class="info-group">
                     <div class="info-row">
-                        <div class="info-label">
-                            <i class="far fa-calendar-alt"></i>
-                            <span>Período Histórico:</span>
-                        </div>
-                        <div class="info-value" id="periodo">
-                            900 a 1600 d.C.
-                        </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('periodo').innerText)">
-                            <i class="fas fa-volume-up"></i>
-                        </button>
+                        <div class="info-label"><i class="far fa-calendar-alt"></i> <span data-i18n="period_label">Período Histórico:</span></div>
+                        <div class="info-value" data-i18n="period_value">900 a 1600 d.C.</div>
+                        <button class="audio-btn-small info-audio-btn" onclick="readText(translations[currentLang]['period_value'])"><i class="fas fa-volume-up"></i></button>
                     </div>
-                    
                     <div class="info-row">
-                        <div class="info-label">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Local de Origem:</span>
-                        </div>
-                        <div class="info-value" id="local">
-                            Rio Tapajós, Pará
-                        </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('local').innerText)">
-                            <i class="fas fa-volume-up"></i>
-                        </button>
+                        <div class="info-label"><i class="fas fa-map-marker-alt"></i> <span data-i18n="origin_label">Local de Origem:</span></div>
+                        <div class="info-value" data-i18n="origin_value">Rio Tapajós, Pará</div>
+                        <button class="audio-btn-small info-audio-btn" onclick="readText(translations[currentLang]['origin_value'])"><i class="fas fa-volume-up"></i></button>
                     </div>
-                    
                     <div class="info-row">
-                        <div class="info-label">
-                            <i class="fas fa-ruler-combined"></i>
-                            <span>Dimensões Aproximadas:</span>
-                        </div>
-                        <div class="info-value" id="tamanho">
-                            10 - 25 cm
-                        </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('tamanho').innerText)">
-                            <i class="fas fa-volume-up"></i>
-                        </button>
+                        <div class="info-label"><i class="fas fa-ruler-combined"></i> <span data-i18n="dimensions_label">Dimensões Aproximadas:</span></div>
+                        <div class="info-value" data-i18n="dimensions_value">10 - 25 cm</div>
+                        <button class="audio-btn-small info-audio-btn" onclick="readText(translations[currentLang]['dimensions_value'])"><i class="fas fa-volume-up"></i></button>
                     </div>
                 </div>
                 
-                <!-- DESCRIÇÃO -->
+                <!-- DESCRIÇÃO DA PEÇA ORIGINAL -->
                 <div class="section-container">
                     <div class="section-header">
-                        <div class="section-title">
-                            <i class="fas fa-file-alt"></i>
-                            <span>Descrição da Peça</span>
+                        <div class="section-title"><i class="fas fa-file-alt"></i> <span data-i18n="original_desc_title">Descrição da Peça Original</span></div>
+                        <div class="audio-buttons-container">
+                            <button class="audio-btn-small" onclick="readText(translations[currentLang]['original_summary'])"><i class="fas fa-volume-up"></i> <span data-i18n="listen_summary">Ouvir Resumo</span></button>
+                            <button class="audio-btn-small audio-btn-detailed" onclick="readDetailedDescription('original')"><i class="fas fa-headphones-alt"></i> <span data-i18n="detailed_desc">Descrição Detalhada</span></button>
                         </div>
-                        <button class="audio-btn-small" onclick="readText(document.getElementById('descricaoTexto').innerText)">
-                            <i class="fas fa-volume-up"></i>
-                            Ouvir Descrição
-                        </button>
                     </div>
-                    <div class="section-content" id="descricaoTexto">
-                        A estatueta tapajônica é uma figura antropomorfa minuciosamente modelada em cerâmica fina,
-                        com detalhes que revelam a estética, simbolismo e identidade cultural do povo Tapajó.
+                    <div class="section-content" data-i18n="original_summary_html">
+                        <strong>Resumo Visual:</strong> A estatueta tapajônica é uma figura antropomorfa minuciosamente modelada em cerâmica fina, com detalhes que revelam a estética, simbolismo e identidade cultural do povo Tapajó.<br>
+                        <strong>Técnica:</strong> Cerâmica modelada com acabamento polido e pintura em engobe vermelho.<br>
+                        <strong>Significado Cultural:</strong> Representa divindades, ancestrais ou figuras de poder espiritual da cultura Tapajó.
+                    </div>
+                </div>
+                
+                <!-- DESCRIÇÃO DA RÉPLICA 3D -->
+                <div class="section-container">
+                    <div class="section-header">
+                        <div class="section-title"><i class="fas fa-print"></i> <span data-i18n="replica_desc_title">Descrição da Réplica 3D</span></div>
+                        <button class="audio-btn-small audio-btn-replica" onclick="readDetailedDescription('replica')"><i class="fas fa-headphones-alt"></i> <span data-i18n="listen_replica_desc">Ouvir Descrição Detalhada</span></button>
+                    </div>
+                    <div class="section-content replica-section" data-i18n="replica_summary_html">
+                        <strong>Resumo Visual:</strong> Réplica fiel em impressão 3D da estatueta tapajônica, reproduzindo com precisão os detalhes anatômicos e ornamentais da peça original.<br>
+                        <strong>Materiais:</strong> Filamento PLA biodegradável, com acabamento que simula a cerâmica polida.<br>
+                        <strong>Finalidade Educativa:</strong> Permite o estudo tátil e a análise de detalhes sem risco ao artefato original.
                     </div>
                 </div>
                 
                 <!-- HISTÓRIA -->
                 <div class="section-container">
                     <div class="section-header">
-                        <div class="section-title">
-                            <i class="fas fa-history"></i>
-                            <span>Contexto Histórico</span>
-                        </div>
-                        <button class="audio-btn-small" onclick="readText(document.getElementById('historiaTexto').innerText)">
-                            <i class="fas fa-volume-up"></i>
-                            Ouvir História
-                        </button>
+                        <div class="section-title"><i class="fas fa-history"></i> <span data-i18n="history_title">Contexto Histórico</span></div>
+                        <button class="audio-btn-small" onclick="readText(translations[currentLang]['history_text'])"><i class="fas fa-volume-up"></i> <span data-i18n="listen_history">Ouvir História</span></button>
                     </div>
-                    <div class="section-content history-section" id="historiaTexto">
-                        Produzidas entre 900 e 1600 depois de Cristo. Essas estatuetas representam a complexidade
-                        artística e espiritual da Cultura Tapajó, localizada na região da atual Santarém, Pará.
+                    <div class="section-content history-section" data-i18n="history_text">
+                        Produzidas entre 900 e 1600 depois de Cristo. Essas estatuetas representam a complexidade artística e espiritual da Cultura Tapajó, localizada na região da atual Santarém, Pará.
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- NOVA SEÇÃO: RECURSOS MULTIMÍDIA -->
+    <!-- SEÇÃO MULTIMÍDIA -->
     <div class="multimedia-section">
         <div class="multimedia-header">
-            <div class="multimedia-title">
-                <i class="fas fa-photo-video"></i>
-                <span>Recursos Multimídia</span>
-            </div>
-            <button class="audio-btn-small" onclick="readText('Seção de recursos multimídia com fotos, vídeos, documentários e artigos sobre cerâmica amazônica.')">
-                <i class="fas fa-volume-up"></i>
-                Ouvir Seção
-            </button>
+            <div class="multimedia-title"><i class="fas fa-photo-video"></i> <span data-i18n="multimedia_title">Recursos Multimídia</span></div>
+            <button class="audio-btn-small" onclick="readText(translations[currentLang]['multimedia_desc'])"><i class="fas fa-volume-up"></i> <span data-i18n="listen_section">Ouvir Seção</span></button>
         </div>
-        
         <div class="multimedia-grid">
-            <!-- FOTOS -->
             <div class="resource-card">
-                <div class="resource-icon">
-                    <i class="fas fa-images"></i>
-                </div>
-                <div class="resource-content">
-                    <h3>Álbum de Fotos</h3>
-                    <p>Explore nossa coleção completa de imagens em alta resolução da Estatueta Tapajônica e artefatos da cultura Tapajó.</p>
-                </div>
+                <div class="resource-icon"><i class="fas fa-images"></i></div>
+                <div class="resource-content"><h3 data-i18n="photos_title">Álbum de Fotos</h3><p data-i18n="photos_desc">Explore nossa coleção completa de imagens em alta resolução da Estatueta Tapajônica e artefatos da cultura Tapajó.</p></div>
                 <div class="resource-buttons">
-                    <a href="https://drive.google.com/drive/folders/1DLwGKaLPT6d21StasQI9JEypLZ_xnKIV" 
-                       target="_blank" 
-                       class="resource-btn btn-photos"
-                       onclick="trackClick('photos_tapajonica')">
-                        <i class="fas fa-external-link-alt"></i>
-                        Acessar Álbum
-                    </a>
-                    <button class="resource-btn btn-photos" onclick="readText('Álbum de fotos da Estatueta Tapajônica. Clique no botão para acessar.')">
-                        <i class="fas fa-volume-up"></i>
-                        Ouvir Descrição
-                    </button>
+                    <a href="https://drive.google.com/drive/folders/1DLwGKaLPT6d21StasQI9JEypLZ_xnKIV" target="_blank" class="resource-btn btn-photos"><i class="fas fa-external-link-alt"></i> <span data-i18n="access_album">Acessar Álbum</span></a>
+                    <button class="resource-btn btn-photos" onclick="readText(translations[currentLang]['photos_desc'])"><i class="fas fa-volume-up"></i> <span data-i18n="listen_desc">Ouvir Descrição</span></button>
                 </div>
             </div>
-            
-            <!-- VÍDEOS -->
             <div class="resource-card">
-                <div class="resource-icon">
-                    <i class="fas fa-play-circle"></i>
-                </div>
-                <div class="resource-content">
-                    <h3>Vídeos Educativos</h3>
-                    <p>Assista a vídeos sobre a cultura Tapajó, técnicas de produção e importância cultural das estatuetas.</p>
-                </div>
+                <div class="resource-icon"><i class="fas fa-play-circle"></i></div>
+                <div class="resource-content"><h3 data-i18n="videos_title">Vídeos Educativos</h3><p data-i18n="videos_desc">Assista a vídeos sobre a cultura Tapajó, técnicas de produção e importância cultural das estatuetas.</p></div>
                 <div class="resource-buttons">
-                    <a href="https://www.youtube.com/watch?v=VYXv7tjF__8" 
-                       target="_blank" 
-                       class="resource-btn btn-videos"
-                       onclick="trackClick('video_tapajonica')">
-                        <i class="fab fa-youtube"></i>
-                        Vídeo Educativo
-                    </a>
-                    <button class="resource-btn btn-videos" onclick="readText('Vídeo educativo sobre a Estatueta Tapajônica e cultura Tapajó. Clique para assistir.')">
-                        <i class="fas fa-volume-up"></i>
-                        Ouvir Descrição
-                    </button>
+                    <a href="https://www.youtube.com/watch?v=VYXv7tjF__8" target="_blank" class="resource-btn btn-videos"><i class="fab fa-youtube"></i> <span data-i18n="watch_video">Vídeo Educativo</span></a>
+                    <button class="resource-btn btn-videos" onclick="readText(translations[currentLang]['videos_desc'])"><i class="fas fa-volume-up"></i> <span data-i18n="listen_desc">Ouvir Descrição</span></button>
                 </div>
             </div>
-            
-            <!-- DOCUMENTÁRIOS -->
             <div class="resource-card">
-                <div class="resource-icon">
-                    <i class="fas fa-film"></i>
-                </div>
-                <div class="resource-content">
-                    <h3>Documentários</h3>
-                    <p>Documentários completos sobre a cultura Tapajó, escavações arqueológicas e preservação cultural.</p>
-                </div>
+                <div class="resource-icon"><i class="fas fa-film"></i></div>
+                <div class="resource-content"><h3 data-i18n="docs_title">Documentários</h3><p data-i18n="docs_desc">Documentários completos sobre a cultura Tapajó, escavações arqueológicas e preservação cultural.</p></div>
                 <div class="resource-buttons">
-                    <a href="https://www.youtube.com/watch?v=8lk_MdN8kbQ" 
-                       target="_blank" 
-                       class="resource-btn btn-documentary"
-                       onclick="trackClick('documentary_tapajonica')">
-                        <i class="fas fa-external-link-alt"></i>
-                        Assistir Documentário
-                    </a>
-                    <button class="resource-btn btn-documentary" onclick="readText('Documentário completo sobre a cultura Tapajó e escavações arqueológicas.')">
-                        <i class="fas fa-volume-up"></i>
-                        Ouvir Descrição
-                    </button>
+                    <a href="https://www.youtube.com/watch?v=8lk_MdN8kbQ" target="_blank" class="resource-btn btn-documentary"><i class="fas fa-external-link-alt"></i> <span data-i18n="watch_doc">Assistir Documentário</span></a>
+                    <button class="resource-btn btn-documentary" onclick="readText(translations[currentLang]['docs_desc'])"><i class="fas fa-volume-up"></i> <span data-i18n="listen_desc">Ouvir Descrição</span></button>
                 </div>
             </div>
-            
-            <!-- ARTIGOS -->
             <div class="resource-card">
-                <div class="resource-icon">
-                    <i class="fas fa-newspaper"></i>
-                </div>
-                <div class="resource-content">
-                    <h3>Artigos Científicos</h3>
-                    <p>Artigos acadêmicos e pesquisas sobre cerâmica Tapajônica, publicações especializadas e estudos.</p>
-                </div>
+                <div class="resource-icon"><i class="fas fa-newspaper"></i></div>
+                <div class="resource-content"><h3 data-i18n="articles_title">Artigos Científicos</h3><p data-i18n="articles_desc">Artigos acadêmicos e pesquisas sobre cerâmica Tapajônica, publicações especializadas e estudos.</p></div>
                 <div class="resource-buttons">
-                    <a href="https://www.scielo.br/j/bgoeldi/a/VpNYcwXrPTyFV5q6pqLC8bf/?format=pdf&lang=pt" 
-                       target="_blank" 
-                       class="resource-btn btn-article"
-                       onclick="trackClick('article_tapajonica')">
-                        <i class="fas fa-external-link-alt"></i>
-                        Ler Artigo
-                    </a>
-                    <button class="resource-btn btn-article" onclick="readText('Artigo científico sobre cerâmica Tapajônica publicado em revista especializada.')">
-                        <i class="fas fa-volume-up"></i>
-                        Ouvir Descrição
-                    </button>
+                    <a href="https://www.scielo.br/j/bgoeldi/a/VpNYcwXrPTyFV5q6pqLC8bf/?format=pdf&lang=pt" target="_blank" class="resource-btn btn-article"><i class="fas fa-external-link-alt"></i> <span data-i18n="read_article">Ler Artigo</span></a>
+                    <button class="resource-btn btn-article" onclick="readText(translations[currentLang]['articles_desc'])"><i class="fas fa-volume-up"></i> <span data-i18n="listen_desc">Ouvir Descrição</span></button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- NOVA SEÇÃO: AVALIAÇÃO COMPLETA DO SITE (APÓS MULTIMÍDIA) -->
-    <div class="evaluation-full-section">
-        <div class="evaluation-full-header">
-            <div class="evaluation-full-title">
-                <i class="fas fa-star"></i>
-                <span>Avaliação do Catálogo</span>
-            </div>
-            <button class="audio-btn-small" onclick="readText('Seção de avaliação do catálogo interativo. Sua opinião é muito importante para aprimorarmos nosso site.')">
-                <i class="fas fa-volume-up"></i>
-                Ouvir Seção
-            </button>
+    <!-- SEÇÃO RECURSOS E AVALIAÇÃO (igual ao index1 e index2) -->
+    <div class="resources-section">
+        <div class="resources-header">
+            <div class="resources-title"><i class="fas fa-tools"></i> <span data-i18n="resources_title">Recursos para o Projeto</span></div>
+            <button class="audio-btn-small" onclick="readText(translations[currentLang]['resources_desc'])"><i class="fas fa-volume-up"></i> <span data-i18n="listen_section">Ouvir Seção</span></button>
         </div>
-        
-        <div class="evaluation-full-content">
-            <div class="evaluation-intro">
-                <h3><i class="fas fa-handshake"></i> Sua Opinião é Essencial</h3>
-                <p>Como equipe <strong>Born To Fight</strong>, valorizamos cada opinião para melhorar continuamente nosso catálogo interativo. Sua avaliação nos ajuda a:</p>
-                
-                <div class="evaluation-features">
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Aprimorar a experiência do usuário</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Incluir novos conteúdos relevantes</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Otimizar a acessibilidade e usabilidade</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Criar materiais educativos mais eficazes</span>
-                    </div>
+        <div class="resources-grid">
+            <!-- TÓPICO 1: MANUAL DE INSTRUÇÕES -->
+            <div class="resource-topic manual-topic">
+                <div class="resource-topic-header">
+                    <div class="resource-topic-icon"><i class="fas fa-book"></i></div>
+                    <div class="resource-topic-title" data-i18n="manual_title">Manual de Instruções</div>
                 </div>
-                
-                <p style="margin-top: 20px; font-style: italic; color: var(--primary-dark);">
-                    <i class="fas fa-quote-left"></i>
-                    Juntos, podemos preservar e compartilhar a riqueza da cultura amazônica de forma ainda melhor!
-                    <i class="fas fa-quote-right"></i>
-                </p>
-            </div>
-            
-            <div class="evaluation-form">
-                <h3><i class="fas fa-clipboard-list"></i> Formulário de Avaliação</h3>
-                <div class="form-description">
-                    <p>Clique no botão abaixo para acessar nosso formulário de avaliação completo, para especialistas da área de arqueologia. O formulário inclui perguntas sobre:</p>
-                    <ul style="margin: 15px 0; padding-left: 20px;">
-                        <li style="margin: 8px 0;">Sua opinião sobre o projeto</li>
-                        <li style="margin: 8px 0;">Qualidade do conteúdo apresentado</li>
-                        <li style="margin: 8px 0;">Melhor aspecto do projeto</li>
-                        <li style="margin: 8px 0;">Inovação do Relicário</li>
-                        <li style="margin: 8px 0;">Sugestões para melhorias futuras</li>
+                <div class="resource-topic-content">
+                    <p data-i18n="manual_desc1">Disponibilizamos um manual completo para auxiliar na reprodução do nosso projeto, desde a impressão 3D até a programação do sistema interativo.</p>
+                    <p><strong data-i18n="manual_includes">O manual inclui:</strong></p>
+                    <ul class="resource-topic-list">
+                        <li data-i18n="manual_item1">Guia detalhado para impressão 3D da estatueta tapajônica</li>
+                        <li data-i18n="manual_item2">Configuração da Raspberry Pi e módulo RFID</li>
+                        <li data-i18n="manual_item3">Programação do sistema de identificação por cartão</li>
+                        <li data-i18n="manual_item4">Soluções para erros comuns e contato para suporte</li>
+                        <li data-i18n="manual_item5">Lista completa de materiais necessários</li>
+                        <li data-i18n="manual_item6">Instruções passo a passo para montagem</li>
                     </ul>
-                    <p>O formulário leva apenas 3-5 minutos para ser preenchido e é totalmente anônimo.</p>
+                    <p data-i18n="manual_pages">O manual possui 34 páginas com instruções detalhadas e ilustrações para facilitar a compreensão.</p>
                 </div>
-                
-                <button class="evaluation-btn-large" onclick="openEvaluationFormFull()">
-                    <i class="fas fa-clipboard-check"></i>
-                    Avaliar Catálogo Completo
-                </button>
+                <button class="resource-topic-btn" onclick="downloadManual()"><i class="fas fa-file-pdf"></i> <span data-i18n="download_manual_btn">Baixar Manual (PDF)</span></button>
+            </div>
+            <!-- TÓPICO 2: AVALIAÇÃO DO CATÁLOGO -->
+            <div class="resource-topic evaluation-topic">
+                <div class="resource-topic-header">
+                    <div class="resource-topic-icon"><i class="fas fa-clipboard-check"></i></div>
+                    <div class="resource-topic-title" data-i18n="evaluation_title">Avaliação do Catálogo</div>
+                </div>
+                <div class="resource-topic-content">
+                    <p data-i18n="evaluation_desc1">Sua opinião é essencial para aprimorarmos nosso catálogo interativo. Como equipe <strong>Born To Fight</strong>, valorizamos cada avaliação para melhorar continuamente.</p>
+                    <p><strong data-i18n="evaluation_includes">O formulário inclui:</strong></p>
+                    <ul class="resource-topic-list">
+                        <li data-i18n="eval_item1">Sua opinião sobre o projeto</li>
+                        <li data-i18n="eval_item2">Qualidade do conteúdo apresentado</li>
+                        <li data-i18n="eval_item3">Melhor aspecto do projeto</li>
+                        <li data-i18n="eval_item4">Inovação do Relicário</li>
+                        <li data-i18n="eval_item5">Sugestões para melhorias futuras</li>
+                        <li data-i18n="eval_item6">Feedback sobre acessibilidade e usabilidade</li>
+                    </ul>
+                    <p data-i18n="evaluation_time">O formulário leva apenas 3-5 minutos para ser preenchido e é totalmente anônimo. Juntos, podemos preservar e compartilhar a riqueza da cultura amazônica de forma ainda melhor!</p>
+                </div>
+                <button class="resource-topic-btn" onclick="openEvaluationForm()"><i class="fas fa-clipboard-list"></i> <span data-i18n="evaluate_btn">Avaliar Catálogo</span></button>
             </div>
         </div>
-        
-        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(44, 85, 48, 0.1);">
-            <p style="color: var(--text-light); font-size: 14px;">
-                <i class="fas fa-heart" style="color: #ff6b6b;"></i>
-                Agradecemos sua participação e contribuição para o projeto!
-            </p>
+        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(44,85,48,0.1);">
+            <p style="color: var(--text-light); font-size: 14px;"><i class="fas fa-info-circle" style="color: var(--primary);"></i> <span data-i18n="manual_update">Manual atualizado em 2025 - Compatível com Raspberry Pi 3, 4 e 5</span></p>
+            <p style="color: var(--text-light); font-size: 12px; margin-top: 5px;"><i class="fas fa-heart" style="color: #ff6b6b;"></i> <span data-i18n="thanks">Agradecemos sua participação e contribuição para o projeto!</span></p>
         </div>
     </div>
 
@@ -1567,452 +1418,426 @@
         <div class="footer-content">
             <div class="footer-info">
                 <img src="images/Logo_Btf.png" alt="Logo Born To Fight" class="footer-logo" onerror="this.src='https://via.placeholder.com/80x80/2c5530/ffffff?text=Born+To+Fight'">
-                <h3>Born To Fight </h3>
-                <p>
-                    <i class="fas fa-envelope"></i>
-                    <a href="mailto:borntofightfll@gmail.com">borntofightfll@gmail.com</a>
-                </p>
-                <p>
-                    <i class="fab fa-instagram"></i>
-                    <a href="https://www.instagram.com/borntofight_fll/" target="_blank">
-                        @borntofight_fll
-                    </a>
-                </p>
-                <p>
-                    <i class="fas fa-globe"></i>
-                    Catálogo Interativo - Cerâmica Amazônica
-                </p>
-                <p>
-                    <i class="fas fa-users"></i>
-                    Equipe de Robótica - FLL Challenge
-                </p>
+                <h3 data-i18n="team_name">Born To Fight</h3>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:borntofightfll@gmail.com">borntofightfll@gmail.com</a></p>
+                <p><i class="fab fa-instagram"></i> <a href="https://www.instagram.com/borntofight_fll/" target="_blank">@borntofight_fll</a></p>
+                <p><i class="fas fa-globe"></i> <span data-i18n="catalog_footer">Catálogo Interativo - Cerâmica Amazônica</span></p>
+                <p><i class="fas fa-users"></i> <span data-i18n="team_footer">Equipe de Robótica - FLL Challenge</span></p>
             </div>
         </div>
-        
-        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(165, 91, 52, 0.1);">
-            <p style="color: var(--text-light); font-size: 14px;">
-                Projeto desenvolvido pela equipe Born To Fight - FLL | 2025
-            </p>
-            <p style="color: var(--text-light); font-size: 12px; margin-top: 5px;">
-                Todas as imagens são meramente ilustrativas para fins educacionais
-            </p>
+        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(165,91,52,0.1);">
+            <p style="color: var(--text-light); font-size: 14px;" data-i18n="footer_credits">Projeto desenvolvido pela equipe Born To Fight - FLL | 2025</p>
+            <p style="color: var(--text-light); font-size: 12px; margin-top: 5px;" data-i18n="footer_illustrative">Todas as imagens são meramente ilustrativas para fins educacionais</p>
         </div>
     </div>
 
     <!-- BOTÃO FLUTUANTE -->
-    <div class="floating-btn" onclick="scrollToTop()">
-        <i class="fas fa-chevron-up"></i>
-    </div>
+    <div class="floating-btn" onclick="scrollToTop()"><i class="fas fa-chevron-up"></i></div>
 
-    <!-- SCRIPTS -->
     <script>
-        // Configurar ResponsiveVoice assim que carregar
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Página carregada - inicializando...');
-            
-            // Verificar se ResponsiveVoice está carregado
-            if (typeof responsiveVoice !== 'undefined') {
-                console.log('ResponsiveVoice carregado com sucesso');
-                responsiveVoice.setDefaultVoice("Portuguese Female");
-                console.log('Voz configurada: Portuguese Female');
-            } else {
-                console.error('ResponsiveVoice não foi carregado');
+        // ========== TRADUÇÕES ==========
+        const translations = {
+            pt: {
+                back_to_menu: "Voltar para o Menu",
+                listen: "Ouvir",
+                catalog_title: "Catálogo Interativo",
+                catalog_subtitle: "Cerâmica Amazônica - Born To Fight",
+                artifact_name: "Estatueta Tapajônica",
+                period_label: "Período Histórico:",
+                period_value: "900 a 1600 d.C.",
+                origin_label: "Local de Origem:",
+                origin_value: "Rio Tapajós, Pará",
+                dimensions_label: "Dimensões Aproximadas:",
+                dimensions_value: "10 - 25 cm",
+                listen_title: "Ouvir Título",
+                original_piece: "Peça Original",
+                replica_3d: "Réplica em Impressão 3D",
+                original_desc_title: "Descrição da Peça Original",
+                listen_summary: "Ouvir Resumo",
+                detailed_desc: "Descrição Detalhada",
+                original_summary_html: "<strong>Resumo Visual:</strong> A estatueta tapajônica é uma figura antropomorfa minuciosamente modelada em cerâmica fina, com detalhes que revelam a estética, simbolismo e identidade cultural do povo Tapajó.<br><strong>Técnica:</strong> Cerâmica modelada com acabamento polido e pintura em engobe vermelho.<br><strong>Significado Cultural:</strong> Representa divindades, ancestrais ou figuras de poder espiritual da cultura Tapajó.",
+                replica_desc_title: "Descrição da Réplica 3D",
+                listen_replica_desc: "Ouvir Descrição Detalhada",
+                replica_summary_html: "<strong>Resumo Visual:</strong> Réplica fiel em impressão 3D da estatueta tapajônica, reproduzindo com precisão os detalhes anatômicos e ornamentais da peça original.<br><strong>Materiais:</strong> Filamento PLA biodegradável, com acabamento que simula a cerâmica polida.<br><strong>Finalidade Educativa:</strong> Permite o estudo tátil e a análise de detalhes sem risco ao artefato original.",
+                history_title: "Contexto Histórico",
+                listen_history: "Ouvir História",
+                history_text: "Produzidas entre 900 e 1600 depois de Cristo. Essas estatuetas representam a complexidade artística e espiritual da Cultura Tapajó, localizada na região da atual Santarém, Pará.",
+                multimedia_title: "Recursos Multimídia",
+                multimedia_desc: "Seção de recursos multimídia com fotos, vídeos, documentários e artigos sobre cerâmica amazônica.",
+                listen_section: "Ouvir Seção",
+                photos_title: "Álbum de Fotos",
+                photos_desc: "Explore nossa coleção completa de imagens em alta resolução da Estatueta Tapajônica e artefatos da cultura Tapajó.",
+                access_album: "Acessar Álbum",
+                videos_title: "Vídeos Educativos",
+                videos_desc: "Assista a vídeos sobre a cultura Tapajó, técnicas de produção e importância cultural das estatuetas.",
+                watch_video: "Vídeo Educativo",
+                docs_title: "Documentários",
+                docs_desc: "Documentários completos sobre a cultura Tapajó, escavações arqueológicas e preservação cultural.",
+                watch_doc: "Assistir Documentário",
+                articles_title: "Artigos Científicos",
+                articles_desc: "Artigos acadêmicos e pesquisas sobre cerâmica Tapajônica, publicações especializadas e estudos.",
+                read_article: "Ler Artigo",
+                listen_desc: "Ouvir Descrição",
+                resources_title: "Recursos para o Projeto",
+                resources_desc: "Seção de recursos para o projeto. Baixe o manual de instruções ou avalie nosso catálogo.",
+                manual_title: "Manual de Instruções",
+                manual_desc1: "Disponibilizamos um manual completo para auxiliar na reprodução do nosso projeto, desde a impressão 3D até a programação do sistema interativo.",
+                manual_includes: "O manual inclui:",
+                manual_item1: "Guia detalhado para impressão 3D da estatueta tapajônica",
+                manual_item2: "Configuração da Raspberry Pi e módulo RFID",
+                manual_item3: "Programação do sistema de identificação por cartão",
+                manual_item4: "Soluções para erros comuns e contato para suporte",
+                manual_item5: "Lista completa de materiais necessários",
+                manual_item6: "Instruções passo a passo para montagem",
+                manual_pages: "O manual possui 34 páginas com instruções detalhadas e ilustrações para facilitar a compreensão.",
+                download_manual_btn: "Baixar Manual (PDF)",
+                evaluation_title: "Avaliação do Catálogo",
+                evaluation_desc1: "Sua opinião é essencial para aprimorarmos nosso catálogo interativo. Como equipe Born To Fight, valorizamos cada avaliação para melhorar continuamente.",
+                evaluation_includes: "O formulário inclui:",
+                eval_item1: "Sua opinião sobre o projeto",
+                eval_item2: "Qualidade do conteúdo apresentado",
+                eval_item3: "Melhor aspecto do projeto",
+                eval_item4: "Inovação do Relicário",
+                eval_item5: "Sugestões para melhorias futuras",
+                eval_item6: "Feedback sobre acessibilidade e usabilidade",
+                evaluation_time: "O formulário leva apenas 3-5 minutos para ser preenchido e é totalmente anônimo. Juntos, podemos preservar e compartilhar a riqueza da cultura amazônica de forma ainda melhor!",
+                evaluate_btn: "Avaliar Catálogo",
+                manual_update: "Manual atualizado em 2025 - Compatível com Raspberry Pi 3, 4 e 5",
+                thanks: "Agradecemos sua participação e contribuição para o projeto!",
+                team_name: "Born To Fight",
+                catalog_footer: "Catálogo Interativo - Cerâmica Amazônica",
+                team_footer: "Equipe de Robótica - FLL Challenge",
+                footer_credits: "Projeto desenvolvido pela equipe Born To Fight - FLL | 2025",
+                footer_illustrative: "Todas as imagens são meramente ilustrativas para fins educacionais"
+            },
+            en: {
+                back_to_menu: "Back to Menu",
+                listen: "Listen",
+                catalog_title: "Interactive Catalog",
+                catalog_subtitle: "Amazonian Ceramics - Born To Fight",
+                artifact_name: "Tapajonica Statuette",
+                period_label: "Historical Period:",
+                period_value: "900 to 1600 AD",
+                origin_label: "Place of Origin:",
+                origin_value: "Tapajós River, Pará",
+                dimensions_label: "Approximate Dimensions:",
+                dimensions_value: "10 - 25 cm",
+                listen_title: "Listen to Title",
+                original_piece: "Original Piece",
+                replica_3d: "3D Printed Replica",
+                original_desc_title: "Original Piece Description",
+                listen_summary: "Listen to Summary",
+                detailed_desc: "Detailed Description",
+                original_summary_html: "<strong>Visual Summary:</strong> The Tapajonica statuette is an anthropomorphic figure meticulously modeled in fine ceramics, with details revealing the aesthetics, symbolism and cultural identity of the Tapajó people.<br><strong>Technique:</strong> Modeled ceramics with polished finish and red slip paint.<br><strong>Cultural Significance:</strong> Represents deities, ancestors or spiritual power figures of the Tapajó culture.",
+                replica_desc_title: "3D Replica Description",
+                listen_replica_desc: "Listen to Detailed Description",
+                replica_summary_html: "<strong>Visual Summary:</strong> Faithful 3D printed replica of the Tapajonica statuette, accurately reproducing the anatomical and ornamental details of the original piece.<br><strong>Materials:</strong> Biodegradable PLA filament, with a finish that simulates polished ceramics.<br><strong>Educational Purpose:</strong> Allows tactile study and detailed analysis without risk to the original artifact.",
+                history_title: "Historical Context",
+                listen_history: "Listen to History",
+                history_text: "Produced between 900 and 1600 AD. These statuettes represent the artistic and spiritual complexity of the Tapajó Culture, located in the region of present-day Santarém, Pará.",
+                multimedia_title: "Multimedia Resources",
+                multimedia_desc: "Multimedia resources section with photos, videos, documentaries, and articles about Amazonian ceramics.",
+                listen_section: "Listen to Section",
+                photos_title: "Photo Album",
+                photos_desc: "Explore our complete collection of high-resolution images of the Tapajonica Statuette and Tapajó culture artifacts.",
+                access_album: "Access Album",
+                videos_title: "Educational Videos",
+                videos_desc: "Watch videos about Tapajó culture, production techniques, and cultural importance of the statuettes.",
+                watch_video: "Educational Video",
+                docs_title: "Documentaries",
+                docs_desc: "Complete documentaries about Tapajó culture, archaeological excavations, and cultural preservation.",
+                watch_doc: "Watch Documentary",
+                articles_title: "Scientific Articles",
+                articles_desc: "Academic articles and research on Tapajonica ceramics, specialized publications and studies.",
+                read_article: "Read Article",
+                listen_desc: "Listen to Description",
+                resources_title: "Project Resources",
+                resources_desc: "Project resources section. Download the instruction manual or evaluate our catalog.",
+                manual_title: "Instruction Manual",
+                manual_desc1: "We provide a complete manual to help reproduce our project, from 3D printing to programming the interactive system.",
+                manual_includes: "The manual includes:",
+                manual_item1: "Detailed guide for 3D printing the Tapajonica statuette",
+                manual_item2: "Raspberry Pi and RFID module setup",
+                manual_item3: "Card identification system programming",
+                manual_item4: "Solutions for common errors and support contact",
+                manual_item5: "Complete list of required materials",
+                manual_item6: "Step-by-step assembly instructions",
+                manual_pages: "The manual has 34 pages with detailed instructions and illustrations to facilitate understanding.",
+                download_manual_btn: "Download Manual (PDF)",
+                evaluation_title: "Catalog Evaluation",
+                evaluation_desc1: "Your opinion is essential to improve our interactive catalog. As the Born To Fight team, we value every evaluation to continuously improve.",
+                evaluation_includes: "The form includes:",
+                eval_item1: "Your opinion about the project",
+                eval_item2: "Quality of the presented content",
+                eval_item3: "Best aspect of the project",
+                eval_item4: "Innovation of the Reliquary",
+                eval_item5: "Suggestions for future improvements",
+                eval_item6: "Accessibility and usability feedback",
+                evaluation_time: "The form takes only 3-5 minutes and is completely anonymous. Together, we can preserve and share the richness of Amazonian culture even better!",
+                evaluate_btn: "Evaluate Catalog",
+                manual_update: "Manual updated in 2025 - Compatible with Raspberry Pi 3, 4 and 5",
+                thanks: "Thank you for your participation and contribution to the project!",
+                team_name: "Born To Fight",
+                catalog_footer: "Interactive Catalog - Amazonian Ceramics",
+                team_footer: "Robotics Team - FLL Challenge",
+                footer_credits: "Project developed by Born To Fight team - FLL | 2025",
+                footer_illustrative: "All images are illustrative for educational purposes only"
             }
-            
-            // Inicializar outras funcionalidades
-            initPage();
+        };
+
+        let currentLang = localStorage.getItem('language') || 'pt';
+        let currentVoice = currentLang === 'pt' ? 'Portuguese Female' : 'US English Female';
+        let isSpeaking = false;
+
+        // Atualiza bandeira no botão
+        function updateCurrentFlag(lang) {
+            const flagContainer = document.getElementById('currentFlag');
+            if (!flagContainer) return;
+            let flagHTML = lang === 'pt' ? '<img src="https://flagcdn.com/w40/br.png" style="width:100%;height:100%;object-fit:cover;">' : '<img src="https://flagcdn.com/w40/us.png" style="width:100%;height:100%;object-fit:cover;">';
+            flagContainer.innerHTML = flagHTML;
+        }
+
+        // Aplica tradução nos elementos com data-i18n
+        function applyTranslations(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = translations[lang][key];
+                    } else if (key.endsWith('_html')) {
+                        el.innerHTML = translations[lang][key];
+                    } else {
+                        el.innerText = translations[lang][key];
+                    }
+                }
+            });
+        }
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            currentVoice = lang === 'pt' ? 'Portuguese Female' : 'US English Female';
+            localStorage.setItem('language', lang);
+            document.getElementById('currentLanguage').innerText = lang === 'pt' ? 'Português' : 'English';
+            updateCurrentFlag(lang);
+            applyTranslations(lang);
+            document.querySelectorAll('.language-option').forEach(opt => {
+                if (opt.getAttribute('data-lang') === lang) opt.classList.add('active');
+                else opt.classList.remove('active');
+            });
+            if (typeof responsiveVoice !== 'undefined') responsiveVoice.setDefaultVoice(currentVoice);
+            closeAllDropdowns();
+            stopAllSpeech();
+        }
+
+        // Dropdown de idioma
+        let languageOpen = false;
+        const languageBtn = document.getElementById('languageBtn');
+        const languageMenu = document.getElementById('languageMenu');
+
+        function closeAllDropdowns() { languageMenu.classList.remove('show'); languageOpen = false; }
+        function toggleLanguageDropdown() {
+            if (languageOpen) closeAllDropdowns();
+            else { languageMenu.classList.add('show'); languageOpen = true; }
+        }
+        languageBtn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); toggleLanguageDropdown(); });
+        document.addEventListener('click', (e) => {
+            if (languageOpen && !languageMenu.contains(e.target) && !languageBtn.contains(e.target)) closeAllDropdowns();
+        });
+        document.querySelectorAll('.language-option').forEach(opt => {
+            opt.addEventListener('click', () => changeLanguage(opt.getAttribute('data-lang')));
         });
 
-        // Inicializar a página
-        function initPage() {
-            console.log('Inicializando página...');
-            
-            // Detectar proporção da imagem
-            updateImageInfo();
-            
-            // Iniciar animações de entrada
-            initAnimations();
-            
-            // Precarregar imagens
-            preloadImages();
-            
-            // Configurar botões de áudio
-            setupAudioButtons();
-            
-            // Saudação inicial (após 3 segundos)
-            setTimeout(() => {
-                console.log('Executando saudação inicial...');
-                readText("Bem-vindo ao catálogo interativo da Estatueta Tapajônica. Explore as informações, recursos multimídia e participe da avaliação do nosso catálogo. Use os botões de áudio para ouvir o conteúdo.");
-            }, 3000);
-            
-            console.log('Página inicializada com sucesso');
+        // ========== FUNÇÕES DE ÁUDIO ==========
+        function readText(text) {
+            if (typeof responsiveVoice === 'undefined') {
+                alert(currentLang === 'pt' ? 'Sistema de áudio não disponível.' : 'Audio system not available.');
+                return;
+            }
+            if (isSpeaking) {
+                responsiveVoice.cancel();
+                isSpeaking = false;
+                removeAudioEffects();
+                return;
+            }
+            responsiveVoice.speak(text, currentVoice, {
+                rate: 1.0,
+                onstart: () => { isSpeaking = true; addAudioEffects(); },
+                onend: () => { isSpeaking = false; removeAudioEffects(); },
+                onerror: () => { isSpeaking = false; removeAudioEffects(); }
+            });
         }
 
-        // Função para abrir o formulário de avaliação completa (do catálogo)
-        function openEvaluationFormFull() {
-            // URL do formulário Google Forms para avaliação completa
-            const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdnugr61HzOWKrB167g5hR0eaQoWELFWiXHqL1f0uDmdorKAg/viewform?fbzx=-3456102765212424284";
-            
-            // Abrir em nova aba
+        // Descrições detalhadas
+        function readDetailedDescription(type) {
+            let text = '';
+            if (type === 'original') {
+                text = currentLang === 'pt' ? 
+                    `A estatueta tapajônica é uma escultura cerâmica de pequeno porte, representando uma figura humana em pé, de braços abertos. A peça apresenta coloração em tons de terracota, com acabamento polido e detalhes pintados em vermelho e preto.
+
+Parte superior – cabeça: A cabeça é proporcional ao corpo, com formato arredondado. Os olhos são representados por pequenas cavidades, o nariz é discreto e a boca está ligeiramente entreaberta. O cabelo é estilizado em forma de capacete ou cocar.
+
+Região do tronco e braços: O tronco é alongado, com o peito liso e o abdômen levemente marcado. Os braços estão abertos para os lados, com as mãos simplificadas.
+
+Região inferior – pernas e base: As pernas são curtas e ligeiramente afastadas, com pés pouco detalhados. A peça termina em uma base plana e estável.
+
+Adornos: Na região do pescoço, há um colar de contas. Braceletes e tornozeleiras completam a ornamentação. A superfície apresenta padrões geométricos pintados em vermelho sobre o fundo claro da argila.
+
+Textura e impressão geral: A superfície é levemente rugosa ao toque, com pequenas marcas de modelagem, típicas da produção artesanal. A peça transmite uma sensação de rigidez e solenidade, típica de representações cerimoniais.` :
+                    `The Tapajonica statuette is a small ceramic sculpture representing a standing human figure with open arms. The piece has terracotta tones, with a polished finish and details painted in red and black.
+
+Upper part - head: The head is proportional to the body, with a rounded shape. The eyes are represented by small cavities, the nose is discreet, and the mouth is slightly open. The hair is stylized as a helmet or headdress.
+
+Torso and arms: The torso is elongated, with a smooth chest and slightly marked abdomen. The arms are open to the sides, with simplified hands.
+
+Lower part - legs and base: The legs are short and slightly apart, with little detail on the feet. The piece ends in a flat, stable base.
+
+Adornments: There is a beaded necklace around the neck. Bracelets and anklets complete the ornamentation. The surface features geometric patterns painted in red over the light clay background.
+
+Texture and general impression: The surface is slightly rough to the touch, with small modeling marks typical of handmade production. The piece conveys a sense of rigidity and solemnity, typical of ceremonial representations.`;
+            } else {
+                text = currentLang === 'pt' ?
+                    `A réplica em impressão 3D da estatueta tapajônica reproduz fielmente a peça original em todos os seus detalhes. Fabricada em filamento PLA de cor terracota, a réplica captura com precisão as proporções anatômicas, os adornos e as pinturas geométricas características da cultura Tapajó.
+
+A superfície da réplica apresenta uma textura que simula a cerâmica polida, com pequenas irregularidades que imitam o aspecto artesanal do original. Os detalhes como o colar de contas, braceletes e tornozeleiras estão perfeitamente reproduzidos, assim como os padrões geométricos pintados.
+
+Esta réplica foi projetada para permitir o estudo tátil e visual da peça, sendo ideal para exposições educativas e museus. O material PLA é resistente e durável, garantindo a preservação dos detalhes por longo tempo.
+
+Dimensões aproximadas: 18 cm de altura, base de 6x6 cm. A peça é leve e pode ser manuseada com segurança, permitindo observação de todos os ângulos.` :
+                    `The 3D printed replica of the Tapajonica statuette faithfully reproduces the original piece in all its details. Manufactured in terracotta-colored PLA filament, the replica accurately captures the anatomical proportions, adornments, and characteristic geometric paintings of the Tapajó culture.
+
+The surface of the replica has a texture that simulates polished ceramics, with small irregularities that mimic the handcrafted aspect of the original. Details such as the beaded necklace, bracelets, and anklets are perfectly reproduced, as are the painted geometric patterns.
+
+This replica was designed to allow tactile and visual study of the piece, making it ideal for educational exhibitions and museums. The PLA material is resistant and durable, ensuring the preservation of details for a long time.
+
+Approximate dimensions: 18 cm in height, 6x6 cm base. The piece is lightweight and can be handled safely, allowing observation from all angles.`;
+            }
+            readText(text);
+        }
+
+        function addAudioEffects() {
+            document.querySelectorAll('.audio-btn-small, .resource-btn, .resource-topic-btn').forEach(btn => {
+                btn.style.boxShadow = '0 0 15px rgba(165,91,52,0.5)';
+                btn.style.animation = 'pulse 1s infinite';
+                const icon = btn.querySelector('i');
+                if (icon && icon.classList.contains('fa-volume-up')) icon.className = 'fas fa-stop';
+            });
+            const title = document.querySelector('.card-title h2');
+            if (title) title.style.textShadow = '0 0 10px rgba(165,91,52,0.3)';
+        }
+
+        function removeAudioEffects() {
+            document.querySelectorAll('.audio-btn-small, .resource-btn, .resource-topic-btn').forEach(btn => {
+                btn.style.boxShadow = '';
+                btn.style.animation = '';
+                const icon = btn.querySelector('i');
+                if (icon && icon.classList.contains('fa-stop')) icon.className = 'fas fa-volume-up';
+            });
+            const title = document.querySelector('.card-title h2');
+            if (title) title.style.textShadow = '';
+        }
+
+        function stopAllSpeech() {
+            if (typeof responsiveVoice !== 'undefined') responsiveVoice.cancel();
+            isSpeaking = false;
+            removeAudioEffects();
+        }
+
+        // Funções auxiliares
+        function downloadManual() {
+            const manualUrl = "Manual de Instruções.pdf";
+            const link = document.createElement('a');
+            link.href = manualUrl;
+            link.download = 'Manual de Instruções - Born To Fight - Cerâmica Amazônica.pdf';
+            link.target = '_blank';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            trackClick('manual_download');
+            readText(translations[currentLang]['download_manual_btn']);
+        }
+
+        function openEvaluationForm() {
+            const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdnugr61HzOWKrB167g5hR0eaQoWELFWiXHqL1f0uDmdorKAg/viewform";
             window.open(formUrl, '_blank');
-            
-            // Feedback de áudio
-            readText("Abrindo formulário de avaliação completa do catálogo em nova aba. Obrigado por contribuir para o aprimoramento do nosso projeto!");
-            
-            // Efeito visual no botão
-            const btn = document.querySelector('.evaluation-btn-large');
-            btn.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                btn.style.transform = '';
-            }, 300);
-            
-            // Rastrear clique no formulário
-            trackClick('evaluation_form_full');
-            
-            // Efeito de confirmação visual
-            const section = document.querySelector('.evaluation-full-section');
-            section.style.boxShadow = '0 0 30px rgba(44, 85, 48, 0.3)';
-            setTimeout(() => {
-                section.style.boxShadow = '';
-            }, 1000);
-        }
-        
-        // Configurar botões de áudio
-        function setupAudioButtons() {
-            document.querySelectorAll('.audio-btn-small').forEach(btn => {
-                btn.addEventListener('mouseenter', function() {
-                    // Pequeno feedback ao passar o mouse
-                    this.style.transform = 'scale(1.05)';
-                });
-                
-                btn.addEventListener('mouseleave', function() {
-                    this.style.transform = '';
-                });
-            });
+            trackClick('evaluation_form');
+            readText(translations[currentLang]['evaluate_btn']);
         }
 
-        // Função para pré-carregar imagens
-        function preloadImages() {
-            const images = [
-                'images/Logo_Btf.png',
-                'images/Estatueta Tapajonica.png'
-            ];
-            
-            images.forEach(src => {
-                const img = new Image();
-                img.src = src;
-            });
+        function trackClick(resourceType) {
+            console.log(`Recurso clicado: ${resourceType}`);
+            let clicks = JSON.parse(localStorage.getItem('resource_clicks') || '{}');
+            clicks[resourceType] = (clicks[resourceType] || 0) + 1;
+            localStorage.setItem('resource_clicks', JSON.stringify(clicks));
         }
 
-        // Funções para controle da imagem
         function imageLoaded(img) {
-            const container = img.closest('.card-img-container');
-            const info = document.getElementById('imgInfo');
-            
-            // Remover loader se existir
-            const loader = container.querySelector('.img-loader');
-            if (loader) loader.remove();
-            
-            // Atualizar informações da imagem
-            updateImageInfo();
-            
-            // Adicionar classe para animação suave
-            img.style.opacity = '0';
             setTimeout(() => {
                 img.style.opacity = '1';
                 img.style.transition = 'opacity 0.5s ease';
             }, 100);
-            
-            // Mostrar proporção da imagem
-            setTimeout(() => {
-                if (img.complete && img.naturalWidth > 0) {
-                    const aspectRatio = (img.naturalHeight / img.naturalWidth).toFixed(2);
-                    info.textContent = `Proporção: ${aspectRatio}:1`;
-                    info.style.opacity = '0.8';
-                    setTimeout(() => {
-                        info.style.opacity = '0';
-                    }, 3000);
-                }
-            }, 1000);
         }
 
-        function imageError(img) {
-            const container = img.closest('.card-img-container');
-            const info = document.getElementById('imgInfo');
-            
-            // Remover loader
-            const loader = container.querySelector('.img-loader');
-            if (loader) loader.remove();
-            
-            // Mostrar imagem de fallback
-            if (img.src.includes('Estatueta Tapajonica')) {
+        function imageError(img, type) {
+            if (type === 'original') {
                 img.src = 'https://via.placeholder.com/400x300/f9f5f0/a55b34?text=Estatueta+Tapajônica';
-            }
-            
-            info.textContent = 'Imagem carregada';
-            
-            updateImageInfo();
-        }
-
-        function updateImageInfo() {
-            const img = document.querySelector('.card-img');
-            const info = document.getElementById('imgInfo');
-            
-            if (img && img.complete && img.naturalWidth > 0) {
-                const aspectRatio = (img.naturalHeight / img.naturalWidth).toFixed(2);
-                info.textContent = `Proporção: ${aspectRatio}:1`;
+            } else if (type === 'replica') {
+                img.src = 'https://via.placeholder.com/400x300/f9f5f0/6d4c41?text=Réplica+3D+Estatueta';
+            } else {
+                img.src = 'https://via.placeholder.com/400x300/f9f5f0/2c5530?text=Imagem+Indisponível';
             }
         }
 
-        // Funções de áudio usando ResponsiveVoice
-        let isSpeaking = false;
-
-        function readText(text) {
-            console.log('Lendo texto:', text.substring(0, 50) + '...');
-            
-            if (typeof responsiveVoice === 'undefined') {
-                console.error('ResponsiveVoice não disponível');
-                alert('Sistema de áudio não disponível no momento.');
-                return;
-            }
-            
-            if (isSpeaking) {
-                console.log('Parando áudio atual...');
-                responsiveVoice.cancel();
-                isSpeaking = false;
-                removeAudioEffects();
-                return;
-            }
-            
-            // Configurações da voz
-            const options = {
-                rate: 1.0,    // velocidade
-                pitch: 1.0,   // tom
-                volume: 1.0,  // volume
-                onstart: function() {
-                    console.log('Áudio iniciado');
-                    isSpeaking = true;
-                    addAudioEffects();
-                },
-                onend: function() {
-                    console.log('Áudio finalizado');
-                    isSpeaking = false;
-                    removeAudioEffects();
-                },
-                onerror: function() {
-                    console.error('Erro no áudio');
-                    isSpeaking = false;
-                    removeAudioEffects();
-                }
-            };
-            
-            try {
-                console.log('Tentando reproduzir áudio...');
-                // Usar voz em português brasileiro
-                responsiveVoice.speak(text, "Portuguese Female", options);
-                console.log('Áudio enviado para reprodução');
-            } catch (error) {
-                console.error('Erro ao reproduzir áudio:', error);
-                isSpeaking = false;
-                removeAudioEffects();
-            }
-        }
-
-        function addAudioEffects() {
-            // Adicionar efeito visual durante a fala
-            document.querySelectorAll('.audio-btn-small').forEach(btn => {
-                btn.style.boxShadow = '0 0 15px rgba(165, 91, 52, 0.5)';
-                btn.style.animation = 'pulse 1s infinite';
-                const icon = btn.querySelector('i');
-                if (icon) {
-                    icon.className = 'fas fa-stop';
-                }
-            });
-            
-            // Adicionar efeito no título
-            const title = document.querySelector('.card-title h2');
-            if (title) {
-                title.style.textShadow = '0 0 10px rgba(165, 91, 52, 0.3)';
-            }
-        }
-
-        function removeAudioEffects() {
-            // Remover efeitos visuais
-            document.querySelectorAll('.audio-btn-small').forEach(btn => {
-                btn.style.boxShadow = '';
-                btn.style.animation = '';
-                const icon = btn.querySelector('i');
-                if (icon) {
-                    icon.className = 'fas fa-volume-up';
-                }
-            });
-            
-            // Remover efeito do título
-            const title = document.querySelector('.card-title h2');
-            if (title) {
-                title.style.textShadow = '';
-            }
-        }
-
-        // Função para parar toda a fala
-        function stopAllSpeech() {
-            if (typeof responsiveVoice !== 'undefined') {
-                responsiveVoice.cancel();
-                isSpeaking = false;
-                removeAudioEffects();
-            }
-        }
-
-        function ouvirVoltarMenu() {
-            readText("Botão: Voltar para o menu principal");
-        }
-
-        // Rastrear cliques em recursos (para análise)
-        function trackClick(resourceType) {
-            console.log(`Recurso clicado: ${resourceType}`);
-            // Aqui você pode adicionar código para Google Analytics ou outro sistema de tracking
-            const clicks = JSON.parse(localStorage.getItem('resource_clicks') || '{}');
-            clicks[resourceType] = (clicks[resourceType] || 0) + 1;
-            localStorage.setItem('resource_clicks', JSON.stringify(clicks));
-            
-            // Feedback de áudio
-            readText(`Abrindo ${getResourceName(resourceType)} em nova aba.`);
-        }
-
-        function getResourceName(type) {
-            const names = {
-                'photos_tapajonica': 'álbum de fotos',
-                'video_tapajonica': 'vídeo educativo',
-                'documentary_tapajonica': 'documentário completo',
-                'article_tapajonica': 'artigo científico',
-                'evaluation_form_full': 'formulário de avaliação completa'
-            };
-            return names[type] || 'recurso';
-        }
-
-        // Scroll suave para o topo
         function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-            
-            // Efeito de clique no botão
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             const btn = document.querySelector('.floating-btn');
             btn.style.transform = 'scale(0.8)';
-            setTimeout(() => {
-                btn.style.transform = '';
-            }, 300);
-            
-            // Parar qualquer fala em andamento
+            setTimeout(() => btn.style.transform = '', 300);
             stopAllSpeech();
         }
 
-        // Mostrar/ocultar botão flutuante
-        window.addEventListener('scroll', function() {
-            const floatingBtn = document.querySelector('.floating-btn');
-            if (floatingBtn) {
-                if (window.scrollY > 300) {
-                    floatingBtn.style.opacity = '1';
-                    floatingBtn.style.visibility = 'visible';
-                } else {
-                    floatingBtn.style.opacity = '0';
-                    floatingBtn.style.visibility = 'hidden';
-                }
+        window.addEventListener('scroll', () => {
+            const btn = document.querySelector('.floating-btn');
+            if (btn) {
+                btn.style.opacity = window.scrollY > 300 ? '1' : '0';
+                btn.style.visibility = window.scrollY > 300 ? 'visible' : 'hidden';
             }
         });
 
-        // Redimensionamento responsivo da imagem
-        window.addEventListener('resize', function() {
-            updateImageInfo();
-        });
-
-        // Efeito de digitação no título
-        window.addEventListener('load', function() {
-            const title = document.querySelector('.nav-title h1');
-            if (title) {
-                title.classList.add('typing-effect');
-                
+        document.addEventListener('DOMContentLoaded', () => {
+            changeLanguage(currentLang);
+            // Pré-carregar imagens
+            const images = ['images/Logo_Btf.png', 'images/Estatueta Tapajonica.png', 'images/Estatueta_Tapajonica_3D.png'];
+            images.forEach(src => { const img = new Image(); img.src = src; });
+            
+            // Animação dos tópicos
+            document.querySelectorAll('.resource-topic').forEach((topic, index) => {
+                topic.style.opacity = '0';
+                topic.style.transform = 'translateY(20px)';
                 setTimeout(() => {
-                    title.classList.remove('typing-effect');
-                    title.style.borderRight = 'none';
-                }, 3500);
-            }
-            
-            // Animação para os botões
-            document.querySelectorAll('.nav-btn, .audio-btn-small').forEach((btn, index) => {
-                btn.style.opacity = '0';
-                btn.style.transform = 'translateY(20px)';
-                
-                setTimeout(() => {
-                    btn.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-                    btn.style.opacity = '1';
-                    btn.style.transform = 'translateY(0)';
-                }, 1000 + (index * 200));
+                    topic.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                    topic.style.opacity = '1';
+                    topic.style.transform = 'translateY(0)';
+                }, 1200 + (index * 200));
             });
+
+            // Saudação inicial
+            setTimeout(() => {
+                if (currentLang === 'pt') readText("Bem-vindo ao catálogo interativo da Estatueta Tapajônica. Explore as informações, recursos multimídia e participe da avaliação do nosso catálogo.");
+                else readText("Welcome to the interactive catalog of the Tapajonica Statuette. Explore information, multimedia resources, and participate in the evaluation of our catalog.");
+            }, 2000);
         });
 
-        // Efeitos de hover nas linhas de informação
-        document.querySelectorAll('.info-row').forEach(row => {
-            row.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateX(5px)';
-            });
-            
-            row.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateX(0)';
-            });
-        });
-
-        // Inicializar animações
-        function initAnimations() {
-            // Animação para as seções
-            document.querySelectorAll('.section-container').forEach((section, index) => {
-                section.style.animationDelay = `${0.4 + (index * 0.2)}s`;
-            });
-            
-            // Efeito de parallax suave no scroll
-            window.addEventListener('scroll', function() {
-                const scrolled = window.pageYOffset;
-                const rate = scrolled * -0.5;
-                
-                const imgContainer = document.querySelector('.card-img-container');
-                if (imgContainer) {
-                    imgContainer.style.transform = `translateY(${rate * 0.1}px)`;
-                }
-            });
-        }
-
-        // Parar áudio ao sair da página
-        window.addEventListener('beforeunload', stopAllSpeech);
-        window.addEventListener('pagehide', stopAllSpeech);
-
-        // Configurar botões de áudio para parar áudio ao clicar em links
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('a') && isSpeaking) {
-                stopAllSpeech();
-            }
-        });
+        document.addEventListener('click', (e) => { if (e.target.closest('a') && isSpeaking) stopAllSpeech(); });
+        window.addEventListener('beforeunload', () => stopAllSpeech());
     </script>
 
     <!-- VLibras -->
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
-        <div vw-plugin-wrapper>
-            <div class="vw-plugin-top-wrapper"></div>
-        </div>
+        <div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>
     </div>
-
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-    <script>
-        new window.VLibras.Widget('https://vlibras.gov.br/app');
-        
-        setTimeout(() => {
-            const vlibrasBtn = document.querySelector('[vw-access-button]');
-            if (vlibrasBtn) {
-                vlibrasBtn.style.animation = 'float 3s ease-in-out infinite';
-            }
-        }, 1000);
-    </script>
+    <script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
 
 </body>
 </html>
