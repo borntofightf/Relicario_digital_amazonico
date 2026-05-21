@@ -14,7 +14,7 @@
     <!-- ResponsiveVoice -->
     <script src="https://code.responsivevoice.org/responsivevoice.js?key=JTbwNlZ4"></script>
     <style>
-        /* ===== VARIÁVEIS E ESTILOS GLOBAIS (mesmos do index1 e index2) ===== */
+        /* ===== VARIÁVEIS E ESTILOS GLOBAIS ===== */
         :root {
             --primary-dark: #7a3c1f;
             --primary: #a55b34;
@@ -28,6 +28,7 @@
             --shadow-sm: 0 4px 6px rgba(0,0,0,0.07);
             --shadow-md: 0 8px 20px rgba(0,0,0,0.12);
             --shadow-lg: 0 15px 35px rgba(0,0,0,0.15);
+            --shadow-xl: 0 20px 40px rgba(0,0,0,0.2);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --radius: 16px;
             --radius-lg: 24px;
@@ -60,31 +61,26 @@
         @keyframes slideInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
         @keyframes ripple { 0%{transform:scale(0);opacity:1} 100%{transform:scale(4);opacity:0} }
         @keyframes rotate { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
-        /* HEADER (igual ao index1) */
+        /* HEADER */
         .nav-header {
             width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center;
             padding: 20px 30px; background: var(--white); border-radius: var(--radius-lg);
             box-shadow: var(--shadow-md); margin-bottom: 40px; animation: slideIn 0.6s ease-out;
-            position: relative; overflow: hidden;
+            position: relative; overflow: visible; flex-wrap: wrap; gap: 20px;
         }
         .nav-header::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
-        .nav-header::after {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: translateX(-100%);
-        }
-        .nav-header:hover::after { animation: shine 1.5s ease; }
         .nav-brand { display: flex; align-items: center; gap: 15px; z-index: 2; }
         .nav-brand img { height: 60px; width: auto; border-radius: 10px; box-shadow: var(--shadow-sm); object-fit: contain; transition: var(--transition); }
         .nav-brand img:hover { transform: rotate(5deg) scale(1.05); box-shadow: var(--shadow-md); }
         .nav-title h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; color: var(--primary-dark); margin: 0; }
         .nav-title p { font-size: 14px; color: var(--text-light); margin: 0; transition: var(--transition); }
         .nav-title:hover p { color: var(--primary); }
-        .nav-buttons { display: flex; gap: 15px; align-items: center; z-index: 2; }
+        .nav-buttons { display: flex; gap: 15px; align-items: center; z-index: 2; flex-wrap: wrap; }
         .nav-btn {
             padding: 14px 28px; font-size: 16px; font-weight: 600;
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
@@ -92,22 +88,44 @@
             display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow-sm); text-decoration: none;
             position: relative; overflow: hidden;
         }
-        .nav-btn::after {
-            content: ''; position: absolute; top: 50%; left: 50%; width: 5px; height: 5px;
-            background: rgba(255,255,255,0.5); opacity: 0; border-radius: 100%;
-            transform: scale(1,1) translate(-50%); transform-origin: 50% 50%;
-        }
-        .nav-btn:focus:not(:active)::after { animation: ripple 1s ease-out; }
         .nav-btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
         .audio-btn-small {
             background: var(--light-beige); color: var(--primary-dark); border: 2px solid var(--primary-light);
             padding: 10px 18px; border-radius: 10px; font-size: 14px; font-weight: 500; cursor: pointer;
-            transition: var(--transition); display: flex; align-items: center; gap: 8px; position: relative;
-            overflow: hidden;
+            transition: var(--transition); display: flex; align-items: center; gap: 8px;
         }
         .audio-btn-small:hover { background: var(--primary-light); color: white; transform: translateY(-2px); }
 
-        /* CONTAINER DE IMAGENS DUPLAS (copiado do index1) */
+        /* SELETOR DE IDIOMA */
+        .language-selector { position: relative; }
+        .language-btn {
+            padding: 12px 20px; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: var(--white); border: none; border-radius: 10px; cursor: pointer; transition: var(--transition);
+            display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow-sm);
+            min-width: 140px; justify-content: center;
+        }
+        .language-btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        .language-btn-flag { width: 20px; height: 15px; border-radius: 2px; overflow: hidden; border: 1px solid rgba(255,255,255,0.3); }
+        .language-dropdown {
+            display: none; position: absolute; top: calc(100% + 10px); right: 0;
+            background: var(--white); box-shadow: var(--shadow-xl); border-radius: var(--radius);
+            padding: 15px; min-width: 180px; z-index: 10000; animation: scaleIn 0.2s ease-out;
+            border: 1px solid rgba(165,91,52,0.2); transform-origin: top right;
+        }
+        .language-dropdown.show { display: block; }
+        .language-option {
+            display: flex; align-items: center; gap: 12px; padding: 12px 16px; margin-bottom: 8px;
+            border-radius: 8px; transition: var(--transition); background: rgba(165,91,52,0.05);
+            border: 1px solid rgba(165,91,52,0.1); cursor: pointer; font-weight: 500; color: var(--text-dark);
+        }
+        .language-option:last-child { margin-bottom: 0; }
+        .language-option:hover { background: rgba(165,91,52,0.15); transform: translateX(5px); border-color: var(--primary); }
+        .language-option.active { background: rgba(165,91,52,0.2); border-color: var(--primary); color: var(--primary-dark); font-weight: 600; }
+        .language-flag { width: 24px; height: 18px; border-radius: 3px; overflow: hidden; flex-shrink: 0; }
+        .language-flag img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* CONTAINER DE IMAGENS DUPLAS */
         .images-container {
             display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; margin-bottom: 25px;
         }
@@ -122,337 +140,175 @@
             padding: 15px; background: rgba(165,91,52,0.08); text-align: center;
             border-bottom: 2px solid rgba(165,91,52,0.2);
         }
-        .image-card-header h3 {
-            font-family: 'Montserrat', sans-serif; font-size: 18px; color: var(--primary-dark); margin: 0;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-        }
+        .image-card-header h3 { font-family: 'Montserrat', sans-serif; font-size: 18px; color: var(--primary-dark); margin: 0; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .original-header h3 i { color: #a55b34; }
         .replica-header h3 i { color: #2c5530; }
         .card-img-container {
             position: relative; width: 100%; height: 250px; padding: 20px; text-align: center;
             display: flex; align-items: center; justify-content: center; overflow: hidden;
         }
-        .card-img-wrapper {
-            width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative;
-        }
+        .card-img-wrapper { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
         .card-img {
             max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain;
             border-radius: 10px; box-shadow: var(--shadow-sm); transition: var(--transition);
-            border: 3px solid var(--white); position: relative; z-index: 2;
+            border: 3px solid var(--white); z-index: 2;
         }
-        .card-img-container::before {
-            content: ''; position: absolute; top: 50%; left: 50%; width: 150%; height: 150%;
-            background: conic-gradient(transparent, var(--primary-light), transparent 30%);
-            animation: rotate 4s linear infinite; z-index: 1; opacity: 0; transition: var(--transition);
-        }
-        .image-card:hover .card-img-container::before { opacity: 0.1; }
         .image-card:hover .card-img { transform: scale(1.03); box-shadow: var(--shadow-md); }
 
         /* GRADE DE CARDS */
-        .grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 35px;
-            width: 100%; max-width: 1300px; margin-bottom: 50px; animation: slideInUp 0.8s ease-out 0.2s both;
-        }
-        .card {
-            background: var(--white); border-radius: var(--radius-lg); overflow: hidden;
-            box-shadow: var(--shadow-md); transition: var(--transition); position: relative;
-            border: 1px solid rgba(165,91,52,0.1); display: flex; flex-direction: column;
-        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 35px; width: 100%; max-width: 1300px; margin-bottom: 50px; animation: slideInUp 0.8s ease-out 0.2s both; }
+        .card { background: var(--white); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); transition: var(--transition); position: relative; border: 1px solid rgba(165,91,52,0.1); display: flex; flex-direction: column; }
         .card:hover { animation: cardHover 0.3s ease forwards; box-shadow: var(--shadow-lg); }
-        .card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary)); z-index: 1;
-        }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--primary), var(--secondary)); z-index: 1; }
         .card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
-        .card-title {
-            font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 700; color: var(--primary-dark);
-            margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;
-        }
-        .card-title h2 { margin: 0; flex: 1; position: relative; overflow: hidden; }
-        .card-title h2::after {
-            content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
-            background: var(--primary); transition: var(--transition);
-        }
-        .card:hover .card-title h2::after { width: 100%; }
+        .card-title { font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 700; color: var(--primary-dark); margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; }
+        .card-title h2 { margin: 0; flex: 1; }
         .info-group { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(165,91,52,0.1); }
-        .info-row {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
-            padding: 10px 15px; background: rgba(165,91,52,0.03); border-radius: 10px;
-            border: 1px solid rgba(165,91,52,0.08); transition: var(--transition); position: relative; overflow: hidden;
-        }
-        .info-row::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(165,91,52,0.1), transparent); transition: var(--transition);
-        }
-        .info-row:hover::before { left: 100%; }
-        .info-row:hover { background: rgba(165,91,52,0.08); transform: translateX(5px); }
-        .info-label {
-            font-weight: 600; color: var(--text-dark); display: flex; align-items: center; gap: 8px;
-            flex: 1; min-width: 180px;
-        }
-        .info-label i { color: var(--primary); width: 20px; transition: var(--transition); }
-        .info-row:hover .info-label i { transform: scale(1.2); }
-        .info-value {
-            color: var(--text-light); font-weight: 500; text-align: right; flex: 1; margin-right: 10px;
-            transition: var(--transition);
-        }
-        .info-row:hover .info-value { color: var(--primary-dark); }
-        .info-audio-btn { flex-shrink: 0; }
+        .info-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 10px 15px; background: rgba(165,91,52,0.03); border-radius: 10px; border: 1px solid rgba(165,91,52,0.08); transition: var(--transition); flex-wrap: wrap; gap: 10px; }
+        .info-label { font-weight: 600; color: var(--text-dark); display: flex; align-items: center; gap: 8px; flex: 1; min-width: 180px; }
+        .info-label i { color: var(--primary); width: 20px; }
+        .info-value { color: var(--text-light); font-weight: 500; text-align: right; flex: 1; margin-right: 10px; }
 
         /* SEÇÕES DESCRITIVAS */
         .section-container { margin: 25px 0; opacity: 0; animation: slideInUp 0.5s ease-out forwards; }
         .section-container:nth-child(1) { animation-delay: 0.4s; }
         .section-container:nth-child(2) { animation-delay: 0.6s; }
         .section-container:nth-child(3) { animation-delay: 0.8s; }
-        .section-header {
-            display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;
-            padding-bottom: 10px; border-bottom: 2px solid rgba(165,91,52,0.2); transition: var(--transition);
-        }
-        .card:hover .section-header { border-bottom-color: var(--primary); }
-        .section-title {
-            font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 600; color: var(--primary-dark);
-            display: flex; align-items: center; gap: 10px;
-        }
-        .section-title i { color: var(--primary); transition: var(--transition); }
-        .section-header:hover .section-title i { transform: rotate(15deg); }
-        .section-content {
-            padding: 20px; background: rgba(165,91,52,0.03); border-radius: var(--radius);
-            border-left: 4px solid var(--primary); line-height: 1.8; color: var(--text-dark); transition: var(--transition);
-        }
-        .section-content:hover { background: rgba(165,91,52,0.07); }
+        .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid rgba(165,91,52,0.2); flex-wrap: wrap; gap: 15px; }
+        .section-title { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 600; color: var(--primary-dark); display: flex; align-items: center; gap: 10px; }
+        .section-content { padding: 20px; background: rgba(165,91,52,0.03); border-radius: var(--radius); border-left: 4px solid var(--primary); line-height: 1.8; color: var(--text-dark); }
         .history-section { border-left-color: var(--secondary); }
         .replica-section { border-left-color: #6d4c41; }
         .audio-buttons-container { display: flex; gap: 10px; flex-wrap: wrap; }
-        .audio-btn-detailed { background: var(--secondary); color: white; border: 2px solid var(--secondary); }
-        .audio-btn-detailed:hover { background: #3a7d3f; border-color: #3a7d3f; }
-        .audio-btn-replica { background: #6d4c41; color: white; border: 2px solid #6d4c41; }
-        .audio-btn-replica:hover { background: #8d6e63; border-color: #8d6e63; }
+        .audio-btn-detailed { background: var(--secondary); color: white; border-color: var(--secondary); }
+        .audio-btn-detailed:hover { background: #3a7d3f; }
+        .audio-btn-replica { background: #6d4c41; color: white; border-color: #6d4c41; }
+        .audio-btn-replica:hover { background: #8d6e63; }
 
-        /* SEÇÃO MULTIMÍDIA (copiada do index2 com ajustes) */
-        .multimedia-section {
-            margin: 30px 0; padding: 25px; background: var(--white); border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md); width: 100%; max-width: 1300px; animation: slideInUp 0.8s ease-out 0.8s both;
-        }
-        .multimedia-header {
-            display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px;
-            padding-bottom: 15px; border-bottom: 2px solid var(--primary);
-        }
-        .multimedia-title {
-            font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; color: var(--primary-dark);
-            display: flex; align-items: center; gap: 15px;
-        }
-        .multimedia-title i { color: var(--primary); font-size: 28px; }
-        .multimedia-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;
-        }
-        .resource-card {
-            background: linear-gradient(135deg, rgba(165,91,52,0.05) 0%, rgba(44,85,48,0.05) 100%);
-            border-radius: var(--radius); padding: 25px; text-align: center; transition: var(--transition);
-            border: 2px solid transparent; display: flex; flex-direction: column; align-items: center;
-            gap: 15px; position: relative; overflow: hidden;
-        }
-        .resource-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary)); transform: scaleX(0);
-            transition: var(--transition); transform-origin: left;
-        }
-        .resource-card:hover::before { transform: scaleX(1); }
+        /* MULTIMÍDIA */
+        .multimedia-section { margin: 30px 0; padding: 25px; background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); width: 100%; max-width: 1300px; animation: slideInUp 0.8s ease-out 0.8s both; }
+        .multimedia-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid var(--primary); flex-wrap: wrap; gap: 15px; }
+        .multimedia-title { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; color: var(--primary-dark); display: flex; align-items: center; gap: 15px; }
+        .multimedia-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .resource-card { background: linear-gradient(135deg, rgba(165,91,52,0.05) 0%, rgba(44,85,48,0.05) 100%); border-radius: var(--radius); padding: 25px; text-align: center; transition: var(--transition); border: 2px solid transparent; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .resource-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--primary-light); }
-        .resource-icon {
-            width: 70px; height: 70px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px;
-            color: white; margin-bottom: 10px; transition: var(--transition);
-        }
-        .resource-card:hover .resource-icon { transform: scale(1.1) rotate(5deg); }
+        .resource-icon { width: 70px; height: 70px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; color: white; }
         .resource-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: var(--primary-dark); margin-bottom: 10px; }
         .resource-content p { color: var(--text-light); font-size: 14px; line-height: 1.5; margin-bottom: 20px; }
         .resource-buttons { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; width: 100%; }
-        .resource-btn {
-            padding: 10px 20px; background: var(--white); color: var(--primary-dark);
-            border: 2px solid var(--primary-light); border-radius: 10px; font-weight: 600; text-decoration: none;
-            transition: var(--transition); display: flex; align-items: center; gap: 8px; font-size: 14px;
-            flex: 1; min-width: 150px; justify-content: center;
-        }
-        .resource-btn:hover { background: var(--primary); color: white; transform: translateY(-3px); box-shadow: var(--shadow-sm); }
-        .btn-photos { border-color: #4CAF50; color: #2E7D32; }
-        .btn-photos:hover { background: #4CAF50; }
-        .btn-videos { border-color: #FF5722; color: #D84315; }
-        .btn-videos:hover { background: #FF5722; }
-        .btn-documentary { border-color: #2196F3; color: #1565C0; }
-        .btn-documentary:hover { background: #2196F3; }
-        .btn-article { border-color: #9C27B0; color: #7B1FA2; }
-        .btn-article:hover { background: #9C27B0; }
+        .resource-btn { padding: 10px 20px; background: var(--white); color: var(--primary-dark); border: 2px solid var(--primary-light); border-radius: 10px; font-weight: 600; text-decoration: none; transition: var(--transition); display: flex; align-items: center; gap: 8px; font-size: 14px; flex: 1; min-width: 150px; justify-content: center; }
+        .resource-btn:hover { background: var(--primary); color: white; transform: translateY(-3px); }
+        .btn-photos { border-color: #4CAF50; color: #2E7D32; } .btn-photos:hover { background: #4CAF50; }
+        .btn-videos { border-color: #FF5722; color: #D84315; } .btn-videos:hover { background: #FF5722; }
+        .btn-documentary { border-color: #2196F3; color: #1565C0; } .btn-documentary:hover { background: #2196F3; }
+        .btn-article { border-color: #9C27B0; color: #7B1FA2; } .btn-article:hover { background: #9C27B0; }
 
-        /* SEÇÃO RECURSOS PARA O PROJETO (igual ao index1) */
-        .resources-section {
-            margin: 30px 0; padding: 30px; background: var(--white); border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md); width: 100%; max-width: 1300px; animation: slideInUp 0.8s ease-out 1s both;
-        }
-        .resources-header {
-            display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px;
-            padding-bottom: 20px; border-bottom: 2px solid var(--secondary);
-        }
-        .resources-title {
-            font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 700; color: var(--secondary);
-            display: flex; align-items: center; gap: 15px;
-        }
-        .resources-title i { color: var(--secondary); font-size: 32px; }
-        .resources-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 30px;
-        }
+        /* RECURSOS E AVALIAÇÃO */
+        .resources-section { margin: 30px 0; padding: 30px; background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); width: 100%; max-width: 1300px; animation: slideInUp 0.8s ease-out 1s both; }
+        .resources-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid var(--secondary); flex-wrap: wrap; gap: 15px; }
+        .resources-title { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 700; color: var(--secondary); display: flex; align-items: center; gap: 15px; }
+        .resources-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 30px; }
         @media (max-width: 1024px) { .resources-grid { grid-template-columns: 1fr; } }
-        .resource-topic {
-            background: linear-gradient(135deg, rgba(44,85,48,0.05) 0%, rgba(44,85,48,0.1) 100%);
-            padding: 30px; border-radius: var(--radius); border-left: 5px solid var(--secondary);
-            display: flex; flex-direction: column; height: 100%; transition: var(--transition);
-        }
+        .resource-topic { background: linear-gradient(135deg, rgba(44,85,48,0.05) 0%, rgba(44,85,48,0.1) 100%); padding: 30px; border-radius: var(--radius); border-left: 5px solid var(--secondary); display: flex; flex-direction: column; height: 100%; transition: var(--transition); }
         .resource-topic:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
         .resource-topic-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
-        .resource-topic-icon {
-            width: 60px; height: 60px; background: linear-gradient(135deg, var(--secondary) 0%, #3a7d3f 100%);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px;
-            color: white; flex-shrink: 0;
-        }
+        .resource-topic-icon { width: 60px; height: 60px; background: linear-gradient(135deg, var(--secondary) 0%, #3a7d3f 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; flex-shrink: 0; }
         .resource-topic-title { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; color: var(--secondary); }
         .resource-topic-content { flex-grow: 1; margin-bottom: 25px; }
         .resource-topic-content p { color: var(--text-dark); line-height: 1.7; margin-bottom: 15px; }
         .resource-topic-list { margin: 15px 0; padding-left: 20px; }
-        .resource-topic-list li { margin: 8px 0; color: var(--text-dark); line-height: 1.5; }
-        .resource-topic-btn {
-            padding: 16px 30px; font-size: 17px; font-weight: 700;
-            background: linear-gradient(135deg, var(--secondary) 0%, #3a7d3f 100%); color: white;
-            border: none; border-radius: 12px; cursor: pointer; transition: var(--transition);
-            display: flex; align-items: center; gap: 15px; box-shadow: var(--shadow-md); text-decoration: none;
-            position: relative; overflow: hidden; justify-content: center; text-align: center; width: 100%; margin-top: auto;
-        }
-        .resource-topic-btn::after {
-            content: ''; position: absolute; top: 50%; left: 50%; width: 5px; height: 5px;
-            background: rgba(255,255,255,0.5); opacity: 0; border-radius: 100%;
-            transform: scale(1,1) translate(-50%); transform-origin: 50% 50%;
-        }
-        .resource-topic-btn:focus:not(:active)::after { animation: ripple 1s ease-out; }
-        .resource-topic-btn:hover {
-            transform: translateY(-5px); box-shadow: var(--shadow-lg);
-            background: linear-gradient(135deg, #3a7d3f 0%, var(--secondary) 100%);
-        }
+        .resource-topic-list li { margin: 8px 0; color: var(--text-dark); }
+        .resource-topic-btn { padding: 16px 30px; font-size: 17px; font-weight: 700; background: linear-gradient(135deg, var(--secondary) 0%, #3a7d3f 100%); color: white; border: none; border-radius: 12px; cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 15px; box-shadow: var(--shadow-md); justify-content: center; width: 100%; margin-top: auto; }
+        .resource-topic-btn:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
         .manual-topic { border-left-color: var(--primary); }
         .manual-topic .resource-topic-icon { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); }
         .manual-topic .resource-topic-title { color: var(--primary-dark); }
         .manual-topic .resource-topic-btn { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); }
-        .manual-topic .resource-topic-btn:hover { background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%); }
         .evaluation-topic { border-left-color: #6d4c41; }
         .evaluation-topic .resource-topic-icon { background: linear-gradient(135deg, #6d4c41 0%, #8d6e63 100%); }
         .evaluation-topic .resource-topic-title { color: #6d4c41; }
         .evaluation-topic .resource-topic-btn { background: linear-gradient(135deg, #6d4c41 0%, #8d6e63 100%); }
-        .evaluation-topic .resource-topic-btn:hover { background: linear-gradient(135deg, #8d6e63 0%, #6d4c41 100%); }
 
         /* RODAPÉ */
-        .footer {
-            width: 100%; max-width: 1200px; padding: 30px; background: var(--white);
-            border-radius: var(--radius-lg); box-shadow: var(--shadow-md); text-align: center;
-            margin-top: 20px; animation: slideInUp 0.8s ease-out 1s both;
-        }
-        .footer-content { display: flex; flex-direction: column; align-items: center; gap: 20px; margin-bottom: 20px; }
-        .footer-info { text-align: center; width: 100%; }
-        .footer-info h3 { color: var(--primary-dark); margin-bottom: 15px; font-size: 20px; position: relative; display: inline-block; padding-bottom: 5px; }
-        .footer-info h3::after {
-            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-        .footer-info p { color: var(--text-light); margin: 10px 0; display: flex; align-items: center; justify-content: center; gap: 10px; transition: var(--transition); }
-        .footer-info:hover p { transform: translateX(5px); }
-        .footer-info a { color: var(--primary); text-decoration: none; transition: var(--transition); position: relative; }
-        .footer-info a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: var(--primary); transition: var(--transition); }
-        .footer-info a:hover::after { width: 100%; }
+        .footer { width: 100%; max-width: 1200px; padding: 30px; background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); text-align: center; margin-top: 20px; }
+        .footer-logo { height: 80px; width: auto; border-radius: 12px; box-shadow: var(--shadow-sm); transition: var(--transition); }
+        .footer-logo:hover { transform: scale(1.05) rotate(5deg); }
+        .footer-info a { color: var(--primary); text-decoration: none; }
         .footer-info a:hover { color: var(--primary-dark); }
-        .footer-logo { height: 80px; width: auto; border-radius: 12px; box-shadow: var(--shadow-sm); margin-bottom: 10px; transition: var(--transition); }
-        .footer-logo:hover { transform: scale(1.05) rotate(5deg); box-shadow: var(--shadow-md); }
 
         /* BOTÃO FLUTUANTE */
-        .floating-btn {
-            position: fixed; bottom: 30px; right: 30px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 24px; box-shadow: var(--shadow-lg); cursor: pointer; z-index: 100; transition: var(--transition);
-            animation: float 3s ease-in-out infinite; opacity: 0; visibility: hidden;
-        }
+        .floating-btn { position: fixed; bottom: 30px; right: 30px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: var(--shadow-lg); cursor: pointer; z-index: 100; transition: var(--transition); animation: float 3s ease-in-out infinite; opacity: 0; visibility: hidden; }
         .floating-btn:hover { transform: scale(1.1) rotate(10deg); }
 
         /* RESPONSIVIDADE */
         @media (max-width: 1024px) {
-            .nav-header { flex-direction: column; gap: 20px; text-align: center; }
+            .nav-header { flex-direction: column; text-align: center; }
             .nav-buttons { flex-direction: column; width: 100%; }
-            .nav-btn, .audio-btn-small { width: 100%; justify-content: center; }
+            .nav-btn, .audio-btn-small, .language-selector { width: 100%; }
+            .language-btn { width: 100%; }
             .grid { grid-template-columns: 1fr; }
-            .card-img-container { height: 280px; padding: 20px; }
-            .multimedia-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-            .footer-content { flex-direction: column; text-align: center; }
         }
         @media (max-width: 768px) {
             body { padding: 20px 15px; }
-            .nav-header { padding: 15px; }
-            .card-img-container { height: 250px; padding: 15px; }
             .card-content { padding: 20px; }
-            .card-title { font-size: 22px; flex-direction: column; gap: 15px; text-align: center; }
-            .info-row { flex-direction: column; gap: 10px; text-align: center; }
-            .info-label { justify-content: center; min-width: auto; }
+            .card-title { font-size: 22px; flex-direction: column; text-align: center; }
+            .info-row { flex-direction: column; text-align: center; }
+            .info-label { justify-content: center; }
             .info-value { text-align: center; margin-right: 0; }
-            .section-header { flex-direction: column; gap: 10px; text-align: center; }
-            .multimedia-grid { grid-template-columns: 1fr; }
-            .resource-buttons { flex-direction: column; }
-            .resource-btn { min-width: 100%; }
-            .resources-section { padding: 20px; }
-            .resources-grid { gap: 20px; }
-            .resource-topic { padding: 20px; }
-            .resource-topic-btn { padding: 15px 25px; font-size: 16px; }
+            .section-header { flex-direction: column; text-align: center; }
+            .floating-btn { width: 50px; height: 50px; bottom: 20px; right: 20px; }
         }
-        @media (max-width: 480px) {
-            .grid { grid-template-columns: 1fr; }
-            .card-img-container { height: 220px; }
-            .card-title h2 { font-size: 20px; }
-            .floating-btn { bottom: 20px; right: 20px; width: 50px; height: 50px; font-size: 20px; }
-            .multimedia-title { font-size: 20px; }
-            .resource-icon { width: 60px; height: 60px; font-size: 24px; }
-            .resources-title { font-size: 22px; }
-            .resources-title i { font-size: 24px; }
-        }
-        @media (max-height: 800px) { .card-img-container { height: 250px; } }
-        button, .nav-btn, .audio-btn-small, .resource-btn, .resource-topic-btn {
-            -webkit-tap-highlight-color: transparent; touch-action: manipulation; user-select: none;
-        }
+        button, .nav-btn, .audio-btn-small, .resource-btn, .resource-topic-btn { -webkit-tap-highlight-color: transparent; touch-action: manipulation; user-select: none; }
         :focus { outline: none !important; scroll-margin: 0; }
         button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
     </style>
 </head>
 <body>
 
-    <!-- NAVEGAÇÃO SUPERIOR (igual ao index1) -->
+    <!-- HEADER COM SELETOR DE IDIOMA -->
     <div class="nav-header">
         <div class="nav-brand">
             <img src="images/Logo_Btf.png" alt="Logo Born To Fight" onerror="this.src='https://via.placeholder.com/80x80/2c5530/ffffff?text=Born+To+Fight'">
             <div class="nav-title">
-                <h1>Catálogo Interativo</h1>
-                <p>Cerâmica Amazônica - Born To Fight</p>
+                <h1 data-i18n="catalog_title">Catálogo Interativo</h1>
+                <p data-i18n="catalog_subtitle">Cerâmica Amazônica - Born To Fight</p>
             </div>
         </div>
         <div class="nav-buttons">
             <a href="index.html" class="nav-btn" id="voltarMenu">
-                <i class="fas fa-arrow-left"></i> Voltar para o Menu
+                <i class="fas fa-arrow-left"></i> <span data-i18n="back_to_menu">Voltar para o Menu</span>
             </a>
-            <button class="audio-btn-small" onclick="ouvirVoltarMenu()">
-                <i class="fas fa-volume-up"></i> Ouvir
+            <button class="audio-btn-small" onclick="readText(translations[currentLang]['back_to_menu'])">
+                <i class="fas fa-volume-up"></i> <span data-i18n="listen">Ouvir</span>
             </button>
+            <!-- SELETOR DE IDIOMA -->
+            <div class="language-selector">
+                <button class="language-btn" id="languageBtn">
+                    <div class="language-btn-flag" id="currentFlag"></div>
+                    <i class="fas fa-globe-americas"></i>
+                    <span id="currentLanguage">Português</span>
+                </button>
+                <div class="language-dropdown" id="languageMenu">
+                    <div class="language-option active" data-lang="pt">
+                        <div class="language-flag"><img src="https://flagcdn.com/w40/br.png" alt="Brasil"></div>
+                        Português
+                    </div>
+                    <div class="language-option" data-lang="en">
+                        <div class="language-flag"><img src="https://flagcdn.com/w40/us.png" alt="EUA"></div>
+                        English
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- CONTEÚDO PRINCIPAL - CARD COM IMAGENS DUPLAS -->
+    <!-- CONTEÚDO PRINCIPAL -->
     <div class="grid">
         <div class="card">
-            <!-- CONTAINER DE IMAGENS DUPLAS (original + réplica) -->
             <div class="images-container">
-                <!-- Peça Original -->
                 <div class="image-card">
                     <div class="image-card-header original-header">
-                        <h3><i class="fas fa-history"></i> Peça Original</h3>
+                        <h3><i class="fas fa-history"></i> <span data-i18n="original_piece">Peça Original</span></h3>
                     </div>
                     <div class="card-img-container">
                         <div class="card-img-wrapper">
@@ -460,83 +316,78 @@
                         </div>
                     </div>
                 </div>
-                <!-- Réplica 3D -->
                 <div class="image-card">
                     <div class="image-card-header replica-header">
-                        <h3><i class="fas fa-print"></i> Réplica em Impressão 3D</h3>
+                        <h3><i class="fas fa-print"></i> <span data-i18n="replica_3d">Réplica em Impressão 3D</span></h3>
                     </div>
                     <div class="card-img-container">
                         <div class="card-img-wrapper">
-                            <img src="images/impressao_3d.jpg" alt="Réplica em Impressão 3D da Urna Maracá" class="card-img" onload="imageLoaded(this)" onerror="imageError(this, 'replica')">
+                            <img src="images/Urna_funeraria_maraca_3D.png" alt="Réplica 3D" class="card-img" onerror="imageError(this, 'replica')">
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="card-content">
                 <div class="card-title">
-                    <h2 id="titulo">Urna Funerária Maracá</h2>
-                    <button class="audio-btn-small" onclick="readText('Urna Funerária Maracá')">
-                        <i class="fas fa-volume-up"></i> Ouvir Título
+                    <h2 data-i18n="artifact_name">Urna Funerária Maracá</h2>
+                    <button class="audio-btn-small" onclick="readText(translations[currentLang]['artifact_name'])">
+                        <i class="fas fa-volume-up"></i> <span data-i18n="listen_title">Ouvir Título</span>
                     </button>
                 </div>
-
                 <div class="info-group">
                     <div class="info-row">
-                        <div class="info-label"><i class="far fa-calendar-alt"></i> <span>Período Histórico:</span></div>
-                        <div class="info-value" id="periodo">1300 a 1550 d.C.</div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('periodo').innerText)"><i class="fas fa-volume-up"></i></button>
+                        <div class="info-label"><i class="far fa-calendar-alt"></i> <span data-i18n="period_label">Período Histórico:</span></div>
+                        <div class="info-value" data-i18n="period_value">1300 a 1550 d.C.</div>
+                        <button class="audio-btn-small" onclick="readText(translations[currentLang]['period_value'])"><i class="fas fa-volume-up"></i></button>
                     </div>
                     <div class="info-row">
-                        <div class="info-label"><i class="fas fa-map-marker-alt"></i> <span>Local de Origem:</span></div>
-                        <div class="info-value" id="local">Rio Maracá, Amapá</div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('local').innerText)"><i class="fas fa-volume-up"></i></button>
+                        <div class="info-label"><i class="fas fa-map-marker-alt"></i> <span data-i18n="origin_label">Local de Origem:</span></div>
+                        <div class="info-value" data-i18n="origin_value">Rio Maracá, Amapá</div>
+                        <button class="audio-btn-small" onclick="readText(translations[currentLang]['origin_value'])"><i class="fas fa-volume-up"></i></button>
                     </div>
                     <div class="info-row">
-                        <div class="info-label"><i class="fas fa-ruler-combined"></i> <span>Dimensões Aproximadas:</span></div>
-                        <div class="info-value" id="tamanho">40 - 80 cm</div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('tamanho').innerText)"><i class="fas fa-volume-up"></i></button>
+                        <div class="info-label"><i class="fas fa-ruler-combined"></i> <span data-i18n="dimensions_label">Dimensões Aproximadas:</span></div>
+                        <div class="info-value" data-i18n="dimensions_value">40 - 80 cm</div>
+                        <button class="audio-btn-small" onclick="readText(translations[currentLang]['dimensions_value'])"><i class="fas fa-volume-up"></i></button>
                     </div>
                 </div>
 
-                <!-- DESCRIÇÃO DA PEÇA ORIGINAL -->
+                <!-- DESCRIÇÃO ORIGINAL -->
                 <div class="section-container">
                     <div class="section-header">
-                        <div class="section-title"><i class="fas fa-file-alt"></i> <span>Descrição da Peça Original</span></div>
+                        <div class="section-title"><i class="fas fa-file-alt"></i> <span data-i18n="original_desc_title">Descrição da Peça Original</span></div>
                         <div class="audio-buttons-container">
-                            <button class="audio-btn-small" onclick="readText(document.getElementById('descricaoOriginalResumo').innerText)"><i class="fas fa-volume-up"></i> Ouvir Resumo</button>
-                            <button class="audio-btn-small audio-btn-detailed" onclick="readOriginalDescription()"><i class="fas fa-headphones-alt"></i> Descrição Detalhada</button>
+                            <button class="audio-btn-small" onclick="readText(translations[currentLang]['original_summary'])"><i class="fas fa-volume-up"></i> <span data-i18n="listen_summary">Ouvir Resumo</span></button>
+                            <button class="audio-btn-small audio-btn-detailed" onclick="readOriginalDescription()"><i class="fas fa-headphones-alt"></i> <span data-i18n="detailed_desc">Descrição Detalhada</span></button>
                         </div>
                     </div>
-                    <div class="section-content" id="descricaoOriginalResumo">
-                        <p><strong>Resumo Visual:</strong> As urnas funerárias Maracá apresentam figuras humanas sentadas sobre bancos zoomorfos, indicando alto status. A cabeça em cone truncado serve como tampa. Pinturas geométricas nas cores branco, amarelo, vermelho e preto, com adornos e cotovelos projetados.</p>
-                        <p><strong>Técnica:</strong> Cerâmica com pintura policromática e modelagem complexa.</p>
-                        <p><strong>Significado Cultural:</strong> Representam a hierarquia social e o culto aos ancestrais na região amazônica.</p>
+                    <div class="section-content" data-i18n="original_summary_html">
+                        <strong>Resumo Visual:</strong> As urnas funerárias Maracá apresentam figuras humanas sentadas sobre bancos zoomorfos, indicando alto status. A cabeça em cone truncado serve como tampa. Pinturas geométricas nas cores branco, amarelo, vermelho e preto, com adornos e cotovelos projetados.<br>
+                        <strong>Técnica:</strong> Cerâmica com pintura policromática e modelagem complexa.<br>
+                        <strong>Significado Cultural:</strong> Representam a hierarquia social e o culto aos ancestrais na região amazônica.
                     </div>
                 </div>
 
-                <!-- DESCRIÇÃO DA RÉPLICA 3D -->
+                <!-- DESCRIÇÃO RÉPLICA 3D -->
                 <div class="section-container">
                     <div class="section-header">
-                        <div class="section-title"><i class="fas fa-print"></i> <span>Descrição da Réplica 3D</span></div>
-                        <div class="audio-buttons-container">
-                            <button class="audio-btn-small audio-btn-replica" onclick="read3DDescription()"><i class="fas fa-headphones-alt"></i> Ouvir Descrição Detalhada</button>
-                        </div>
+                        <div class="section-title"><i class="fas fa-print"></i> <span data-i18n="replica_desc_title">Descrição da Réplica 3D</span></div>
+                        <button class="audio-btn-small audio-btn-replica" onclick="read3DDescription()"><i class="fas fa-headphones-alt"></i> <span data-i18n="listen_replica_desc">Ouvir Descrição Detalhada</span></button>
                     </div>
-                    <div class="section-content replica-section" id="descricao3DTexto">
-                        <p><strong>Resumo Visual:</strong> Réplica fiel em impressão 3D da urna Maracá, reproduzindo com precisão os detalhes antropomórficos e geométricos. Fabricada com filamento PLA biodegradável para fins educativos.</p>
-                        <p><strong>Materiais:</strong> PLA com textura que simula a argila natural.</p>
-                        <p><strong>Finalidade Educativa:</strong> Permite o manuseio tátil sem riscos ao artefato original.</p>
+                    <div class="section-content replica-section" data-i18n="replica_summary_html">
+                        <strong>Resumo Visual:</strong> Réplica fiel em impressão 3D da urna Maracá, reproduzindo com precisão os detalhes antropomórficos e geométricos. Fabricada com filamento PLA biodegradável para fins educativos.<br>
+                        <strong>Materiais:</strong> PLA com textura que simula a argila natural.<br>
+                        <strong>Finalidade Educativa:</strong> Permite o manuseio tátil sem riscos ao artefato original.
                     </div>
                 </div>
 
-                <!-- CONTEXTO HISTÓRICO -->
+                <!-- HISTÓRIA -->
                 <div class="section-container">
                     <div class="section-header">
-                        <div class="section-title"><i class="fas fa-history"></i> <span>Contexto Histórico</span></div>
-                        <button class="audio-btn-small" onclick="readText(document.getElementById('historiaTexto').innerText)"><i class="fas fa-volume-up"></i> Ouvir História</button>
+                        <div class="section-title"><i class="fas fa-history"></i> <span data-i18n="history_title">Contexto Histórico</span></div>
+                        <button class="audio-btn-small" onclick="readText(translations[currentLang]['history_text'])"><i class="fas fa-volume-up"></i> <span data-i18n="listen_history">Ouvir História</span></button>
                     </div>
-                    <div class="section-content history-section" id="historiaTexto">
+                    <div class="section-content history-section" data-i18n="history_text">
                         Nas grutas e abrigos rochosos da região do rio Maracá, no Amapá, foram encontrados antigos cemitérios com urnas funerárias colocadas em locais de destaque. Esses achados revelam um forte culto aos ancestrais, mostrando que a comunidade valorizava e honrava seus mortos, especialmente aqueles de posição social elevada.
                     </div>
                 </div>
@@ -544,123 +395,98 @@
         </div>
     </div>
 
-    <!-- SEÇÃO MULTIMÍDIA (igual ao index2, com links e botões de áudio) -->
+    <!-- MULTIMÍDIA -->
     <div class="multimedia-section">
         <div class="multimedia-header">
-            <div class="multimedia-title"><i class="fas fa-photo-video"></i> <span>Recursos Multimídia</span></div>
-            <button class="audio-btn-small" onclick="readText('Seção de recursos multimídia com fotos, vídeos, documentários e artigos sobre cerâmica amazônica.')"><i class="fas fa-volume-up"></i> Ouvir Seção</button>
+            <div class="multimedia-title"><i class="fas fa-photo-video"></i> <span data-i18n="multimedia_title">Recursos Multimídia</span></div>
+            <button class="audio-btn-small" onclick="readText(translations[currentLang]['multimedia_desc'])"><i class="fas fa-volume-up"></i> <span data-i18n="listen_section">Ouvir Seção</span></button>
         </div>
         <div class="multimedia-grid">
-            <!-- FOTOS -->
             <div class="resource-card">
                 <div class="resource-icon"><i class="fas fa-images"></i></div>
-                <div class="resource-content">
-                    <h3>Álbum de Fotos</h3>
-                    <p>Explore nossa coleção completa de imagens em alta resolução da cerâmica amazônica e artefatos Maracá.</p>
-                </div>
+                <div class="resource-content"><h3 data-i18n="photos_title">Álbum de Fotos</h3><p data-i18n="photos_desc">Explore nossa coleção completa de imagens em alta resolução da cerâmica amazônica e artefatos Maracá.</p></div>
                 <div class="resource-buttons">
-                    <a href="https://drive.google.com/drive/folders/1Lzn3UPM7syQ449gb8PByOzzb6AHVbyEx" target="_blank" class="resource-btn btn-photos" onclick="trackClick('photos')"><i class="fas fa-external-link-alt"></i> Acessar Álbum</a>
-                    <button class="resource-btn btn-photos" onclick="readText('Álbum de fotos da cerâmica amazônica. Clique no botão para acessar.')"><i class="fas fa-volume-up"></i> Ouvir Descrição</button>
+                    <a href="https://drive.google.com/drive/folders/1Lzn3UPM7syQ449gb8PByOzzb6AHVbyEx" target="_blank" class="resource-btn btn-photos" onclick="trackClick('photos')"><i class="fas fa-external-link-alt"></i> <span data-i18n="access_album">Acessar Álbum</span></a>
+                    <button class="resource-btn btn-photos" onclick="readText(translations[currentLang]['photos_desc'])"><i class="fas fa-volume-up"></i> <span data-i18n="listen_desc">Ouvir Descrição</span></button>
                 </div>
             </div>
-            <!-- VÍDEOS -->
             <div class="resource-card">
                 <div class="resource-icon"><i class="fas fa-play-circle"></i></div>
-                <div class="resource-content">
-                    <h3>Vídeos Educativos</h3>
-                    <p>Assista a vídeos sobre técnicas de produção, história e importância cultural da cerâmica amazônica.</p>
-                </div>
+                <div class="resource-content"><h3 data-i18n="videos_title">Vídeos Educativos</h3><p data-i18n="videos_desc">Assista a vídeos sobre técnicas de produção, história e importância cultural da cerâmica amazônica.</p></div>
                 <div class="resource-buttons">
-                    <a href="https://www.youtube.com/watch?v=l5x7lM2OSFQ" target="_blank" class="resource-btn btn-videos" onclick="trackClick('video')"><i class="fab fa-youtube"></i> Assistir Vídeo</a>
-                    <button class="resource-btn btn-videos" onclick="readText('Vídeo educativo sobre cerâmica amazônica. Clique para assistir.')"><i class="fas fa-volume-up"></i> Ouvir Descrição</button>
+                    <a href="https://www.youtube.com/watch?v=l5x7lM2OSFQ" target="_blank" class="resource-btn btn-videos" onclick="trackClick('video')"><i class="fab fa-youtube"></i> <span data-i18n="watch_video">Assistir Vídeo</span></a>
+                    <button class="resource-btn btn-videos" onclick="readText(translations[currentLang]['videos_desc'])"><i class="fas fa-volume-up"></i> <span data-i18n="listen_desc">Ouvir Descrição</span></button>
                 </div>
             </div>
-            <!-- DOCUMENTÁRIOS -->
             <div class="resource-card">
                 <div class="resource-icon"><i class="fas fa-film"></i></div>
-                <div class="resource-content">
-                    <h3>Documentários</h3>
-                    <p>Documentários completos sobre a cultura Maracá, escavações arqueológicas e preservação cultural.</p>
-                </div>
+                <div class="resource-content"><h3 data-i18n="docs_title">Documentários</h3><p data-i18n="docs_desc">Documentários completos sobre a cultura Maracá, escavações arqueológicas e preservação cultural.</p></div>
                 <div class="resource-buttons">
-                    <a href="https://www.youtube.com/watch?v=nWVvZ49sC74" target="_blank" class="resource-btn btn-documentary" onclick="trackClick('documentary')"><i class="fas fa-external-link-alt"></i> Assistir Documentário</a>
-                    <button class="resource-btn btn-documentary" onclick="readText('Documentário completo sobre a cultura Maracá e escavações arqueológicas.')"><i class="fas fa-volume-up"></i> Ouvir Descrição</button>
+                    <a href="https://www.youtube.com/watch?v=nWVvZ49sC74" target="_blank" class="resource-btn btn-documentary" onclick="trackClick('documentary')"><i class="fas fa-external-link-alt"></i> <span data-i18n="watch_doc">Assistir Documentário</span></a>
+                    <button class="resource-btn btn-documentary" onclick="readText(translations[currentLang]['docs_desc'])"><i class="fas fa-volume-up"></i> <span data-i18n="listen_desc">Ouvir Descrição</span></button>
                 </div>
             </div>
-            <!-- ARTIGOS -->
             <div class="resource-card">
                 <div class="resource-icon"><i class="fas fa-newspaper"></i></div>
-                <div class="resource-content">
-                    <h3>Artigos Científicos</h3>
-                    <p>Artigos acadêmicos e pesquisas sobre cerâmica amazônica, publicações especializadas e estudos.</p>
-                </div>
+                <div class="resource-content"><h3 data-i18n="articles_title">Artigos Científicos</h3><p data-i18n="articles_desc">Artigos acadêmicos e pesquisas sobre cerâmica amazônica, publicações especializadas e estudos.</p></div>
                 <div class="resource-buttons">
-                    <a href="https://revista.sabnet.org/ojs/index.php/sab/article/view/333/302" target="_blank" class="resource-btn btn-article" onclick="trackClick('article')"><i class="fas fa-external-link-alt"></i> Ler Artigo</a>
-                    <button class="resource-btn btn-article" onclick="readText('Artigo científico sobre cerâmica amazônica publicado em revista especializada.')"><i class="fas fa-volume-up"></i> Ouvir Descrição</button>
+                    <a href="https://revista.sabnet.org/ojs/index.php/sab/article/view/333/302" target="_blank" class="resource-btn btn-article" onclick="trackClick('article')"><i class="fas fa-external-link-alt"></i> <span data-i18n="read_article">Ler Artigo</span></a>
+                    <button class="resource-btn btn-article" onclick="readText(translations[currentLang]['articles_desc'])"><i class="fas fa-volume-up"></i> <span data-i18n="listen_desc">Ouvir Descrição</span></button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- SEÇÃO RECURSOS PARA O PROJETO (igual ao index1) -->
+    <!-- RECURSOS E AVALIAÇÃO -->
     <div class="resources-section">
         <div class="resources-header">
-            <div class="resources-title"><i class="fas fa-tools"></i> <span>Recursos para o Projeto</span></div>
-            <button class="audio-btn-small" onclick="readText('Seção de recursos para o projeto com manual de instruções e formulário de avaliação.')"><i class="fas fa-volume-up"></i> Ouvir Seção</button>
+            <div class="resources-title"><i class="fas fa-tools"></i> <span data-i18n="resources_title">Recursos para o Projeto</span></div>
+            <button class="audio-btn-small" onclick="readText(translations[currentLang]['resources_desc'])"><i class="fas fa-volume-up"></i> <span data-i18n="listen_section">Ouvir Seção</span></button>
         </div>
-
         <div class="resources-grid">
-            <!-- TÓPICO 1: MANUAL DE INSTRUÇÕES -->
             <div class="resource-topic manual-topic">
                 <div class="resource-topic-header">
                     <div class="resource-topic-icon"><i class="fas fa-book"></i></div>
-                    <div class="resource-topic-title">Manual de Instruções</div>
+                    <div class="resource-topic-title" data-i18n="manual_title">Manual de Instruções</div>
                 </div>
                 <div class="resource-topic-content">
-                    <p>Disponibilizamos um manual completo para auxiliar na reprodução do nosso projeto, desde a impressão 3D até a programação do sistema interativo.</p>
-                    <p><strong>O manual inclui:</strong></p>
+                    <p data-i18n="manual_desc1">Disponibilizamos um manual completo para auxiliar na reprodução do nosso projeto, desde a impressão 3D até a programação do sistema interativo.</p>
+                    <p><strong data-i18n="manual_includes">O manual inclui:</strong></p>
                     <ul class="resource-topic-list">
-                        <li>Guia detalhado para impressão 3D da urna marajoara</li>
-                        <li>Configuração da Raspberry Pi e módulo RFID</li>
-                        <li>Programação do sistema de identificação por cartão</li>
-                        <li>Soluções para erros comuns e contato para suporte</li>
-                        <li>Lista completa de materiais necessários</li>
-                        <li>Instruções passo a passo para montagem</li>
+                        <li data-i18n="manual_item1">Guia detalhado para impressão 3D da urna marajoara</li>
+                        <li data-i18n="manual_item2">Configuração da Raspberry Pi e módulo RFID</li>
+                        <li data-i18n="manual_item3">Programação do sistema de identificação por cartão</li>
+                        <li data-i18n="manual_item4">Soluções para erros comuns e contato para suporte</li>
+                        <li data-i18n="manual_item5">Lista completa de materiais necessários</li>
+                        <li data-i18n="manual_item6">Instruções passo a passo para montagem</li>
                     </ul>
-                    <p>O manual possui 34 páginas com instruções detalhadas e ilustrações para facilitar a compreensão.</p>
+                    <p data-i18n="manual_pages">O manual possui 34 páginas com instruções detalhadas e ilustrações para facilitar a compreensão.</p>
                 </div>
-                <button class="resource-topic-btn" onclick="downloadManual()">
-                    <i class="fas fa-file-pdf"></i> Baixar Manual (PDF)
-                </button>
+                <button class="resource-topic-btn" onclick="downloadManual()"><i class="fas fa-file-pdf"></i> <span data-i18n="download_manual_btn">Baixar Manual (PDF)</span></button>
             </div>
-
-            <!-- TÓPICO 2: AVALIAÇÃO DO CATÁLOGO -->
             <div class="resource-topic evaluation-topic">
                 <div class="resource-topic-header">
                     <div class="resource-topic-icon"><i class="fas fa-clipboard-check"></i></div>
-                    <div class="resource-topic-title">Avaliação do Catálogo</div>
+                    <div class="resource-topic-title" data-i18n="evaluation_title">Avaliação do Catálogo</div>
                 </div>
                 <div class="resource-topic-content">
-                    <p>Sua opinião é essencial para aprimorarmos nosso catálogo interativo. Como equipe <strong>Born To Fight</strong>, valorizamos cada avaliação para melhorar continuamente.</p>
-                    <p><strong>O formulário inclui:</strong></p>
+                    <p data-i18n="evaluation_desc1">Sua opinião é essencial para aprimorarmos nosso catálogo interativo. Como equipe <strong>Born To Fight</strong>, valorizamos cada avaliação para melhorar continuamente.</p>
+                    <p><strong data-i18n="evaluation_includes">O formulário inclui:</strong></p>
                     <ul class="resource-topic-list">
-                        <li>Sua opinião sobre o projeto</li>
-                        <li>Qualidade do conteúdo apresentado</li>
-                        <li>Melhor aspecto do projeto</li>
-                        <li>Inovação do Relicário</li>
-                        <li>Sugestões para melhorias futuras</li>
-                        <li>Feedback sobre acessibilidade e usabilidade</li>
+                        <li data-i18n="eval_item1">Sua opinião sobre o projeto</li>
+                        <li data-i18n="eval_item2">Qualidade do conteúdo apresentado</li>
+                        <li data-i18n="eval_item3">Melhor aspecto do projeto</li>
+                        <li data-i18n="eval_item4">Inovação do Relicário</li>
+                        <li data-i18n="eval_item5">Sugestões para melhorias futuras</li>
+                        <li data-i18n="eval_item6">Feedback sobre acessibilidade e usabilidade</li>
                     </ul>
-                    <p>O formulário leva apenas 3-5 minutos para ser preenchido e é totalmente anônimo. Juntos, podemos preservar e compartilhar a riqueza da cultura amazônica de forma ainda melhor!</p>
+                    <p data-i18n="evaluation_time">O formulário leva apenas 3-5 minutos para ser preenchido e é totalmente anônimo. Juntos, podemos preservar e compartilhar a riqueza da cultura amazônica de forma ainda melhor!</p>
                 </div>
-                <button class="resource-topic-btn" onclick="openEvaluationForm()">
-                    <i class="fas fa-clipboard-list"></i> Avaliar Catálogo
-                </button>
+                <button class="resource-topic-btn" onclick="openEvaluationForm()"><i class="fas fa-clipboard-list"></i> <span data-i18n="evaluate_btn">Avaliar Catálogo</span></button>
             </div>
         </div>
-
-        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(44, 85, 48, 0.1);">
-            <p style="color: var(--text-light); font-size: 12px; margin-top: 5px;"><i class="fas fa-heart" style="color: #ff6b6b;"></i> Agradecemos sua participação e contribuição para o projeto!</p>
+        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(44,85,48,0.1);">
+            <p style="color: var(--text-light); font-size: 12px; margin-top: 5px;"><i class="fas fa-heart" style="color: #ff6b6b;"></i> <span data-i18n="thanks">Agradecemos sua participação e contribuição para o projeto!</span></p>
         </div>
     </div>
 
@@ -669,30 +495,237 @@
         <div class="footer-content">
             <div class="footer-info">
                 <img src="images/Logo_Btf.png" alt="Logo Born To Fight" class="footer-logo" onerror="this.src='https://via.placeholder.com/80x80/2c5530/ffffff?text=Born+To+Fight'">
-                <h3>Born To Fight</h3>
+                <h3 data-i18n="team_name">Born To Fight</h3>
                 <p><i class="fas fa-envelope"></i> <a href="mailto:borntofightfll@gmail.com">borntofightfll@gmail.com</a></p>
                 <p><i class="fab fa-instagram"></i> <a href="https://www.instagram.com/borntofight_fll/" target="_blank">@borntofight_fll</a></p>
-                <p><i class="fas fa-globe"></i> Catálogo Interativo - Cerâmica Amazônica</p>
-                <p><i class="fas fa-users"></i> Equipe de Robótica - FLL Challenge</p>
+                <p><i class="fas fa-globe"></i> <span data-i18n="catalog_footer">Catálogo Interativo - Cerâmica Amazônica</span></p>
+                <p><i class="fas fa-users"></i> <span data-i18n="team_footer">Equipe de Robótica - FLL Challenge</span></p>
             </div>
         </div>
-        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(165, 91, 52, 0.1);">
-            <p style="color: var(--text-light); font-size: 14px;">Projeto desenvolvido pela equipe Born To Fight - FLL | 2024</p>
-            <p style="color: var(--text-light); font-size: 12px; margin-top: 5px;">Todas as imagens são meramente ilustrativas para fins educacionais</p>
+        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(165,91,52,0.1);">
+            <p style="color: var(--text-light); font-size: 14px;" data-i18n="footer_credits">Projeto desenvolvido pela equipe Born To Fight - FLL | 2024</p>
+            <p style="color: var(--text-light); font-size: 12px; margin-top: 5px;" data-i18n="footer_illustrative">Todas as imagens são meramente ilustrativas para fins educacionais</p>
         </div>
     </div>
 
     <!-- BOTÃO FLUTUANTE -->
     <div class="floating-btn" onclick="scrollToTop()"><i class="fas fa-chevron-up"></i></div>
 
-    <!-- SCRIPTS (baseados no index2, com acréscimos do index1) -->
     <script>
-        // Variáveis e funções do ResponsiveVoice (do index2)
+        // ========== TRADUÇÕES ==========
+        const translations = {
+            pt: {
+                back_to_menu: "Voltar para o Menu",
+                listen: "Ouvir",
+                catalog_title: "Catálogo Interativo",
+                catalog_subtitle: "Cerâmica Amazônica - Born To Fight",
+                artifact_name: "Urna Funerária Maracá",
+                period_label: "Período Histórico:",
+                period_value: "1300 a 1550 d.C.",
+                origin_label: "Local de Origem:",
+                origin_value: "Rio Maracá, Amapá",
+                dimensions_label: "Dimensões Aproximadas:",
+                dimensions_value: "40 - 80 cm",
+                listen_title: "Ouvir Título",
+                original_piece: "Peça Original",
+                replica_3d: "Réplica em Impressão 3D",
+                original_desc_title: "Descrição da Peça Original",
+                listen_summary: "Ouvir Resumo",
+                detailed_desc: "Descrição Detalhada",
+                original_summary_html: "<strong>Resumo Visual:</strong> As urnas funerárias Maracá apresentam figuras humanas sentadas sobre bancos zoomorfos, indicando alto status. A cabeça em cone truncado serve como tampa. Pinturas geométricas nas cores branco, amarelo, vermelho e preto, com adornos e cotovelos projetados.<br><strong>Técnica:</strong> Cerâmica com pintura policromática e modelagem complexa.<br><strong>Significado Cultural:</strong> Representam a hierarquia social e o culto aos ancestrais na região amazônica.",
+                replica_desc_title: "Descrição da Réplica 3D",
+                listen_replica_desc: "Ouvir Descrição Detalhada",
+                replica_summary_html: "<strong>Resumo Visual:</strong> Réplica fiel em impressão 3D da urna Maracá, reproduzindo com precisão os detalhes antropomórficos e geométricos. Fabricada com filamento PLA biodegradável para fins educativos.<br><strong>Materiais:</strong> PLA com textura que simula a argila natural.<br><strong>Finalidade Educativa:</strong> Permite o manuseio tátil sem riscos ao artefato original.",
+                history_title: "Contexto Histórico",
+                listen_history: "Ouvir História",
+                history_text: "Nas grutas e abrigos rochosos da região do rio Maracá, no Amapá, foram encontrados antigos cemitérios com urnas funerárias colocadas em locais de destaque. Esses achados revelam um forte culto aos ancestrais, mostrando que a comunidade valorizava e honrava seus mortos, especialmente aqueles de posição social elevada.",
+                multimedia_title: "Recursos Multimídia",
+                multimedia_desc: "Seção de recursos multimídia com fotos, vídeos, documentários e artigos sobre cerâmica amazônica.",
+                listen_section: "Ouvir Seção",
+                photos_title: "Álbum de Fotos",
+                photos_desc: "Explore nossa coleção completa de imagens em alta resolução da cerâmica amazônica e artefatos Maracá.",
+                access_album: "Acessar Álbum",
+                videos_title: "Vídeos Educativos",
+                videos_desc: "Assista a vídeos sobre técnicas de produção, história e importância cultural da cerâmica amazônica.",
+                watch_video: "Assistir Vídeo",
+                docs_title: "Documentários",
+                docs_desc: "Documentários completos sobre a cultura Maracá, escavações arqueológicas e preservação cultural.",
+                watch_doc: "Assistir Documentário",
+                articles_title: "Artigos Científicos",
+                articles_desc: "Artigos acadêmicos e pesquisas sobre cerâmica amazônica, publicações especializadas e estudos.",
+                read_article: "Ler Artigo",
+                listen_desc: "Ouvir Descrição",
+                resources_title: "Recursos para o Projeto",
+                resources_desc: "Seção de recursos para o projeto. Baixe o manual de instruções ou avalie nosso catálogo.",
+                manual_title: "Manual de Instruções",
+                manual_desc1: "Disponibilizamos um manual completo para auxiliar na reprodução do nosso projeto, desde a impressão 3D até a programação do sistema interativo.",
+                manual_includes: "O manual inclui:",
+                manual_item1: "Guia detalhado para impressão 3D da urna marajoara",
+                manual_item2: "Configuração da Raspberry Pi e módulo RFID",
+                manual_item3: "Programação do sistema de identificação por cartão",
+                manual_item4: "Soluções para erros comuns e contato para suporte",
+                manual_item5: "Lista completa de materiais necessários",
+                manual_item6: "Instruções passo a passo para montagem",
+                manual_pages: "O manual possui 34 páginas com instruções detalhadas e ilustrações para facilitar a compreensão.",
+                download_manual_btn: "Baixar Manual (PDF)",
+                evaluation_title: "Avaliação do Catálogo",
+                evaluation_desc1: "Sua opinião é essencial para aprimorarmos nosso catálogo interativo. Como equipe Born To Fight, valorizamos cada avaliação para melhorar continuamente.",
+                evaluation_includes: "O formulário inclui:",
+                eval_item1: "Sua opinião sobre o projeto",
+                eval_item2: "Qualidade do conteúdo apresentado",
+                eval_item3: "Melhor aspecto do projeto",
+                eval_item4: "Inovação do Relicário",
+                eval_item5: "Sugestões para melhorias futuras",
+                eval_item6: "Feedback sobre acessibilidade e usabilidade",
+                evaluation_time: "O formulário leva apenas 3-5 minutos para ser preenchido e é totalmente anônimo. Juntos, podemos preservar e compartilhar a riqueza da cultura amazônica de forma ainda melhor!",
+                evaluate_btn: "Avaliar Catálogo",
+                thanks: "Agradecemos sua participação e contribuição para o projeto!",
+                team_name: "Born To Fight",
+                catalog_footer: "Catálogo Interativo - Cerâmica Amazônica",
+                team_footer: "Equipe de Robótica - FLL Challenge",
+                footer_credits: "Projeto desenvolvido pela equipe Born To Fight - FLL | 2024",
+                footer_illustrative: "Todas as imagens são meramente ilustrativas para fins educacionais"
+            },
+            en: {
+                back_to_menu: "Back to Menu",
+                listen: "Listen",
+                catalog_title: "Interactive Catalog",
+                catalog_subtitle: "Amazonian Ceramics - Born To Fight",
+                artifact_name: "Maracá Funerary Urn",
+                period_label: "Historical Period:",
+                period_value: "1300 to 1550 AD",
+                origin_label: "Place of Origin:",
+                origin_value: "Maracá River, Amapá",
+                dimensions_label: "Approximate Dimensions:",
+                dimensions_value: "40 - 80 cm",
+                listen_title: "Listen to Title",
+                original_piece: "Original Piece",
+                replica_3d: "3D Printed Replica",
+                original_desc_title: "Original Piece Description",
+                listen_summary: "Listen to Summary",
+                detailed_desc: "Detailed Description",
+                original_summary_html: "<strong>Visual Summary:</strong> Maracá funerary urns feature human figures seated on zoomorphic benches, indicating high status. The truncated cone-shaped head serves as a lid. Geometric paintings in white, yellow, red, and black, with ornaments and projected elbows.<br><strong>Technique:</strong> Polychrome painted ceramics with complex modeling.<br><strong>Cultural Significance:</strong> Represent social hierarchy and ancestor worship in the Amazon region.",
+                replica_desc_title: "3D Replica Description",
+                listen_replica_desc: "Listen to Detailed Description",
+                replica_summary_html: "<strong>Visual Summary:</strong> Faithful 3D printed replica of the Maracá urn, accurately reproducing the anthropomorphic and geometric details. Made with biodegradable PLA filament for educational purposes.<br><strong>Materials:</strong> PLA with texture simulating natural clay.<br><strong>Educational Purpose:</strong> Allows tactile handling without risk to the original artifact.",
+                history_title: "Historical Context",
+                listen_history: "Listen to History",
+                history_text: "In caves and rock shelters in the Maracá River region of Amapá, ancient cemeteries with funerary urns placed in prominent locations were found. These findings reveal a strong ancestor cult, showing that the community valued and honored their dead, especially those of high social status.",
+                multimedia_title: "Multimedia Resources",
+                multimedia_desc: "Multimedia resources section with photos, videos, documentaries, and articles about Amazonian ceramics.",
+                listen_section: "Listen to Section",
+                photos_title: "Photo Album",
+                photos_desc: "Explore our complete collection of high-resolution images of Amazonian ceramics and Maracá artifacts.",
+                access_album: "Access Album",
+                videos_title: "Educational Videos",
+                videos_desc: "Watch videos about production techniques, history, and cultural importance of Amazonian ceramics.",
+                watch_video: "Watch Video",
+                docs_title: "Documentaries",
+                docs_desc: "Complete documentaries about Maracá culture, archaeological excavations, and cultural preservation.",
+                watch_doc: "Watch Documentary",
+                articles_title: "Scientific Articles",
+                articles_desc: "Academic articles and research on Amazonian ceramics, specialized publications and studies.",
+                read_article: "Read Article",
+                listen_desc: "Listen to Description",
+                resources_title: "Project Resources",
+                resources_desc: "Project resources section. Download the instruction manual or evaluate our catalog.",
+                manual_title: "Instruction Manual",
+                manual_desc1: "We provide a complete manual to help reproduce our project, from 3D printing to programming the interactive system.",
+                manual_includes: "The manual includes:",
+                manual_item1: "Detailed guide for 3D printing the Marajoara urn",
+                manual_item2: "Raspberry Pi and RFID module setup",
+                manual_item3: "Card identification system programming",
+                manual_item4: "Solutions for common errors and support contact",
+                manual_item5: "Complete list of required materials",
+                manual_item6: "Step-by-step assembly instructions",
+                manual_pages: "The manual has 34 pages with detailed instructions and illustrations to facilitate understanding.",
+                download_manual_btn: "Download Manual (PDF)",
+                evaluation_title: "Catalog Evaluation",
+                evaluation_desc1: "Your opinion is essential to improve our interactive catalog. As the Born To Fight team, we value every evaluation to continuously improve.",
+                evaluation_includes: "The form includes:",
+                eval_item1: "Your opinion about the project",
+                eval_item2: "Quality of the presented content",
+                eval_item3: "Best aspect of the project",
+                eval_item4: "Innovation of the Reliquary",
+                eval_item5: "Suggestions for future improvements",
+                eval_item6: "Accessibility and usability feedback",
+                evaluation_time: "The form takes only 3-5 minutes and is completely anonymous. Together, we can preserve and share the richness of Amazonian culture even better!",
+                evaluate_btn: "Evaluate Catalog",
+                thanks: "Thank you for your participation and contribution to the project!",
+                team_name: "Born To Fight",
+                catalog_footer: "Interactive Catalog - Amazonian Ceramics",
+                team_footer: "Robotics Team - FLL Challenge",
+                footer_credits: "Project developed by Born To Fight team - FLL | 2024",
+                footer_illustrative: "All images are illustrative for educational purposes only"
+            }
+        };
+
+        let currentLang = localStorage.getItem('language') || 'pt';
+        let currentVoice = currentLang === 'pt' ? 'Portuguese Female' : 'US English Female';
         let isSpeaking = false;
 
+        // Atualiza bandeira no botão
+        function updateCurrentFlag(lang) {
+            const flagContainer = document.getElementById('currentFlag');
+            if (!flagContainer) return;
+            let flagHTML = lang === 'pt' ? '<img src="https://flagcdn.com/w40/br.png" style="width:100%;height:100%;object-fit:cover;">' : '<img src="https://flagcdn.com/w40/us.png" style="width:100%;height:100%;object-fit:cover;">';
+            flagContainer.innerHTML = flagHTML;
+        }
+
+        // Aplica tradução nos elementos com data-i18n
+        function applyTranslations(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = translations[lang][key];
+                    } else if (key.endsWith('_html')) {
+                        el.innerHTML = translations[lang][key];
+                    } else {
+                        el.innerText = translations[lang][key];
+                    }
+                }
+            });
+        }
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            currentVoice = lang === 'pt' ? 'Portuguese Female' : 'US English Female';
+            localStorage.setItem('language', lang);
+            document.getElementById('currentLanguage').innerText = lang === 'pt' ? 'Português' : 'English';
+            updateCurrentFlag(lang);
+            applyTranslations(lang);
+            document.querySelectorAll('.language-option').forEach(opt => {
+                if (opt.getAttribute('data-lang') === lang) opt.classList.add('active');
+                else opt.classList.remove('active');
+            });
+            if (typeof responsiveVoice !== 'undefined') responsiveVoice.setDefaultVoice(currentVoice);
+            closeAllDropdowns();
+            stopAllSpeech();
+        }
+
+        // Dropdown de idioma
+        let languageOpen = false;
+        const languageBtn = document.getElementById('languageBtn');
+        const languageMenu = document.getElementById('languageMenu');
+
+        function closeAllDropdowns() { languageMenu.classList.remove('show'); languageOpen = false; }
+        function toggleLanguageDropdown() {
+            if (languageOpen) closeAllDropdowns();
+            else { languageMenu.classList.add('show'); languageOpen = true; }
+        }
+        languageBtn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); toggleLanguageDropdown(); });
+        document.addEventListener('click', (e) => {
+            if (languageOpen && !languageMenu.contains(e.target) && !languageBtn.contains(e.target)) closeAllDropdowns();
+        });
+        document.querySelectorAll('.language-option').forEach(opt => {
+            opt.addEventListener('click', () => changeLanguage(opt.getAttribute('data-lang')));
+        });
+
+        // ========== FUNÇÕES DE ÁUDIO ==========
         function readText(text) {
             if (typeof responsiveVoice === 'undefined') {
-                alert('Sistema de áudio não disponível.');
+                alert(currentLang === 'pt' ? 'Sistema de áudio não disponível.' : 'Audio system not available.');
                 return;
             }
             if (isSpeaking) {
@@ -701,53 +734,46 @@
                 removeAudioEffects();
                 return;
             }
-            responsiveVoice.speak(text, "Portuguese Female", {
+            responsiveVoice.speak(text, currentVoice, {
                 rate: 1.0,
-                onstart: function() { isSpeaking = true; addAudioEffects(); },
-                onend: function() { isSpeaking = false; removeAudioEffects(); },
-                onerror: function() { isSpeaking = false; removeAudioEffects(); }
+                onstart: () => { isSpeaking = true; addAudioEffects(); },
+                onend: () => { isSpeaking = false; removeAudioEffects(); },
+                onerror: () => { isSpeaking = false; removeAudioEffects(); }
             });
         }
 
         function addAudioEffects() {
-            document.querySelectorAll('.audio-btn-small, .resource-btn, .audio-desc-btn, .resource-topic-btn').forEach(btn => {
-                btn.style.boxShadow = '0 0 15px rgba(165, 91, 52, 0.5)';
+            document.querySelectorAll('.audio-btn-small, .resource-btn, .resource-topic-btn').forEach(btn => {
+                btn.style.boxShadow = '0 0 15px rgba(165,91,52,0.5)';
                 btn.style.animation = 'pulse 1s infinite';
                 const icon = btn.querySelector('i');
-                if (icon && icon.classList.contains('fa-volume-up')) {
-                    icon.className = 'fas fa-stop';
-                }
+                if (icon && icon.classList.contains('fa-volume-up')) icon.className = 'fas fa-stop';
             });
             const title = document.querySelector('.card-title h2');
-            if (title) title.style.textShadow = '0 0 10px rgba(165, 91, 52, 0.3)';
+            if (title) title.style.textShadow = '0 0 10px rgba(165,91,52,0.3)';
         }
 
         function removeAudioEffects() {
-            document.querySelectorAll('.audio-btn-small, .resource-btn, .audio-desc-btn, .resource-topic-btn').forEach(btn => {
+            document.querySelectorAll('.audio-btn-small, .resource-btn, .resource-topic-btn').forEach(btn => {
                 btn.style.boxShadow = '';
                 btn.style.animation = '';
                 const icon = btn.querySelector('i');
-                if (icon && icon.classList.contains('fa-stop')) {
-                    icon.className = 'fas fa-volume-up';
-                }
+                if (icon && icon.classList.contains('fa-stop')) icon.className = 'fas fa-volume-up';
             });
             const title = document.querySelector('.card-title h2');
             if (title) title.style.textShadow = '';
         }
 
         function stopAllSpeech() {
-            if (typeof responsiveVoice !== 'undefined') {
-                responsiveVoice.cancel();
-                isSpeaking = false;
-                removeAudioEffects();
-            }
+            if (typeof responsiveVoice !== 'undefined') responsiveVoice.cancel();
+            isSpeaking = false;
+            removeAudioEffects();
         }
 
-        function ouvirVoltarMenu() { readText("Botão: Voltar para o menu principal"); }
-
-        // Descrições detalhadas (do index2)
+        // Descrições detalhadas (com tradução condicional)
         function readOriginalDescription() {
-            const description = `A peça é uma escultura cerâmica antropomórfica de pequeno porte, representando uma figura humana sentada, em posição relaxada, segurando um instrumento musical semelhante a uma flauta ou pífano. A coloração é uniforme, em tom claro de argila, variando entre bege e marrom muito suave, com aparência fosca e aspecto de material antigo ou arqueológico.
+            let text = currentLang === 'pt' ?
+                `A peça é uma escultura cerâmica antropomórfica de pequeno porte, representando uma figura humana sentada, em posição relaxada, segurando um instrumento musical semelhante a uma flauta ou pífano. A coloração é uniforme, em tom claro de argila, variando entre bege e marrom muito suave, com aparência fosca e aspecto de material antigo ou arqueológico.
 
 Parte superior – cabeça: No topo, a figura possui uma cabeça relativamente grande em proporção ao corpo. O cabelo é estilizado, moldado em volumes ondulados e irregulares, formando saliências que sugerem mechas ou um adorno simples. A textura é lisa, com leves marcas do trabalho manual.
 
@@ -761,12 +787,28 @@ Região inferior – pernas e postura: A figura está sentada, com as pernas dob
 
 Base: A base não é separada do corpo: a própria posição sentada da figura cria um apoio estável. A parte inferior é arredondada e contínua, permitindo que a escultura seja apoiada sobre uma superfície plana.
 
-Textura e impressão geral: Toda a superfície da peça apresenta textura suave e contínua, com pequenas irregularidades típicas de cerâmica moldada à mão. Não há pintura visível; os detalhes são definidos apenas pelo volume e pelo relevo.`;
-            readText(description);
+Textura e impressão geral: Toda a superfície da peça apresenta textura suave e contínua, com pequenas irregularidades típicas de cerâmica moldada à mão. Não há pintura visível; os detalhes são definidos apenas pelo volume e pelo relevo.` :
+                `The piece is a small anthropomorphic ceramic sculpture representing a seated human figure in a relaxed position, holding a musical instrument similar to a flute or fife. The color is uniform, in a light clay tone ranging between beige and very soft brown, with a matte appearance and an ancient or archaeological look.
+
+Upper part – head: At the top, the figure has a relatively large head in proportion to the body. The hair is stylized, molded into wavy and irregular volumes, forming protrusions suggesting locks or a simple adornment. The texture is smooth, with slight marks of manual work.
+
+The face has simple, schematic features. The eyes are small and discreet, lightly marked on the surface. The nose is short and projects forward. The mouth is positioned near the musical instrument, suggesting the act of playing. The facial expression is neutral and serene.
+
+Torso and arms area: Just below the head, the torso is compact and slightly leaning forward. The arms are bent and raised, positioned in front of the body, holding the instrument. The hands wrap around the flute in a simplified way, without individual finger detailing, but with clear indication of the action of playing.
+
+The musical instrument is cylindrical, elongated, and proportional to the figure's body. It crosses the front of the sculpture, from the mouth area to near the opposite side of the torso, reinforcing the idea of movement and function.
+
+Lower region – legs and posture: The figure is seated, with legs bent. One leg appears higher and folded over itself, while the other projects slightly forward, creating an asymmetrical and natural posture. The feet are not detailed, integrated into the general volume of the sculpture.
+
+Base: The base is not separate from the body: the seated position itself creates a stable support. The lower part is rounded and continuous, allowing the sculpture to be supported on a flat surface.
+
+Texture and general impression: The entire surface of the piece has a smooth, continuous texture, with small irregularities typical of hand-molded ceramics. There is no visible painting; details are defined only by volume and relief.`;
+            readText(text);
         }
 
         function read3DDescription() {
-            const description = `A peça é uma escultura cerâmica antropomórfica, de pequeno a médio porte, com aparência artesanal. Possui coloração uniforme em tom de argila clara, entre bege e marrom suave, com acabamento fosco. A superfície apresenta marcas visíveis do modelado manual, criando uma textura levemente irregular, agradável ao tato.
+            let text = currentLang === 'pt' ?
+                `A peça é uma escultura cerâmica antropomórfica, de pequeno a médio porte, com aparência artesanal. Possui coloração uniforme em tom de argila clara, entre bege e marrom suave, com acabamento fosco. A superfície apresenta marcas visíveis do modelado manual, criando uma textura levemente irregular, agradável ao tato.
 
 Parte superior – cabeça: No topo, observa-se uma cabeça grande em proporção ao corpo, com formato arredondado. O topo da cabeça é liso e levemente achatado. Nas laterais, há orelhas grandes e salientes, projetadas para fora, cada uma com um pequeno furo circular, possivelmente decorativo ou funcional.
 
@@ -778,13 +820,26 @@ Braços e mãos: Os braços são grossos e curvados, envolvendo o instrumento mu
 
 Região inferior – pernas e base: A figura está sentada, com as pernas dobradas e recolhidas junto ao corpo. As pernas formam uma base arredondada e contínua, que serve também como apoio da escultura sobre a superfície. Os pés não são claramente definidos, integrando-se ao volume geral.
 
-Textura e impressão geral: Toda a escultura apresenta textura marcada por sulcos suaves e linhas do processo de modelagem, reforçando o caráter manual da peça. Não há pintura ou cores adicionais; os detalhes são definidos exclusivamente por forma e relevo.`;
-            readText(description);
+Textura e impressão geral: Toda a escultura apresenta textura marcada por sulcos suaves e linhas do processo de modelagem, reforçando o caráter manual da peça. Não há pintura ou cores adicionais; os detalhes são definidos exclusivamente por forma e relevo.` :
+                `The piece is a small to medium-sized anthropomorphic ceramic sculpture with a handcrafted appearance. It has a uniform color in a light clay tone, between beige and soft brown, with a matte finish. The surface shows visible marks of manual modeling, creating a slightly irregular texture, pleasant to the touch.
+
+Upper part – head: At the top, we see a large head in proportion to the body, with a rounded shape. The top of the head is smooth and slightly flattened. On the sides, there are large, protruding ears projecting outward, each with a small circular hole, possibly decorative or functional.
+
+The face is stylized and simple. The eyes are represented by shallow cavities, without defined pupils. The nose is wide and not very prominent. The mouth is not fully open; in front of it there is an elongated cylindrical object, similar to a flute or wind instrument, touching the mouth area, indicating that the figure is playing music. The facial expression is serene and focused.
+
+Neck and torso area: The neck is short and practically fused to the torso. The body is compact, with rounded volume. The figure is slightly leaning forward, reinforcing the action of playing the instrument.
+
+Arms and hands: The arms are thick and curved, surrounding the musical instrument. One arm crosses the front of the body, while the other supports the instrument closer to the mouth. The hands are simplified, without individual finger separation, but with volumes indicating firmness in the gesture.
+
+Lower region – legs and base: The figure is seated, with legs bent and drawn close to the body. The legs form a rounded, continuous base, which also serves as support for the sculpture on the surface. The feet are not clearly defined, integrated into the general volume.
+
+Texture and general impression: The entire sculpture has a texture marked by soft grooves and lines from the modeling process, reinforcing the handcrafted character of the piece. There is no paint or additional colors; the details are defined exclusively by form and relief.`;
+            readText(text);
         }
 
-        // Funções para download e avaliação (do index1)
+        // Funções de utilidade
         function downloadManual() {
-            const manualUrl = "Manual de Instruções.pdf"; // Substitua pelo caminho real
+            const manualUrl = "Manual de Instruções.pdf";
             const link = document.createElement('a');
             link.href = manualUrl;
             link.download = 'Manual de Instruções - Born To Fight - Cerâmica Amazônica.pdf';
@@ -793,17 +848,16 @@ Textura e impressão geral: Toda a escultura apresenta textura marcada por sulco
             link.click();
             document.body.removeChild(link);
             trackClick('manual_download');
-            readText('Download do manual iniciado.');
+            readText(translations[currentLang]['download_manual_btn']);
         }
 
         function openEvaluationForm() {
             const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdnugr61HzOWKrB167g5hR0eaQoWELFWiXHqL1f0uDmdorKAg/viewform?fbzx=-3456102765212424284";
             window.open(formUrl, '_blank');
             trackClick('evaluation_form');
-            readText('Abrindo formulário de avaliação do catálogo.');
+            readText(translations[currentLang]['evaluate_btn']);
         }
 
-        // Rastreamento de cliques (opcional)
         function trackClick(resourceType) {
             console.log(`Recurso clicado: ${resourceType}`);
             let clicks = JSON.parse(localStorage.getItem('resource_clicks') || '{}');
@@ -811,26 +865,15 @@ Textura e impressão geral: Toda a escultura apresenta textura marcada por sulco
             localStorage.setItem('resource_clicks', JSON.stringify(clicks));
         }
 
-        // Funções para imagens
         function imageLoaded(img) {
-            img.style.opacity = '0';
-            setTimeout(() => {
-                img.style.opacity = '1';
-                img.style.transition = 'opacity 0.5s ease';
-            }, 100);
+            setTimeout(() => { img.style.opacity = '1'; img.style.transition = 'opacity 0.5s ease'; }, 100);
         }
-
         function imageError(img, type) {
-            if (type === 'original') {
-                img.src = 'https://via.placeholder.com/400x300/f9f5f0/a55b34?text=Urna+Maracá+Original';
-            } else if (type === 'replica') {
-                img.src = 'https://via.placeholder.com/400x300/f9f5f0/6d4c41?text=Réplica+3D+da+Urna';
-            } else {
-                img.src = 'https://via.placeholder.com/400x300/f9f5f0/2c5530?text=Imagem+Indisponível';
-            }
+            if (type === 'original') img.src = 'https://via.placeholder.com/400x300/f9f5f0/a55b34?text=Urna+Maracá+Original';
+            else if (type === 'replica') img.src = 'https://via.placeholder.com/400x300/f9f5f0/6d4c41?text=Réplica+3D';
+            else img.src = 'https://via.placeholder.com/400x300/f9f5f0/2c5530?text=Imagem+Indisponível';
         }
 
-        // Scroll suave e botão flutuante
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
             const btn = document.querySelector('.floating-btn');
@@ -839,21 +882,20 @@ Textura e impressão geral: Toda a escultura apresenta textura marcada por sulco
             stopAllSpeech();
         }
 
-        window.addEventListener('scroll', function() {
-            const floatingBtn = document.querySelector('.floating-btn');
-            if (floatingBtn) {
-                floatingBtn.style.opacity = window.scrollY > 300 ? '1' : '0';
-                floatingBtn.style.visibility = window.scrollY > 300 ? 'visible' : 'hidden';
+        window.addEventListener('scroll', () => {
+            const btn = document.querySelector('.floating-btn');
+            if (btn) {
+                btn.style.opacity = window.scrollY > 300 ? '1' : '0';
+                btn.style.visibility = window.scrollY > 300 ? 'visible' : 'hidden';
             }
         });
 
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Página carregada - versão unificada');
-            if (typeof responsiveVoice !== 'undefined') {
-                responsiveVoice.setDefaultVoice("Portuguese Female");
-            }
-            // Animação de entrada para os tópicos
+        document.addEventListener('DOMContentLoaded', () => {
+            changeLanguage(currentLang);
+            // Pré-carregar imagens
+            const images = ['https://i.imgur.com/FB6u9bs.png', 'images/Urna_Funeraria_Maraca.jpg', 'images/impressao_3d.jpg'];
+            images.forEach(src => { const img = new Image(); img.src = src; });
+            // Animação dos tópicos
             document.querySelectorAll('.resource-topic').forEach((topic, index) => {
                 topic.style.opacity = '0';
                 topic.style.transform = 'translateY(20px)';
@@ -863,20 +905,15 @@ Textura e impressão geral: Toda a escultura apresenta textura marcada por sulco
                     topic.style.transform = 'translateY(0)';
                 }, 1200 + (index * 200));
             });
-            // Saudação inicial
+            // Saudação inicial (opcional)
             setTimeout(() => {
-                readText("Bem-vindo ao catálogo interativo da Urna Funerária Maracá. Explore as informações, recursos multimídia e participe da avaliação do nosso catálogo.");
-            }, 3000);
+                if (currentLang === 'pt') readText("Bem-vindo ao catálogo interativo da Urna Funerária Maracá. Explore as informações, recursos multimídia e participe da avaliação do nosso catálogo.");
+                else readText("Welcome to the interactive catalog of the Maracá Funerary Urn. Explore information, multimedia resources, and participate in the evaluation of our catalog.");
+            }, 2000);
         });
 
-        // Parar áudio ao clicar em links
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('a') && isSpeaking) {
-                stopAllSpeech();
-            }
-        });
-
-        window.addEventListener('beforeunload', stopAllSpeech);
+        document.addEventListener('click', (e) => { if (e.target.closest('a') && isSpeaking) stopAllSpeech(); });
+        window.addEventListener('beforeunload', () => stopAllSpeech());
     </script>
 
     <!-- VLibras -->
@@ -885,13 +922,7 @@ Textura e impressão geral: Toda a escultura apresenta textura marcada por sulco
         <div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>
     </div>
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-    <script>
-        new window.VLibras.Widget('https://vlibras.gov.br/app');
-        setTimeout(() => {
-            const vlibrasBtn = document.querySelector('[vw-access-button]');
-            if (vlibrasBtn) vlibrasBtn.style.animation = 'float 3s ease-in-out infinite';
-        }, 1000);
-    </script>
+    <script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
 
 </body>
 </html>
