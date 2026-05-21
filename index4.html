@@ -97,6 +97,11 @@
             to { transform: rotate(360deg); }
         }
 
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
         /* HEADER NAVEGAÇÃO */
         .nav-header {
             width: 100%;
@@ -111,7 +116,8 @@
             margin-bottom: 40px;
             animation: slideIn 0.6s ease-out;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
+            z-index: 100;
         }
 
         .nav-header::before {
@@ -185,6 +191,124 @@
             gap: 15px;
             align-items: center;
             z-index: 2;
+        }
+
+        /* Seletor de idioma moderno */
+        .language-selector {
+            position: relative;
+        }
+
+        .language-btn {
+            padding: 12px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+            min-width: 140px;
+            justify-content: center;
+            z-index: 102;
+        }
+
+        .language-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .language-btn-flag {
+            width: 20px;
+            height: 15px;
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .language-btn-flag img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: var(--white);
+            box-shadow: var(--shadow-xl);
+            border-radius: var(--radius);
+            padding: 15px;
+            min-width: 180px;
+            z-index: 10000;
+            animation: scaleIn 0.2s ease-out;
+            border: 1px solid rgba(165, 91, 52, 0.2);
+            transform-origin: top right;
+        }
+
+        .language-dropdown.show {
+            display: block;
+        }
+
+        .language-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            transition: var(--transition);
+            background: rgba(165, 91, 52, 0.05);
+            border: 1px solid rgba(165, 91, 52, 0.1);
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .language-option:last-child {
+            margin-bottom: 0;
+        }
+
+        .language-option:hover {
+            background: rgba(165, 91, 52, 0.15);
+            transform: translateX(5px);
+            border-color: var(--primary);
+        }
+
+        .language-option.active {
+            background: rgba(165, 91, 52, 0.2);
+            border-color: var(--primary);
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .language-flag {
+            width: 24px;
+            height: 18px;
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .language-flag img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 2px;
         }
 
         .nav-btn {
@@ -391,6 +515,8 @@
             margin-bottom: 25px;
             padding-bottom: 15px;
             border-bottom: 2px solid var(--primary);
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .multimedia-title {
@@ -557,7 +683,7 @@
             background: #9C27B0;
         }
 
-        /* NOVA SEÇÃO: RECURSOS E AVALIAÇÃO (APÓS MULTIMÍDIA) */
+        /* NOVA SEÇÃO: RECURSOS E AVALIAÇÃO */
         .resources-section {
             margin: 30px 0;
             padding: 30px;
@@ -576,6 +702,8 @@
             margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 2px solid var(--secondary);
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .resources-title {
@@ -722,7 +850,6 @@
             font-size: 20px;
         }
 
-        /* Estilo específico para o tópico do manual */
         .manual-topic {
             border-left-color: var(--primary);
         }
@@ -743,7 +870,6 @@
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
         }
 
-        /* Estilo específico para o tópico da avaliação */
         .evaluation-topic {
             border-left-color: #6d4c41;
         }
@@ -775,7 +901,6 @@
             animation: slideInUp 0.8s ease-out 0.2s both;
         }
 
-        /* CARD PRINCIPAL */
         .card {
             background: var(--white);
             border-radius: var(--radius-lg);
@@ -820,6 +945,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .card-title h2 {
@@ -827,21 +954,6 @@
             flex: 1;
             position: relative;
             overflow: hidden;
-        }
-
-        .card-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: var(--transition);
-        }
-
-        .card:hover .card-title h2::after {
-            width: 100%;
         }
 
         .info-group {
@@ -862,26 +974,8 @@
             transition: var(--transition);
             position: relative;
             overflow: hidden;
-        }
-
-        .info-row::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(165, 91, 52, 0.1), transparent);
-            transition: var(--transition);
-        }
-
-        .info-row:hover::before {
-            left: 100%;
-        }
-
-        .info-row:hover {
-            background: rgba(165, 91, 52, 0.08);
-            transform: translateX(5px);
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .info-label {
@@ -921,7 +1015,6 @@
             flex-shrink: 0;
         }
 
-        /* SEÇÕES DESCRITIVAS */
         .section-container {
             margin: 25px 0;
             opacity: 0;
@@ -948,10 +1041,8 @@
             padding-bottom: 10px;
             border-bottom: 2px solid rgba(165, 91, 52, 0.2);
             transition: var(--transition);
-        }
-
-        .card:hover .section-header {
-            border-bottom-color: var(--primary);
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .section-title {
@@ -967,10 +1058,6 @@
         .section-title i {
             color: var(--primary);
             transition: var(--transition);
-        }
-
-        .section-header:hover .section-title i {
-            transform: rotate(15deg);
         }
 
         .section-content {
@@ -995,7 +1082,7 @@
             border-left-color: #6d4c41;
         }
 
-        /* RODAPÉ ATUALIZADO - SEM CONTADOR */
+        /* RODAPÉ */
         .footer {
             width: 100%;
             max-width: 1200px;
@@ -1121,6 +1208,34 @@
             transform: scale(1.1) rotate(10deg);
         }
 
+        .audio-buttons-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .audio-btn-detailed {
+            background: var(--secondary);
+            color: white;
+            border: 2px solid var(--secondary);
+        }
+        
+        .audio-btn-detailed:hover {
+            background: #3a7d3f;
+            border-color: #3a7d3f;
+        }
+        
+        .audio-btn-replica {
+            background: #6d4c41;
+            color: white;
+            border: 2px solid #6d4c41;
+        }
+        
+        .audio-btn-replica:hover {
+            background: #8d6e63;
+            border-color: #8d6e63;
+        }
+
         /* RESPONSIVIDADE */
         @media (max-width: 1024px) {
             .nav-header {
@@ -1134,9 +1249,27 @@
                 width: 100%;
             }
             
-            .nav-btn, .audio-btn-small {
+            .nav-btn, .audio-btn-small, .language-selector {
+                width: 100%;
+            }
+            
+            .language-btn {
                 width: 100%;
                 justify-content: center;
+            }
+            
+            .language-dropdown {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 90%;
+                max-width: 300px;
+                z-index: 10000;
+            }
+            
+            .language-dropdown.show {
+                display: block;
             }
             
             .grid {
@@ -1179,13 +1312,11 @@
             .card-title {
                 font-size: 22px;
                 flex-direction: column;
-                gap: 15px;
                 text-align: center;
             }
             
             .info-row {
                 flex-direction: column;
-                gap: 10px;
                 text-align: center;
             }
             
@@ -1201,7 +1332,6 @@
             
             .section-header {
                 flex-direction: column;
-                gap: 10px;
                 text-align: center;
             }
             
@@ -1275,13 +1405,6 @@
             }
         }
 
-        @media (max-height: 800px) {
-            .card-img-container {
-                height: 250px;
-            }
-        }
-
-        /* ANIMAÇÕES ESPECIAIS */
         @keyframes typing {
             from { width: 0 }
             to { width: 100% }
@@ -1298,59 +1421,6 @@
             white-space: nowrap;
             animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
         }
-
-        /* Loader para imagem */
-        .img-loader {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(165, 91, 52, 0.2);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        /* Efeito de entrada para elementos */
-        .animate-in {
-            animation: slideInUp 0.5s ease-out forwards;
-        }
-        
-        /* Botões de áudio duplos */
-        .audio-buttons-container {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        
-        .audio-btn-detailed {
-            background: var(--secondary);
-            color: white;
-            border: 2px solid var(--secondary);
-        }
-        
-        .audio-btn-detailed:hover {
-            background: #3a7d3f;
-            border-color: #3a7d3f;
-        }
-        
-        .audio-btn-replica {
-            background: #6d4c41;
-            color: white;
-            border: 2px solid #6d4c41;
-        }
-        
-        .audio-btn-replica:hover {
-            background: #8d6e63;
-            border-color: #8d6e63;
-        }
     </style>
 </head>
 
@@ -1361,19 +1431,42 @@
         <div class="nav-brand">
             <img src="images/Logo_Btf.png" alt="Logo Born To Fight" class="footer-logo" onerror="this.src='https://via.placeholder.com/80x80/2c5530/ffffff?text=Born+To+Fight'">
             <div class="nav-title">
-                <h1>Catálogo Interativo</h1>
-                <p>Cerâmica Amazônica - Born To Fight</p>
+                <h1 data-i18n="catalog_title">Catálogo Interativo</h1>
+                <p data-i18n="catalog_subtitle">Cerâmica Amazônica - Born To Fight</p>
             </div>
         </div>
         
         <div class="nav-buttons">
+            <!-- Seletor de idioma -->
+            <div class="language-selector">
+                <button class="language-btn" id="languageBtn">
+                    <div class="language-btn-flag" id="currentFlag"></div>
+                    <i class="fas fa-globe-americas"></i>
+                    <span id="currentLanguage">Português</span>
+                </button>
+                <div class="language-dropdown" id="languageMenu">
+                    <div class="language-option active" data-lang="pt" data-voice="Portuguese Female">
+                        <div class="language-flag">
+                            <img src="https://flagcdn.com/w40/br.png" alt="Bandeira do Brasil">
+                        </div>
+                        Português
+                    </div>
+                    <div class="language-option" data-lang="en" data-voice="US English Female">
+                        <div class="language-flag">
+                            <img src="https://flagcdn.com/w40/us.png" alt="Bandeira dos Estados Unidos">
+                        </div>
+                        English
+                    </div>
+                </div>
+            </div>
+
             <a href="index.html" class="nav-btn" id="voltarMenu">
                 <i class="fas fa-arrow-left"></i>
-                Voltar para o Menu
+                <span data-i18n="back_menu">Voltar para o Menu</span>
             </a>
             <button class="audio-btn-small" onclick="ouvirVoltarMenu()">
                 <i class="fas fa-volume-up"></i>
-                Ouvir
+                <span data-i18n="listen">Ouvir</span>
             </button>
         </div>
     </div>
@@ -1388,7 +1481,7 @@
                     <div class="image-card-header original-header">
                         <h3>
                             <i class="fas fa-history"></i>
-                            Peça Original
+                            <span data-i18n="original_piece">Peça Original</span>
                         </h3>
                     </div>
                     <div class="card-img-container">
@@ -1407,12 +1500,12 @@
                     <div class="image-card-header replica-header">
                         <h3>
                             <i class="fas fa-print"></i>
-                            Réplica em Impressão 3D
+                            <span data-i18n="replica_3d">Réplica em Impressão 3D</span>
                         </h3>
                     </div>
                     <div class="card-img-container">
                         <div class="card-img-wrapper">
-                            <img src="images/Estatueta_Tapajônica_2_3D.png" 
+                            <img src="images/estatueta_tapajonica_2_3D.png" 
                                  alt="Réplica em Impressão 3D da Estatueta Tapajônica 2"
                                  class="card-img"
                                  onload="imageLoaded(this)"
@@ -1424,10 +1517,10 @@
             
             <div class="card-content">
                 <div class="card-title">
-                    <h2 id="titulo">Estatueta Tapajônica 2</h2>
-                    <button class="audio-btn-small" onclick="readText('Estatueta Tapajônica 2 - Original e Réplica em Impressão 3D')">
+                    <h2 id="titulo" data-i18n="artifact_title">Estatueta Tapajônica 2</h2>
+                    <button class="audio-btn-small" onclick="readText(getTranslation('artifact_title_audio'))">
                         <i class="fas fa-volume-up"></i>
-                        Ouvir Título
+                        <span data-i18n="listen_title">Ouvir Título</span>
                     </button>
                 </div>
                 
@@ -1435,12 +1528,10 @@
                     <div class="info-row">
                         <div class="info-label">
                             <i class="far fa-calendar-alt"></i>
-                            <span>Período Histórico:</span>
+                            <span data-i18n="period_label">Período Histórico:</span>
                         </div>
-                        <div class="info-value" id="periodo">
-                            800 a 1600 d.C.
-                        </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('periodo').innerText)">
+                        <div class="info-value" id="periodo" data-i18n="period_value">800 a 1600 d.C.</div>
+                        <button class="audio-btn-small info-audio-btn" onclick="readText(getTranslation('period_value'))">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
@@ -1448,12 +1539,10 @@
                     <div class="info-row">
                         <div class="info-label">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Local de Origem:</span>
+                            <span data-i18n="origin_label">Local de Origem:</span>
                         </div>
-                        <div class="info-value" id="local">
-                            Baixo Amazonas, Pará
-                        </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('local').innerText)">
+                        <div class="info-value" id="local" data-i18n="origin_value">Baixo Amazonas, Pará</div>
+                        <button class="audio-btn-small info-audio-btn" onclick="readText(getTranslation('origin_value'))">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
@@ -1461,60 +1550,58 @@
                     <div class="info-row">
                         <div class="info-label">
                             <i class="fas fa-ruler-combined"></i>
-                            <span>Dimensões Aproximadas:</span>
+                            <span data-i18n="dimensions_label">Dimensões Aproximadas:</span>
                         </div>
-                        <div class="info-value" id="tamanho">
-                            10 - 20 cm
-                        </div>
-                        <button class="audio-btn-small info-audio-btn" onclick="readText(document.getElementById('tamanho').innerText)">
+                        <div class="info-value" id="tamanho" data-i18n="dimensions_value">10 - 20 cm</div>
+                        <button class="audio-btn-small info-audio-btn" onclick="readText(getTranslation('dimensions_value'))">
                             <i class="fas fa-volume-up"></i>
                         </button>
                     </div>
                 </div>
                 
-                <!-- DESCRIÇÃO CURTA DA PEÇA ORIGINAL (VISUAL) -->
+                <!-- DESCRIÇÃO CURTA DA PEÇA ORIGINAL -->
                 <div class="section-container">
                     <div class="section-header">
                         <div class="section-title">
                             <i class="fas fa-file-alt"></i>
-                            <span>Descrição da Peça Original</span>
+                            <span data-i18n="original_desc_title">Descrição da Peça Original</span>
                         </div>
                         <div class="audio-buttons-container">
                             <button class="audio-btn-small" onclick="playOriginalDescription()">
                                 <i class="fas fa-volume-up"></i>
-                                Ouvir Resumo
+                                <span data-i18n="listen_summary">Ouvir Resumo</span>
                             </button>
                             <button class="audio-btn-small audio-btn-detailed" onclick="playDetailedDescription()">
                                 <i class="fas fa-headphones-alt"></i>
-                                Descrição Detalhada
+                                <span data-i18n="detailed_desc">Descrição Detalhada</span>
                             </button>
                         </div>
                     </div>
                     <div class="section-content" id="descricaoTexto">
-                        <p><strong>Resumo Visual:</strong> Estatueta tapajônica representando uma figura humana sentada tocando instrumento musical. Caracterizada por traços estilizados, postura relaxada e acabamento em cerâmica de cor clara, típica da cultura Tapajó.</p>
-                        <p><strong>Técnica:</strong> Cerâmica moldada à mão com acabamento fosco e textura suave, sem pintura adicional.</p>
-                        <p><strong>Significado Cultural:</strong> Representação de práticas musicais e cerimoniais das sociedades tapajônicas, demonstrando o alto nível artístico das culturas amazônicas pré-coloniais.</p>
+                        <p id="descricao_resumo_visual"><strong data-i18n="visual_summary">Resumo Visual:</strong> <span data-i18n="desc_visual_text">Estatueta tapajônica representando uma figura humana sentada tocando instrumento musical. Caracterizada por traços estilizados, postura relaxada e acabamento em cerâmica de cor clara, típica da cultura Tapajó.</span></p>
+                        <p id="descricao_tecnica"><strong data-i18n="technique">Técnica:</strong> <span data-i18n="technique_text">Cerâmica moldada à mão com acabamento fosco e textura suave, sem pintura adicional.</span></p>
+                        <p id="descricao_significado"><strong data-i18n="cultural_meaning">Significado Cultural:</strong> <span data-i18n="meaning_text">Representação de práticas musicais e cerimoniais das sociedades tapajônicas, demonstrando o alto nível artístico das culturas amazônicas pré-coloniais.</span></p>
                     </div>
                 </div>
                 
-                <!-- DESCRIÇÃO CURTA DA IMPRESSÃO 3D (VISUAL) -->
+                <!-- DESCRIÇÃO CURTA DA IMPRESSÃO 3D -->
                 <div class="section-container">
                     <div class="section-header">
                         <div class="section-title">
                             <i class="fas fa-print"></i>
-                            <span>Descrição da Réplica 3D</span>
+                            <span data-i18n="replica_desc_title">Descrição da Réplica 3D</span>
                         </div>
                         <div class="audio-buttons-container">
                             <button class="audio-btn-small audio-btn-replica" onclick="play3DDescription()">
                                 <i class="fas fa-headphones-alt"></i>
-                                Ouvir Descrição Detalhada
+                                <span data-i18n="detailed_desc">Ouvir Descrição Detalhada</span>
                             </button>
                         </div>
                     </div>
                     <div class="section-content replica-section" id="descricao3DTexto">
-                        <p><strong>Resumo Visual:</strong> Réplica fiel em impressão 3D da estatueta tapajônica, reproduzindo com precisão os detalhes estilísticos e a postura característica da figura. Fabricada com tecnologia moderna para fins educativos e de preservação cultural.</p>
-                        <p><strong>Materiais:</strong> Filamento PLA biodegradável, com textura e cor que simulam a argila natural.</p>
-                        <p><strong>Finalidade Educativa:</strong> Permite o manuseio e estudo tátil sem riscos para o artefato arqueológico original, facilitando o aprendizado sobre a cultura Tapajó.</p>
+                        <p><strong data-i18n="visual_summary">Resumo Visual:</strong> <span data-i18n="replica_visual_text">Réplica fiel em impressão 3D da estatueta tapajônica, reproduzindo com precisão os detalhes estilísticos e a postura característica da figura. Fabricada com tecnologia moderna para fins educativos e de preservação cultural.</span></p>
+                        <p><strong data-i18n="materials">Materiais:</strong> <span data-i18n="materials_text">Filamento PLA biodegradável, com textura e cor que simulam a argila natural.</span></p>
+                        <p><strong data-i18n="educational_purpose">Finalidade Educativa:</strong> <span data-i18n="educational_text">Permite o manuseio e estudo tátil sem riscos para o artefato arqueológico original, facilitando o aprendizado sobre a cultura Tapajó.</span></p>
                     </div>
                 </div>
                 
@@ -1523,31 +1610,31 @@
                     <div class="section-header">
                         <div class="section-title">
                             <i class="fas fa-history"></i>
-                            <span>Contexto Histórico</span>
+                            <span data-i18n="historical_context">Contexto Histórico</span>
                         </div>
-                        <button class="audio-btn-small" onclick="readText(document.getElementById('historiaTexto').innerText)">
+                        <button class="audio-btn-small" onclick="readText(getTranslation('history_text'))">
                             <i class="fas fa-volume-up"></i>
-                            Ouvir História
+                            <span data-i18n="listen_history">Ouvir História</span>
                         </button>
                     </div>
                     <div class="section-content history-section" id="historiaTexto">
-                        Esta peça foi produzida pelas sociedades ceramistas tapajônicas que habitaram a região do baixo Amazonas entre os séculos VIII e XVI. As estatuetas antropomórficas eram criadas para funções rituais, xamânicas ou funerárias. A presença do instrumento musical sugere forte relação com práticas cerimoniais ligadas à música, elemento essencial nas tradições espirituais amazônicas. Essas esculturas refletem o alto desenvolvimento artístico e técnico das culturas pré-coloniais da Amazônia.
+                        <span id="history_text_content" data-i18n="history_text">Esta peça foi produzida pelas sociedades ceramistas tapajônicas que habitaram a região do baixo Amazonas entre os séculos VIII e XVI. As estatuetas antropomórficas eram criadas para funções rituais, xamânicas ou funerárias. A presença do instrumento musical sugere forte relação com práticas cerimoniais ligadas à música, elemento essencial nas tradições espirituais amazônicas. Essas esculturas refletem o alto desenvolvimento artístico e técnico das culturas pré-coloniais da Amazônia.</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- NOVA SEÇÃO: RECURSOS MULTIMÍDIA -->
+    <!-- SEÇÃO: RECURSOS MULTIMÍDIA -->
     <div class="multimedia-section">
         <div class="multimedia-header">
             <div class="multimedia-title">
                 <i class="fas fa-photo-video"></i>
-                <span>Recursos Multimídia</span>
+                <span data-i18n="multimedia_resources">Recursos Multimídia</span>
             </div>
-            <button class="audio-btn-small" onclick="readText('Seção de recursos multimídia com fotos, vídeos, documentários e artigos sobre cerâmica amazônica.')">
+            <button class="audio-btn-small" onclick="readText(getTranslation('multimedia_section_audio'))">
                 <i class="fas fa-volume-up"></i>
-                Ouvir Seção
+                <span data-i18n="listen_section">Ouvir Seção</span>
             </button>
         </div>
         
@@ -1558,8 +1645,8 @@
                     <i class="fas fa-images"></i>
                 </div>
                 <div class="resource-content">
-                    <h3>Álbum de Fotos</h3>
-                    <p>Explore nossa coleção completa de imagens em alta resolução da Estatueta Tapajônica 2 e artefatos da cultura Tapajó.</p>
+                    <h3 data-i18n="photo_album">Álbum de Fotos</h3>
+                    <p data-i18n="photo_album_desc">Explore nossa coleção completa de imagens em alta resolução da Estatueta Tapajônica 2 e artefatos da cultura Tapajó.</p>
                 </div>
                 <div class="resource-buttons">
                     <a href="https://drive.google.com/drive/folders/13zxAwO8_iaNScqZiBGSc5VtGzKNbf-Yh" 
@@ -1567,11 +1654,11 @@
                        class="resource-btn btn-photos"
                        onclick="trackClick('photos_tapajonica2')">
                         <i class="fas fa-external-link-alt"></i>
-                        Acessar Álbum
+                        <span data-i18n="access_album">Acessar Álbum</span>
                     </a>
-                    <button class="resource-btn btn-photos" onclick="readText('Álbum de fotos da Estatueta Tapajônica 2. Clique no botão para acessar.')">
+                    <button class="resource-btn btn-photos" onclick="readText(getTranslation('photo_album_desc'))">
                         <i class="fas fa-volume-up"></i>
-                        Ouvir Descrição
+                        <span data-i18n="listen_desc">Ouvir Descrição</span>
                     </button>
                 </div>
             </div>
@@ -1582,8 +1669,8 @@
                     <i class="fas fa-play-circle"></i>
                 </div>
                 <div class="resource-content">
-                    <h3>Vídeos Educativos</h3>
-                    <p>Assista a vídeos sobre a cultura Tapajó, técnicas de produção e importância cultural das estatuetas.</p>
+                    <h3 data-i18n="educational_videos">Vídeos Educativos</h3>
+                    <p data-i18n="videos_desc">Assista a vídeos sobre a cultura Tapajó, técnicas de produção e importância cultural das estatuetas.</p>
                 </div>
                 <div class="resource-buttons">
                     <a href="https://www.youtube.com/watch?v=VYXv7tjF__8" 
@@ -1591,11 +1678,11 @@
                        class="resource-btn btn-videos"
                        onclick="trackClick('video_tapajonica2')">
                         <i class="fab fa-youtube"></i>
-                        Vídeo Educativo
+                        <span data-i18n="watch_video">Vídeo Educativo</span>
                     </a>
-                    <button class="resource-btn btn-videos" onclick="readText('Vídeo educativo sobre a Estatueta Tapajônica 2 e cultura Tapajó. Clique para assistir.')">
+                    <button class="resource-btn btn-videos" onclick="readText(getTranslation('videos_desc'))">
                         <i class="fas fa-volume-up"></i>
-                        Ouvir Descrição
+                        <span data-i18n="listen_desc">Ouvir Descrição</span>
                     </button>
                 </div>
             </div>
@@ -1606,8 +1693,8 @@
                     <i class="fas fa-film"></i>
                 </div>
                 <div class="resource-content">
-                    <h3>Documentários</h3>
-                    <p>Documentários completos sobre a cultura Tapajó, escavações arqueológicas e preservação cultural.</p>
+                    <h3 data-i18n="documentaries">Documentários</h3>
+                    <p data-i18n="documentaries_desc">Documentários completos sobre a cultura Tapajó, escavações arqueológicas e preservação cultural.</p>
                 </div>
                 <div class="resource-buttons">
                     <a href="https://www.youtube.com/watch?v=8lk_MdN8kbQ" 
@@ -1615,11 +1702,11 @@
                        class="resource-btn btn-documentary"
                        onclick="trackClick('documentary_tapajonica2')">
                         <i class="fas fa-external-link-alt"></i>
-                        Assistir Documentário
+                        <span data-i18n="watch_doc">Assistir Documentário</span>
                     </a>
-                    <button class="resource-btn btn-documentary" onclick="readText('Documentário completo sobre a cultura Tapajó e escavações arqueológicas.')">
+                    <button class="resource-btn btn-documentary" onclick="readText(getTranslation('documentaries_desc'))">
                         <i class="fas fa-volume-up"></i>
-                        Ouvir Descrição
+                        <span data-i18n="listen_desc">Ouvir Descrição</span>
                     </button>
                 </div>
             </div>
@@ -1630,8 +1717,8 @@
                     <i class="fas fa-newspaper"></i>
                 </div>
                 <div class="resource-content">
-                    <h3>Artigos Científicos</h3>
-                    <p>Artigos acadêmicos e pesquisas sobre cerâmica Tapajônica, publicações especializadas e estudos.</p>
+                    <h3 data-i18n="scientific_articles">Artigos Científicos</h3>
+                    <p data-i18n="articles_desc">Artigos acadêmicos e pesquisas sobre cerâmica Tapajônica, publicações especializadas e estudos.</p>
                 </div>
                 <div class="resource-buttons">
                     <a href="https://www.scielo.br/j/bgoeldi/a/VpNYcwXrPTyFV5q6pqLC8bf/?format=pdf&lang=pt" 
@@ -1639,27 +1726,27 @@
                        class="resource-btn btn-article"
                        onclick="trackClick('article_tapajonica2')">
                         <i class="fas fa-external-link-alt"></i>
-                        Ler Artigo
+                        <span data-i18n="read_article">Ler Artigo</span>
                     </a>
-                    <button class="resource-btn btn-article" onclick="readText('Artigo científico sobre cerâmica Tapajônica publicado em revista especializada.')">
+                    <button class="resource-btn btn-article" onclick="readText(getTranslation('articles_desc'))">
                         <i class="fas fa-volume-up"></i>
-                        Ouvir Descrição
+                        <span data-i18n="listen_desc">Ouvir Descrição</span>
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- NOVA SEÇÃO: RECURSOS E AVALIAÇÃO (APÓS MULTIMÍDIA) -->
+    <!-- SEÇÃO: RECURSOS E AVALIAÇÃO -->
     <div class="resources-section">
         <div class="resources-header">
             <div class="resources-title">
                 <i class="fas fa-tools"></i>
-                <span>Recursos para o Projeto</span>
+                <span data-i18n="project_resources">Recursos para o Projeto</span>
             </div>
-            <button class="audio-btn-small" onclick="readText('Seção de recursos para o projeto. Baixe o manual de instruções ou avalie nosso catálogo.')">
+            <button class="audio-btn-small" onclick="readText(getTranslation('resources_section_audio'))">
                 <i class="fas fa-volume-up"></i>
-                Ouvir Seção
+                <span data-i18n="listen_section">Ouvir Seção</span>
             </button>
         </div>
         
@@ -1670,30 +1757,28 @@
                     <div class="resource-topic-icon">
                         <i class="fas fa-book"></i>
                     </div>
-                    <div class="resource-topic-title">
-                        Manual de Instruções
-                    </div>
+                    <div class="resource-topic-title" data-i18n="manual_title">Manual de Instruções</div>
                 </div>
                 
                 <div class="resource-topic-content">
-                    <p>Disponibilizamos um manual completo para auxiliar na reprodução do nosso projeto, desde a impressão 3D até a programação do sistema interativo.</p>
+                    <p data-i18n="manual_desc1">Disponibilizamos um manual completo para auxiliar na reprodução do nosso projeto, desde a impressão 3D até a programação do sistema interativo.</p>
                     
-                    <p><strong>O manual inclui:</strong></p>
+                    <p><strong data-i18n="manual_includes">O manual inclui:</strong></p>
                     <ul class="resource-topic-list">
-                        <li>Guia detalhado para impressão 3D da estatueta tapajônica</li>
-                        <li>Configuração da Raspberry Pi e módulo RFID</li>
-                        <li>Programação do sistema de identificação por cartão</li>
-                        <li>Soluções para erros comuns e contato para suporte</li>
-                        <li>Lista completa de materiais necessários</li>
-                        <li>Instruções passo a passo para montagem</li>
+                        <li data-i18n="manual_item1">Guia detalhado para impressão 3D da estatueta tapajônica</li>
+                        <li data-i18n="manual_item2">Configuração da Raspberry Pi e módulo RFID</li>
+                        <li data-i18n="manual_item3">Programação do sistema de identificação por cartão</li>
+                        <li data-i18n="manual_item4">Soluções para erros comuns e contato para suporte</li>
+                        <li data-i18n="manual_item5">Lista completa de materiais necessários</li>
+                        <li data-i18n="manual_item6">Instruções passo a passo para montagem</li>
                     </ul>
                     
-                    <p>O manual possui 34 páginas com instruções detalhadas e ilustrações para facilitar a compreensão.</p>
+                    <p data-i18n="manual_desc2">O manual possui 34 páginas com instruções detalhadas e ilustrações para facilitar a compreensão.</p>
                 </div>
                 
                 <button class="resource-topic-btn" onclick="downloadManual()">
                     <i class="fas fa-file-pdf"></i>
-                    Baixar Manual (PDF)
+                    <span data-i18n="download_manual">Baixar Manual (PDF)</span>
                 </button>
             </div>
             
@@ -1703,30 +1788,28 @@
                     <div class="resource-topic-icon">
                         <i class="fas fa-clipboard-check"></i>
                     </div>
-                    <div class="resource-topic-title">
-                        Avaliação do Catálogo
-                    </div>
+                    <div class="resource-topic-title" data-i18n="evaluation_title">Avaliação do Catálogo</div>
                 </div>
                 
                 <div class="resource-topic-content">
-                    <p>Sua opinião é essencial para aprimorarmos nosso catálogo interativo. Como equipe <strong>Born To Fight</strong>, valorizamos cada avaliação para melhorar continuamente.</p>
+                    <p data-i18n="evaluation_desc1">Sua opinião é essencial para aprimorarmos nosso catálogo interativo. Como equipe <strong>Born To Fight</strong>, valorizamos cada avaliação para melhorar continuamente.</p>
                     
-                    <p><strong>O formulário inclui:</strong></p>
+                    <p><strong data-i18n="form_includes">O formulário inclui:</strong></p>
                     <ul class="resource-topic-list">
-                        <li>Sua opinião sobre o projeto</li>
-                        <li>Qualidade do conteúdo apresentado</li>
-                        <li>Melhor aspecto do projeto</li>
-                        <li>Inovação do Relicário</li>
-                        <li>Sugestões para melhorias futuras</li>
-                        <li>Feedback sobre acessibilidade e usabilidade</li>
+                        <li data-i18n="form_item1">Sua opinião sobre o projeto</li>
+                        <li data-i18n="form_item2">Qualidade do conteúdo apresentado</li>
+                        <li data-i18n="form_item3">Melhor aspecto do projeto</li>
+                        <li data-i18n="form_item4">Inovação do Relicário</li>
+                        <li data-i18n="form_item5">Sugestões para melhorias futuras</li>
+                        <li data-i18n="form_item6">Feedback sobre acessibilidade e usabilidade</li>
                     </ul>
                     
-                    <p>O formulário leva apenas 3-5 minutos para ser preenchido e é totalmente anônimo. Juntos, podemos preservar e compartilhar a riqueza da cultura amazônica de forma ainda melhor!</p>
+                    <p data-i18n="evaluation_desc2">O formulário leva apenas 3-5 minutos para ser preenchido e é totalmente anônimo. Juntos, podemos preservar e compartilhar a riqueza da cultura amazônica de forma ainda melhor!</p>
                 </div>
                 
                 <button class="resource-topic-btn" onclick="openEvaluationForm()">
                     <i class="fas fa-clipboard-list"></i>
-                    Avaliar Catálogo
+                    <span data-i18n="evaluate_catalog">Avaliar Catálogo</span>
                 </button>
             </div>
         </div>
@@ -1734,16 +1817,16 @@
         <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(44, 85, 48, 0.1);">
             <p style="color: var(--text-light); font-size: 14px;">
                 <i class="fas fa-info-circle" style="color: var(--primary);"></i>
-                Manual atualizado em 2025 - Compatível com Raspberry Pi 3, 4 e 5
+                <span data-i18n="manual_update_info">Manual atualizado em 2025 - Compatível com Raspberry Pi 3, 4 e 5</span>
             </p>
             <p style="color: var(--text-light); font-size: 12px; margin-top: 5px;">
                 <i class="fas fa-heart" style="color: #ff6b6b;"></i>
-                Agradecemos sua participação e contribuição para o projeto!
+                <span data-i18n="thanks_message">Agradecemos sua participação e contribuição para o projeto!</span>
             </p>
         </div>
     </div>
 
-    <!-- RODAPÉ ATUALIZADO - SEM CONTADOR -->
+    <!-- RODAPÉ -->
     <div class="footer">
         <div class="footer-content">
             <div class="footer-info">
@@ -1761,21 +1844,21 @@
                 </p>
                 <p>
                     <i class="fas fa-globe"></i>
-                    Catálogo Interativo - Cerâmica Amazônica
+                    <span data-i18n="footer_catalog">Catálogo Interativo - Cerâmica Amazônica</span>
                 </p>
                 <p>
                     <i class="fas fa-users"></i>
-                    Equipe de Robótica - FLL Challenge
+                    <span data-i18n="footer_team">Equipe de Robótica - FLL Challenge</span>
                 </p>
             </div>
         </div>
         
         <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(165, 91, 52, 0.1);">
             <p style="color: var(--text-light); font-size: 14px;">
-                Projeto desenvolvido pela equipe Born To Fight - FLL | 2025
+                <span data-i18n="footer_credits">Projeto desenvolvido pela equipe Born To Fight - FLL | 2025</span>
             </p>
             <p style="color: var(--text-light); font-size: 12px; margin-top: 5px;">
-                Todas as imagens são meramente ilustrativas para fins educacionais
+                <span data-i18n="footer_disclaimer">Todas as imagens são meramente ilustrativas para fins educacionais</span>
             </p>
         </div>
     </div>
@@ -1787,276 +1870,350 @@
 
     <!-- SCRIPTS -->
     <script>
-        // Configurar ResponsiveVoice assim que carregar
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Página carregada - inicializando...');
-            
-            // Verificar se ResponsiveVoice está carregado
-            if (typeof responsiveVoice !== 'undefined') {
-                console.log('ResponsiveVoice carregado com sucesso');
-                responsiveVoice.setDefaultVoice("Portuguese Female");
-                console.log('Voz configurada: Portuguese Female');
-            } else {
-                console.error('ResponsiveVoice não foi carregado');
-            }
-            
-            // Inicializar outras funcionalidades
-            initPage();
-        });
-
-        // Inicializar a página
-        function initPage() {
-            console.log('Inicializando página...');
-            
-            // Detectar proporção das imagens
-            updateImageInfo();
-            
-            // Iniciar animações de entrada
-            initAnimations();
-            
-            // Precarregar imagens
-            preloadImages();
-            
-            // Configurar botões de áudio
-            setupAudioButtons();
-            
-            console.log('Página inicializada com sucesso');
-        }
-        
-        // Função para tocar a descrição ORIGINAL CURTA (resumo visual)
-        function playOriginalDescription() {
-            const originalText = document.getElementById('descricaoTexto').innerText;
-            readText(originalText);
-        }
-        
-        // Função para tocar a descrição DETALHADA da peça original (texto grande)
-        function playDetailedDescription() {
-            const detailedDescription = `
-                A peça é uma escultura cerâmica antropomórfica de pequeno porte, representando uma figura humana sentada, em posição relaxada, segurando um instrumento musical semelhante a uma flauta ou pífano. A coloração é uniforme, em tom claro de argila, variando entre bege e marrom muito suave, com aparência fosca e aspecto de material antigo ou arqueológico.
-
-                Parte superior – cabeça:
-                No topo, a figura possui uma cabeça relativamente grande em proporção ao corpo. O cabelo é estilizado, moldado em volumes ondulados e irregulares, formando saliências que sugerem mechas ou um adorno simples. A textura é lisa, com leves marcas do trabalho manual.
-
-                O rosto apresenta traços simples e esquemáticos. Os olhos são pequenos e discretos, levemente marcados na superfície. O nariz é curto e projetado para frente. A boca está posicionada próxima ao instrumento musical, sugerindo o ato de tocar. A expressão facial é neutra e serena.
-
-                Região do tronco e braços:
-                Logo abaixo da cabeça, o tronco é compacto e levemente inclinado para frente. Os braços estão dobrados e elevados, posicionados à frente do corpo, segurando o instrumento. As mãos envolvem a flauta de forma simplificada, sem detalhamento individual dos dedos, mas com indicação clara da ação de tocar.
-
-                O instrumento musical é cilíndrico, alongado e proporcional ao corpo da figura. Ele atravessa a parte frontal da escultura, indo da região da boca até próximo ao lado oposto do tronco, reforçando a ideia de movimento e função.
-
-                Região inferior – pernas e postura:
-                A figura está sentada, com as pernas dobradas. Uma das pernas aparece mais elevada e dobrada sobre si, enquanto a outra se projeta ligeiramente para frente, criando uma postura assimétrica e natural. Os pés são pouco detalhados, integrados ao volume geral da escultura.
-
-                Base:
-                A base não é separada do corpo: a própria posição sentada da figura cria um apoio estável. A parte inferior é arredondada e contínua, permitindo que a escultura seja apoiada sobre uma superfície plana.
-
-                Textura e impressão geral:
-                Toda a superfície da peça apresenta textura suave e contínua, com pequenas irregularidades típicas de cerâmica moldada à mão. Não há pintura visível; os detalhes são definidos apenas pelo volume e pelo relevo.
-            `;
-            
-            // Parar qualquer áudio em execução
-            if (isSpeaking) {
-                responsiveVoice.cancel();
-                isSpeaking = false;
-                removeAudioEffects();
-                return;
-            }
-            
-            // Ler a descrição detalhada
-            readText(detailedDescription);
-            
-            // Feedback visual
-            const descBtn = document.querySelector('.audio-btn-detailed');
-            if (descBtn) {
-                descBtn.innerHTML = '<i class="fas fa-stop"></i> Parar Descrição';
-                descBtn.onclick = function() {
-                    responsiveVoice.cancel();
-                    isSpeaking = false;
-                    removeAudioEffects();
-                    descBtn.innerHTML = '<i class="fas fa-headphones-alt"></i> Descrição Detalhada';
-                    descBtn.onclick = playDetailedDescription;
-                };
-            }
-        }
-        
-        // Função para tocar a descrição DETALHADA da réplica 3D (texto grande)
-        function play3DDescription() {
-            const replica3DDescription = `
-                A peça é uma escultura cerâmica antropomórfica, de pequeno a médio porte, com aparência artesanal. Possui coloração uniforme em tom de argila clara, entre bege e marrom suave, com acabamento fosco. A superfície apresenta marcas visíveis do modelado manual, criando uma textura levemente irregular, agradável ao tato.
-
-                Parte superior – cabeça:
-                No topo, observa-se uma cabeça grande em proporção ao corpo, com formato arredondado. O topo da cabeça é liso e levemente achatado. Nas laterais, há orelhas grandes e salientes, projetadas para fora, cada uma com um pequeno furo circular, possivelmente decorativo ou funcional.
-
-                O rosto é estilizado e simples. Os olhos são representados por cavidades rasas, sem pupilas definidas. O nariz é largo e pouco projetado. A boca não está totalmente aberta; à frente dela há um objeto cilíndrico alongado, semelhante a uma flauta ou instrumento de sopro, encostado à região da boca, indicando que a figura está tocando música. A expressão facial é serena e concentrada.
-
-                Região do pescoço e tronco:
-                O pescoço é curto e praticamente fundido ao tronco. O corpo é compacto, com volume arredondado. A figura está levemente inclinada para frente, reforçando a ação de tocar o instrumento.
-
-                Braços e mãos:
-                Os braços são grossos e curvados, envolvendo o instrumento musical. Um braço cruza a parte frontal do corpo, enquanto o outro sustenta o instrumento mais próximo da boca. As mãos são simplificadas, sem separação individual dos dedos, mas com volumes que indicam firmeza no gesto.
-
-                Região inferior – pernas e base:
-                A figura está sentada, com as pernas dobradas e recolhidas junto ao corpo. As pernas formam uma base arredondada e contínua, que serve também como apoio da escultura sobre a superfície. Os pés não são claramente definidos, integrando-se ao volume geral.
-
-                Textura e impressão geral:
-                Toda a escultura apresenta textura marcada por sulcos suaves e linhas do processo de modelagem, reforçando o caráter manual da peça. Não há pintura ou cores adicionais; os detalhes são definidos exclusivamente por forma e relevo.
-            `;
-            
-            // Parar qualquer áudio em execução
-            if (isSpeaking) {
-                responsiveVoice.cancel();
-                isSpeaking = false;
-                removeAudioEffects();
-                return;
-            }
-            
-            // Ler a descrição detalhada da réplica 3D
-            readText(replica3DDescription);
-            
-            // Feedback visual
-            const replicaBtn = document.querySelector('.audio-btn-replica');
-            if (replicaBtn) {
-                replicaBtn.innerHTML = '<i class="fas fa-stop"></i> Parar Descrição';
-                replicaBtn.onclick = function() {
-                    responsiveVoice.cancel();
-                    isSpeaking = false;
-                    removeAudioEffects();
-                    replicaBtn.innerHTML = '<i class="fas fa-headphones-alt"></i> Ouvir Descrição Detalhada';
-                    replicaBtn.onclick = play3DDescription;
-                };
-            }
-        }
-        
-        // Função para baixar o manual de instruções
-        function downloadManual() {
-            // URL do manual de instruções em PDF
-            const manualUrl = "Manual de Instruções.pdf";
-            
-            // Criar link temporário para download
-            const link = document.createElement('a');
-            link.href = manualUrl;
-            link.download = 'Manual de Instruções - Born To Fight - Cerâmica Amazônica.pdf';
-            link.target = '_blank';
-            
-            // Adicionar ao DOM, clicar e remover
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            // Feedback de áudio
-            readText("Baixando manual de instruções completo em PDF. O download começará em instantes.");
-            
-            // Efeito visual no botão
-            const btn = document.querySelectorAll('.resource-topic-btn')[0];
-            btn.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                btn.style.transform = '';
-            }, 300);
-            
-            // Rastrear download
-            trackClick('manual_download');
-            
-            // Efeito de confirmação visual
-            const section = document.querySelector('.manual-topic');
-            section.style.boxShadow = '0 0 30px rgba(165, 91, 52, 0.3)';
-            setTimeout(() => {
-                section.style.boxShadow = '';
-            }, 1000);
-        }
-        
-        // Função para abrir o formulário de avaliação
-        function openEvaluationForm() {
-            // URL do formulário Google Forms para avaliação completa
-            const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdnugr61HzOWKrB167g5hR0eaQoWELFWiXHqL1f0uDmdorKAg/viewform?fbzx=-3456102765212424284";
-            
-            // Abrir em nova aba
-            window.open(formUrl, '_blank');
-            
-            // Feedback de áudio
-            readText("Abrindo formulário de avaliação completa do catálogo em nova aba. Obrigado por contribuir para o aprimoramento do nosso projeto!");
-            
-            // Efeito visual no botão
-            const btn = document.querySelectorAll('.resource-topic-btn')[1];
-            btn.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                btn.style.transform = '';
-            }, 300);
-            
-            // Rastrear clique no formulário
-            trackClick('evaluation_form_full');
-            
-            // Efeito de confirmação visual
-            const section = document.querySelector('.evaluation-topic');
-            section.style.boxShadow = '0 0 30px rgba(109, 76, 65, 0.3)';
-            setTimeout(() => {
-                section.style.boxShadow = '';
-            }, 1000);
-        }
-        
-        // Configurar botões de áudio
-        function setupAudioButtons() {
-            document.querySelectorAll('.audio-btn-small').forEach(btn => {
-                btn.addEventListener('mouseenter', function() {
-                    // Pequeno feedback ao passar o mouse
-                    this.style.transform = 'scale(1.05)';
-                });
+        // ====== SISTEMA DE IDIOMAS ======
+        const translations = {
+            'pt': {
+                // Interface
+                'catalog_title': 'Catálogo Interativo',
+                'catalog_subtitle': 'Cerâmica Amazônica - Born To Fight',
+                'back_menu': 'Voltar para o Menu',
+                'listen': 'Ouvir',
+                'listen_title': 'Ouvir Título',
+                'listen_section': 'Ouvir Seção',
+                'listen_desc': 'Ouvir Descrição',
+                'listen_history': 'Ouvir História',
+                'listen_summary': 'Ouvir Resumo',
+                'detailed_desc': 'Descrição Detalhada',
+                'title': 'Título',
+                'description': 'Descrição',
+                'access_album': 'Acessar Álbum',
+                'watch_video': 'Vídeo Educativo',
+                'watch_doc': 'Assistir Documentário',
+                'read_article': 'Ler Artigo',
+                'download_manual': 'Baixar Manual (PDF)',
+                'evaluate_catalog': 'Avaliar Catálogo',
                 
-                btn.addEventListener('mouseleave', function() {
-                    this.style.transform = '';
-                });
-            });
-        }
-
-        // Função para pré-carregar imagens
-        function preloadImages() {
-            const images = [
-                'images/Logo_Btf.png',
-                'images/Estatueta_Tapajonica1.png',
-                'images/Estatueta_Tapajonica1_3D.png'
-            ];
-            
-            images.forEach(src => {
-                const img = new Image();
-                img.src = src;
-            });
-        }
-
-        // Funções para controle da imagem
-        function imageLoaded(img) {
-            const container = img.closest('.card-img-container');
-            
-            // Adicionar classe para animação suave
-            img.style.opacity = '0';
-            setTimeout(() => {
-                img.style.opacity = '1';
-                img.style.transition = 'opacity 0.5s ease';
-            }, 100);
-        }
-
-        function imageError(img, type) {
-            const container = img.closest('.card-img-container');
-            
-            // Mostrar imagem de fallback baseada no tipo
-            if (type === 'original') {
-                img.src = 'https://via.placeholder.com/400x300/f9f5f0/a55b34?text=Estatueta+Tapajônica+2+Original';
-            } else if (type === 'replica') {
-                img.src = 'https://via.placeholder.com/400x300/f9f5f0/6d4c41?text=Réplica+3D+da+Estatueta';
-            } else {
-                img.src = 'https://via.placeholder.com/400x300/f9f5f0/2c5530?text=Imagem+Indisponível';
+                // Imagens
+                'original_piece': 'Peça Original',
+                'replica_3d': 'Réplica em Impressão 3D',
+                
+                // Título do artefato
+                'artifact_title': 'Estatueta Tapajônica 2',
+                'artifact_title_audio': 'Estatueta Tapajônica 2 - Original e Réplica em Impressão 3D',
+                
+                // Informações
+                'period_label': 'Período Histórico:',
+                'period_value': '800 a 1600 d.C.',
+                'origin_label': 'Local de Origem:',
+                'origin_value': 'Baixo Amazonas, Pará',
+                'dimensions_label': 'Dimensões Aproximadas:',
+                'dimensions_value': '10 - 20 cm',
+                
+                // Descrição Original
+                'original_desc_title': 'Descrição da Peça Original',
+                'visual_summary': 'Resumo Visual:',
+                'desc_visual_text': 'Estatueta tapajônica representando uma figura humana sentada tocando instrumento musical. Caracterizada por traços estilizados, postura relaxada e acabamento em cerâmica de cor clara, típica da cultura Tapajó.',
+                'technique': 'Técnica:',
+                'technique_text': 'Cerâmica moldada à mão com acabamento fosco e textura suave, sem pintura adicional.',
+                'cultural_meaning': 'Significado Cultural:',
+                'meaning_text': 'Representação de práticas musicais e cerimoniais das sociedades tapajônicas, demonstrando o alto nível artístico das culturas amazônicas pré-coloniais.',
+                
+                // Descrição Réplica 3D
+                'replica_desc_title': 'Descrição da Réplica 3D',
+                'replica_visual_text': 'Réplica fiel em impressão 3D da estatueta tapajônica, reproduzindo com precisão os detalhes estilísticos e a postura característica da figura. Fabricada com tecnologia moderna para fins educativos e de preservação cultural.',
+                'materials': 'Materiais:',
+                'materials_text': 'Filamento PLA biodegradável, com textura e cor que simulam a argila natural.',
+                'educational_purpose': 'Finalidade Educativa:',
+                'educational_text': 'Permite o manuseio e estudo tátil sem riscos para o artefato arqueológico original, facilitando o aprendizado sobre a cultura Tapajó.',
+                
+                // Contexto Histórico
+                'historical_context': 'Contexto Histórico',
+                'history_text': 'Esta peça foi produzida pelas sociedades ceramistas tapajônicas que habitaram a região do baixo Amazonas entre os séculos VIII e XVI. As estatuetas antropomórficas eram criadas para funções rituais, xamânicas ou funerárias. A presença do instrumento musical sugere forte relação com práticas cerimoniais ligadas à música, elemento essencial nas tradições espirituais amazônicas. Essas esculturas refletem o alto desenvolvimento artístico e técnico das culturas pré-coloniais da Amazônia.',
+                
+                // Recursos Multimídia
+                'multimedia_resources': 'Recursos Multimídia',
+                'multimedia_section_audio': 'Seção de recursos multimídia com fotos, vídeos, documentários e artigos sobre cerâmica amazônica.',
+                'photo_album': 'Álbum de Fotos',
+                'photo_album_desc': 'Explore nossa coleção completa de imagens em alta resolução da Estatueta Tapajônica 2 e artefatos da cultura Tapajó.',
+                'educational_videos': 'Vídeos Educativos',
+                'videos_desc': 'Assista a vídeos sobre a cultura Tapajó, técnicas de produção e importância cultural das estatuetas.',
+                'documentaries': 'Documentários',
+                'documentaries_desc': 'Documentários completos sobre a cultura Tapajó, escavações arqueológicas e preservação cultural.',
+                'scientific_articles': 'Artigos Científicos',
+                'articles_desc': 'Artigos acadêmicos e pesquisas sobre cerâmica Tapajônica, publicações especializadas e estudos.',
+                
+                // Recursos do Projeto
+                'project_resources': 'Recursos para o Projeto',
+                'resources_section_audio': 'Seção de recursos para o projeto. Baixe o manual de instruções ou avalie nosso catálogo.',
+                'manual_title': 'Manual de Instruções',
+                'manual_desc1': 'Disponibilizamos um manual completo para auxiliar na reprodução do nosso projeto, desde a impressão 3D até a programação do sistema interativo.',
+                'manual_includes': 'O manual inclui:',
+                'manual_item1': 'Guia detalhado para impressão 3D da estatueta tapajônica',
+                'manual_item2': 'Configuração da Raspberry Pi e módulo RFID',
+                'manual_item3': 'Programação do sistema de identificação por cartão',
+                'manual_item4': 'Soluções para erros comuns e contato para suporte',
+                'manual_item5': 'Lista completa de materiais necessários',
+                'manual_item6': 'Instruções passo a passo para montagem',
+                'manual_desc2': 'O manual possui 34 páginas com instruções detalhadas e ilustrações para facilitar a compreensão.',
+                'manual_update_info': 'Manual atualizado em 2025 - Compatível com Raspberry Pi 3, 4 e 5',
+                
+                'evaluation_title': 'Avaliação do Catálogo',
+                'evaluation_desc1': 'Sua opinião é essencial para aprimorarmos nosso catálogo interativo. Como equipe Born To Fight, valorizamos cada avaliação para melhorar continuamente.',
+                'form_includes': 'O formulário inclui:',
+                'form_item1': 'Sua opinião sobre o projeto',
+                'form_item2': 'Qualidade do conteúdo apresentado',
+                'form_item3': 'Melhor aspecto do projeto',
+                'form_item4': 'Inovação do Relicário',
+                'form_item5': 'Sugestões para melhorias futuras',
+                'form_item6': 'Feedback sobre acessibilidade e usabilidade',
+                'evaluation_desc2': 'O formulário leva apenas 3-5 minutos para ser preenchido e é totalmente anônimo. Juntos, podemos preservar e compartilhar a riqueza da cultura amazônica de forma ainda melhor!',
+                'thanks_message': 'Agradecemos sua participação e contribuição para o projeto!',
+                
+                // Rodapé
+                'footer_catalog': 'Catálogo Interativo - Cerâmica Amazônica',
+                'footer_team': 'Equipe de Robótica - FLL Challenge',
+                'footer_credits': 'Projeto desenvolvido pela equipe Born To Fight - FLL | 2025',
+                'footer_disclaimer': 'Todas as imagens são meramente ilustrativas para fins educacionais'
+            },
+            'en': {
+                // Interface
+                'catalog_title': 'Interactive Catalog',
+                'catalog_subtitle': 'Amazonian Ceramics - Born To Fight',
+                'back_menu': 'Back to Menu',
+                'listen': 'Listen',
+                'listen_title': 'Listen to Title',
+                'listen_section': 'Listen to Section',
+                'listen_desc': 'Listen to Description',
+                'listen_history': 'Listen to History',
+                'listen_summary': 'Listen to Summary',
+                'detailed_desc': 'Detailed Description',
+                'title': 'Title',
+                'description': 'Description',
+                'access_album': 'Access Album',
+                'watch_video': 'Educational Video',
+                'watch_doc': 'Watch Documentary',
+                'read_article': 'Read Article',
+                'download_manual': 'Download Manual (PDF)',
+                'evaluate_catalog': 'Evaluate Catalog',
+                
+                // Images
+                'original_piece': 'Original Piece',
+                'replica_3d': '3D Printed Replica',
+                
+                // Artifact title
+                'artifact_title': 'Tapajonica Statuette 2',
+                'artifact_title_audio': 'Tapajonica Statuette 2 - Original and 3D Printed Replica',
+                
+                // Information
+                'period_label': 'Historical Period:',
+                'period_value': '800 to 1600 AD',
+                'origin_label': 'Place of Origin:',
+                'origin_value': 'Lower Amazon, Pará',
+                'dimensions_label': 'Approximate Dimensions:',
+                'dimensions_value': '10 - 20 cm',
+                
+                // Original Description
+                'original_desc_title': 'Original Piece Description',
+                'visual_summary': 'Visual Summary:',
+                'desc_visual_text': 'Tapajonica statuette representing a seated human figure playing a musical instrument. Characterized by stylized features, relaxed posture, and light-colored ceramic finish, typical of Tapajó culture.',
+                'technique': 'Technique:',
+                'technique_text': 'Hand-molded ceramic with matte finish and smooth texture, no additional painting.',
+                'cultural_meaning': 'Cultural Meaning:',
+                'meaning_text': 'Representation of musical and ceremonial practices of Tapajônica societies, demonstrating the high artistic level of pre-colonial Amazonian cultures.',
+                
+                // 3D Replica Description
+                'replica_desc_title': '3D Replica Description',
+                'replica_visual_text': 'Faithful 3D printed replica of the Tapajonica statuette, accurately reproducing the stylistic details and characteristic posture of the figure. Manufactured with modern technology for educational and cultural preservation purposes.',
+                'materials': 'Materials:',
+                'materials_text': 'Biodegradable PLA filament, with texture and color simulating natural clay.',
+                'educational_purpose': 'Educational Purpose:',
+                'educational_text': 'Allows handling and tactile study without risk to the original archaeological artifact, facilitating learning about Tapajó culture.',
+                
+                // Historical Context
+                'historical_context': 'Historical Context',
+                'history_text': 'This piece was produced by Tapajônica ceramicist societies that inhabited the lower Amazon region between the 8th and 16th centuries. Anthropomorphic statuettes were created for ritual, shamanic, or funerary functions. The presence of a musical instrument suggests a strong connection to ceremonial practices involving music, an essential element in Amazonian spiritual traditions. These sculptures reflect the high artistic and technical development of pre-colonial Amazonian cultures.',
+                
+                // Multimedia Resources
+                'multimedia_resources': 'Multimedia Resources',
+                'multimedia_section_audio': 'Multimedia resources section with photos, videos, documentaries and articles about Amazonian ceramics.',
+                'photo_album': 'Photo Album',
+                'photo_album_desc': 'Explore our complete collection of high-resolution images of the Tapajonica Statuette 2 and Tapajó culture artifacts.',
+                'educational_videos': 'Educational Videos',
+                'videos_desc': 'Watch videos about Tapajó culture, production techniques and cultural importance of the statuettes.',
+                'documentaries': 'Documentaries',
+                'documentaries_desc': 'Complete documentaries about Tapajó culture, archaeological excavations and cultural preservation.',
+                'scientific_articles': 'Scientific Articles',
+                'articles_desc': 'Academic articles and research on Tapajônica ceramics, specialized publications and studies.',
+                
+                // Project Resources
+                'project_resources': 'Project Resources',
+                'resources_section_audio': 'Resources section for the project. Download the instruction manual or evaluate our catalog.',
+                'manual_title': 'Instruction Manual',
+                'manual_desc1': 'We provide a complete manual to assist in reproducing our project, from 3D printing to programming the interactive system.',
+                'manual_includes': 'The manual includes:',
+                'manual_item1': 'Detailed guide for 3D printing of the Tapajonica statuette',
+                'manual_item2': 'Raspberry Pi and RFID module configuration',
+                'manual_item3': 'Programming the card identification system',
+                'manual_item4': 'Solutions for common errors and support contact',
+                'manual_item5': 'Complete list of required materials',
+                'manual_item6': 'Step-by-step assembly instructions',
+                'manual_desc2': 'The manual has 34 pages with detailed instructions and illustrations to facilitate understanding.',
+                'manual_update_info': 'Manual updated in 2025 - Compatible with Raspberry Pi 3, 4 and 5',
+                
+                'evaluation_title': 'Catalog Evaluation',
+                'evaluation_desc1': 'Your opinion is essential to improve our interactive catalog. As the Born To Fight team, we value each evaluation to continuously improve.',
+                'form_includes': 'The form includes:',
+                'form_item1': 'Your opinion about the project',
+                'form_item2': 'Quality of the content presented',
+                'form_item3': 'Best aspect of the project',
+                'form_item4': 'Reliquary Innovation',
+                'form_item5': 'Suggestions for future improvements',
+                'form_item6': 'Feedback on accessibility and usability',
+                'evaluation_desc2': 'The form takes only 3-5 minutes to complete and is completely anonymous. Together, we can preserve and share the richness of Amazonian culture even better!',
+                'thanks_message': 'Thank you for your participation and contribution to the project!',
+                
+                // Footer
+                'footer_catalog': 'Interactive Catalog - Amazonian Ceramics',
+                'footer_team': 'Robotics Team - FLL Challenge',
+                'footer_credits': 'Project developed by Born To Fight team - FLL | 2025',
+                'footer_disclaimer': 'All images are for illustrative and educational purposes only'
             }
+        };
+
+        let currentLang = localStorage.getItem('language') || 'pt';
+        let currentVoice = currentLang === 'pt' ? 'Portuguese Female' : 'US English Female';
+
+        // Função para obter tradução
+        function getTranslation(key) {
+            return translations[currentLang][key] || key;
         }
 
-        function updateImageInfo() {
-            // Esta função pode ser expandida para mostrar informações sobre ambas as imagens
-            const images = document.querySelectorAll('.card-img');
-            images.forEach(img => {
-                if (img.complete && img.naturalWidth > 0) {
-                    // Pode adicionar lógica para mostrar informações sobre cada imagem
+        // Função para atualizar a bandeira no botão
+        function updateCurrentFlag(lang) {
+            const flagContainer = document.getElementById('currentFlag');
+            if (!flagContainer) return;
+            
+            let flagHTML = '';
+            if (lang === 'pt') {
+                flagHTML = '<img src="https://flagcdn.com/w40/br.png" style="width: 100%; height: 100%; object-fit: cover;">';
+            } else if (lang === 'en') {
+                flagHTML = '<img src="https://flagcdn.com/w40/us.png" style="width: 100%; height: 100%; object-fit: cover;">';
+            }
+            
+            flagContainer.innerHTML = flagHTML;
+        }
+
+        // Função para mudar idioma
+        function changeLanguage(lang) {
+            currentLang = lang;
+            currentVoice = lang === 'pt' ? 'Portuguese Female' : 'US English Female';
+            
+            localStorage.setItem('language', lang);
+            
+            // Atualizar todos os elementos com data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
                 }
             });
+            
+            // Atualizar elementos específicos que não têm data-i18n
+            document.getElementById('currentLanguage').textContent = lang === 'pt' ? 'Português' : 'English';
+            
+            // Atualizar spans dentro de elementos
+            const periodValue = document.getElementById('periodo');
+            if (periodValue) periodValue.textContent = getTranslation('period_value');
+            
+            const localValue = document.getElementById('local');
+            if (localValue) localValue.textContent = getTranslation('origin_value');
+            
+            const tamanhoValue = document.getElementById('tamanho');
+            if (tamanhoValue) tamanhoValue.textContent = getTranslation('dimensions_value');
+            
+            const titulo = document.getElementById('titulo');
+            if (titulo) titulo.textContent = getTranslation('artifact_title');
+            
+            const historyContent = document.getElementById('history_text_content');
+            if (historyContent) historyContent.textContent = getTranslation('history_text');
+            
+            // Atualizar bandeira
+            updateCurrentFlag(lang);
+            
+            // Atualizar classe ativa nas opções
+            document.querySelectorAll('.language-option').forEach(option => {
+                if (option.getAttribute('data-lang') === lang) {
+                    option.classList.add('active');
+                } else {
+                    option.classList.remove('active');
+                }
+            });
+            
+            // Configurar voz padrão
+            if (typeof responsiveVoice !== 'undefined') {
+                responsiveVoice.setDefaultVoice(currentVoice);
+            }
+            
+            closeLanguageDropdown();
+            stopAllSpeech();
         }
 
-        // Funções de áudio usando ResponsiveVoice
+        // Controle do dropdown de idioma
+        let languageOpen = false;
+        const languageBtn = document.getElementById('languageBtn');
+        const languageMenu = document.getElementById('languageMenu');
+
+        function closeLanguageDropdown() {
+            languageMenu.classList.remove('show');
+            languageOpen = false;
+        }
+
+        function toggleLanguageDropdown() {
+            if (languageOpen) {
+                languageMenu.classList.remove('show');
+                languageOpen = false;
+            } else {
+                languageMenu.classList.add('show');
+                languageOpen = true;
+            }
+        }
+
+        // Event listeners
+        if (languageBtn) {
+            languageBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleLanguageDropdown();
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            if (languageOpen && !languageMenu.contains(e.target) && !languageBtn.contains(e.target)) {
+                closeLanguageDropdown();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && languageOpen) {
+                closeLanguageDropdown();
+            }
+        });
+
+        if (languageMenu) {
+            languageMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        }
+
+        // Selecionar idioma
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                changeLanguage(lang);
+            });
+        });
+
+        // ====== FUNÇÕES DE ÁUDIO ======
         let isSpeaking = false;
 
         function readText(text) {
@@ -2064,23 +2221,21 @@
             
             if (typeof responsiveVoice === 'undefined') {
                 console.error('ResponsiveVoice não disponível');
-                alert('Sistema de áudio não disponível no momento.');
+                alert(currentLang === 'pt' ? 'Sistema de áudio não disponível no momento.' : 'Audio system not available at this time.');
                 return;
             }
             
             if (isSpeaking) {
-                console.log('Parando áudio atual...');
                 responsiveVoice.cancel();
                 isSpeaking = false;
                 removeAudioEffects();
                 return;
             }
             
-            // Configurações da voz
             const options = {
-                rate: 1.0,    // velocidade
-                pitch: 1.0,   // tom
-                volume: 1.0,  // volume
+                rate: 1.0,
+                pitch: 1.0,
+                volume: 1.0,
                 onstart: function() {
                     console.log('Áudio iniciado');
                     isSpeaking = true;
@@ -2091,16 +2246,15 @@
                     isSpeaking = false;
                     removeAudioEffects();
                     
-                    // Restaurar botões
                     const detailedBtn = document.querySelector('.audio-btn-detailed');
                     if (detailedBtn && detailedBtn.innerHTML.includes('Parar')) {
-                        detailedBtn.innerHTML = '<i class="fas fa-headphones-alt"></i> Descrição Detalhada';
+                        detailedBtn.innerHTML = '<i class="fas fa-headphones-alt"></i> ' + getTranslation('detailed_desc');
                         detailedBtn.onclick = playDetailedDescription;
                     }
                     
                     const replicaBtn = document.querySelector('.audio-btn-replica');
                     if (replicaBtn && replicaBtn.innerHTML.includes('Parar')) {
-                        replicaBtn.innerHTML = '<i class="fas fa-headphones-alt"></i> Ouvir Descrição Detalhada';
+                        replicaBtn.innerHTML = '<i class="fas fa-headphones-alt"></i> ' + getTranslation('detailed_desc');
                         replicaBtn.onclick = play3DDescription;
                     }
                 },
@@ -2112,10 +2266,7 @@
             };
             
             try {
-                console.log('Tentando reproduzir áudio...');
-                // Usar voz em português brasileiro
-                responsiveVoice.speak(text, "Portuguese Female", options);
-                console.log('Áudio enviado para reprodução');
+                responsiveVoice.speak(text, currentVoice, options);
             } catch (error) {
                 console.error('Erro ao reproduzir áudio:', error);
                 isSpeaking = false;
@@ -2124,48 +2275,19 @@
         }
 
         function addAudioEffects() {
-            // Adicionar efeito visual durante a fala
-            document.querySelectorAll('.audio-btn-small').forEach(btn => {
+            document.querySelectorAll('.audio-btn-small, .resource-btn').forEach(btn => {
                 btn.style.boxShadow = '0 0 15px rgba(165, 91, 52, 0.5)';
                 btn.style.animation = 'pulse 1s infinite';
-                const icon = btn.querySelector('i');
-                if (icon && !btn.querySelector('.fa-stop')) {
-                    icon.className = 'fas fa-stop';
-                }
             });
-            
-            // Adicionar efeito no título
-            const title = document.querySelector('.card-title h2');
-            if (title) {
-                title.style.textShadow = '0 0 10px rgba(165, 91, 52, 0.3)';
-            }
         }
 
         function removeAudioEffects() {
-            // Remover efeitos visuais
-            document.querySelectorAll('.audio-btn-small').forEach(btn => {
+            document.querySelectorAll('.audio-btn-small, .resource-btn').forEach(btn => {
                 btn.style.boxShadow = '';
                 btn.style.animation = '';
-                const icon = btn.querySelector('i');
-                if (icon) {
-                    if (btn.classList.contains('audio-btn-detailed')) {
-                        icon.className = 'fas fa-headphones-alt';
-                    } else if (btn.classList.contains('audio-btn-replica')) {
-                        icon.className = 'fas fa-headphones-alt';
-                    } else {
-                        icon.className = 'fas fa-volume-up';
-                    }
-                }
             });
-            
-            // Remover efeito do título
-            const title = document.querySelector('.card-title h2');
-            if (title) {
-                title.style.textShadow = '';
-            }
         }
 
-        // Função para parar toda a fala
         function stopAllSpeech() {
             if (typeof responsiveVoice !== 'undefined') {
                 responsiveVoice.cancel();
@@ -2175,52 +2297,170 @@
         }
 
         function ouvirVoltarMenu() {
-            readText("Botão: Voltar para o menu principal");
+            readText(getTranslation('back_menu'));
         }
 
-        // Rastrear cliques em recursos (para análise)
+        // Descrições detalhadas (mantidas em português para áudio ou traduzidas posteriormente)
+        function playOriginalDescription() {
+            const text = getTranslation('desc_visual_text') + '. ' + 
+                        getTranslation('technique_text') + '. ' + 
+                        getTranslation('meaning_text');
+            readText(text);
+        }
+
+        function playDetailedDescription() {
+            const detailedDescription = currentLang === 'pt' ?
+                `A peça é uma escultura cerâmica antropomórfica de pequeno porte, representando uma figura humana sentada, em posição relaxada, segurando um instrumento musical semelhante a uma flauta ou pífano. A coloração é uniforme, em tom claro de argila, variando entre bege e marrom muito suave, com aparência fosca e aspecto de material antigo ou arqueológico.
+
+                Parte superior – cabeça: No topo, a figura possui uma cabeça relativamente grande em proporção ao corpo. O cabelo é estilizado, moldado em volumes ondulados e irregulares, formando saliências que sugerem mechas ou um adorno simples. A textura é lisa, com leves marcas do trabalho manual. O rosto apresenta traços simples e esquemáticos. Os olhos são pequenos e discretos, levemente marcados na superfície. O nariz é curto e projetado para frente. A boca está posicionada próxima ao instrumento musical, sugerindo o ato de tocar. A expressão facial é neutra e serena.
+
+                Região do tronco e braços: Logo abaixo da cabeça, o tronco é compacto e levemente inclinado para frente. Os braços estão dobrados e elevados, posicionados à frente do corpo, segurando o instrumento. As mãos envolvem a flauta de forma simplificada, sem detalhamento individual dos dedos, mas com indicação clara da ação de tocar. O instrumento musical é cilíndrico, alongado e proporcional ao corpo da figura. Ele atravessa a parte frontal da escultura, indo da região da boca até próximo ao lado oposto do tronco, reforçando a ideia de movimento e função.
+
+                Região inferior – pernas e postura: A figura está sentada, com as pernas dobradas. Uma das pernas aparece mais elevada e dobrada sobre si, enquanto a outra se projeta ligeiramente para frente, criando uma postura assimétrica e natural. Os pés são pouco detalhados, integrados ao volume geral da escultura.
+
+                Base: A base não é separada do corpo: a própria posição sentada da figura cria um apoio estável. A parte inferior é arredondada e contínua, permitindo que a escultura seja apoiada sobre uma superfície plana.
+
+                Textura e impressão geral: Toda a superfície da peça apresenta textura suave e contínua, com pequenas irregularidades típicas de cerâmica moldada à mão. Não há pintura visível; os detalhes são definidos apenas pelo volume e pelo relevo.` :
+                `This piece is a small anthropomorphic ceramic sculpture, representing a seated human figure in a relaxed position holding a musical instrument similar to a flute or pipe. The coloring is uniform, in a light clay tone, ranging between beige and very soft brown, with a matte appearance and the aspect of ancient or archaeological material.
+
+                Upper part - head: At the top, the figure has a relatively large head in proportion to the body. The hair is stylized, molded into wavy and irregular volumes, forming protrusions that suggest strands or a simple adornment. The texture is smooth, with slight marks of manual work. The face has simple and schematic features. The eyes are small and discreet, lightly marked on the surface. The nose is short and projects forward. The mouth is positioned close to the musical instrument, suggesting the act of playing. The facial expression is neutral and serene.
+
+                Torso and arms region: Just below the head, the torso is compact and slightly leaning forward. The arms are bent and raised, positioned in front of the body, holding the instrument. The hands surround the flute in a simplified manner, without individual finger detailing, but with clear indication of the playing action. The musical instrument is cylindrical, elongated, and proportional to the figure's body. It crosses the front part of the sculpture, going from the mouth region to near the opposite side of the torso, reinforcing the idea of movement and function.
+
+                Lower region - legs and posture: The figure is seated with bent legs. One leg appears more elevated and bent over itself, while the other projects slightly forward, creating an asymmetrical and natural posture. The feet have little detail, integrated into the general volume of the sculpture.
+
+                Base: The base is not separate from the body: the seated position of the figure itself creates a stable support. The lower part is rounded and continuous, allowing the sculpture to be supported on a flat surface.
+
+                Texture and general impression: The entire surface of the piece presents a smooth and continuous texture, with small irregularities typical of hand-molded ceramics. There is no visible painting; the details are defined only by volume and relief.`;
+            
+            if (isSpeaking) {
+                responsiveVoice.cancel();
+                isSpeaking = false;
+                removeAudioEffects();
+                return;
+            }
+            
+            readText(detailedDescription);
+            
+            const descBtn = document.querySelector('.audio-btn-detailed');
+            if (descBtn) {
+                descBtn.innerHTML = '<i class="fas fa-stop"></i> ' + (currentLang === 'pt' ? 'Parar Descrição' : 'Stop Description');
+                descBtn.onclick = function() {
+                    responsiveVoice.cancel();
+                    isSpeaking = false;
+                    removeAudioEffects();
+                    descBtn.innerHTML = '<i class="fas fa-headphones-alt"></i> ' + getTranslation('detailed_desc');
+                    descBtn.onclick = playDetailedDescription;
+                };
+            }
+        }
+
+        function play3DDescription() {
+            const replica3DDescription = currentLang === 'pt' ?
+                `A peça é uma escultura cerâmica antropomórfica, de pequeno a médio porte, com aparência artesanal. Possui coloração uniforme em tom de argila clara, entre bege e marrom suave, com acabamento fosco. A superfície apresenta marcas visíveis do modelado manual, criando uma textura levemente irregular, agradável ao tato.
+
+                Parte superior – cabeça: No topo, observa-se uma cabeça grande em proporção ao corpo, com formato arredondado. O topo da cabeça é liso e levemente achatado. Nas laterais, há orelhas grandes e salientes, projetadas para fora, cada uma com um pequeno furo circular, possivelmente decorativo ou funcional.
+
+                O rosto é estilizado e simples. Os olhos são representados por cavidades rasas, sem pupilas definidas. O nariz é largo e pouco projetado. A boca não está totalmente aberta; à frente dela há um objeto cilíndrico alongado, semelhante a uma flauta ou instrumento de sopro, encostado à região da boca, indicando que a figura está tocando música. A expressão facial é serena e concentrada.
+
+                Região do pescoço e tronco: O pescoço é curto e praticamente fundido ao tronco. O corpo é compacto, com volume arredondado. A figura está levemente inclinada para frente, reforçando a ação de tocar o instrumento.
+
+                Braços e mãos: Os braços são grossos e curvados, envolvendo o instrumento musical. Um braço cruza a parte frontal do corpo, enquanto o outro sustenta o instrumento mais próximo da boca. As mãos são simplificadas, sem separação individual dos dedos, mas com volumes que indicam firmeza no gesto.
+
+                Região inferior – pernas e base: A figura está sentada, com as pernas dobradas e recolhidas junto ao corpo. As pernas formam uma base arredondada e contínua, que serve também como apoio da escultura sobre a superfície. Os pés não são claramente definidos, integrando-se ao volume geral.
+
+                Textura e impressão geral: Toda a escultura apresenta textura marcada por sulcos suaves e linhas do processo de modelagem, reforçando o caráter manual da peça. Não há pintura ou cores adicionais; os detalhes são definidos exclusivamente por forma e relevo.` :
+                `The piece is an anthropomorphic ceramic sculpture, small to medium in size, with a handmade appearance. It has a uniform light clay tone, between beige and soft brown, with a matte finish. The surface shows visible marks of manual modeling, creating a slightly irregular texture, pleasant to the touch.
+
+                Upper part - head: At the top, there is a large head in proportion to the body, with a rounded shape. The top of the head is smooth and slightly flattened. On the sides, there are large, protruding ears, projecting outward, each with a small circular hole, possibly decorative or functional.
+
+                The face is stylized and simple. The eyes are represented by shallow cavities, without defined pupils. The nose is wide and not very projected. The mouth is not fully open; in front of it there is an elongated cylindrical object, similar to a flute or wind instrument, leaning against the mouth region, indicating that the figure is playing music. The facial expression is serene and focused.
+
+                Neck and torso region: The neck is short and practically fused with the torso. The body is compact, with a rounded volume. The figure is slightly leaning forward, reinforcing the action of playing the instrument.
+
+                Arms and hands: The arms are thick and curved, surrounding the musical instrument. One arm crosses the front part of the body, while the other supports the instrument closer to the mouth. The hands are simplified, without individual finger separation, but with volumes that indicate firmness in the gesture.
+
+                Lower region - legs and base: The figure is seated, with legs bent and drawn close to the body. The legs form a rounded and continuous base, which also serves as the sculpture's support on the surface. The feet are not clearly defined, integrated into the general volume.
+
+                Texture and general impression: The entire sculpture has a texture marked by soft grooves and lines from the modeling process, reinforcing the manual character of the piece. There is no paint or additional colors; the details are defined exclusively by form and relief.`;
+            
+            if (isSpeaking) {
+                responsiveVoice.cancel();
+                isSpeaking = false;
+                removeAudioEffects();
+                return;
+            }
+            
+            readText(replica3DDescription);
+            
+            const replicaBtn = document.querySelector('.audio-btn-replica');
+            if (replicaBtn) {
+                replicaBtn.innerHTML = '<i class="fas fa-stop"></i> ' + (currentLang === 'pt' ? 'Parar Descrição' : 'Stop Description');
+                replicaBtn.onclick = function() {
+                    responsiveVoice.cancel();
+                    isSpeaking = false;
+                    removeAudioEffects();
+                    replicaBtn.innerHTML = '<i class="fas fa-headphones-alt"></i> ' + getTranslation('detailed_desc');
+                    replicaBtn.onclick = play3DDescription;
+                };
+            }
+        }
+
+        function downloadManual() {
+            const manualUrl = "Manual de Instruções.pdf";
+            const link = document.createElement('a');
+            link.href = manualUrl;
+            link.download = currentLang === 'pt' ? 'Manual de Instruções - Born To Fight.pdf' : 'Instruction Manual - Born To Fight.pdf';
+            link.target = '_blank';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            readText(getTranslation('manual_title') + '. ' + (currentLang === 'pt' ? 'O download começará em instantes.' : 'The download will begin shortly.'));
+            trackClick('manual_download');
+        }
+
+        function openEvaluationForm() {
+            const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdnugr61HzOWKrB167g5hR0eaQoWELFWiXHqL1f0uDmdorKAg/viewform?fbzx=-3456102765212424284";
+            window.open(formUrl, '_blank');
+            readText(getTranslation('evaluation_title') + '. ' + (currentLang === 'pt' ? 'Abrindo formulário em nova aba.' : 'Opening form in new tab.'));
+            trackClick('evaluation_form_full');
+        }
+
+        function imageLoaded(img) {
+            img.style.opacity = '0';
+            setTimeout(() => {
+                img.style.opacity = '1';
+                img.style.transition = 'opacity 0.5s ease';
+            }, 100);
+        }
+
+        function imageError(img, type) {
+            if (type === 'original') {
+                img.src = 'https://via.placeholder.com/400x300/f9f5f0/a55b34?text=Tapajonica+Statuette+2+Original';
+            } else if (type === 'replica') {
+                img.src = 'https://via.placeholder.com/400x300/f9f5f0/6d4c41?text=3D+Replica+of+Statuette';
+            } else {
+                img.src = 'https://via.placeholder.com/400x300/f9f5f0/2c5530?text=Image+Unavailable';
+            }
+        }
+
         function trackClick(resourceType) {
             console.log(`Recurso clicado: ${resourceType}`);
-            // Aqui você pode adicionar código para Google Analytics ou outro sistema de tracking
             const clicks = JSON.parse(localStorage.getItem('resource_clicks') || '{}');
             clicks[resourceType] = (clicks[resourceType] || 0) + 1;
             localStorage.setItem('resource_clicks', JSON.stringify(clicks));
-            
-            // Feedback de áudio
-            readText(`Abrindo ${getResourceName(resourceType)} em nova aba.`);
         }
 
-        function getResourceName(type) {
-            const names = {
-                'photos_tapajonica2': 'álbum de fotos',
-                'video_tapajonica2': 'vídeo educativo',
-                'documentary_tapajonica2': 'documentário completo',
-                'article_tapajonica2': 'artigo científico',
-                'manual_download': 'manual de instruções',
-                'evaluation_form_full': 'formulário de avaliação completa'
-            };
-            return names[type] || 'recurso';
-        }
-
-        // Scroll suave para o topo
         function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-            
-            // Efeito de clique no botão
+            window.scrollTo({ top: 0, behavior: 'smooth' });
             const btn = document.querySelector('.floating-btn');
-            btn.style.transform = 'scale(0.8)';
-            setTimeout(() => {
-                btn.style.transform = '';
-            }, 300);
-            
-            // Parar qualquer fala em andamento
+            if (btn) {
+                btn.style.transform = 'scale(0.8)';
+                setTimeout(() => { btn.style.transform = ''; }, 300);
+            }
             stopAllSpeech();
         }
 
-        // Mostrar/ocultar botão flutuante
         window.addEventListener('scroll', function() {
             const floatingBtn = document.querySelector('.floating-btn');
             if (floatingBtn) {
@@ -2234,75 +2474,50 @@
             }
         });
 
-        // Redimensionamento responsivo da imagem
-        window.addEventListener('resize', function() {
-            updateImageInfo();
+        window.addEventListener('beforeunload', stopAllSpeech);
+        window.addEventListener('pagehide', stopAllSpeech);
+
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('a') && isSpeaking) {
+                stopAllSpeech();
+            }
         });
 
-        // Efeito de digitação no título
-        window.addEventListener('load', function() {
-            const title = document.querySelector('.nav-title h1');
-            if (title) {
-                title.classList.add('typing-effect');
-                
-                setTimeout(() => {
-                    title.classList.remove('typing-effect');
-                    title.style.borderRight = 'none';
-                }, 3500);
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Página carregada - inicializando...');
+            
+            changeLanguage(currentLang);
+            
+            if (typeof responsiveVoice !== 'undefined') {
+                console.log('ResponsiveVoice carregado com sucesso');
+                responsiveVoice.setDefaultVoice(currentVoice);
+            } else {
+                console.error('ResponsiveVoice não foi carregado');
             }
             
-            // Animação para os botões
-            document.querySelectorAll('.nav-btn, .audio-btn-small').forEach((btn, index) => {
-                btn.style.opacity = '0';
-                btn.style.transform = 'translateY(20px)';
-                
-                setTimeout(() => {
-                    btn.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-                    btn.style.opacity = '1';
-                    btn.style.transform = 'translateY(0)';
-                }, 1000 + (index * 200));
-            });
-        });
-
-        // Efeitos de hover nas linhas de informação
-        document.querySelectorAll('.info-row').forEach(row => {
-            row.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateX(5px)';
-            });
-            
-            row.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateX(0)';
-            });
-        });
-
-        // Inicializar animações
-        function initAnimations() {
-            // Animação para as seções
+            // Animações
             document.querySelectorAll('.section-container').forEach((section, index) => {
                 section.style.animationDelay = `${0.4 + (index * 0.2)}s`;
             });
             
-            // Animação para os tópicos
             document.querySelectorAll('.resource-topic').forEach((topic, index) => {
                 topic.style.opacity = '0';
                 topic.style.transform = 'translateY(20px)';
-                
                 setTimeout(() => {
                     topic.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
                     topic.style.opacity = '1';
                     topic.style.transform = 'translateY(0)';
                 }, 1200 + (index * 200));
             });
-        }
-
-        // Parar áudio ao sair da página
-        window.addEventListener('beforeunload', stopAllSpeech);
-        window.addEventListener('pagehide', stopAllSpeech);
-
-        // Configurar botões de áudio para parar áudio ao clicar em links
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('a') && isSpeaking) {
-                stopAllSpeech();
+            
+            const title = document.querySelector('.nav-title h1');
+            if (title) {
+                title.classList.add('typing-effect');
+                setTimeout(() => {
+                    title.classList.remove('typing-effect');
+                    title.style.borderRight = 'none';
+                }, 3500);
             }
         });
     </script>
@@ -2318,13 +2533,6 @@
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
     <script>
         new window.VLibras.Widget('https://vlibras.gov.br/app');
-        
-        setTimeout(() => {
-            const vlibrasBtn = document.querySelector('[vw-access-button]');
-            if (vlibrasBtn) {
-                vlibrasBtn.style.animation = 'float 3s ease-in-out infinite';
-            }
-        }, 1000);
     </script>
 
 </body>
