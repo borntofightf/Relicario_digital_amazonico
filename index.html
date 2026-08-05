@@ -890,6 +890,15 @@
                         </div>
                         English
                     </div>
+                    <!-- NOVA OPÇÃO: CHINÊS -->
+                    <div class="language-option" data-lang="zh" data-voice="Chinese Female">
+                        <div class="language-flag">
+                            <img src="https://flagcdn.com/w40/cn.png" 
+                                 srcset="https://flagcdn.com/w80/cn.png 2x"
+                                 alt="Bandeira da China">
+                        </div>
+                        中文
+                    </div>
                 </div>
             </div>
 
@@ -1168,7 +1177,7 @@
                 'mission_text': 'Somos a equipe Born To Fight, arqueólogos digitais dedicados à preservação e democratização do patrimônio amazônico. Nossa missão é desenterrar histórias através da tecnologia, transformando cada artefato em uma experiência sensorial e acessível que conecta passado, presente e futuro.',
                 'project_text': 'Este projeto de arqueologia digital aplica tecnologias contemporâneas para facilitar o acesso ao patrimônio arqueológico amazônico, criando uma ponte interativa entre a riqueza cultural ancestral e as possibilidades educativas modernas. Utilizamos ferramentas digitais como documentação técnica avançada para registrar, preservar e tornar acessível esse legado cultural.',
                 
-                // Tópicos restantes
+                // Tópicos
                 'printing_title': 'Impressão 3D',
                 'printing_text': 'Através da fabricação digital, produzimos réplicas fidedignas de artefatos arqueológicos, permitindo estudo tátil e inclusão sensorial. Esta abordagem traz acessibilidade concreta ao patrimônio, transformando visualização em experiência física.',
                 'evaluation_title': 'Formulário de Avaliação',
@@ -1206,7 +1215,7 @@
                 'mission_text': 'We are the Born To Fight team, digital archaeologists dedicated to the preservation and democratization of Amazonian heritage. Our mission is to unearth stories through technology, transforming each artifact into a sensory and accessible experience that connects past, present and future.',
                 'project_text': 'This digital archaeology project applies contemporary technologies to facilitate access to Amazonian archaeological heritage, creating an interactive bridge between ancestral cultural richness and modern educational possibilities. We use digital tools such as advanced technical documentation to record, preserve and make this cultural legacy accessible.',
                 
-                // Tópicos restantes
+                // Tópicos
                 'printing_title': '3D Printing',
                 'printing_text': 'Through digital fabrication, we produce faithful replicas of archaeological artifacts, allowing tactile study and sensory inclusion. This approach brings concrete accessibility to heritage, transforming visualization into physical experience.',
                 'evaluation_title': 'Evaluation Form',
@@ -1221,11 +1230,52 @@
                 'estatueta_tapajonica2': 'Tapajonica Statuette 2',
                 'vaso_tapajonico': 'Tapajonic Narrow-Necked Vase',
                 'urna_ariste': 'Aristé urn'
+            },
+            // ====== NOVA TRADUÇÃO PARA CHINÊS ======
+            'zh': {
+                // Interface
+                'catalog': '文物目录',
+                'inventory': '文物清单',
+                'download_docs': '下载文档',
+                'new_artifacts': '新文物',
+                'listen': '收听',
+                'listen_title': '收听标题',
+                'listen_mission': '收听使命',
+                'listen_project': '收听项目',
+                'title': '标题',
+                'description': '描述',
+                'expeditions': '已完成数字考察：',
+                'purpose': '| 有目的的考古学',
+                'evaluation_button': '评估目录',
+                'download_manual': '下载手册',
+                
+                // Conteúdo
+                'main_title': 'Born To Fight – 数字考古学',
+                'mission_text': '我们是 Born To Fight 团队，致力于保护亚马逊遗产并将其民主化的数字考古学家。我们的使命是通过技术挖掘故事，将每件文物转化为一种感官和可及的体验，连接过去、现在和未来。',
+                'project_text': '这个数字考古项目应用当代技术，以便于访问亚马逊考古遗产，在古老文化丰富性与现代教育可能性之间架起一座互动桥梁。我们使用数字工具，如先进的技术文档，来记录、保存并使这一文化遗产易于访问。',
+                
+                // Tópicos
+                'printing_title': '3D 打印',
+                'printing_text': '通过数字制造，我们制作了考古文物的忠实复制品，允许触觉研究和感官包容。这种方法为遗产带来了切实的可及性，将可视化转化为物理体验。',
+                'evaluation_title': '评估表',
+                'evaluation_text': '点击下方按钮访问我们为考古学专家提供的完整评估表。该表格包括关于您对项目的看法、内容质量、最佳方面、创新和建议的问题。',
+                'manual_title': '操作手册',
+                'manual_text': '访问完整手册，其中包含有关项目配置、编程、组装和故障排除的详细说明。包括 3D 打印、Raspberry Pi 设置、RFID 传感器连接等的分步指南。',
+                
+                // Artefatos
+                'urna_marajoara': '马拉若拉葬礼瓮',
+                'urna_maraca': '马拉卡葬礼瓮',
+                'estatueta_tapajonica1': '塔帕若尼卡小雕像 1',
+                'estatueta_tapajonica2': '塔帕若尼卡小雕像 2',
+                'vaso_tapajonico': '塔帕若尼克窄颈花瓶',
+                'urna_ariste': '阿里斯特瓮'
             }
         };
 
         let currentLang = localStorage.getItem('language') || 'pt';
-        let currentVoice = currentLang === 'pt' ? 'Portuguese Female' : 'US English Female';
+        let currentVoice = currentLang === 'pt' ? 'Portuguese Female' : 
+                           currentLang === 'en' ? 'US English Female' : 
+                           'Chinese Female';
 
         // Função para atualizar a bandeira no botão
         function updateCurrentFlag(lang) {
@@ -1247,6 +1297,13 @@
                          alt="Bandeira dos Estados Unidos"
                          style="width: 100%; height: 100%; object-fit: cover;">
                 `;
+            } else if (lang === 'zh') {
+                flagHTML = `
+                    <img src="https://flagcdn.com/w40/cn.png" 
+                         srcset="https://flagcdn.com/w80/cn.png 2x"
+                         alt="Bandeira da China"
+                         style="width: 100%; height: 100%; object-fit: cover;">
+                `;
             }
             
             flagContainer.innerHTML = flagHTML;
@@ -1255,7 +1312,9 @@
         // Função para mudar idioma
         function changeLanguage(lang) {
             currentLang = lang;
-            currentVoice = lang === 'pt' ? 'Portuguese Female' : 'US English Female';
+            currentVoice = lang === 'pt' ? 'Portuguese Female' : 
+                           lang === 'en' ? 'US English Female' : 
+                           'Chinese Female';
             
             localStorage.setItem('language', lang);
             
@@ -1267,7 +1326,9 @@
             });
             
             document.getElementById('currentLanguage').textContent = 
-                lang === 'pt' ? 'Português' : 'English';
+                lang === 'pt' ? 'Português' :
+                lang === 'en' ? 'English' :
+                '中文';
             
             // Atualizar bandeira no botão
             updateCurrentFlag(lang);
@@ -1408,7 +1469,9 @@
             console.log('Lendo texto:', text.substring(0, 30) + '...');
             
             if (typeof responsiveVoice === 'undefined') {
-                alert(currentLang === 'pt' ? 'Sistema de áudio não está disponível. Verifique a conexão.' : 'Audio system is not available. Check your connection.');
+                alert(currentLang === 'pt' ? 'Sistema de áudio não está disponível. Verifique a conexão.' : 
+                      currentLang === 'en' ? 'Audio system is not available. Check your connection.' :
+                      '音频系统不可用。请检查连接。');
                 return;
             }
             
@@ -1439,7 +1502,9 @@
             } catch (error) {
                 console.error('Erro ao reproduzir áudio:', error);
                 isSpeaking = false;
-                alert(currentLang === 'pt' ? 'Erro ao reproduzir áudio. Tente novamente.' : 'Error playing audio. Please try again.');
+                alert(currentLang === 'pt' ? 'Erro ao reproduzir áudio. Tente novamente.' : 
+                      currentLang === 'en' ? 'Error playing audio. Please try again.' :
+                      '播放音频时出错。请重试。');
             }
         }
 
