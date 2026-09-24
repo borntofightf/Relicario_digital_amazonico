@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Interativo – Confúcio | Born To Fight</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/Logo_Btf.png">
+    <link rel="apple-touch-icon" href="images/Logo_Btf.png">
+    <!-- Fontes profissionais -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-dark: #7a3c1f;
+            --primary: #a55b34;
+            --primary-light: #d48356;
+            --secondary: #2c5530;
+            --light-beige: #f9f5f0;
+            --dark-beige: #ede5d8;
+            --text-dark: #2d2d2d;
+            --text-light: #5a5a5a;
+            --white: #ffffff;
+            --shadow-sm: 0 4px 6px rgba(0,0,0,0.07);
+            --shadow-md: 0 8px 20px rgba(0,0,0,0.12);
+            --shadow-lg: 0 15px 35px rgba(0,0,0,0.15);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius: 16px;
+            --radius-lg: 24px;
+            --shadow-xl: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--light-beige) 0%, var(--dark-beige) 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px;
+            line-height: 1.6;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes cardHover { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        /* HEADER NAVEGAÇÃO */
+        .nav-header {
+            width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 30px; background: var(--white); border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md); margin-bottom: 40px; animation: slideIn 0.6s ease-out;
+            position: relative; overflow: visible; flex-wrap: wrap; gap: 20px;
+        }
+        .nav-header::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        .nav-brand { display: flex; align-items: center; gap: 15px; position: relative; z-index: 2; }
+        .nav-brand img {
+            height: 60px; width: auto; border-radius: 10px; box-shadow: var(--shadow-sm);
+            object-fit: contain; transition: var(--transition);
+        }
+        .nav-brand img:hover { transform: rotate(5deg) scale(1.05); box-shadow: var(--shadow-md); }
+        .nav-title h1 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; color: var(--primary-dark); margin: 0; }
+        .nav-title p { font-size: 14px; color: var(--text-light); margin: 0; transition: var(--transition); }
+        .nav-title:hover p { color: var(--primary); }
+        .nav-buttons { display: flex; gap: 15px; align-items: center; z-index: 2; flex-wrap: wrap; }
+        .nav-btn {
+            padding: 14px 28px; font-size: 16px; font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white; border: none; border-radius: 12px; cursor: pointer; transition: var(--transition);
+            display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow-sm);
+            text-decoration: none; position: relative; overflow: hidden;
+        }
+        .nav-btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        .audio-btn-small {
+            background: var(--light-beige); color: var(--primary-dark); border: 2px solid var(--primary-light);
+            padding: 10px 18px; border-radius: 10px; font-size: 14px; font-weight: 500; cursor: pointer;
+            transition: var(--transition); display: flex; align-items: center; gap: 8px;
+            position: relative; overflow: hidden;
+        }
+        .audio-btn-small:hover { background: var(--primary-light); color: white; transform: translateY(-2px); }
+
+        /* SELETOR DE IDIOMA */
+        .language-selector { position: relative; }
+        .language-btn {
+            padding: 12px 20px; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 600;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: var(--white); border: none; border-radius: 10px; cursor: pointer; transition: var(--transition);
+            display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow-sm);
+            min-width: 140px; justify-content: center;
+        }
+        .language-btn:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); }
+        .language-btn-flag { width: 20px; height: 15px; border-radius: 2px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.3); }
+        .language-dropdown {
+            display: none; position: absolute; top: calc(100% + 10px); right: 0; background: var(--white);
+            box-shadow: var(--shadow-xl); border-radius: var(--radius); padding: 15px; min-width: 180px;
+            z-index: 10000; animation: scaleIn 0.2s ease-out; border: 1px solid rgba(165,91,52,0.2);
+            transform-origin: top right;
+        }
+        .language-dropdown.show { display: block; }
+        .language-option {
+            display: flex; align-items: center; gap: 12px; padding: 12px 16px; margin-bottom: 8px;
+            border-radius: 8px; transition: var(--transition); background: rgba(165,91,52,0.05);
+            border: 1px solid rgba(165,91,52,0.1); cursor: pointer; font-weight: 500; color: var(--text-dark);
+        }
+        .language-option:last-child { margin-bottom: 0; }
+        .language-option:hover { background: rgba(165,91,52,0.15); transform: translateX(5px); border-color: var(--primary); }
+        .language-option.active { background: rgba(165,91,52,0.2); border-color: var(--primary); color: var(--primary-dark); font-weight: 600; }
+        .language-flag { width: 24px; height: 18px; border-radius: 3px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); flex-shrink: 0; }
+        .language-flag img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* CONTAINER DE IMAGENS DUPLAS */
+        .images-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; margin-bottom: 25px; }
+        @media (max-width: 768px) { .images-container { grid-template-columns: 1fr; gap: 15px; } }
+        .image-card {
+            background: linear-gradient(135deg, rgba(165,91,52,0.05) 0%, rgba(44,85,48,0.05) 100%);
+            border-radius: var(--radius); overflow: hidden; border: 2px solid rgba(165,91,52,0.1);
+            transition: var(--transition); display: flex; flex-direction: column;
+        }
+        .image-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: var(--shadow-md); }
+        .image-card-header { padding: 15px; background: rgba(165,91,52,0.08); text-align: center; border-bottom: 2px solid rgba(165,91,52,0.2); }
+        .image-card-header h3 { font-family: 'Montserrat', sans-serif; font-size: 18px; color: var(--primary-dark); margin: 0; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .original-header h3 i { color: #a55b34; }
+        .replica-header h3 i { color: #2c5530; }
+        .card-img-container { position: relative; width: 100%; height: 250px; padding: 20px; text-align: center; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .card-img-wrapper { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        .card-img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 10px; box-shadow: var(--shadow-sm); transition: var(--transition); border: 3px solid var(--white); z-index: 2; }
+        .image-card:hover .card-img { transform: scale(1.03); box-shadow: var(--shadow-md); }
+
+        /* GRADE DE CARDS */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 35px; width: 100%; max-width: 1300px; margin-bottom: 50px; animation: slideInUp 0.8s ease-out 0.2s both; }
+        .card { background: var(--white); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); transition: var(--transition); position: relative; border: 1px solid rgba(165,91,52,0.1); display: flex; flex-direction: column; }
+        .card:hover { animation: cardHover 0.3s ease forwards; box-shadow: var(--shadow-lg); }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--primary), var(--secondary)); z-index: 1; }
+        .card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-title { font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 700; color: var(--primary-dark); margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; }
+        .card-title h2 { margin: 0; flex: 1; }
+        .info-group { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(165,91,52,0.1); }
+        .info-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 10px 15px; background: rgba(165,91,52,0.03); border-radius: 10px; border: 1px solid rgba(165,91,52,0.08); transition: var(--transition); flex-wrap: wrap; gap: 10px; }
+        .info-label { font-weight: 600; color: var(--text-dark); display: flex; align-items: center; gap: 8px; flex: 1; min-width: 180px; }
+        .info-label i { color: var(--primary); width: 20px; }
+        .info-value { color: var(--text-light); font-weight: 500; text-align: right; flex: 1; margin-right: 10px; }
+
+        /* SEÇÕES DESCRITIVAS */
+        .section-container { margin: 25px 0; opacity: 0; animation: slideInUp 0.5s ease-out forwards; }
+        .section-container:nth-child(1) { animation-delay: 0.4s; }
+        .section-container:nth-child(2) { animation-delay: 0.6s; }
+        .section-container:nth-child(3) { animation-delay: 0.8s; }
+        .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid rgba(165,91,52,0.2); flex-wrap: wrap; gap: 15px; }
+        .section-title { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 600; color: var(--primary-dark); display: flex; align-items: center; gap: 10px; }
+        .section-content { padding: 20px; background: rgba(165,91,52,0.03); border-radius: var(--radius); border-left: 4px solid var(--primary); line-height: 1.8; color: var(--text-dark); }
+        .history-section { border-left-color: var(--secondary); }
+        .replica-section { border-left-color: #6d4c41; }
+        .audio-buttons-container { display: flex; gap: 10px; flex-wrap: wrap; }
+        .audio-btn-detailed { background: var(--secondary); color: white; border-color: var(--secondary); }
+        .audio-btn-detailed:hover { background: #3a7d3f; }
+        .audio-btn-replica { background: #6d4c41; color: white; border-color: #6d4c41; }
+        .audio-btn-replica:hover { background: #8d6e63; }
+
+        /* MULTIMÍDIA */
+        .multimedia-section { margin: 30px 0; padding: 25px; background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); width: 100%; max-width: 1300px; animation: slideInUp 0.8s ease-out 0.8s both; }
+        .multimedia-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid var(--primary); flex-wrap: wrap; gap: 15px; }
+        .multimedia-title { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 700; color: var(--primary-dark); display: flex; align-items: center; gap: 15px; }
+        .multimedia-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .resource-card { background: linear-gradient(135deg, rgba(165,91,52,0.05) 0%, rgba(44,85,48,0.05) 100%); border-radius: var(--radius); padding: 25px; text-align: center; transition: var(--transition); border: 2px solid transparent; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .resource-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--primary-light); }
+        .resource-icon { width: 70px; height: 70px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; color: white; }
+        .resource-content h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; color: var(--primary-dark); margin-bottom: 10px; }
+        .resource-content p { color: var(--text-light); font-size: 14px; line-height: 1.5; margin-bottom: 20px; }
+        .resource-buttons { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; width: 100%; }
+        .resource-btn { padding: 10px 20px; background: var(--white); color: var(--primary-dark); border: 2px solid var(--primary-light); border-radius: 10px; font-weight: 600; text-decoration: none; transition: var(--transition); display: flex; align-items: center; gap: 8px; font-size: 14px; flex: 1; min-width: 150px; justify-content: center; }
+        .resource-btn:hover { background: var(--primary); color: white; transform: translateY(-3px); }
+        .btn-photos { border-color: #4CAF50; color: #2E7D32; }
+        .btn-photos:hover { background: #4CAF50; }
+        .btn-videos { border-color: #FF5722; color: #D84315; }
+        .btn-videos:hover { background: #FF5722; }
+        .btn-documentary { border-color: #2196F3; color: #1565C0; }
+        .btn-documentary:hover { background: #2196F3; }
+        .btn-article { border-color: #9C27B0; color: #7B1FA2; }
+        .btn-article:hover { background: #9C27B0; }
+
+        /* RECURSOS E AVALIAÇÃO */
+        .resources-section { margin: 30px 0; padding: 30px; background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); width: 100%; max-width: 1300px; animation: slideInUp 0.8s ease-out 1s both; }
+        .resources-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid var(--secondary); flex-wrap: wrap; gap: 15px; }
+        .resources-title { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 700; color: var(--secondary); display: flex; align-items: center; gap: 15px; }
+        .resources-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 30px; }
+        @media (max-width: 1024px) { .resources-grid { grid-template-columns: 1fr; } }
+        .resource-topic { background: linear-gradient(135deg, rgba(44,85,48,0.05) 0%, rgba(44,85,48,0.1) 100%); padding: 30px; border-radius: var(--radius); border-left: 5px solid var(--secondary); display: flex; flex-direction: column; height: 100%; transition: var(--transition); }
+        .resource-topic:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+        .resource-topic-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .resource-topic-icon { width: 60px; height: 60px; background: linear-gradient(135deg, var(--secondary) 0%, #3a7d3f 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; flex-shrink: 0; }
+        .resource-topic-title { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; color: var(--secondary); }
+        .resource-topic-content { flex-grow: 1; margin-bottom: 25px; }
+        .resource-topic-content p { color: var(--text-dark); line-height: 1.7; margin-bottom: 15px; }
+        .resource-topic-list { margin: 15px 0; padding-left: 20px; }
+        .resource-topic-list li { margin: 8px 0; color: var(--text-dark); }
+        .resource-topic-btn { padding: 16px 30px; font-size: 17px; font-weight: 700; background: linear-gradient(135deg, var(--secondary) 0%, #3a7d3f 100%); color: white; border: none; border-radius: 12px; cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 15px; box-shadow: var(--shadow-md); justify-content: center; width: 100%; margin-top: auto; }
+        .resource-topic-btn:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+        .manual-topic { border-left-color: var(--primary); }
+        .manual-topic .resource-topic-icon { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); }
+        .manual-topic .resource-topic-title { color: var(--primary-dark); }
+        .manual-topic .resource-topic-btn { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); }
+        .evaluation-topic { border-left-color: #6d4c41; }
+        .evaluation-topic .resource-topic-icon { background: linear-gradient(135deg, #6d4c41 0%, #8d6e63 100%); }
+        .evaluation-topic .resource-topic-title { color: #6d4c41; }
+        .evaluation-topic .resource-topic-btn { background: linear-gradient(135deg, #6d4c41 0%, #8d6e63 100%); }
+
+        /* RODAPÉ */
+        .footer { width: 100%; max-width: 1200px; padding: 30px; background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); text-align: center; margin-top: 20px; }
+        .footer-logo { height: 80px; width: auto; border-radius: 12px; box-shadow: var(--shadow-sm); transition: var(--transition); }
+        .footer-logo:hover { transform: scale(1.05) rotate(5deg); }
+        .footer-info a { color: var(--primary); text-decoration: none; }
+        .footer-info a:hover { color: var(--primary-dark); }
+
+        /* BOTÃO FLUTUANTE */
+        .floating-btn { position: fixed; bottom: 30px; right: 30px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: var(--shadow-lg); cursor: pointer; z-index: 100; transition: var(--transition); animation: float 3s ease-in-out infinite; opacity: 0; visibility: hidden; }
+        .floating-btn:hover { transform: scale(1.1) rotate(10deg); }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 1024px) {
+            .nav-header { flex-direction: column; text-align: center; }
+            .nav-buttons { flex-direction: column; width: 100%; }
+            .nav-btn, .audio-btn-small, .language-selector { width: 100%; }
+            .language-btn { width: 100%; }
+            .grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            body { padding: 20px 15px; }
+            .card-content { padding: 20px; }
+            .card-title { font-size: 22px; flex-direction: column; text-align: center; }
+            .info-row { flex-direction: column; text-align: center; }
+            .info-label { justify-content: center; }
+            .info-value { text-align: center; margin-right: 0; }
+            .section-header { flex-direction: column; text-align: center; }
+            .floating-btn { width: 50px; height: 50px; bottom: 20px; right: 20px; }
+        }
+
+        button, .nav-btn, .audio-btn-small, .resource-btn, .resource-topic-btn { -webkit-tap-highlight-color: transparent; touch-action: manipulation; user-select: none; }
+        :focus { outline: none !important; scroll-margin: 0; }
+        button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER COM SELETOR DE IDIOMA -->
+    <div class="nav-header">
+        <div class="nav-brand">
+            <img src="images/Logo_Btf.png" alt="Logo Born To Fight" onerror="this.src='https://via.placeholder.com/80x80/2c5530/ffffff?text=Born+To+Fight'">
+            <div class="nav-title">
+                <h1 data-i18n="catalog_title">Catálogo Interativo</h1>
+                <p data-i18n="catalog_subtitle">Confúcio - Born To Fight</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="index.html" class="nav-btn" id="voltarMenu">
+                <i class="fas fa-arrow-left"></i>
+                <span data-i18n="back_to_menu">Voltar para o Menu</span>
+            </a>
+            <button class="audio-btn-small" onclick="playAudio('voltar_menu.mp4', event)">
+                <i class="fas fa-volume-up"></i>
+                <span data-i18n="listen">Ouvir</span>
+            </button>
+            <!-- SELETOR DE IDIOMA -->
+            <div class="language-selector">
+                <button class="language-btn" id="languageBtn">
+                    <div class="language-btn-flag" id="currentFlag"></div>
+                    <i class="fas fa-globe-americas"></i>
+                    <span id="currentLanguage">Português</span>
+                </button>
+                <div class="language-dropdown" id="languageMenu">
+                    <div class="language-option active" data-lang="pt">
+                        <div class="language-flag"><img src="https://flagcdn.com/w40/br.png" alt="Brasil"></div>
+                        Português
+                    </div>
+                    <div class="language-option" data-lang="en">
+                        <div class="language-flag"><img src="https://flagcdn.com/w40/us.png" alt="EUA"></div>
+                        English
+                    </div>
+                    <div class="language-option" data-lang="zh">
+                        <div class="language-flag"><img src="https://flagcdn.com/w40/cn.png" alt="China"></div>
+                        中文
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <div class="grid">
+        <div class="card">
+            <div class="images-container">
+                <div class="image-card">
+                    <div class="image-card-header original-header">
+                        <h3><i class="fas fa-history"></i> <span data-i18n="original_piece">Retrato Histórico</span></h3>
+                    </div>
+                    <div class="card-img-container">
+                        <div class="card-img-wrapper">
+                            <img src="images/comfuncio.jpg" alt="Retrato de Confúcio" class="card-img" onerror="this.src='https://via.placeholder.com/400x300/f9f5f0/a55b34?text=Confúcio'">
+                        </div>
+                    </div>
+                </div>
+                <div class="image-card">
+                    <div class="image-card-header replica-header">
+                        <h3><i class="fas fa-book"></i> <span data-i18n="replica_3d">Confúncio-Réplica 3D</span></h3>
+                    </div>
+                    <div class="card-img-container">
+                        <div class="card-img-wrapper">
+                            <img src="images/analectos.jpg" alt="Confúncio-Réplica 3D" class="card-img" onerror="this.src='https://via.placeholder.com/400x300/f9f5f0/6d4c41?text=Confúncio-Réplica+3D'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="card-title">
+                    <h2 id="titulo" data-i18n="artifact_name">Confúcio</h2>
+                    <button class="audio-btn-small" onclick="playAudio('confucio_titulo.mp4', event)">
+                        <i class="fas fa-volume-up"></i> <span data-i18n="listen_title">Ouvir Título</span>
+                    </button>
+                </div>
+                <div class="info-group">
+                    <div class="info-row">
+                        <div class="info-label"><i class="far fa-calendar-alt"></i> <span data-i18n="period_label">Período Histórico:</span></div>
+                        <div class="info-value" data-i18n="period_value">551 a.C. – 479 a.C.</div>
+                        <button class="audio-btn-small" onclick="playAudio('periodo_historico.mp4', event)"><i class="fas fa-volume-up"></i></button>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label"><i class="fas fa-map-marker-alt"></i> <span data-i18n="origin_label">Local de Origem:</span></div>
+                        <div class="info-value" data-i18n="origin_value">Estado de Lu, China</div>
+                        <button class="audio-btn-small" onclick="playAudio('local_de_origem.mp4', event)"><i class="fas fa-volume-up"></i></button>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label"><i class="fas fa-ruler-combined"></i> <span data-i18n="dimensions_label">Obra Principal:</span></div>
+                        <div class="info-value" data-i18n="dimensions_value">Confúncio-Réplica 3D</div>
+                        <button class="audio-btn-small" onclick="playAudio('dimensões_aproximadas_ori.mp4', event)"><i class="fas fa-volume-up"></i></button>
+                    </div>
+                </div>
+
+                <!-- DESCRIÇÃO ORIGINAL -->
+                <div class="section-container">
+                    <div class="section-header">
+                        <div class="section-title"><i class="fas fa-file-alt"></i> <span data-i18n="original_desc_title">Descrição de Confúcio</span></div>
+                        <div class="audio-buttons-container">
+                            <button class="audio-btn-small" onclick="playAudio('descrição_urna_ori.mp4', event)"><i class="fas fa-volume-up"></i> <span data-i18n="listen_summary">Ouvir Resumo</span></button>
+                            <button class="audio-btn-small audio-btn-detailed" onclick="playAudio('descrição_urna_ori.mp4', event)"><i class="fas fa-headphones-alt"></i> <span data-i18n="detailed_desc">Descrição Detalhada</span></button>
+                        </div>
+                    </div>
+                    <div class="section-content" data-i18n="original_summary_html">
+                        Resumo Visual: Confúcio (Kong Qiu) foi um filósofo, pensador e educador chinês. Sua filosofia enfatiza a moralidade pessoal e governamental, a correção das relações sociais, a justiça e a sinceridade. Seus ensinamentos estão compilados no Confúncio-Réplica 3D, uma coleção de aforismos e ideias atribuídas a ele e a seus discípulos.<br>
+                        Princípios: Ren (benevolência), Li (ritual), Xiao (piedade filial), Yi (justiça), Zhi (sabedoria), Zhong (lealdade) e Zhengming (retificação dos nomes).<br>
+                        Significado Cultural: Fundador do Confucionismo, uma das filosofias mais influentes da história da Ásia Oriental, moldando a cultura, a ética e a política da China por mais de dois milênios.
+                    </div>
+                </div>
+
+                <!-- DESCRIÇÃO RÉPLICA 3D -->
+                <div class="section-container">
+                    <div class="section-header">
+                        <div class="section-title"><i class="fas fa-book"></i> <span data-i18n="replica_desc_title">Confúncio-Réplica 3D</span></div>
+                        <button class="audio-btn-small audio-btn-replica" onclick="playAudio('descrição_urna_re.mp4', event)"><i class="fas fa-headphones-alt"></i> <span data-i18n="listen_replica_desc">Ouvir Descrição Detalhada</span></button>
+                    </div>
+                    <div class="section-content replica-section" data-i18n="replica_summary_html">
+                        Resumo Visual: Confúncio-Réplica 3D são uma coleção de ditos e ideias atribuídos a Confúcio e seus discípulos. É considerado o texto mais importante do Confucionismo, oferecendo insights sobre sua filosofia e ensinamentos.<br>
+                        Formato: Uma coleção de aforismos, diálogos e breves passagens, compilada por gerações de discípulos após a morte de Confúcio.<br>
+                        Finalidade Educativa: Serve como um guia fundamental para a ética e a filosofia confucionista, sendo uma leitura essencial para entender a cultura da Ásia Oriental.
+                    </div>
+                </div>
+
+                <!-- HISTÓRIA -->
+                <div class="section-container">
+                    <div class="section-header">
+                        <div class="section-title"><i class="fas fa-history"></i> <span data-i18n="history_title">Contexto Histórico</span></div>
+                        <button class="audio-btn-small" onclick="playAudio('contexto_historico.mp4', event)"><i class="fas fa-volume-up"></i> <span data-i18n="listen_history">Ouvir História</span></button>
+                    </div>
+                    <div class="section-content history-section" data-i18n="history_text">
+                        Confúcio viveu durante o Período das Primaveras e Outonos, uma era de desordem política e decadência da Dinastia Zhou na China. Diante do caos, ele propôs uma ética baseada na virtude, no esforço pessoal e na benevolência (ren). Viajou por diversos estados tentando convencer governantes a aplicar suas ideias, mas sem sucesso. Após anos de peregrinação, dedicou-se ao ensino, chegando a ter cerca de 3.000 discípulos. Seus ensinamentos foram compilados no Confúncio-Réplica 3D, que se tornou a base do Confucionismo, a filosofia predominante na China desde a Dinastia Han.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO MULTIMÍDIA -->
+    <div class="multimedia-section">
+        <div class="multimedia-header">
+            <div class="multimedia-title"><i class="fas fa-photo-video"></i> <span data-i18n="multimedia_title">Recursos Multimídia</span></div>
+            <button class="audio-btn-small" onclick="playAudio('recursos.mp4', event)"><i class="fas fa-volume-up"></i> <span data-i18n="listen_section">Ouvir Seção</span></button>
+        </div>
+        <div class="multimedia-grid">
+            <div class="resource-card">
+                <div class="resource-icon"><i class="fas fa-images"></i></div>
+                <div class="resource-content"><h3 data-i18n="photos_title">Álbum de Fotos</h3><p data-i18n="photos_desc">Explore nossa coleção de imagens sobre Confúcio, seus ensinamentos e a cultura confucionista.</p></div>
+                <div class="resource-buttons">
+                    <a href="https://commons.wikimedia.org/wiki/Category:Confucius" target="_blank" class="resource-btn btn-photos"><i class="fas fa-external-link-alt"></i> <span data-i18n="access_album">Acessar Álbum</span></a>
+                    <button class="resource-btn btn-photos" onclick="playAudio('album_fotos.mp4', event)"><i class="fas fa-volume-up"></i> <span data-i18n="listen_desc">Ouvir Descrição</span></button>
+                </div>
+            </div>
+            <div class="resource-card">
+                <div class="resource-icon"><i class="fas fa-play-circle"></i></div>
+                <div class="resource-content"><h3 data-i18n="videos_title">Vídeos Educativos</h3><p data-i18n="videos_desc">Assista a vídeos sobre a vida, filosofia e influência de Confúcio na história mundial.</p></div>
+                <div class="resource-buttons">
+                    <a href="https://www.youtube.com/results?search_query=confucio+biografia" target="_blank" class="resource-btn btn-videos"><i class="fab fa-youtube"></i> <span data-i18n="video1">Vídeo 1</span></a>
+                    <a href="https://www.youtube.com/results?search_query=confucio+filosofia" target="_blank" class="resource-btn btn-videos"><i class="fab fa-youtube"></i> <span data-i18n="video2">Vídeo 2</span></a>
+                    <button class="resource-btn btn-videos" onclick="playAudio('vídeos_edu.mp4', event)"><i class="fas fa-volume-up"></i> <span data-i18n="listen_desc">Ouvir Descrição</span></button>
+                </div>
+            </div>
+            <div class="resource-card">
+                <div class="resource-icon"><i class="fas fa-film"></i></div>
+                <div class="resource-content"><h3 data-i18n="docs_title">Documentários</h3><p data-i18n="docs_desc">Documentários completos sobre a vida de Confúcio, o Confucionismo e sua influência na Ásia.</p></div>
+                <div class="resource-buttons">
+                    <a href="https://www.youtube.com/results?search_query=documentario+confucio" target="_blank" class="resource-btn btn-documentary"><i class="fas fa-external-link-alt"></i> <span data-i18n="watch_doc">Assistir Documentário</span></a>
+                    <button class="resource-btn btn-documentary" onclick="playAudio('documentarios.mp4', event)"><i class="fas fa-volume-up"></i> <span data-i18n="listen_desc">Ouvir Descrição</span></button>
+                </div>
+            </div>
+            <div class="resource-card">
+                <div class="resource-icon"><i class="fas fa-newspaper"></i></div>
+                <div class="resource-content"><h3 data-i18n="articles_title">Artigos Científicos</h3><p data-i18n="articles_desc">Artigos acadêmicos e pesquisas sobre Confúcio, o Confucionismo e sua filosofia.</p></div>
+                <div class="resource-buttons">
+                    <a href="https://scholar.google.com/scholar?q=confucio+filosofia" target="_blank" class="resource-btn btn-article"><i class="fas fa-external-link-alt"></i> <span data-i18n="read_article">Ler Artigo</span></a>
+                    <button class="resource-btn btn-article" onclick="playAudio('artigo_cien.mp4', event)"><i class="fas fa-volume-up"></i> <span data-i18n="listen_desc">Ouvir Descrição</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO RECURSOS E AVALIAÇÃO -->
+    <div class="resources-section">
+        <div class="resources-header">
+            <div class="resources-title"><i class="fas fa-tools"></i> <span data-i18n="resources_title">Recursos para o Projeto</span></div>
+            <button class="audio-btn-small" onclick="playAudio('recursos.mp4', event)"><i class="fas fa-volume-up"></i> <span data-i18n="listen_section">Ouvir Seção</span></button>
+        </div>
+        <div class="resources-grid">
+            <div class="resource-topic manual-topic">
+                <div class="resource-topic-header">
+                    <div class="resource-topic-icon"><i class="fas fa-book"></i></div>
+                    <div class="resource-topic-title" data-i18n="manual_title">Manual de Instruções</div>
+                </div>
+                <div class="resource-topic-content">
+                    <p data-i18n="manual_desc1">Disponibilizamos um manual completo para auxiliar na reprodução do nosso projeto, desde a impressão 3D até a programação do sistema interativo.</p>
+                    <p data-i18n="manual_includes">O manual inclui:</p>
+                    <ul class="resource-topic-list">
+                        <li data-i18n="manual_item1">Guia detalhado para impressão 3D da urna marajoara</li>
+                        <li data-i18n="manual_item2">Configuração da Raspberry Pi e módulo RFID</li>
+                        <li data-i18n="manual_item3">Programação do sistema de identificação por cartão</li>
+                        <li data-i18n="manual_item4">Soluções para erros comuns e contato para suporte</li>
+                        <li data-i18n="manual_item5">Lista completa de materiais necessários</li>
+                        <li data-i18n="manual_item6">Instruções passo a passo para montagem</li>
+                    </ul>
+                    <p data-i18n="manual_pages">O manual possui 34 páginas com instruções detalhadas e ilustrações para facilitar a compreensão.</p>
+                </div>
+                <button class="resource-topic-btn" onclick="downloadManual()"><i class="fas fa-file-pdf"></i> <span data-i18n="download_manual_btn">Baixar Manual (PDF)</span></button>
+            </div>
+            <div class="resource-topic evaluation-topic">
+                <div class="resource-topic-header">
+                    <div class="resource-topic-icon"><i class="fas fa-clipboard-check"></i></div>
+                    <div class="resource-topic-title" data-i18n="evaluation_title">Avaliação do Catálogo</div>
+                </div>
+                <div class="resource-topic-content">
+                    <p data-i18n="evaluation_desc1">Sua opinião é essencial para aprimorarmos nosso catálogo interativo. Como equipe Born To Fight, valorizamos cada avaliação para melhorar continuamente.</p>
+                    <p data-i18n="evaluation_includes">O formulário inclui:</p>
+                    <ul class="resource-topic-list">
+                        <li data-i18n="eval_item1">Sua opinião sobre o projeto</li>
+                        <li data-i18n="eval_item2">Qualidade do conteúdo apresentado</li>
+                        <li data-i18n="eval_item3">Melhor aspecto do projeto</li>
+                        <li data-i18n="eval_item4">Inovação do Relicário</li>
+                        <li data-i18n="eval_item5">Sugestões para melhorias futuras</li>
+                        <li data-i18n="eval_item6">Feedback sobre acessibilidade e usabilidade</li>
+                    </ul>
+                    <p data-i18n="evaluation_time">O formulário leva apenas 3-5 minutos para ser preenchido e é totalmente anônimo. Juntos, podemos preservar e compartilhar a riqueza da cultura de forma ainda melhor!</p>
+                </div>
+                <button class="resource-topic-btn" onclick="openEvaluationForm()"><i class="fas fa-clipboard-list"></i> <span data-i18n="evaluate_btn">Avaliar Catálogo</span></button>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(44, 85, 48, 0.1);">
+            <p style="color: var(--text-light); font-size: 12px; margin-top: 5px;"><i class="fas fa-heart" style="color: #ff6b6b;"></i> <span data-i18n="thanks">Agradecemos sua participação e contribuição para o projeto!</span></p>
+        </div>
+    </div>
+
+    <!-- RODAPÉ -->
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <img src="https://i.imgur.com/FB6u9bs.png" alt="Logo Born To Fight" class="footer-logo" onerror="this.src='https://via.placeholder.com/80x80/2c5530/ffffff?text=Born+To+Fight'">
+                <h3 data-i18n="team_name">Born To Fight</h3>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:borntofightfll@gmail.com">borntofightfll@gmail.com</a></p>
+                <p><i class="fab fa-instagram"></i> <a href="https://www.instagram.com/borntofight_fll/" target="_blank">@borntofight_fll</a></p>
+                <p><i class="fas fa-globe"></i> <span data-i18n="catalog_footer">Catálogo Interativo - Confúcio</span></p>
+                <p><i class="fas fa-users"></i> <span data-i18n="team_footer">Equipe de Robótica - FLL Challenge</span></p>
+            </div>
+        </div>
+        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(165, 91, 52, 0.1);">
+            <p style="color: var(--text-light); font-size: 14px;" data-i18n="footer_credits">Projeto desenvolvido pela equipe Born To Fight - FLL | 2025</p>
+            <p style="color: var(--text-light); font-size: 12px; margin-top: 5px;" data-i18n="footer_illustrative">Todas as imagens são meramente ilustrativas para fins educacionais</p>
+        </div>
+    </div>
+
+    <!-- BOTÃO FLUTUANTE -->
+    <div class="floating-btn" onclick="scrollToTop()"><i class="fas fa-chevron-up"></i></div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // ========== TRADUÇÕES ==========
+        const translations = {
+            pt: {
+                back_to_menu: "Voltar para o Menu",
+                listen: "Ouvir",
+                catalog_title: "Catálogo Interativo",
+                catalog_subtitle: "Confúcio - Born To Fight",
+                artifact_name: "Confúcio",
+                period_label: "Período Histórico:",
+                period_value: "551 a.C. – 479 a.C.",
+                origin_label: "Local de Origem:",
+                origin_value: "Estado de Lu, China",
+                dimensions_label: "Obra Principal:",
+                dimensions_value: "Confúncio-Réplica 3D",
+                listen_title: "Ouvir Título",
+                original_piece: "Retrato Histórico",
+                replica_3d: "Confúncio-Réplica 3D",
+                original_desc_title: "Descrição de Confúcio",
+                listen_summary: "Ouvir Resumo",
+                detailed_desc: "Descrição Detalhada",
+                original_summary_html: "Resumo Visual: Confúcio (Kong Qiu) foi um filósofo, pensador e educador chinês. Sua filosofia enfatiza a moralidade pessoal e governamental, a correção das relações sociais, a justiça e a sinceridade. Seus ensinamentos estão compilados no Confúncio-Réplica 3D, uma coleção de aforismos e ideias atribuídas a ele e a seus discípulos.<br>Princípios: Ren (benevolência), Li (ritual), Xiao (piedade filial), Yi (justiça), Zhi (sabedoria), Zhong (lealdade) e Zhengming (retificação dos nomes).<br>Significado Cultural: Fundador do Confucionismo, uma das filosofias mais influentes da história da Ásia Oriental, moldando a cultura, a ética e a política da China por mais de dois milênios.",
+                replica_desc_title: "Confúncio-Réplica 3D",
+                listen_replica_desc: "Ouvir Descrição Detalhada",
+                replica_summary_html: "Resumo Visual: Confúncio-Réplica 3D são uma coleção de ditos e ideias atribuídos a Confúcio e seus discípulos. É considerado o texto mais importante do Confucionismo, oferecendo insights sobre sua filosofia e ensinamentos.<br>Formato: Uma coleção de aforismos, diálogos e breves passagens, compilada por gerações de discípulos após a morte de Confúcio.<br>Finalidade Educativa: Serve como um guia fundamental para a ética e a filosofia confucionista, sendo uma leitura essencial para entender a cultura da Ásia Oriental.",
+                history_title: "Contexto Histórico",
+                listen_history: "Ouvir História",
+                history_text: "Confúcio viveu durante o Período das Primaveras e Outonos, uma era de desordem política e decadência da Dinastia Zhou na China. Diante do caos, ele propôs uma ética baseada na virtude, no esforço pessoal e na benevolência (ren). Viajou por diversos estados tentando convencer governantes a aplicar suas ideias, mas sem sucesso. Após anos de peregrinação, dedicou-se ao ensino, chegando a ter cerca de 3.000 discípulos. Seus ensinamentos foram compilados no Confúncio-Réplica 3D, que se tornou a base do Confucionismo, a filosofia predominante na China desde a Dinastia Han.",
+                multimedia_title: "Recursos Multimídia",
+                listen_section: "Ouvir Seção",
+                photos_title: "Álbum de Fotos",
+                photos_desc: "Explore nossa coleção de imagens sobre Confúcio, seus ensinamentos e a cultura confucionista.",
+                access_album: "Acessar Álbum",
+                videos_title: "Vídeos Educativos",
+                videos_desc: "Assista a vídeos sobre a vida, filosofia e influência de Confúcio na história mundial.",
+                video1: "Vídeo 1",
+                video2: "Vídeo 2",
+                docs_title: "Documentários",
+                docs_desc: "Documentários completos sobre a vida de Confúcio, o Confucionismo e sua influência na Ásia.",
+                watch_doc: "Assistir Documentário",
+                articles_title: "Artigos Científicos",
+                articles_desc: "Artigos acadêmicos e pesquisas sobre Confúcio, o Confucionismo e sua filosofia.",
+                read_article: "Ler Artigo",
+                listen_desc: "Ouvir Descrição",
+                resources_title: "Recursos para o Projeto",
+                manual_title: "Manual de Instruções",
+                manual_desc1: "Disponibilizamos um manual completo para auxiliar na reprodução do nosso projeto, desde a impressão 3D até a programação do sistema interativo.",
+                manual_includes: "O manual inclui:",
+                manual_item1: "Guia detalhado para impressão 3D da urna marajoara",
+                manual_item2: "Configuração da Raspberry Pi e módulo RFID",
+                manual_item3: "Programação do sistema de identificação por cartão",
+                manual_item4: "Soluções para erros comuns e contato para suporte",
+                manual_item5: "Lista completa de materiais necessários",
+                manual_item6: "Instruções passo a passo para montagem",
+                manual_pages: "O manual possui 34 páginas com instruções detalhadas e ilustrações para facilitar a compreensão.",
+                download_manual_btn: "Baixar Manual (PDF)",
+                evaluation_title: "Avaliação do Catálogo",
+                evaluation_desc1: "Sua opinião é essencial para aprimorarmos nosso catálogo interativo. Como equipe Born To Fight, valorizamos cada avaliação para melhorar continuamente.",
+                evaluation_includes: "O formulário inclui:",
+                eval_item1: "Sua opinião sobre o projeto",
+                eval_item2: "Qualidade do conteúdo apresentado",
+                eval_item3: "Melhor aspecto do projeto",
+                eval_item4: "Inovação do Relicário",
+                eval_item5: "Sugestões para melhorias futuras",
+                eval_item6: "Feedback sobre acessibilidade e usabilidade",
+                evaluation_time: "O formulário leva apenas 3-5 minutos para ser preenchido e é totalmente anônimo. Juntos, podemos preservar e compartilhar a riqueza da cultura de forma ainda melhor!",
+                evaluate_btn: "Avaliar Catálogo",
+                manual_update: "Manual atualizado em 2025 - Compatível com Raspberry Pi 3, 4 e 5",
+                thanks: "Agradecemos sua participação e contribuição para o projeto!",
+                team_name: "Born To Fight",
+                catalog_footer: "Catálogo Interativo - Confúcio",
+                team_footer: "Equipe de Robótica - FLL Challenge",
+                footer_credits: "Projeto desenvolvido pela equipe Born To Fight - FLL | 2025",
+                footer_illustrative: "Todas as imagens são meramente ilustrativas para fins educacionais"
+            },
+            en: {
+                back_to_menu: "Back to Menu",
+                listen: "Listen",
+                catalog_title: "Interactive Catalog",
+                catalog_subtitle: "Confucius - Born To Fight",
+                artifact_name: "Confucius",
+                period_label: "Historical Period:",
+                period_value: "551 BC – 479 BC",
+                origin_label: "Place of Origin:",
+                origin_value: "State of Lu, China",
+                dimensions_label: "Main Work:",
+                dimensions_value: "Confúncio-Réplica 3D",
+                listen_title: "Listen to Title",
+                original_piece: "Historical Portrait",
+                replica_3d: "Confúncio-Réplica 3D",
+                original_desc_title: "Description of Confucius",
+                listen_summary: "Listen to Summary",
+                detailed_desc: "Detailed Description",
+                original_summary_html: "Visual Summary: Confucius (Kong Qiu) was a Chinese philosopher, thinker, and educator. His philosophy emphasized personal and governmental morality, correctness of social relationships, justice, and sincerity. His teachings are compiled in the Confúncio-Réplica 3D, a collection of aphorisms and ideas attributed to him and his disciples.<br>Principles: Ren (benevolence), Li (ritual), Xiao (filial piety), Yi (righteousness), Zhi (wisdom), Zhong (loyalty), and Zhengming (rectification of names).<br>Cultural Significance: Founder of Confucianism, one of the most influential philosophies in East Asian history, shaping Chinese culture, ethics, and politics for over two millennia.",
+                replica_desc_title: "Confúncio-Réplica 3D",
+                listen_replica_desc: "Listen to Detailed Description",
+                replica_summary_html: "Visual Summary: Confúncio-Réplica 3D is a collection of sayings and ideas attributed to Confucius and his disciples. It is considered the most important text of Confucianism, offering insights into his philosophy and teachings.<br>Format: A collection of aphorisms, dialogues, and brief passages, compiled by generations of disciples after Confucius's death.<br>Educational Purpose: Serves as a fundamental guide to Confucian ethics and philosophy, essential reading for understanding East Asian culture.",
+                history_title: "Historical Context",
+                listen_history: "Listen to History",
+                history_text: "Confucius lived during the Spring and Autumn Period, an era of political disorder and decline of the Zhou Dynasty in China. Faced with chaos, he proposed an ethics based on virtue, personal effort, and benevolence (ren). He traveled through various states trying to convince rulers to apply his ideas, but without success. After years of wandering, he devoted himself to teaching, having about 3,000 disciples. His teachings were compiled in the Confúncio-Réplica 3D, which became the foundation of Confucianism, the predominant philosophy in China since the Han Dynasty.",
+                multimedia_title: "Multimedia Resources",
+                listen_section: "Listen to Section",
+                photos_title: "Photo Album",
+                photos_desc: "Explore our collection of images about Confucius, his teachings, and Confucian culture.",
+                access_album: "Access Album",
+                videos_title: "Educational Videos",
+                videos_desc: "Watch videos about the life, philosophy, and influence of Confucius in world history.",
+                video1: "Video 1",
+                video2: "Video 2",
+                docs_title: "Documentaries",
+                docs_desc: "Complete documentaries about the life of Confucius, Confucianism, and its influence in Asia.",
+                watch_doc: "Watch Documentary",
+                articles_title: "Scientific Articles",
+                articles_desc: "Academic articles and research on Confucius, Confucianism, and his philosophy.",
+                read_article: "Read Article",
+                listen_desc: "Listen to Description",
+                resources_title: "Project Resources",
+                manual_title: "Instruction Manual",
+                manual_desc1: "We provide a complete manual to help reproduce our project, from 3D printing to programming the interactive system.",
+                manual_includes: "The manual includes:",
+                manual_item1: "Detailed guide for 3D printing the Marajoara urn",
+                manual_item2: "Raspberry Pi and RFID module setup",
+                manual_item3: "Card identification system programming",
+                manual_item4: "Solutions for common errors and support contact",
+                manual_item5: "Complete list of required materials",
+                manual_item6: "Step-by-step assembly instructions",
+                manual_pages: "The manual has 34 pages with detailed instructions and illustrations to facilitate understanding.",
+                download_manual_btn: "Download Manual (PDF)",
+                evaluation_title: "Catalog Evaluation",
+                evaluation_desc1: "Your opinion is essential to improve our interactive catalog. As the Born To Fight team, we value every evaluation to continuously improve.",
+                evaluation_includes: "The form includes:",
+                eval_item1: "Your opinion about the project",
+                eval_item2: "Quality of the presented content",
+                eval_item3: "Best aspect of the project",
+                eval_item4: "Innovation of the Reliquary",
+                eval_item5: "Suggestions for future improvements",
+                eval_item6: "Accessibility and usability feedback",
+                evaluation_time: "The form takes only 3-5 minutes and is completely anonymous. Together, we can preserve and share the richness of culture even better!",
+                evaluate_btn: "Evaluate Catalog",
+                manual_update: "Manual updated in 2025 - Compatible with Raspberry Pi 3, 4 and 5",
+                thanks: "Thank you for your participation and contribution to the project!",
+                team_name: "Born To Fight",
+                catalog_footer: "Interactive Catalog - Confucius",
+                team_footer: "Robotics Team - FLL Challenge",
+                footer_credits: "Project developed by Born To Fight team - FLL | 2025",
+                footer_illustrative: "All images are illustrative for educational purposes only"
+            },
+            zh: {
+                back_to_menu: "返回菜单",
+                listen: "收听",
+                catalog_title: "互动目录",
+                catalog_subtitle: "孔子 - Born To Fight",
+                artifact_name: "孔子",
+                period_label: "历史时期：",
+                period_value: "公元前551年 – 公元前479年",
+                origin_label: "起源地：",
+                origin_value: "中国鲁国",
+                dimensions_label: "主要著作：",
+                dimensions_value: "Confúncio-Réplica 3D",
+                listen_title: "收听标题",
+                original_piece: "历史画像",
+                replica_3d: "Confúncio-Réplica 3D",
+                original_desc_title: "孔子描述",
+                listen_summary: "收听摘要",
+                detailed_desc: "详细描述",
+                original_summary_html: "视觉摘要： 孔子（孔丘）是中国哲学家、思想家和教育家。他的哲学强调个人和政府的道德、社会关系的矫正、正义和真诚。他的教义汇编在Confúncio-Réplica 3D中，这是一本归于他和他的弟子的格言和思想的集合。<br>原则： 仁、礼、孝、义、智、忠、正名。<br>文化意义： 儒家思想的创始人，东亚历史上最具影响力的哲学之一，塑造了中国两千多年的文化、伦理和政治。",
+                replica_desc_title: "Confúncio-Réplica 3D",
+                listen_replica_desc: "收听详细描述",
+                replica_summary_html: "视觉摘要： Confúncio-Réplica 3D是归于孔子及其弟子的言论和思想的集合。它被认为是儒家最重要的文本，提供了对其哲学和教义的见解。<br>格式： 格言、对话和简短段落的集合，由几代弟子在孔子去世后编纂而成。<br>教育目的： 作为儒家伦理和哲学的基本指南，是理解东亚文化的必读之作。",
+                history_title: "历史背景",
+                listen_history: "收听历史",
+                history_text: "孔子生活在中国周朝衰落、政治混乱的春秋时期。面对混乱，他提出了基于美德、个人努力和仁爱的伦理。他周游列国试图说服统治者采纳他的思想，但未成功。经过多年的游历，他致力于教学，拥有约3000名弟子。他的教义被编纂成Confúncio-Réplica 3D，成为儒家思想的基础，自汉朝以来一直是中国的主导哲学。",
+                multimedia_title: "多媒体资源",
+                listen_section: "收听本节",
+                photos_title: "相册",
+                photos_desc: "探索我们关于孔子、他的教义和儒家文化的图像集。",
+                access_album: "访问相册",
+                videos_title: "教育视频",
+                videos_desc: "观看有关孔子生平、哲学及其在世界历史上影响的视频。",
+                video1: "视频 1",
+                video2: "视频 2",
+                docs_title: "纪录片",
+                docs_desc: "关于孔子生平、儒家思想及其在亚洲影响的完整纪录片。",
+                watch_doc: "观看纪录片",
+                articles_title: "科学文章",
+                articles_desc: "关于孔子、儒家思想及其哲学的学术文章和研究。",
+                read_article: "阅读文章",
+                listen_desc: "收听描述",
+                resources_title: "项目资源",
+                manual_title: "说明手册",
+                manual_desc1: "我们提供完整手册，以帮助重现我们的项目，从3D打印到交互式系统的编程。",
+                manual_includes: "手册包括：",
+                manual_item1: "马拉若拉瓮3D打印详细指南",
+                manual_item2: "Raspberry Pi和RFID模块设置",
+                manual_item3: "卡片识别系统编程",
+                manual_item4: "常见错误解决方案和支持联系方式",
+                manual_item5: "所需材料完整清单",
+                manual_item6: "分步组装说明",
+                manual_pages: "手册共34页，包含详细说明和插图，以便于理解。",
+                download_manual_btn: "下载手册 (PDF)",
+                evaluation_title: "目录评估",
+                evaluation_desc1: "您的意见对于改进我们的互动目录至关重要。作为Born To Fight团队，我们重视每一次评估，以不断改进。",
+                evaluation_includes: "表格包括：",
+                eval_item1: "您对项目的看法",
+                eval_item2: "所呈现内容的质量",
+                eval_item3: "项目的最佳方面",
+                eval_item4: "圣物箱的创新性",
+                eval_item5: "未来改进建议",
+                eval_item6: "关于可访问性和可用性的反馈",
+                evaluation_time: "表格仅需3-5分钟填写，且完全匿名。我们可以共同更好地保存和分享文化的丰富性！",
+                evaluate_btn: "评估目录",
+                manual_update: "手册于2025年更新 - 兼容Raspberry Pi 3、4和5",
+                thanks: "感谢您的参与和对项目的贡献！",
+                team_name: "Born To Fight",
+                catalog_footer: "互动目录 - 孔子",
+                team_footer: "机器人团队 - FLL挑战赛",
+                footer_credits: "项目由Born To Fight团队开发 - FLL | 2025",
+                footer_illustrative: "所有图片仅用于教育目的，仅供参考"
+            }
+        };
+
+        let currentLang = localStorage.getItem('language') || 'pt';
+        let currentAudio = null;
+
+        // Atualiza bandeira no botão
+        function updateCurrentFlag(lang) {
+            const flagContainer = document.getElementById('currentFlag');
+            if (!flagContainer) return;
+            let flagHTML = '';
+            if (lang === 'pt') {
+                flagHTML = '<img src="https://flagcdn.com/w40/br.png" style="width:100%;height:100%;object-fit:cover;">';
+            } else if (lang === 'en') {
+                flagHTML = '<img src="https://flagcdn.com/w40/us.png" style="width:100%;height:100%;object-fit:cover;">';
+            } else if (lang === 'zh') {
+                flagHTML = '<img src="https://flagcdn.com/w40/cn.png" style="width:100%;height:100%;object-fit:cover;">';
+            }
+            flagContainer.innerHTML = flagHTML;
+        }
+
+        // Função para aplicar as traduções
+        function applyTranslations(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translations[lang][key];
+                    } else if (element.hasAttribute('data-i18n-html')) {
+                        element.innerHTML = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+            // Atualiza o texto do botão de idioma
+            const langNames = { pt: 'Português', en: 'English', zh: '中文' };
+            document.getElementById('currentLanguage').textContent = langNames[lang] || 'Português';
+            updateCurrentFlag(lang);
+
+            // Atualiza classe ativa no dropdown
+            document.querySelectorAll('.language-option').forEach(opt => {
+                opt.classList.toggle('active', opt.dataset.lang === lang);
+            });
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            applyTranslations(currentLang);
+
+            // Toggle do dropdown de idiomas
+            const langBtn = document.getElementById('languageBtn');
+            const langMenu = document.getElementById('languageMenu');
+            if (langBtn && langMenu) {
+                langBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    langMenu.classList.toggle('show');
+                });
+
+                document.querySelectorAll('.language-option').forEach(option => {
+                    option.addEventListener('click', () => {
+                        const lang = option.dataset.lang;
+                        currentLang = lang;
+                        localStorage.setItem('language', lang);
+                        applyTranslations(lang);
+                        langMenu.classList.remove('show');
+                    });
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (!langBtn.contains(e.target) && !langMenu.contains(e.target)) {
+                        langMenu.classList.remove('show');
+                    }
+                });
+            }
+
+            // Botão flutuante
+            const floatingBtn = document.querySelector('.floating-btn');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    floatingBtn.style.opacity = '1';
+                    floatingBtn.style.visibility = 'visible';
+                } else {
+                    floatingBtn.style.opacity = '0';
+                    floatingBtn.style.visibility = 'hidden';
+                }
+            });
+        });
+
+        // Funções de áudio
+        function playAudio(filename, event) {
+            if (event) event.stopPropagation();
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            currentAudio = new Audio('audios/' + filename);
+            currentAudio.play().catch(e => console.log('Áudio não encontrado:', filename));
+        }
+
+        // Funções placeholder
+        function downloadManual() {
+            alert('Download do manual será implementado aqui.');
+        }
+
+        function openEvaluationForm() {
+            alert('Formulário de avaliação será aberto aqui.');
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
