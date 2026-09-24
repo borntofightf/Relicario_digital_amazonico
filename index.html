@@ -79,7 +79,7 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* HEADER MODERNO - CORRIGIDO PARA DROPDOWNS */
+        /* HEADER MODERNO */
         header {
             width: 100%;
             max-width: 1300px;
@@ -161,16 +161,18 @@
             width: 20px;
         }
 
-        /* BOTÕES E NAVEGAÇÃO - COM DROPDOWNS CORRIGIDOS */
+        /* BOTÕES E NAVEGAÇÃO */
         .header-buttons {
             display: flex;
             gap: 15px;
             align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
             position: relative;
             z-index: 101;
         }
 
-        /* Seletor de idioma moderno - COM BANDEIRAS REAIS */
+        /* Seletor de idioma */
         .language-selector {
             position: relative;
         }
@@ -216,7 +218,7 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        /* DROPDOWN DE IDIOMA - COM BANDEIRAS REAIS */
+        /* DROPDOWN DE IDIOMA */
         .language-dropdown {
             display: none;
             position: absolute;
@@ -339,7 +341,7 @@
             background: linear-gradient(135deg, #3a7d3f 0%, var(--secondary) 100%);
         }
 
-        /* DROPDOWN CATÁLOGO */
+        /* DROPDOWN CATÁLOGO / CHINA */
         .dropdown-container {
             position: relative;
         }
@@ -866,7 +868,7 @@
         </div>
 
         <div class="header-buttons">
-            <!-- Seletor de idioma COM BANDEIRAS REAIS -->
+            <!-- Seletor de idioma -->
             <div class="language-selector">
                 <button class="language-btn" id="languageBtn">
                     <div class="language-btn-flag" id="currentFlag">
@@ -890,7 +892,6 @@
                         </div>
                         English
                     </div>
-                    <!-- NOVA OPÇÃO: CHINÊS -->
                     <div class="language-option" data-lang="zh" data-voice="Chinese Female">
                         <div class="language-flag">
                             <img src="https://flagcdn.com/w40/cn.png" 
@@ -902,6 +903,7 @@
                 </div>
             </div>
 
+            <!-- Catálogo de Artefatos -->
             <div class="dropdown-container">
                 <button class="nav-btn" id="catalogoBtn">
                     <i class="fas fa-scroll"></i>
@@ -974,6 +976,39 @@
                     </div>
                 </div>
             </div>
+
+            <!-- ===== NOVO BOTÃO: HISTÓRIA CHINA ===== -->
+            <div class="dropdown-container">
+                <button class="nav-btn" id="chinaBtn">
+                    <i class="fas fa-dragon"></i>
+                    <span data-i18n="china_history">História China</span>
+                </button>
+
+                <div class="dropdown" id="chinaMenu">
+                    <h3><i class="fas fa-scroll"></i> <span data-i18n="china_inventory">Inventário Histórico da China</span></h3>
+
+                    <div class="catalog-item">
+                        <a href="index7.html">
+                            <i class="fas fa-user-tie"></i>
+                            <span data-i18n="confucius">Confúcio</span>
+                        </a>
+                        <button class="audio-btn" onclick="readTextByLanguage('confucius')">
+                            <i class="fas fa-volume-up"></i> <span data-i18n="listen">Ouvir</span>
+                        </button>
+                    </div>
+
+                    <div class="catalog-item">
+                        <a href="index8.html">
+                            <i class="fas fa-chess-rook"></i>
+                            <span data-i18n="terracotta">Exército de Terracota</span>
+                        </a>
+                        <button class="audio-btn" onclick="readTextByLanguage('terracotta')">
+                            <i class="fas fa-volume-up"></i> <span data-i18n="listen">Ouvir</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- ===== FIM DO BOTÃO HISTÓRIA CHINA ===== -->
 
             <a id="downloadMateriais"
                href="https://github.com/borntofightf/Download_materiais"
@@ -1191,7 +1226,13 @@
                 'estatueta_tapajonica1': 'Estatueta Tapajônica 1',
                 'pe_na_boca': 'Pé Na Boca',
                 'vaso_tapajonico': 'Vaso de Gargalo Tapajônico',
-                'urna_ariste': 'Urna Aristé'
+                'urna_ariste': 'Urna Aristé',
+
+                // História China
+                'china_history': 'História China',
+                'china_inventory': 'Inventário Histórico da China',
+                'confucius': 'Confúcio',
+                'terracotta': 'Exército de Terracota'
             },
             'en': {
                 // Interface
@@ -1229,9 +1270,14 @@
                 'estatueta_tapajonica1': 'Tapajonica Statuette 1',
                 'pe_na_boca': 'Foot In Mouth',
                 'vaso_tapajonico': 'Tapajonic Narrow-Necked Vase',
-                'urna_ariste': 'Aristé urn'
+                'urna_ariste': 'Aristé urn',
+
+                // China History
+                'china_history': 'China History',
+                'china_inventory': 'China Historical Inventory',
+                'confucius': 'Confucius',
+                'terracotta': 'Terracotta Army'
             },
-            // ====== NOVA TRADUÇÃO PARA CHINÊS ======
             'zh': {
                 // Interface
                 'catalog': '文物目录',
@@ -1268,7 +1314,13 @@
                 'estatueta_tapajonica1': '塔帕若尼卡小雕像 1',
                 'pe_na_boca': '失言；说错话',
                 'vaso_tapajonico': '塔帕若尼克窄颈花瓶',
-                'urna_ariste': '阿里斯特瓮'
+                'urna_ariste': '阿里斯特瓮',
+
+                // 中国历史
+                'china_history': '中国历史',
+                'china_inventory': '中国历史清单',
+                'confucius': '孔子',
+                'terracotta': '兵马俑'
             }
         };
 
@@ -1352,16 +1404,21 @@
         // ====== CONTROLE DOS DROPDOWNS ======
         let languageOpen = false;
         let catalogOpen = false;
+        let chinaOpen = false;
         const languageBtn = document.getElementById('languageBtn');
         const languageMenu = document.getElementById('languageMenu');
         const catalogBtn = document.getElementById('catalogoBtn');
         const catalogMenu = document.getElementById('catalogMenu');
+        const chinaBtn = document.getElementById('chinaBtn');
+        const chinaMenu = document.getElementById('chinaMenu');
 
         function closeAllDropdowns() {
             languageMenu.classList.remove('show');
             languageOpen = false;
             catalogMenu.classList.remove('show');
             catalogOpen = false;
+            chinaMenu.classList.remove('show');
+            chinaOpen = false;
         }
 
         function toggleLanguageDropdown() {
@@ -1369,13 +1426,13 @@
                 languageMenu.classList.remove('show');
                 languageOpen = false;
             } else {
+                catalogMenu.classList.remove('show');
+                catalogOpen = false;
+                chinaMenu.classList.remove('show');
+                chinaOpen = false;
+
                 languageMenu.classList.add('show');
                 languageOpen = true;
-                
-                if (catalogOpen) {
-                    catalogMenu.classList.remove('show');
-                    catalogOpen = false;
-                }
             }
         }
 
@@ -1384,13 +1441,28 @@
                 catalogMenu.classList.remove('show');
                 catalogOpen = false;
             } else {
+                languageMenu.classList.remove('show');
+                languageOpen = false;
+                chinaMenu.classList.remove('show');
+                chinaOpen = false;
+
                 catalogMenu.classList.add('show');
                 catalogOpen = true;
-                
-                if (languageOpen) {
-                    languageMenu.classList.remove('show');
-                    languageOpen = false;
-                }
+            }
+        }
+
+        function toggleChinaDropdown() {
+            if (chinaOpen) {
+                chinaMenu.classList.remove('show');
+                chinaOpen = false;
+            } else {
+                languageMenu.classList.remove('show');
+                languageOpen = false;
+                catalogMenu.classList.remove('show');
+                catalogOpen = false;
+
+                chinaMenu.classList.add('show');
+                chinaOpen = true;
             }
         }
 
@@ -1407,15 +1479,24 @@
             toggleCatalogDropdown();
         });
 
+        chinaBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleChinaDropdown();
+        });
+
         // Fechar dropdowns ao clicar fora
         document.addEventListener('click', function(e) {
             const isClickInLanguageMenu = languageMenu.contains(e.target);
             const isClickOnLanguageBtn = languageBtn.contains(e.target) || e.target === languageBtn;
             const isClickInCatalogMenu = catalogMenu.contains(e.target);
             const isClickOnCatalogBtn = catalogBtn.contains(e.target) || e.target === catalogBtn;
-            
+            const isClickInChinaMenu = chinaMenu.contains(e.target);
+            const isClickOnChinaBtn = chinaBtn.contains(e.target) || e.target === chinaBtn;
+
             if ((languageOpen && !isClickInLanguageMenu && !isClickOnLanguageBtn) ||
-                (catalogOpen && !isClickInCatalogMenu && !isClickOnCatalogBtn)) {
+                (catalogOpen && !isClickInCatalogMenu && !isClickOnCatalogBtn) ||
+                (chinaOpen && !isClickInChinaMenu && !isClickOnChinaBtn)) {
                 closeAllDropdowns();
             }
         });
@@ -1443,6 +1524,17 @@
         catalogMenu.addEventListener('click', function(e) {
             e.stopPropagation();
             
+            // Se for um link, fechar dropdown após delay
+            if (e.target.closest('a') && !e.target.closest('.audio-btn')) {
+                setTimeout(() => {
+                    closeAllDropdowns();
+                }, 300);
+            }
+        });
+
+        chinaMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+
             // Se for um link, fechar dropdown após delay
             if (e.target.closest('a') && !e.target.closest('.audio-btn')) {
                 setTimeout(() => {
